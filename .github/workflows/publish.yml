@@ -11,14 +11,24 @@ name: Publish to GitHub Pages
 #                   read from the Pages configuration rather than assumed, so renaming
 #                   the repository does not silently break every link.
 #
-#   --docs-prefix   The repository is already called `docs`, so the base path supplies
-#                   that segment. Without emptying the prefix the site would answer at
-#                   /docs/docs/en/… . Both settings together produce the same address a
-#                   contributor sees locally: /docs/en/latest/.
+# The prefix is left alone. It was emptied when this repository was called `docs` and the
+# base path supplied that segment on its own; the repository is called keydra-doc now, so
+# the base path supplies `keydra-doc` and the `docs` segment has to come from site.yml
+# again — which is also the shape the real site has, so a manual run previews the thing
+# rather than something adjacent to it.
 
+# By hand only, and that is the point rather than an omission.
+#
+# The published manual comes from keydrahq/keydra, which is the one place all three
+# repositories are checked out together at commits known to work with each other — the same
+# reason the image is built there. It serves this site under /docs, beneath a landing page.
+#
+# So this workflow no longer runs on a push: two addresses for the same manual means two
+# things to keep in step, and the one nobody watches is the one that goes stale while still
+# answering. It is kept because a run of it is the only way to see this repository's own
+# work on a real Pages deployment without a commit to another repository — which needs Pages
+# enabled here, and is why a push to main was failing with "Get Pages site failed".
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -96,7 +106,6 @@ jobs:
         run: |
           yarn build \
             --base-path "${{ steps.pages.outputs.base_path }}/" \
-            --docs-prefix "" \
             --base-url "${{ steps.pages.outputs.origin }}"
 
       # The same gate the pull request passed, run against the artefact that is about to

@@ -13,7 +13,7 @@ product:
   # Where this documentation lives. Separate from the application, so "Edit this page"
   # points at the file somebody would actually change rather than at a path that does not
   # exist in the other repository.
-  docsRepository: https://github.com/keydrahq/docs
+  docsRepository: https://github.com/keydrahq/keydra-doc
   # The branch an "Edit this page" link points at, in the docs repository.
   branch: main
   # Left empty deliberately. A production hostname nobody has chosen would be a fact
