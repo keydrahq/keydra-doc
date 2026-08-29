@@ -1,0 +1,18 @@
+[id="analysing-a-keyspace_{context}"]
+= Analysing a keyspace
+
+.Prerequisites
+
+* You hold `analysis:read` on the target.
+
+.Procedure
+
+. Open the target and go to *Analysis*.
+. Read the panels: *Memory by type*, *When this memory comes back*, *Memory by namespace*,
+  and *Largest keys*.
+. Click *Measure again* after a change, to see whether it did what you expected.
+
+.Verification
+
+The header states whether every key was measured or a sample was, and how large that sample
+was. An empty database says *Nothing to measure* rather than drawing empty charts.

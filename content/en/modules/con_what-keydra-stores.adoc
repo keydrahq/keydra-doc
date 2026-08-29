@@ -1,0 +1,29 @@
+[id="what-keydra-stores_{context}"]
+= What Keydra stores, and what it protects
+
+{product-name} holds three kinds of thing, and treats them differently.
+
+Credentials:: Target passwords, SSH keys and passphrases, identity-provider client secrets,
+backup-destination credentials, chat tokens. Encrypted at rest with AES-256-GCM under the
+instance key, and never returned by any API — an edit form that arrives with an empty
+password field keeps the stored one rather than clearing it.
+
+Account passwords:: Hashed with Argon2id, verified on a worker thread so a deliberately slow
+hash never occupies an event loop. A hash cannot be turned back into a password, including
+by {product-name}.
+
+Everything else:: Names, addresses, notes, the audit log, schedule settings. Stored as
+written. Column-level encryption was decided against for these deliberately: it would make
+them unsearchable while protecting them from nobody who can already read the database.
+
+.The instance key
+[IMPORTANT]
+====
+`KEYDRA_SECRET_KEY` is what encrypts every stored credential. Losing it means every one of
+them has to be entered again. It can be rotated without downtime — see
+xref:security.adoc#rotating-the-instance-key_security[Rotating the instance key].
+====
+
+Your keyspaces are not stored. What a page shows was read from the target when you asked
+for it. The one exception is a backup, which is by definition a copy — and a backup can be
+encrypted so that not even the instance that wrote it can read it back.

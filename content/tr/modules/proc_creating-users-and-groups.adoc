@@ -1,0 +1,34 @@
+[id="creating-users-and-groups_{context}"]
+= Kullanıcı ve grup oluşturma
+
+.Ön koşullar
+
+* `users:manage` ve `groups:manage` izinleriniz olmalı.
+
+.Prosedür
+
+Hesap eklemek için:
+
+. *Erişim* sayfasına gidip *Kullanıcılar* sekmesini açın.
+. *Kullanıcı ekle* düğmesine tıklayın.
+. *Kullanıcı adı* girin; isterseniz *Görünen ad* ve *E-posta* da ekleyin.
+. Ya bir *Parola* belirleyin ya da alanı boş bırakıp kişiyi davet edin — bkz.
+  xref:accounts.adoc#inviting-somebody_accounts[Birini davet etme].
+. *Etkin* işaretli kalsın. Devre dışı bırakılan hesap giriş yapamaz ama yetkilerini korur;
+  yeniden etkinleştirildiğinde kaldığı yerden devam eder.
+
+Grup eklemek için:
+
+. *Gruplar* sekmesini açıp *Grup ekle* düğmesine tıklayın.
+. Gruba ad verin; isterseniz başka bir grubun *Üst grup* konumlandırın.
+. Grubu açıp *Üye ekle* ile kullanıcıları ya da başka grupları içine alın.
+
+.Doğrulama
+
+Yeni açılan hesap giriş yapabilir ama hiçbir şey göremez: *Hesap, birinin giriş yapmasını ve
+hiçbir şey görmemesini sağlar. Erişim bir yetkiyle gelir.*
+
+.Sonraki adımlar
+
+* xref:access-control.adoc#putting-targets-in-server-groups_access-control[Hedefleri sunucu gruplarına ekleyin]
+* xref:access-control.adoc#granting-access_access-control[Rol verin]

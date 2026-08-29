@@ -1,0 +1,43 @@
+[id="keeping-readings-across-restarts_{context}"]
+= Ölçümleri kalıcı saklama
+
+{product-name} varsayılan olarak hedef başına son bir saatlik ölçümü bellekte tutar; süreç
+kapandığında bu veriler de kaybolur. Belleğin %91'e ulaştığını öğrendiğinizde iki soru daha
+sorulur ve ikisi de yanıtsız kalır: ne zamandan beri böyle ve geçen salı da böyle miydi.
+
+ClickHouse ikisini de yanıtlar. İsteğe bağlıdır ve varsayılan olarak kapalıdır.
+
+.Prosedür
+
+[source,properties]
+----
+KEYDRA_CLICKHOUSE_ENABLED=true
+KEYDRA_CLICKHOUSE_URL=http://clickhouse.internal:8123
+KEYDRA_CLICKHOUSE_USER=<kullanıcı adı>
+KEYDRA_CLICKHOUSE_PASSWORD=<parola>
+----
+
+Saklama süresini {product-name} değil ClickHouse'un kendi TTL mekanizması uygular; gün sayısı da
+aynı yerde ayarlanır.
+
+.Doğrulama
+
+Hedefin *İzleme* sayfasında bir saatten uzun bir *Aralık* seçin. Grafikte *Bellekten* yerine
+*Depodan, {seconds} sn'lik kovalar* yazar.
+
+{product-name}'yı yeniden başlatın; grafik önceki döneme ait verileri göstermeyi sürdürür.
+
+[NOTE]
+====
+Depoya yazma işlemi beklemeden yapılır ve ölçümü hiç geciktirmez. Depoyu bekleyen bir örnekleyici,
+depo yavaşladığında örneklemeyi bırakırdı; oysa ölçümlerin en çok gerektiği an tam olarak odur.
+
+ClickHouse popüler olduğu için değil, verinin biçimine uyduğu için seçildi: hedef başına birkaç
+saniyede bir yazılan, geniş ve tek düze, yalnızca ekleme yapılan bir sayı akışı; okunurken de
+zaman aralığı olarak sorgulanır. PostgreSQL de bunu yapabilirdi ama hedef başına günde on yedi
+bin satırı hiç kullanmayacağı hâlde taşırdı.
+====
+
+.Sonraki adımlar
+
+* xref:alerts.adoc#alerts-concepts_alerts[Sabit sayı yerine geçen haftayla karşılaştıran bir kural yazın]

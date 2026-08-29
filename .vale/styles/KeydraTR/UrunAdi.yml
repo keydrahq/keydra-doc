@@ -1,0 +1,12 @@
+extends: substitution
+message: 'Doğru yazım: "%s" (yazılan: "%s").'
+level: error
+ignorecase: false
+# Ürün ve teknoloji adları çevrilmez ve tek bir biçimde yazılır.
+swap:
+  'KeyDra': Keydra
+  'Key Dra': Keydra
+  'keydra ': 'Keydra '
+  'REDIS': Redis
+  'valkey': Valkey
+  'Postgres\b': PostgreSQL

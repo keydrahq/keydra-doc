@@ -1,0 +1,12 @@
+[id="permissions-list_{context}"]
+= İzinler
+
+{product-name}'nın tanımladığı bütün izinler. Kapsam sütunu, iznin hangi düzeyde
+verilebileceğini gösterir: {product-name}'nın kendisine ait izinler yalnızca kurulum düzeyinde,
+bir sunucuya ait izinler ise hedefte, sunucu grubunda ya da kurulum düzeyinde verilebilir.
+
+include::../snippets/generated/permissions-table.adoc[]
+
+Yerleşik rollerin hangi izinleri taşıdığı
+xref:access-control.adoc#built-in-roles_access-control[Yerleşik roller] bölümünde anlatılır.
+Özel roller bu listeden seçilerek oluşturulur.

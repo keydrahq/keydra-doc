@@ -1,0 +1,23 @@
+[id="watching-what-ran_{context}"]
+= Watching what ran
+
+.Procedure
+
+. Go to *Scheduled work*.
+. Open a schedule's *Details* to see its run history: when each run started and finished,
+  what it touched, and what went wrong if anything did.
+
+.Verification
+
+The list header counts the schedules that are *failing*, so a job that has quietly stopped
+working is visible from the page rather than from the empty cache it was feeding.
+
+A failed run also arrives as a notification while you are using {product-name}, wherever
+you are in it.
+
+[NOTE]
+====
+Where more than one {product-name} runs against one database, schedules are registered only
+on the instance holding the lease. A job that fires during a handover runs once, on whichever
+instance holds it then.
+====

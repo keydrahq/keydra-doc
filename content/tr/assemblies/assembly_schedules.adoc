@@ -1,0 +1,14 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="schedules"]
+= Zamanlanmış işler
+:description: İş, hedef, sıklık ve açık/kapalı durumu. Kimlik bilgileri zaten Keydra'da durur ve duran bir çalışmayı fark edersiniz.
+:page-keywords: zamanlama, cron, iş, boşaltma, dışa aktarma, anahtar kopyalama, çalışmalar
+:context: schedules
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_schedules.adoc[leveloffset=+1]
+
+include::../modules/proc_creating-a-schedule.adoc[leveloffset=+1]
+
+include::../modules/proc_watching-what-ran.adoc[leveloffset=+1]

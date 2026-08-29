@@ -1,0 +1,28 @@
+[id="signing-in_{context}"]
+= Signing in
+
+.Prerequisites
+
+* An administrator has given you an account, or an identity provider is configured and your
+  account there is mapped to a group in {product-name}.
+
+.Procedure
+
+. Open the address you were given.
+. To sign in with a {product-name} account, enter your *Username* and *Password* and click
+  *Sign in*.
+. To sign in through a provider, use the button under *Or sign in with*. It reads
+  *Continue with* and the provider's name.
+
+.Verification
+
+The masthead shows your username, and the navigation offers the pages your grants allow.
+A page you cannot reach is not shown; the backend refuses the request regardless, so a
+hidden link is a courtesy rather than the control.
+
+[NOTE]
+====
+Repeated failures are throttled. If the form says *Too many sign-in attempts*, wait a few
+minutes. The counter survives a restart, and it counts by account and by network — see
+xref:accounts.adoc#sign-in-protection_accounts[Sign-in protection].
+====

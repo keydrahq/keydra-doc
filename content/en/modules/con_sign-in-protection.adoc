@@ -1,0 +1,29 @@
+[id="sign-in-protection_{context}"]
+= Sign-in protection
+
+Every attempt to sign in is written down, and the limit is answered *before* the hash.
+Argon2id is slow on purpose, which makes unlimited attempts a way of spending the server's
+memory as well as a way of guessing a password.
+
+image::sign-in-activity.jpg["Sign-in activity, with one successful sign-in flagged as coming from a new browser"]
+
+Throttling:: Failures are counted per account and per network over a rolling window in the
+database, so a restart does not reset the count. A refusal never counts towards the limit
+that produced it — otherwise knocking repeatedly would hold a named account shut. The form
+says *Too many sign-in attempts. Wait a few minutes and try again.*
+
+Anomalies:: A sign-in that *worked* is compared with the ones before it, because a stolen
+password is a correct password. A sign-in from somewhere unusual, after a dormant period, or
+at a rate that suggests something automated, is flagged and raises a notification.
+
+The window, the limits and the retention are configuration — see
+xref:configuration-reference.adoc[the configuration reference] for
+`keydra.security.sign-in.*`.
+
+.What did not ship, and is not hidden
+[NOTE]
+====
+Password policy beyond a length floor was left out deliberately: composition rules make
+passwords worse, and the useful version is a breached-password check, which is a network call
+{product-name} does not make.
+====

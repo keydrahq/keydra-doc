@@ -1,0 +1,68 @@
+[id="backup-encryption_{context}"]
+= Yedekleri şifreleme
+
+Yedek dosyası, bütün anahtarları ve bütün değerleri içerir. Şifrelenmemişse gittiği yere düz
+sıkıştırılmış bir dosya olarak iner. "Kova özel" cümlesi erişim denetimini anlatır, dosyanın
+içeriğini değil.
+
+*Yedekler nasıl mühürlensin* seçeneği üç yanıt sunar.
+
+Şifrelenmemiş:: Varsayılan seçenek. Arayüz bunun ne anlama geldiğini açıkça yazar.
+
+Parolayla:: Kimliği doğrulanmış çerçevelerde AES-256-GCM kullanılır. Anahtar, parolanızdan
+Argon2id ile ve dosyanın başlığında saklanan bir tuzla türetilir. Parola, diğer bütün sırlar
+gibi şifreli saklanır ve geri döndürülmez.
++
+[WARNING]
+====
+Parolayı ayrı bir yere yazın. Bu parolayla yazılan yedekler, parola olmadan hiç kimse
+tarafından — {product-name} dahil — okunamaz. Şifrelemenin amacı budur; bir yedeğin kalıcı
+olarak kaybedilme yolu da budur.
+====
+
+Anahtarlara:: Bir alıcı açık anahtarları listesi verirsiniz. {product-name} yalnızca şifreleyen
+yarıları tutar: her gece yedek yazabilir ama hiçbirini geri okuyamaz. Sunucuyu ele geçiren biri de
+okuyamaz, çünkü çözen yarılar hiçbir zaman orada bulunmamıştır. Geri yükleme sırasında özel
+anahtarlardan biri istenir, yalnızca o işlem için kullanılır ve hiçbir yere kaydedilmez.
++
+{product-name} bir anahtar çifti üretebilir. Özel anahtar **bir kez** gösterilir ve hiçbir yere
+yazılmaz: veritabanına da, günlüğe de, başka bir isteğin yanıtına da.
+
+Bir hedef ya parola ya anahtar listesi taşır, ikisini birden değil: bir yerin tek bir giriş yolu
+olur; iki tanesi, "bu dosya hangisiyle yazıldı" sorusunu doğururdu.
+
+== Bir yedeği birden fazla kişi açabilir
+
+Tek anahtar yerine liste, çünkü tek alıcı demek, o özel anahtarı tutan kişinin bir yıllık yedeği
+okuyabilen dünyadaki tek insan olması demektir. İşten ayrılır, parola yöneticisini kaybeder ya da
+önbelleğin boşaldığı sabah uçaktadır — ve "diskte şifreli" ifadesi "gitti" hâline gelir; şifrelemenin
+önlemek için var olduğu başarısızlığa öbür taraftan varılmış olur.
+
+Özel anahtarı paylaşmak sorundan daha kötüdür: iki kişinin tuttuğu bir sır, sahibi olmayan bir
+sırdır ve birinden geri alınamaz.
+
+Listedeki her anahtarın bir adı vardır — *Ada'nın anahtarı*, *kasa*, *saha dışı* — çünkü birini
+kaldırmak hangisi olduğunu bilmeyi gerektirir ve geriye kırk karakterlik base64 kalır.
+
+[IMPORTANT]
+====
+Bir anahtar eklemek, dünkü yedekleri o anahtarla okunabilir yapmaz. Bir dosya, hangi anahtarlara
+yazıldığını kendi içinde taşır ve gönderilmiş bir dosya yeniden yazılmaz. Bugün eklenen bir anahtar,
+bugünden sonra alınan yedekleri açar.
+
+Son anahtarı kaldırmak, aynı yanlış anlamanın öbür yüzüdür: hiçbir şeyi okunamaz hâle getirmez,
+*bir sonraki* yedeğin hiç mühürlenmemesine yol açar.
+====
+
+== Dosya biçimi belgelenmiştir
+
+Yalnızca {product-name}'nın okuyabildiği şifreli bir yedek, yedek değil rehinedir. Depoyla
+birlikte gelen `scripts/keydra-decrypt.py` betiği, dosyayı ve sırrı — parola ya da özel anahtar
+— alır ve anahtarları yazdırır; uygulamadan hiçbir kod kullanmaz.
+
+Şifreleme tek bir akış değil, çerçeveler hâlindedir ve bu bilinçli bir tercihtir. Tek bir GCM
+akışı hem bellek sınırlı hem güvenle okunabilir olamaz: Java'nın `CipherInputStream` sınıfı
+doğrulaması başarısız olan bir etiketi girdi sonu sayar; sonuç, tamamlanmış gibi görünen yarım
+bir geri yüklemedir. Her çerçeve kendi içeriğini ve sırasını doğrular, dosya da bir bitiş
+işaretiyle kapanır. Böylece kesilmiş ya da sırası bozulmuş bir yedek yarım geri yüklenmez,
+reddedilir.

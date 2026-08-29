@@ -1,0 +1,10 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="release-notes"]
+= Release notes
+:description: What this version of Keydra does, and the limitations it has that are worth knowing before you rely on it.
+:page-keywords: release notes, version, limitations, changelog
+:context: release-notes
+include::../attributes/attributes.adoc[]
+
+include::../modules/ref_release-notes.adoc[leveloffset=+1]

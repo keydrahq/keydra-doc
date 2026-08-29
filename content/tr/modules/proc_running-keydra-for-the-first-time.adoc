@@ -1,0 +1,56 @@
+[id="running-keydra-for-the-first-time_{context}"]
+= Keydra'yı ilk kez çalıştırma
+
+{product-name}'yı ve depoyla birlikte gelen iki yerel hedefi ayağa kaldırın; böylece herhangi
+bir ayar yapmadan önce bağlanabileceğiniz bir sunucu olur.
+
+.Ön koşullar
+
+* Podman kurulu ve rootless kapsayıcılar çalışır durumda olmalı.
+* İmaj yerine kaynaktan çalıştıracaksanız Java {java-version} ve Node {node-version} gerekir.
+  Depo `./mvnw` ile gelir; sistemdeki Maven'ı kullanmayın.
+
+.Prosedür
+
+. Yerel hedefleri ve {product-name}'nın kendi PostgreSQL'ini başlatın:
++
+[source,bash]
+----
+podman play kube deploy/keydra-dev.yaml
+----
++
+Bu komut {redis-name}'i `6479`, {valkey-name}'i `6480`, PostgreSQL'i `5442`,
+{product-name}'nın kendi deposu için bir {redis-name}'i `6481` ve ClickHouse'u `8223`
+portunda yayımlar. Portlar bilinçli olarak varsayılanlardan kaydırılmıştır: makinenizde zaten
+bir {redis-name} ya da PostgreSQL çalışıyorsa pod yine de açılır.
+
+. Arka ucu başlatın:
++
+[source,bash]
+----
+cd backend && ./mvnw quarkus:dev
+----
+
+. İkinci bir terminalde ön ucu başlatın:
++
+[source,bash]
+----
+cd frontend && nvm use && yarn install && yarn dev
+----
+
+. {dev-frontend-url} adresini açın.
+
+.Doğrulama
+
+Arka uç, arayüze gerek kalmadan da yanıt verir:
+
+[source,bash]
+----
+curl -s http://localhost:8181/api/v1/about
+curl -s http://localhost:8181/q/health/ready
+----
+
+.Sonraki adımlar
+
+* xref:getting-started.adoc#creating-the-first-administrator_getting-started[İlk yöneticiyi oluşturun]
+* xref:connections.adoc#adding-a-connection_connections[Bir bağlantı ekleyin]

@@ -1,0 +1,21 @@
+extends: existence
+message: '"%s" is marketing language. Say what it does instead.'
+level: error
+ignorecase: true
+tokens:
+  - revolutionary
+  - best-in-class
+  - next-generation
+  - cutting-edge
+  - amazing
+  - powerful
+  - incredible
+  - seamless
+  - seamlessly
+  - effortless
+  - effortlessly
+  - blazing(ly)? fast
+  - world-class
+  - state-of-the-art
+  - game.chang(er|ing)
+  - leverage

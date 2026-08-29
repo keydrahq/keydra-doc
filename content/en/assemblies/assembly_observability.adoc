@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="observability"]
+= Observability
+:description: Health, Prometheus metrics, OpenTelemetry traces and JSON logs — and where readings live when they have to outlive a restart.
+:page-keywords: health, metrics, prometheus, opentelemetry, tracing, logs, clickhouse
+:context: observability
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_observability.adoc[leveloffset=+1]
+
+include::../modules/proc_keeping-readings.adoc[leveloffset=+1]

@@ -1,0 +1,19 @@
+[id="graphql-operations_{context}"]
+= GraphQL operations
+
+What the {product-name} interface actually asks. Mutations are here too: the surface is not
+read-only.
+
+include::../snippets/generated/graphql-operations.adoc[]
+
+.Limits
+[NOTE]
+====
+The schema sets a limit for every documented way of turning one request into much work:
+how deep a query may nest, how many fields one may name in total — which is the alias attack
+that depth alone does not catch — and what the parser accepts before it stops reading. Each
+is set rather than left at a default meant for a public API with large documents.
+
+An unexpected failure answers one generic sentence. An exception message from inside the
+application is a description of the application, and the log is where that belongs.
+====

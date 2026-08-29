@@ -1,0 +1,27 @@
+[id="value-decoders_{context}"]
+= Encodings Keydra can decode
+
+The *Encoding* selector defaults to *Automatic*, which lets the server detect the format.
+Choosing one explicitly is for the cases where the guess is wrong or where a value could
+plausibly be read two ways.
+
+include::../snippets/generated/value-decoders.adoc[]
+
+.Decoding is a view, not a change
+[NOTE]
+====
+Decoding happens on the server when the value is read, and changes nothing on the target.
+What is stored stays exactly as it was.
+====
+
+.Brotli is guessed last, and cautiously
+[NOTE]
+====
+Brotli announces itself in no way at all — it has no magic bytes. Its guess is fenced: it is
+tried last before plain text, the stored value must look like bytes, and what comes out must
+be printable and larger than what went in. Anything else and the value is shown as it is.
+====
+
+Java serialization and Python pickle are described rather than deserialized. Turning either
+back into an object means running code the value chooses, which is a remote code execution
+primitive rather than a feature.

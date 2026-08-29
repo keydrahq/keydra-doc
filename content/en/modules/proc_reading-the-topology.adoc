@@ -1,0 +1,17 @@
+[id="reading-the-topology_{context}"]
+= Reading the topology
+
+.Prerequisites
+
+* You hold `connection:view` on the target.
+
+.Procedure
+
+. Open the target and go to *Topology*.
+. For a cluster, select a shard or a node in the graph to see its detail: *Link*, *Flags*,
+  slot ranges and node ID.
+
+.Verification
+
+The slot bar accounts for every slot. Hovering a range says which address serves it and how
+many slots that is.

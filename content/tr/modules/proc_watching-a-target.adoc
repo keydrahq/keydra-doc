@@ -1,0 +1,23 @@
+[id="watching-a-target_{context}"]
+= Bir hedefi izleme
+
+.Ön koşullar
+
+* Panoyu görmek için `monitoring:read`, örneklemeyi başlatıp durdurmak için
+  `monitoring:manage` izni.
+
+.Prosedür
+
+. Hedefi açıp *İzleme* sayfasına gidin.
+. *Örneklemeyi başlat* düğmesine tıklayın. Araç çubuğunda *{seconds} sn'de bir örnekleniyor* yazar.
+. Bir *Aralık* seçin.
+
+.Doğrulama
+
+Grafikler dolmaya başlar: *Saniyedeki işlem*, yapılandırılmış sınıra göre *Kullanılan bellek*,
+*İsabet oranı* ve *Bağlı istemciler*. Sunucunun bildirmediği bir değer için sıfır çizilmez; *Bu
+sunucu bu değeri bildirmedi* yazar.
+
+.Sonraki adımlar
+
+* xref:alerts.adoc[Bir ölçüm eşiği aştığında haber alın]

@@ -1,0 +1,17 @@
+[id="reading-the-topology_{context}"]
+= Topolojiyi okuma
+
+.Ön koşullar
+
+* Hedefte `connection:view` izniniz olmalı.
+
+.Prosedür
+
+. Hedefi açıp *Topoloji* sayfasına gidin.
+. Küme kurulumlarında ayrıntıyı görmek için grafikten bir parça ya da düğüm seçin: *Bağlantı*,
+  *Bayraklar*, slot aralıkları ve düğüm kimliği görüntülenir.
+
+.Doğrulama
+
+Slot çubuğu bütün slotları kapsar. Bir aralığın üzerine geldiğinizde ona hangi adresin hizmet
+verdiği ve bunun kaç slot ettiği yazar.

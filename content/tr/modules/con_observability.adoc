@@ -1,0 +1,37 @@
+[id="observability-concepts_{context}"]
+= Keydra kendisi hakkında ne bildirir
+
+Sağlık:: `/q/health`. Manifestlerin kullandığı iki yoklama için `/q/health/live` ve
+`/q/health/ready`.
+
+Ölçümler:: `/q/metrics` adresinde Prometheus biçiminde. Çalışma zamanının kendi ölçerleri —
+istekler, JVM, olay döngüleri — ve yalnızca {product-name}'nın üretebildikleri: ayakta ve düşmüş
+hedef sayısı, bir ölçümün ne kadar sürdüğü ve ne sıklıkta başarısız olduğu, bu örneğin izlediği
+hedeflerden ne kadar şey istediği, zamanlanmış iş çalışmaları ve sonuçları, üretilen ve gönderilen
+uyarılar, süren göç işleri ve bu örneğin lider işlerini üstlenip üstlenmediği.
++
+Etiketler kimlik ve sonuçtur, ad değil. Bir hedefin adı, birinin sistem envanterine dair bir
+bilgidir ve bir seri, etiketlerini var olduğu sürece taşır; bir kimlik ise onu çözmeye yetkili
+herkese aynı şeyi söyler ve hedef her yeniden adlandırıldığında yeni bir seri eklemez.
+
+İzler:: OpenTelemetry. `KEYDRA_OTLP_ENDPOINT` tanımlanana kadar hiçbir yere aktarım yapmaz;
+izlemeyi açan da ayrı bir bayrak değil, bu adresin tanımlanmasıdır. Hiçbir yeri göstermeyen bir
+izleme SDK'sı her aktarım denemesinde günlük satırı üretir ve bu, hiç izleme olmamasından
+kötüdür.
+
+Günlükler:: Varsayılan olarak insan okuyabilir biçim; kurulum `KEYDRA_JSON_LOGS` ile isterse
+konsolda JSON. Her satır örneğin adını taşır.
+
+*Hakkında* sayfası neyin nereye aktarıldığını gösterir: "bu kurulum bir yere ölçüm gönderiyor
+mu" sorusunun yanıtı bir dağıtım manifestinde aranmamalıdır.
+
+== Ölçüm etiketleri
+
+Ölçerler hedefin adıyla değil kimliğiyle etiketlenir. Ölçüm etiketleri bu projenin denetiminde
+olmayan sistemlerce okunur ve serinin ömrü boyunca kalır. `production-payments` etiketi birinin
+altyapısı hakkında bilgi verir; kimlik ise aynı bilgiyi yalnızca çözmeye yetkili olanlara verir.
+
+Her ölçer, kendisini üreten örneği `instance` değil `keydra_instance` etiketiyle taşır. Yük
+dengeleyici arkasında aynı soru iki farklı sürece gidebilir; ikisini karıştıran bir grafik hiçbir
+anlam taşımaz. Kazıyıcı zaten topladığı veriye kendi `instance` etiketini ekler ve hazır gelen
+aynı adlı etiketi yeniden adlandırır.

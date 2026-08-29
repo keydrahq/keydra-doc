@@ -1,0 +1,32 @@
+[id="your-sessions_{context}"]
+= Your sessions
+
+A session is a row, not only a cookie. That is what makes it something you can look at and
+something you can end.
+
+.Prerequisites
+
+* Being signed in. This needs no role: an account with no grants can still be signed in on a
+  laptop somebody left somewhere.
+
+.Procedure
+
+. Go to *Settings* and find *Signed-in browsers*.
+. Each row says where and when, and marks *This browser*.
+. Click *End* on one, or *End the other {count} sessions*.
+
+.Verification
+
+An ended session stops working on its *next request*, not at its expiry. The dialog says so:
+*{what} will be signed out on its next request.*
+
+Ending the one you are reading on is signing out, and the dialog says that before it happens
+rather than after.
+
+[NOTE]
+====
+There is no page for reading anybody else's sessions. What a person's sessions say is where
+they work and when. An administrator can *end* somebody's sessions — "this account is
+compromised" is a thing an administrator has to be able to act on — and that action is
+recorded in the audit log, which is where an administrator's actions belong.
+====

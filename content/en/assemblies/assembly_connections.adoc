@@ -1,0 +1,16 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="connections"]
+= Managing connections
+:description: A connection profile is how Keydra reaches one target. Add one, test it, edit it without re-entering its password, and switch between its databases.
+:page-keywords: connection, profile, target, redis, valkey, tls, sentinel, cluster, database
+:context: connections
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_connection-profiles.adoc[leveloffset=+1]
+
+include::../modules/proc_adding-a-connection.adoc[leveloffset=+1]
+
+include::../modules/proc_editing-and-deleting-a-connection.adoc[leveloffset=+1]
+
+include::../modules/proc_switching-database.adoc[leveloffset=+1]

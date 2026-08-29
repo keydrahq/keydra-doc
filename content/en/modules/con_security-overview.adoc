@@ -1,0 +1,42 @@
+[id="security-overview_{context}"]
+= What Keydra protects, and how
+
+{product-name} holds the credentials to every server it manages. That makes it a target, and
+the measures below are the ones that follow from taking that seriously.
+
+Credentials encrypted at rest:: AES-256-GCM under the instance key, and never returned by
+any API. See xref:architecture.adoc#what-keydra-stores_architecture[What Keydra stores].
+
+Passwords hashed:: Argon2id, verified on a worker thread.
+
+A session is a row, not only a cookie:: Ending a session takes effect on the next request,
+and setting a password ends every session that came before it. See
+xref:accounts.adoc#your-sessions_accounts[Your sessions].
+
+Permissions rebuilt per request:: Revoking access does not wait for a sign-out.
+
+Headers the browser enforces:: A content security policy, `X-Content-Type-Options: nosniff`,
+and the rest are set as headers rather than assumed. The policy is a configuration property,
+so a deployment that serves assets from elsewhere widens the one directive it needs instead
+of turning the header off.
+
+Cookies:: The session cookie is `HttpOnly`, so no script can read it, and `SameSite=Lax`, so
+no other site can send it. It is `Secure` in production.
+
+Addresses somebody typed are checked before they are called:: Webhooks, issuer discovery and
+object-store endpoints all go through one guard. Link-local is refused and has no setting —
+`169.254.169.254` answers with the machine's cloud credentials, and configuring an alert is
+an operator's job rather than an administrator's. The check runs when the address is stored
+*and* again before the request, because a row can predate the check.
+
+Broadcasts name the target they are about:: A notification about one target reaches only the
+sockets whose owner may see that target. A viewer granted one server hears nothing about any
+other.
+
+Secrets never reach a log:: Not a target password, not a token, not a passphrase. The
+command watcher redacts them before they leave the engine.
+
+The operations that empty a keyspace can be made to wait:: A target can refuse to be emptied
+until its own name is typed, or until somebody other than the person who asked agrees to it.
+Neither is a permission, so turning one on locks nobody out — see
+xref:approvals.adoc[Operations that wait for a second person].

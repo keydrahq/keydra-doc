@@ -1,0 +1,32 @@
+[id="editing-and-deleting-a-connection_{context}"]
+= Editing and deleting a connection
+
+.Prerequisites
+
+* You hold `connection:edit` on the target to change it, or `connection:delete` to remove
+  it.
+
+.Procedure
+
+To change a profile:
+
+. On *Connections*, open the row's actions menu and choose *Edit*.
+. Change what needs changing. The password field arrives empty and marked *Stored — leave
+  empty to keep it*: leaving it alone keeps the stored password, and typing replaces it.
+. Click *Save*.
+
+To remove one:
+
+. Open the row's actions menu and choose *Delete*.
+. The dialog reads *Delete connection?* and states that data on the target server is not
+  affected.
+. Confirm.
+
+.Verification
+
+An edit closes the profile's pooled connections and its tunnel, because the profile may now
+point somewhere else; the status returns to *Checking…* and then to whatever the new
+address answers.
+
+A deleted profile disappears from every list, including the fleet overview and the target
+list a migration offers. Nothing on the server itself changes.

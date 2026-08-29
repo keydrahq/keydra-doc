@@ -1,0 +1,980 @@
+////
+GENERATED FILE — do not edit.
+Written by scripts/build-generated-content.ts from the Keydra source tree.
+The descriptions come from the YAML files under content/en/data/; edit those.
+////
+.About
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/about`
+| Being signed in
+| Get application name, version and build metadata
+
+|===
+.Alert deliveries
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/alert-deliveries`
+| `admin`
+| Every configured delivery, and how many rules use it
+
+| `POST`
+| `/api/v1/alert-deliveries`
+| `admin`
+| Add somewhere to send alerts
+
+| `DELETE`
+| `/api/v1/alert-deliveries/{id}`
+| `admin`
+| Remove a delivery
+
+| `PUT`
+| `/api/v1/alert-deliveries/{id}`
+| `admin`
+| Change a delivery
+
+| `POST`
+| `/api/v1/alert-deliveries/{id}/check`
+| `admin`
+| Send a test message
+
+| `GET`
+| `/api/v1/alert-deliveries/instance-notices`
+| `admin`
+| Which destinations hear about Keydra itself
+
+| `PUT`
+| `/api/v1/alert-deliveries/instance-notices`
+| `admin`
+| Choose which destinations hear about Keydra itself
+
+|===
+.Alerts
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/alerts`
+| `viewer`, `operator`, `admin`
+| Every rule, with where it currently stands
+
+| `POST`
+| `/api/v1/alerts`
+| `alert:manage`
+| Watch for a condition
+
+| `DELETE`
+| `/api/v1/alerts/{id}`
+| `alert:manage`
+| Remove a rule, and the record of what it said
+
+| `PUT`
+| `/api/v1/alerts/{id}`
+| `alert:manage`
+| Change a rule
+
+| `GET`
+| `/api/v1/alerts/events`
+| `viewer`, `operator`, `admin`
+| What the rules have said
+
+| `GET`
+| `/api/v1/alerts/metrics`
+| `viewer`, `operator`, `admin`
+| The metrics a rule can watch
+
+|===
+.Analysis
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/connections/{connectionId}/analysis/keyspace`
+| `analysis:read`
+| Where this target's memory went
+
+|===
+.Approvals
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/approvals`
+| `operator`, `admin`
+| Operations waiting for a second person
+
+| `DELETE`
+| `/api/v1/approvals/{id}`
+| `operator`, `admin`
+| Withdraw a request you made
+
+| `GET`
+| `/api/v1/approvals/{id}`
+| `operator`, `admin`
+| One request, with what it would do
+
+| `POST`
+| `/api/v1/approvals/{id}/approve`
+| `operator`, `admin`
+| Agree to an operation, which starts it
+
+| `POST`
+| `/api/v1/approvals/{id}/decline`
+| `operator`, `admin`
+| Say no, and say why
+
+|===
+.Authentication
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `POST`
+| `/api/v1/auth/logout`
+| Being signed in
+| End this session
+
+| `GET`
+| `/api/v1/auth/permissions`
+| Being signed in
+| What the caller may do, per target
+
+| `POST`
+| `/api/v1/auth/setup`
+| Being signed in
+| Create the first administrator
+
+| `GET`
+| `/api/v1/auth/state`
+| Being signed in
+| Whether there is anything to sign into, and whether anybody has
+
+|===
+.Backup destinations
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/backup-destinations`
+| `admin`
+| Every configured destination
+
+| `POST`
+| `/api/v1/backup-destinations`
+| `admin`
+| Add a destination
+
+| `DELETE`
+| `/api/v1/backup-destinations/{id}`
+| `admin`
+| Remove a destination
+
+| `PUT`
+| `/api/v1/backup-destinations/{id}`
+| `admin`
+| Change a destination
+
+| `POST`
+| `/api/v1/backup-destinations/{id}/check`
+| `admin`
+| Find out whether it works
+
+| `POST`
+| `/api/v1/backup-destinations/check`
+| `admin`
+| Try a destination that has not been saved
+
+| `POST`
+| `/api/v1/backup-destinations/keys`
+| `admin`
+| Generate a key pair for encrypting backups
+
+|===
+.Connections
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/connections`
+| Being signed in
+| List all connection profiles with their last known status
+
+| `POST`
+| `/api/v1/connections`
+| `connection:create`
+| Create a connection profile
+
+| `DELETE`
+| `/api/v1/connections/{id}`
+| `connection:delete`
+| Delete a connection profile
+
+| `GET`
+| `/api/v1/connections/{id}`
+| `connection:view`
+| Get one connection profile
+
+| `PUT`
+| `/api/v1/connections/{id}`
+| `connection:edit`
+| Update a connection profile
+
+| `POST`
+| `/api/v1/connections/{id}/test`
+| `connection:view`
+| Probe a saved profile and record the result
+
+| `POST`
+| `/api/v1/connections/test`
+| `connection:create`
+| Probe a profile that has not been saved
+
+|===
+.Console
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/connections/{connectionId}/console/denied-commands`
+| `console:run`
+| Commands the console refuses to run on this target
+
+| `DELETE`
+| `/api/v1/connections/{connectionId}/console/history`
+| `console:run`
+| Forget your own command history on this target
+
+| `GET`
+| `/api/v1/connections/{connectionId}/console/history`
+| `console:run`
+| Command lines you have previously run against this target
+
+|===
+.Databases
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/connections/{connectionId}/databases`
+| Being signed in
+| The databases this target holds
+
+|===
+.Encryption
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/security/encryption`
+| `admin`
+| Which key the stored secrets are under
+
+| `POST`
+| `/api/v1/security/encryption/rotate`
+| `admin`
+| Re-encrypt everything with the key that writes now
+
+|===
+.Grants
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/authz/grants`
+| `admin`
+| Every grant, with names beside the ids
+
+| `POST`
+| `/api/v1/authz/grants`
+| `admin`
+| Grant a role on a scope
+
+| `DELETE`
+| `/api/v1/authz/grants/{id}`
+| `admin`
+| Take a grant back
+
+|===
+.Groups
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/authz/groups`
+| `admin`
+| Every group, with what is directly inside it
+
+| `POST`
+| `/api/v1/authz/groups`
+| `admin`
+| Create a group
+
+| `DELETE`
+| `/api/v1/authz/groups/{id}`
+| `admin`
+| Remove a group
+
+| `POST`
+| `/api/v1/authz/groups/{id}/members`
+| `admin`
+| Put a person, or another group, into this group
+
+| `DELETE`
+| `/api/v1/authz/groups/members/{membershipId}`
+| `admin`
+| Take something out of a group
+
+|===
+.Identity providers
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/authz/providers`
+| `admin`
+| Every configured provider
+
+| `POST`
+| `/api/v1/authz/providers`
+| `admin`
+| Add a provider
+
+| `DELETE`
+| `/api/v1/authz/providers/{id}`
+| `admin`
+| Remove a provider
+
+| `PUT`
+| `/api/v1/authz/providers/{id}`
+| `admin`
+| Change a provider
+
+| `POST`
+| `/api/v1/authz/providers/{id}/group-mappings`
+| `admin`
+| Map a claim value to a Keydra group
+
+| `DELETE`
+| `/api/v1/authz/providers/group-mappings/{mappingId}`
+| `admin`
+| Remove a mapping
+
+|===
+.Instances
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/instances`
+| `instance:read`
+| Who is running and what they depend on
+
+| `DELETE`
+| `/api/v1/instances/{id}/drain`
+| `instance:drain`
+| Put an instance back into service
+
+| `POST`
+| `/api/v1/instances/{id}/drain`
+| `instance:drain`
+| Take an instance out of service
+
+| `POST`
+| `/api/v1/instances/reachability`
+| `instance:read`
+| Ask everything Keydra reaches whether it is there, now
+
+| `GET`
+| `/api/v1/instances/reachability/history`
+| `instance:read`
+| When things Keydra reaches started and stopped answering
+
+| `GET`
+| `/api/v1/instances/roster`
+| `instance:read`
+| Who is running, and what each of them is holding
+
+|===
+.Invitations
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/invitations/{token}`
+| Open to anybody
+| Whether a link can still be used
+
+| `POST`
+| `/api/v1/invitations/{token}`
+| Open to anybody
+| Set a password with a link
+
+| `POST`
+| `/api/v1/invitations/for-user/{id}`
+| `users:manage`
+| Send somebody a link to set their own password
+
+| `POST`
+| `/api/v1/invitations/forgotten`
+| Open to anybody
+| Ask for a link because a password has been forgotten
+
+|===
+.Keys
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/connections/{connectionId}/keys`
+| `keys:read`
+| Stream keys matching a filter
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keys/copy`
+| `keys:write`
+| Copy a key to a new name
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keys/delete`
+| `keys:delete`
+| Delete one or more keys
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keys/expire`
+| `keys:write`
+| Set or clear a key's TTL
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keys/export`
+| `transfer:export`
+| Export keys as the store's own serialisation
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keys/import`
+| `transfer:import`
+| Restore exported keys
+
+| `GET`
+| `/api/v1/connections/{connectionId}/keys/migrate`
+| `migration:run`
+| Migrations started from this target
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keys/migrate`
+| `migration:run`
+| Move keys to another target
+
+| `DELETE`
+| `/api/v1/connections/{connectionId}/keys/migrate/{jobId}`
+| `migration:run`
+| Stop a migration
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keys/purge`
+| `keys:delete`
+| Delete everything a pattern matches
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keys/rename`
+| `keys:write`
+| Rename a key
+
+| `GET`
+| `/api/v1/connections/{connectionId}/keys/tree`
+| `keys:read`
+| List the namespace level below a prefix
+
+| `DELETE`
+| `/api/v1/connections/{connectionId}/keyspace-watch`
+| `keys:read`
+| Give a lease back
+
+| `GET`
+| `/api/v1/connections/{connectionId}/keyspace-watch`
+| `keys:read`
+| Whether this target's changes are being heard
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keyspace-watch`
+| `keys:read`
+| Take or renew a lease on this target's changes
+
+| `POST`
+| `/api/v1/connections/{connectionId}/keyspace-watch/announce`
+| `server:configure`
+| Ask the target to announce its changes
+
+|===
+.Migrations
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/migrations`
+| Being signed in
+| Every migration this instance knows about
+
+|===
+.Monitoring
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `DELETE`
+| `/api/v1/connections/{connectionId}/monitoring`
+| `monitoring:manage`
+| Stop sampling this target
+
+| `GET`
+| `/api/v1/connections/{connectionId}/monitoring`
+| `monitoring:read`
+| Sampling state and the readings collected so far
+
+| `POST`
+| `/api/v1/connections/{connectionId}/monitoring`
+| `monitoring:manage`
+| Start sampling this target
+
+| `GET`
+| `/api/v1/connections/{connectionId}/monitoring/big-keys`
+| `monitoring:read`
+| The largest keys in a sample of the keyspace
+
+| `GET`
+| `/api/v1/connections/{connectionId}/monitoring/clients`
+| `monitoring:read`
+| Clients currently attached to the server
+
+| `DELETE`
+| `/api/v1/connections/{connectionId}/monitoring/clients/{clientId}`
+| `monitoring:manage`
+| Disconnect a client
+
+| `GET`
+| `/api/v1/connections/{connectionId}/monitoring/history`
+| `monitoring:read`
+| Readings over a window
+
+| `GET`
+| `/api/v1/connections/{connectionId}/monitoring/info`
+| `monitoring:read`
+| Raw server statistics, grouped by section
+
+| `GET`
+| `/api/v1/connections/{connectionId}/monitoring/sample`
+| `monitoring:read`
+| One reading of this target's vital signs, taken now
+
+| `DELETE`
+| `/api/v1/connections/{connectionId}/monitoring/slowlog`
+| `monitoring:manage`
+| Clear the slow log
+
+| `GET`
+| `/api/v1/connections/{connectionId}/monitoring/slowlog`
+| `monitoring:read`
+| Commands the server recorded as slow, newest first
+
+|===
+.Preferences
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/preferences`
+| Being signed in
+| Everything you prefer
+
+| `POST`
+| `/api/v1/preferences`
+| Being signed in
+| Set one preference
+
+| `DELETE`
+| `/api/v1/preferences/{name}`
+| Being signed in
+| Forget one preference
+
+|===
+.Pub/Sub
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `POST`
+| `/api/v1/connections/{connectionId}/pubsub/publish`
+| `pubsub:publish`
+| Publish a message
+
+| `DELETE`
+| `/api/v1/connections/{connectionId}/pubsub/subscription`
+| `pubsub:subscribe`
+| Stop listening on this target
+
+| `GET`
+| `/api/v1/connections/{connectionId}/pubsub/subscription`
+| `pubsub:subscribe`
+| What this target is currently subscribed to
+
+| `POST`
+| `/api/v1/connections/{connectionId}/pubsub/subscription`
+| `pubsub:subscribe`
+| Listen on a target's channels
+
+| `GET`
+| `/api/v1/subscriptions`
+| `viewer`, `operator`, `admin`
+| Every subscription this server currently holds open
+
+|===
+.Roles
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/authz/roles`
+| `admin`
+| Every role and what it carries
+
+| `POST`
+| `/api/v1/authz/roles`
+| `admin`
+| Create a custom role
+
+| `DELETE`
+| `/api/v1/authz/roles/{id}`
+| `admin`
+| Remove a custom role
+
+| `PUT`
+| `/api/v1/authz/roles/{id}`
+| `admin`
+| Change a custom role
+
+| `GET`
+| `/api/v1/authz/roles/permissions`
+| `admin`
+| Every permission there is
+
+|===
+.Schedules
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/schedules`
+| `operator`, `admin`
+| Every schedule, with when it last ran and when it runs next
+
+| `POST`
+| `/api/v1/schedules`
+| `schedule:manage`
+| Arrange work to happen on its own
+
+| `DELETE`
+| `/api/v1/schedules/{id}`
+| `schedule:manage`
+| Remove a schedule, and the record of what it did
+
+| `PUT`
+| `/api/v1/schedules/{id}`
+| `schedule:manage`
+| Change a schedule
+
+| `POST`
+| `/api/v1/schedules/{id}/run`
+| `schedule:manage`
+| Run it now
+
+| `GET`
+| `/api/v1/schedules/job-types`
+| `operator`, `admin`
+| The kinds of work that can be scheduled
+
+| `GET`
+| `/api/v1/schedules/runs`
+| `operator`, `admin`
+| What the schedules have done
+
+|===
+.Second factor
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `DELETE`
+| `/api/v1/auth/second-factor`
+| Being signed in
+| Turn off your second factor
+
+| `GET`
+| `/api/v1/auth/second-factor`
+| Being signed in
+| Whether you have a second factor, and how many recovery codes are left
+
+| `POST`
+| `/api/v1/auth/second-factor`
+| Being signed in
+| Begin pairing an authenticator
+
+| `POST`
+| `/api/v1/auth/second-factor/confirm`
+| Being signed in
+| Prove the pairing with one code
+
+| `POST`
+| `/api/v1/auth/second-factor/recovery-codes`
+| Being signed in
+| Replace your recovery codes
+
+|===
+.Security
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/connections/{connectionId}/acl`
+| `acl:read`
+| Users the target knows about
+
+| `PUT`
+| `/api/v1/connections/{connectionId}/acl`
+| `acl:manage`
+| Create or replace a user
+
+| `DELETE`
+| `/api/v1/connections/{connectionId}/acl/{username}`
+| `acl:manage`
+| Remove a user from the target
+
+| `GET`
+| `/api/v1/connections/{connectionId}/acl/categories`
+| `acl:read`
+| Permission categories the target defines
+
+| `GET`
+| `/api/v1/security/audit`
+| `audit:read`
+| What has been done, newest first
+
+| `GET`
+| `/api/v1/security/audit/actions`
+| `audit:read`
+| The action names recorded so far
+
+| `GET`
+| `/api/v1/security/me`
+| Open to anybody
+| Who Keydra thinks is asking, and what they may do
+
+|===
+.Server groups
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/authz/server-groups`
+| `admin`
+| Every server group, with the targets in it
+
+| `POST`
+| `/api/v1/authz/server-groups`
+| `admin`
+| Create a server group
+
+| `DELETE`
+| `/api/v1/authz/server-groups/{id}`
+| `admin`
+| Remove a server group
+
+| `DELETE`
+| `/api/v1/authz/server-groups/{id}/servers/{connectionId}`
+| `admin`
+| Take a target out of this group
+
+| `POST`
+| `/api/v1/authz/server-groups/{id}/servers/{connectionId}`
+| `admin`
+| Put a target into this group
+
+|===
+.ServerAdministration
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/connections/{connectionId}/admin/persistence`
+| `server:read`
+| How this target is keeping its data
+
+| `POST`
+| `/api/v1/connections/{connectionId}/admin/persistence/rewrite`
+| `server:configure`
+| Rewrite the append-only log, compacting it
+
+| `POST`
+| `/api/v1/connections/{connectionId}/admin/persistence/snapshot`
+| `server:configure`
+| Write a snapshot in the background
+
+| `GET`
+| `/api/v1/connections/{connectionId}/admin/settings`
+| `server:read`
+| Everything this target is configured to do
+
+| `POST`
+| `/api/v1/connections/{connectionId}/admin/settings`
+| `server:configure`
+| Change one setting while the server runs
+
+| `POST`
+| `/api/v1/connections/{connectionId}/admin/settings/persist`
+| `server:configure`
+| Write the running configuration back to the server's own file
+
+|===
+.Sessions
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `DELETE`
+| `/api/v1/auth/sessions`
+| Being signed in
+| End every session except this one
+
+| `GET`
+| `/api/v1/auth/sessions`
+| Being signed in
+| The browsers you are signed in on
+
+| `DELETE`
+| `/api/v1/auth/sessions/{id}`
+| Being signed in
+| End one of your sessions
+
+|===
+.Sign-in policy
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/auth/policy`
+| `policy:manage`
+| What is asked of whoever signs in
+
+| `PUT`
+| `/api/v1/auth/policy`
+| `policy:manage`
+| Require a second factor, or stop requiring one
+
+|===
+.Sign-in providers
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/auth/providers`
+| Being signed in
+| The ways in this instance offers
+
+| `GET`
+| `/api/v1/auth/providers/{key}/callback`
+| Being signed in
+| Where the provider sends people back to
+
+| `GET`
+| `/api/v1/auth/providers/{key}/start`
+| Being signed in
+| Begin signing in through a provider
+
+|===
+.Topology
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/connections/{connectionId}/topology`
+| `connection:view`
+| How this target is arranged and what it supports
+
+|===
+.Tunnels
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/tunnels`
+| `admin`
+| Every configured tunnel
+
+| `POST`
+| `/api/v1/tunnels`
+| `admin`
+| Add a tunnel
+
+| `DELETE`
+| `/api/v1/tunnels/{id}`
+| `admin`
+| Remove a tunnel
+
+| `PUT`
+| `/api/v1/tunnels/{id}`
+| `admin`
+| Change a tunnel
+
+| `POST`
+| `/api/v1/tunnels/{id}/check`
+| `admin`
+| Find out whether it works
+
+| `POST`
+| `/api/v1/tunnels/check`
+| `admin`
+| Try a jump host that has not been saved
+
+|===
+.Users
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/authz/users`
+| `admin`
+| Everybody, with the groups they are directly in
+
+| `POST`
+| `/api/v1/authz/users`
+| `admin`
+| Create a local account
+
+| `DELETE`
+| `/api/v1/authz/users/{id}`
+| `admin`
+| Remove an account
+
+| `PUT`
+| `/api/v1/authz/users/{id}`
+| `admin`
+| Change an account
+
+|===
+.Values
+[cols="1,3,2,4",options="header",role="kd-generated"]
+|===
+| Method | Path | Required | What it does
+| `GET`
+| `/api/v1/connections/{connectionId}/value`
+| `values:read`
+| Read a page of a key's value
+
+| `POST`
+| `/api/v1/connections/{connectionId}/value`
+| `values:write`
+| Change a value
+
+| `GET`
+| `/api/v1/connections/{connectionId}/value/encodings`
+| `viewer`, `operator`, `admin`
+| List the decoders a client may request
+
+|===

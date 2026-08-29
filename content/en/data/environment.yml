@@ -1,0 +1,32 @@
+KEYDRA_DB_URL: The reactive PostgreSQL URL, as `postgresql://host:port/database`. No JDBC prefix — the
+  application is non-blocking and uses a reactive driver.
+KEYDRA_DB_USERNAME: The database user.
+KEYDRA_DB_PASSWORD: The database password.
+KEYDRA_SECRET_KEY: 'The key that encrypts every stored credential — target passwords, tunnel keys, provider
+  secrets, destination credentials. 32 random bytes, base64. There is no default: without it, nothing
+  that was stored can be read.'
+KEYDRA_BEHIND_PROXY: 'Whether to believe the `X-Forwarded-*` headers. On behind a reverse proxy, and only
+  then: a deployment that trusts them with nothing in front is a deployment where a caller states their
+  own address.'
+KEYDRA_TRUSTED_PROXIES: Which proxies may set those headers, as addresses or CIDR ranges. Without it,
+  believing them means believing anybody.
+KEYDRA_MAX_BODY_SIZE: The largest request body accepted. This is what bounds a key import and a backup
+  restore.
+KEYDRA_ACCESS_LOG: Whether every request is logged. A request line carries a path, and a path here can
+  name a key.
+KEYDRA_JSON_LOGS: JSON on the console instead of the human-readable format, so a log shipper does not
+  have to parse a layout written for a person.
+KEYDRA_OTLP_ENDPOINT: Where OpenTelemetry traces are exported. Setting it is what turns tracing on; there
+  is no second flag.
+KEYDRA_OIDC_URL: The issuer of a single OIDC provider configured at boot. Providers added in the interface
+  are the supported path and need none of these four; this is for a deployment that configures one before
+  there is anybody to sign in and add it.
+KEYDRA_OIDC_CLIENT_ID: The client id at that provider.
+KEYDRA_OIDC_SECRET: The client secret at that provider.
+KEYDRA_OIDC_ROLES_CLAIM: Where the roles are in the token, as a path. A claim of `viewer`, `operator`
+  or `admin` becomes a grant of that role on the instance.
+KEYDRA_MAIL_LANGUAGE: The language an invitation is written in when the account it is for has never
+  said which one it reads. `en` or `tr`.
+KEYDRA_REACHABILITY_INTERVAL: How often one instance asks the identity providers and backup destinations
+  whether they answer. Zero turns the asking off.
+KEYDRA_REACHABILITY_MIN_GAP: How soon after an answer the status page's *Check now* button may ask again.

@@ -1,0 +1,35 @@
+[id="adding-a-backup-destination_{context}"]
+= Yedek hedefi ekleme
+
+.Ön koşullar
+
+* `backup:manage` izniniz olmalı. Bu bir yönetici iznidir: yedek hedefi, {product-name}
+  dışındaki bir servise ait kimlik bilgileri taşır.
+
+.Prosedür
+
+. *Yedekler* sayfasına gidin.
+. *Yeni hedef* düğmesine tıklayın.
+. *Ad* girin ve *Tür* seçin.
+. Konum bilgilerini doldurun. İstenenler türe göre değişir: S3 için *Kova* ve *Anahtar öneki*,
+  SFTP için *Sunucu*, *Port* ve *Uzak dizin*, yerel hedef için *Dizin*.
+. *Giriş* bilgilerini doldurun. S3'te *Erişim anahtarı kimliği* alanını boş bırakırsanız
+  makinenin kendi kimlik bilgileri kullanılır: örnek rolü ya da bağlanmış bir hizmet hesabı.
+. AWS dışındaki bütün servisler için *Uç nokta* adresini girin ve *Kovayı yol olarak adresle*
+  seçeneğini işaretleyin.
+. Gerekiyorsa *Şunun üzerinden* altından bir tünel seçin.
+. *Yedekler nasıl mühürlensin* seçeneğini belirleyin.
+. *Kaydet*, ardından *Sına* düğmesine tıklayın.
+
+.Doğrulama
+
+*Sına*, küçük bir dosya yazıp siler ve sonucu bildirir: *"<ad>" çalışıyor* ya da *"<ad>"
+çalışmadı*. Bir hedefin çalışmadığını öğrenmenin doğru zamanı, ekranın başındayken olduğu
+andır; üç hafta sonra gece yarısı değil.
+
+[NOTE]
+====
+*Kovayı yol olarak adresle* seçeneği, AWS dışındaki hemen bütün servislerde gereklidir. Bu
+seçenek kapalıyken IP adresindeki bir MinIO `bucket.10.0.0.4` olarak aranır ve hata bir DNS
+sorunu gibi görünür.
+====

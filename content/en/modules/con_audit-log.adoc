@@ -1,0 +1,24 @@
+[id="audit-log_{context}"]
+= The audit log
+
+Every operation that changes something is recorded: who did it, what, to which target, when,
+and whether it succeeded or was refused.
+
+Reads are not recorded. A log of every page view buries the entries somebody will come
+looking for.
+
+.Procedure
+
+. Go to *Audit*. You need `audit:read`.
+. Filter by *What* and by *Who*, and page through.
+
+image::audit-log.jpg["The audit log, with what was done, by whom, on which target, and whether it was done or refused"]
+
+.Verification
+
+Each row names the subject of the change in the interface's own words — *Connection*,
+*Grant*, *Encryption key*, *Backup destination*, *Schedule* and so on — with the outcome
+*done* or *refused*.
+
+A refused operation is recorded too. An attempt somebody was not allowed to make is exactly
+the entry an audit log exists for.

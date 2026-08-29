@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="server-admin"]
+= Hedefin kendi ayarları
+:description: Sunucu sekmesi, hedefin kalıcılığını ve birkaç yüz ayarını okur, değişiklikleri yine ona yazar. Neyin anında geçerli olduğu, neyin yeniden başlatmadan sonra da kaldığı.
+:page-keywords: sunucu ayarları, kalıcılık, anlık görüntü, rdb, aof, config, acl
+:context: server-admin
+include::../attributes/attributes.adoc[]
+
+include::../modules/proc_server-settings.adoc[leveloffset=+1]
+
+include::../modules/con_redis-acl.adoc[leveloffset=+1]

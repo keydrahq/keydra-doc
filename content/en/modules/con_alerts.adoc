@@ -1,0 +1,49 @@
+[id="alerts-concepts_{context}"]
+= What a rule is
+
+A rule is a target, a metric, above-or-below, a number, and how long it has to hold.
+
+image::alerts.jpg["An alert rule with its condition written out as a sentence, and what the metric currently reads"]
+
+The duration is the part that makes it usable. Without it, every scrape spike is an alert —
+and an alert that has cried wolf twice gets muted, which is worse than not having one. The
+options are *the first reading*, *1 minute*, *5 minutes*, *15 minutes* and *1 hour*.
+
+A rule is evaluated when a reading arrives, not on a clock of its own. So writing one is
+also a reason to watch: an enabled rule keeps its target sampled whether or not anybody has
+a dashboard open.
+
+== Three states, and only the transitions are events
+
+A rule moves *quiet → pending → firing*, and back. Only the transitions are recorded and
+sent. A rule that has been firing since Tuesday appears once in the history, and clearing
+appears too.
+
+== What can be watched
+
+include::../snippets/generated/alert-metrics.adoc[]
+
+*Not answering* deserves its own mention. A target that has stopped replying reports no memory
+figure to compare against a threshold, and it is the thing most worth being told about — so
+the absence of a reading is a condition rather than a gap in the data.
+
+== Comparing with the past instead of with a number
+
+A threshold can be a percentage of what the metric read over an earlier window — the hour
+before, the same hour yesterday, the same hour last week. A hundred and forty means forty
+per cent above it; sixty means forty per cent below.
+
+This is what most people actually mean. "Busier than usual" moves with the service, where a
+fixed number is wrong twice: too low on the day traffic doubles for a good reason, too high
+on the night something is quietly leaking.
+
+Not every metric can have one, and the ones that cannot are refused while the rule is being
+written rather than silently never firing:
+
+* A rate measured between two readings has no meaning in a single aggregated bucket.
+* A yes-or-no condition has nothing to be a percentage of.
+* A window the readings store cannot answer — memory holds about an hour, so comparing with
+  last week needs xref:observability.adoc#keeping-readings-across-restarts_observability[the readings store].
+
+A rule whose baseline cannot be read now is left exactly as it is: not fired, not
+cleared. Absence is not a value.

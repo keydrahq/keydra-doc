@@ -1,0 +1,5 @@
+STANDALONE: One server, reached at one address. The commonest case.
+CLUSTER: A Redis or Valkey cluster. Keydra discovers the nodes and their slot ranges from the target and
+  shows them on the topology page.
+SENTINEL: A Sentinel deployment. The profile names the master, and Keydra asks Sentinel where that master
+  currently is rather than being told an address that changes on failover.

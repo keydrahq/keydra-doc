@@ -1,0 +1,8 @@
+[id="configuration-properties_{context}"]
+= Yapılandırma özellikleri
+
+`backend/src/main/resources/application.properties` dosyasından okunan bütün `keydra.*`
+özellikleri. Ortam değişkeni bulunan özellikler, kurulumların o yolla ayarlaması beklenen
+özelliklerdir.
+
+include::../snippets/generated/configuration-table.adoc[]

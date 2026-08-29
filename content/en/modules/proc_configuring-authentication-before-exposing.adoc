@@ -1,0 +1,53 @@
+[id="configuring-authentication-before-exposing-keydra_{context}"]
+= Configuring authentication before exposing Keydra
+
+Enforcement is on by default. `deploy/keydra-prod.yaml` includes it turned *off* so the
+manifest runs unchanged on a machine only you can reach — and the interface says
+"security off" on every page, because an open instance that looks secured is how one ends
+up exposed.
+
+.Procedure
+
+. Decide how people will sign in. Either is enough on its own:
++
+--
+* **Local accounts.** Nothing to configure. Create the first administrator on first run and
+  invite the rest.
+* **An identity provider.** Configured while running, from the interface, rather than
+  through environment variables — see xref:identity-providers.adoc[Identity providers].
+--
+
+. Turn enforcement on by removing `KEYDRA_SECURITY_ENABLED` from the manifest, or setting
+  it to `true`.
+
+. Tell {product-name} its own public address, so a provider's redirect comes back to the
+  right place:
++
+[source,properties]
+----
+KEYDRA_PUBLIC_URL=https://keydra.example.com
+----
+
+. If {product-name} runs behind a reverse proxy, say so, and name the proxies it should
+  believe about the client's address:
++
+[source,properties]
+----
+KEYDRA_BEHIND_PROXY=true
+KEYDRA_TRUSTED_PROXIES=10.0.0.0/8
+----
+
+. Serve it over HTTPS. The session cookie is marked `Secure` in production, and a session
+  cookie sent over plain HTTP is a session cookie on the wire.
+
+.Verification
+
+Open {product-name} in a private window. It offers a sign-in form or a provider button
+rather than the interface, and no page carries the "security off" notice.
+
+[WARNING]
+====
+`KEYDRA_SECURITY_ENABLED=false` admits everybody who can reach the address, with every
+permission. Use it for a demonstration or a machine only you can reach, and never on
+anything exposed.
+====

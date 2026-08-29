@@ -1,0 +1,40 @@
+[id="adding-a-tunnel_{context}"]
+= Tünel ekleme
+
+.Ön koşullar
+
+* `tunnel:manage` izniniz olmalı. Bu bir yönetici iznidir: atlama sunucusunun kimlik bilgisi
+  bütün bir ağa erişim sağlar.
+
+.Prosedür
+
+. *Tüneller* sayfasına gidin.
+. *Yeni tünel* düğmesine tıklayın.
+. *Atlama sunucusu* adımında *Ad*, *Sunucu*, *Bağlantı noktası* ve *Kullanıcı adı* girin.
+. *Giriş* adımında şunlardan birini sağlayın:
++
+--
+* *Özel anahtar* — anahtar dosyasını seçin ya da anahtarı yapıştırın; anahtarın parolası varsa
+  *Anahtar parolası* alanına yazın.
+* *Parola*.
+
+İkisini birden verebilirsiniz; önce anahtar denenir. Her ikisi de şifreli saklanır ve diske
+yazılmaz.
+--
+. *Sunucu anahtarı* adımında *Bağlantıyı test et* düğmesine tıklayın.
+. Sunucu yanıt verdiğinde sunduğu anahtar ekrana gelir. Sabitlemek için *Bu anahtarı bekle*
+  düğmesine tıklayın.
+. *Kaydet* düğmesine tıklayın.
+
+.Doğrulama
+
+Yeni satır *Tüneller* listesinde *her anahtar* değil *sabitli* olarak görünür; *Kullanan*
+sütununda *henüz hiçbir şey* yazar.
+
+İstediğiniz zaman *Sına* düğmesine tıklayabilirsiniz. Başarılıysa sayfa *"<ad>" çalışıyor*,
+başarısızsa *"<ad>" çalışmadı* der. Anahtar reddedilmişse hangi anahtarın sunulduğunu da
+belirtir; sabitlemenin asıl işe yaradığı yer burasıdır.
+
+.Sonraki adımlar
+
+* xref:connections.adoc#adding-a-connection_connections[Bir bağlantıyı bu tünele yönlendirin]

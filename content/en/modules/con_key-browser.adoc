@@ -1,0 +1,25 @@
+[id="key-browser-concepts_{context}"]
+= How the key browser reads a keyspace
+
+{product-name} never issues `KEYS`. Enumeration is always a cursor-based `SCAN`, and the
+results are streamed to the browser as the server produces them — so the first keys render
+while the walk is still running, and a keyspace of any size is walked rather than held.
+
+image::key-browser.jpg["The key browser, with the namespace tree on the left and keys with their type and TTL on the right"]
+
+That is why the page says *{count} keys so far* while it works, and why *Rescan* rather
+than *Refresh* is the word on the button: there is no cached list to refresh.
+
+Namespace tree:: Keys are grouped on the `:` delimiter into a tree, loaded lazily. A branch
+with more children than the tree will draw says *and {count} more — use the search box*.
+
+Search:: A glob pattern, passed to the server as `SCAN`'s `MATCH`. The placeholder shows the
+shape: `user:*`.
+
+Type filter:: Narrows to one of the server's types.
+
+Limit:: The page holds as many keys as it safely can. When it reaches that, it says *Limit
+reached* and explains that narrowing the filter shows different ones. It does not silently
+stop.
+
+Each row carries the key's type and its TTL, read in the same pass.

@@ -1,0 +1,48 @@
+[id="what-is-keydra_{context}"]
+= Keydra nedir
+
+{product-name}, anahtar-değer sunucuları için bir web konsoludur. Bir
+sunucunun adresini ve kimlik bilgilerini girersiniz; {product-name} o sunucu üzerinde günlük
+işler için gereken her şeyi sunar: anahtarlara göz atma, değer okuma ve yazma, komut
+çalıştırma, trafiği izleme, sunucunun kendi istatistiklerini okuma ve iki sunucu arasında
+veri taşıma.
+
+image::genel-bakis.jpg["Keydra genel bakış sayfası; her hedef durumu, anahtar sayısı, belleği ve ayakta kalma süresiyle listeleniyor"]
+
+{product-name} bir veritabanı değildir; verilerinizi saklamaz. Sakladıkları şunlardır: her
+sunucuya nasıl erişileceği, kimin ne yaptığı ve zamanlanmış işlerin ayarları. Ekranda
+gördüğünüz her şey, siz istediğiniz anda hedeften okunur.
+
+== Masaüstü araçlardan farkı
+
+Masaüstü bir istemci tek bir dizüstünde çalışır, bağlantı listesini o dizüstünün ev dizininde
+tutar ve yalnızca o dizüstünün ulaşabildiği sunuculara ulaşır. Aynı erişime ikinci bir kişi
+ihtiyaç duyana kadar bu yeterlidir.
+
+{product-name} bir kez kurulur, herkes aynı kurulumu kullanır:
+
+Çok kullanıcılı:: Herkes kendi hesabıyla oturum açar. Kimin neyi yapabileceğini yöneticinin
+tanımladığı yetkiler belirler; denetim günlüğü de kimin ne yaptığını kaydeder.
+
+Kimlik bilgileri tek yerde:: Hedef parolaları sunucuda şifreli saklanır ve API bunları hiçbir
+zaman geri döndürmez — ne arayüze ne de başka bir yere. Ekibe yeni biri katıldığında ona
+parola göndermeniz gerekmez.
+
+Ağ erişimi:: {product-name}, sunuculara erişebilen bir yerde çalışır. Atlama sunucusu
+arkasındaki özel ağda duran hedeflere, bir kez tanımladığınız SSH tüneli üzerinden erişilir;
+o tünele arkasındaki bütün hedefler işaret eder.
+
+Kesintisiz işler:: Zamanlanmış işler, uyarı kuralları ve yedeklemeler, tarayıcı açık olsun ya
+da olmasın çalışmayı sürdürür.
+
+== Hangi sunucularla çalışır
+
+{redis-name}, {valkey-name} ve aynı protokolü konuşan türevlerle — KeyDB, Dragonfly, Garnet —
+tek bir motor üzerinden; bu motor hedefin hangi türevi ve hangi sürümü çalıştırdığını kendisi
+tespit eder ve arayüzde gösterir. Aerospike ve TiKV ile ise ayrı birer motor üzerinden, çünkü
+ikisi de o protokolü konuşmaz ve ikisi de anahtarı aynı biçimde tutmaz.
+
+Hepsi {product-name}'nın içinde aynı arayüzün arkasında durur; bu yüzden bir sayfa
+protokollerle değil, anahtarlar ve sunucularla ilgilenir — ve bir deponun sahip olmadığı
+yetenek, kullanınca başarısız olan bir işlem değil, arayüzde bulunmayan bir şeydir. Bkz.
+xref:what-is-keydra.adoc#supported-targets_what-is-keydra[Desteklenen hedefler].

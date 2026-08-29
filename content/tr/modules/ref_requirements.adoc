@@ -1,0 +1,40 @@
+[id="requirements_{context}"]
+= Gereksinimler
+
+.Keydra'nın çalışması için gerekenler
+[cols="1,3",options="header"]
+|===
+| Bileşen | Gereksinim
+
+| Java
+| Kaynaktan derleme için {java-version}. Yayımlanan imaj kendi çalışma zamanıyla gelir.
+
+| PostgreSQL
+| Zorunlu ve alternatifi yok. {product-name} kendi verisini burada tutar; uygulama uçtan uca
+bloklamayan bir yapıdadır ve reaktif bir PostgreSQL sürücüsü kullanır.
+
+| Kapsayıcı motoru
+| İmajı çalıştırmak için Podman ya da Docker. Depo Podman ile derlenir; manifestleri Compose
+dosyası değil, Kubernetes Pod manifestidir.
+
+| Bir hedef
+| {product-name}'nın çalıştığı yerden erişilebilen en az bir sunucu. {redis-name}, {valkey-name}
+ya da uyumlu bir türev, bir Aerospike veya bir TiKV.
+
+| Keydra'nın deposu için {redis-name}
+| İsteğe bağlı. Yalnızca aynı veritabanına birden fazla örnek bağlanacaksa gerekir. Bu depo
+hedeflerinizden biri olmamalıdır.
+
+| ClickHouse
+| İsteğe bağlı. Yalnızca ölçüm kayıtlarının yeniden başlatmadan sonra da durması gerekiyorsa.
+
+| SMTP aktarıcısı
+| İsteğe bağlı. Yalnızca davet ve parola sıfırlama bağlantıları e-postayla gidecekse.
+|===
+
+.Node ve derleme araçları
+[NOTE]
+====
+Node {node-version} ve yarn yalnızca ön ucu kaynaktan derlerken gerekir. Yayımlanan imajı
+çalıştıran bir kurulumda ikisine de ihtiyaç yoktur.
+====

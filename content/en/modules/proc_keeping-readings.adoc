@@ -1,0 +1,44 @@
+[id="keeping-readings-across-restarts_{context}"]
+= Keeping readings across restarts
+
+By default {product-name} keeps the last hour of readings per target in memory, and they go
+when the process does. Being told that memory is at 91% raises two questions that cannot then
+be answered: since when, and was it like this last Tuesday.
+
+A ClickHouse answers both, and is optional and off by default.
+
+.Procedure
+
+[source,properties]
+----
+KEYDRA_CLICKHOUSE_ENABLED=true
+KEYDRA_CLICKHOUSE_URL=http://clickhouse.internal:8123
+KEYDRA_CLICKHOUSE_USER=<username>
+KEYDRA_CLICKHOUSE_PASSWORD=<password>
+----
+
+Retention is ClickHouse's own TTL rather than a policy {product-name} invents; the number of
+days is configured alongside.
+
+.Verification
+
+On a target's *Monitoring* page, choose a *Window* longer than an hour. The chart says *From
+the store, {seconds}s buckets* rather than *From memory*.
+
+Restart {product-name} and the chart still shows the period before it.
+
+[NOTE]
+====
+Writes to the store are fire-and-forget and never delay a reading. A sampler that waits on a
+store is a sampler that stops sampling when the store is slow, which is when the readings
+matter most.
+
+ClickHouse was chosen for the shape of the data rather than for fashion: a wide, dull,
+append-only stream of numbers per target per few seconds, read back as ranges. PostgreSQL
+would do it, and would be carrying seventeen thousand rows a day per target that it has no
+use for.
+====
+
+.Next steps
+
+* xref:alerts.adoc#alerts-concepts_alerts[Write a rule that compares with last week rather than with a number]

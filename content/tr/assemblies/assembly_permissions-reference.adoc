@@ -1,0 +1,10 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="permissions-reference"]
+= İzin referansı
+:description: Keydra'nın tanımladığı bütün izinler ve her birinin verilebileceği kapsam.
+:page-keywords: izinler, referans, kapsam, roller, yetkiler
+:context: permissions-reference
+include::../attributes/attributes.adoc[]
+
+include::../modules/ref_permissions.adoc[leveloffset=+1]

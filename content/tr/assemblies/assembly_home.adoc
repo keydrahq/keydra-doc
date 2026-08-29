@@ -1,0 +1,16 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="home"]
+= Keydra dokümantasyonu
+:description: Keydra, anahtar-değer sunucuları için bir web konsoludur: anahtarlara göz atın, komut çalıştırın, sunucu filonuzu izleyin; bunları ekipçe, sizin belirlediğiniz izinlerle yapın.
+:context: home
+include::../attributes/attributes.adoc[]
+
+{product-name}, anahtar-değer sunucuları için — {redis-name}, {valkey-name} ve uyumlu
+türevleri, Aerospike ve TiKV — çok kullanıcılı, dağıtılabilir bir web konsoludur. Kendi altyapınızda çalışır, hedeflerinizin kimlik bilgilerini saklar ve ekibe tek
+bir çalışma alanı verir: anahtar uzayına göz atmak, komut çalıştırmak, sunucunun ne yaptığını
+izlemek, anahtarları ortamlar arasında taşımak, yedek almak ve bir sorun çıktığında haberdar
+olmak.
+
+Bu dokümantasyondaki bilgiler {product-name} kaynak kodundan türetilmiştir. Bir prosedür
+düğme adı veriyorsa, o ad arayüzde gördüğünüz addır.

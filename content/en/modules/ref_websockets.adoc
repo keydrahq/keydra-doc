@@ -1,0 +1,28 @@
+[id="websockets_{context}"]
+= WebSockets and streams
+
+include::../snippets/generated/websocket-endpoints.adoc[]
+
+== The notification envelope
+
+Everything on the hub is the same shape:
+
+[source,json]
+----
+{
+  "category": "ConnectionStatusChanged",
+  "payload": { },
+  "ts": "2026-01-01T00:00:00Z"
+}
+----
+
+A broadcast about one target reaches only the sockets whose owner may see that target.
+
+include::../snippets/generated/notification-categories.adoc[]
+
+== Server-Sent Events
+
+Key enumeration streams as Server-Sent Events rather than being buffered into a response, so
+the interface renders the first keys while a `SCAN` is still running. The GraphQL
+subscription beside it sends only the fields the caller named — a browser showing names and
+types is sent names and types, not the TTL and size of every key in a million-key database.

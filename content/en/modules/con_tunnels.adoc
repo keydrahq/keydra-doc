@@ -1,0 +1,37 @@
+[id="tunnels_{context}"]
+= Why a tunnel is a thing of its own
+
+A target on a private network is the ordinary case in production, and a jump host is the
+ordinary answer. {product-name} describes a jump host once, as a row, and everything behind
+it points at that row.
+
+image::tunnels.jpg["The Tunnels page with no jump hosts described yet"]
+
+The alternative — a set of SSH fields on each connection profile — was the right size when
+one target sat behind one jump host, and the wrong size the moment there were twenty: twenty
+copies of the same key, and rotating it means editing twenty profiles and missing one.
+
+A tunnel carries a *Name*, a *Host* and *Port*, a *Username*, a credential, and the host
+key it is expected to present.
+
+One SSH session serves everything behind it. Twenty targets behind one jump host are one
+connection with the local forwards each of them needs, not twenty connections.
+
+== What can use one
+
+Connection profiles:: Tick *Reach this target through an SSH tunnel* on the profile.
+
+Backup destinations:: An SFTP drop or an S3-compatible store on the far side of the same
+jump host. Not the public clouds: a forwarded port reaches a host and a port, and AWS, Azure
+and Google are named by an address inside a certificate, so the form refuses that
+combination rather than letting the connection fail later for a reason nobody can read off
+the row.
+
+== Pinning the host key
+
+A tunnel that pins no host key accepts anything that can answer on the jump host's address —
+and everything {product-name} holds for everything behind it travels through there. The
+interface says which tunnels do not pin one, and the test offers the key it saw so pinning
+is a click rather than a trip to a terminal.
+
+Pinning stays optional, because refusing every existing tunnel on upgrade would be worse.

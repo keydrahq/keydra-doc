@@ -1,0 +1,42 @@
+[id="building-the-image-from-source_{context}"]
+= İmajı kaynaktan derleme
+
+Bu adım yalnızca {product-name}'nın kendisini değiştiriyorsanız gerekir. Kurulumlarda
+xref:installation.adoc#container-images_installation[yayımlanan imajları] kullanın.
+
+.Ön koşullar
+
+* {product-name} deposunun bir kopyası.
+* Podman.
+
+.Prosedür
+
+[source,bash]
+----
+podman build -t localhost/keydra:dev -f Containerfile .
+----
+
+Depodaki `Containerfile`, tekil imajı üç aşamada üretir: ön uç Node ile derlenir, arka uç
+Maven ile derlenir — derlenen ön uç `src/main/resources/META-INF/resources` altına kopyalanır
+— ve son aşamada ikisinin de araçlarını taşımayan bir JRE imajı hazırlanır.
+
+.Doğrulama
+
+[source,bash]
+----
+podman run --rm -p 8181:8181 \
+  -e KEYDRA_DB_URL=postgresql://host.containers.internal:5442/keydra \
+  -e KEYDRA_DB_USERNAME=keydra \
+  -e KEYDRA_DB_PASSWORD=keydra \
+  -e KEYDRA_SECRET_KEY="$(openssl rand -base64 32)" \
+  localhost/keydra:dev
+----
+
+.İmaj root olmayan kullanıcıyla çalışır
+[NOTE]
+====
+İmaj `USER keydra` tanımlar ve ana makinenin değil kapsayıcının bellek sınırını okur; böylece
+sınırlı bir kapsayıcı, kullanamayacağı bir belleğe göre yığın boyutu ayarlamaz. İmaj
+derlenirken test çalıştırılmaz: testler kapsayıcı gerektirir, derleme kapsayıcısında ise
+kapsayıcı yoktur. Testleri CI çalıştırır.
+====

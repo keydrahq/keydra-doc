@@ -1,0 +1,48 @@
+[id="checking-what-keydra-reaches_{context}"]
+= Checking what {product-name} reaches
+
+The lower half of the *Instances* page lists everything this installation reaches: the database,
+the stores, the identity providers, the mail relay, the backup destinations, the alert channels,
+the tunnels and the targets themselves.
+
+.What is counted, and what is asked
+
+Most rows are counts — how many there are and how many are switched on. Two of them carry more
+than that.
+
+Identity providers and backup destinations are *asked* whether they answer. The instance holding
+the chores does it on a slow clock, ten minutes by default, and writes down what came back. The
+page reads that row rather than causing a request, which is what keeps ten people watching from
+being ten times the outbound traffic of one, aimed at somebody else's service.
+
+The detail column says what was found and how long ago:
+
+* `1 of 2 answering · checked 6m ago` — one of them stopped answering, and the reading is six
+  minutes old.
+* `Not checked yet` — nothing has asked. The row is not drawn red by that: it has not been asked,
+  which is a different thing from having failed.
+
+.Asking now
+
+*Check now* asks everything immediately, for the moment somebody has just changed a destination
+and does not want to wait for the next round. It is refused if the last answer is seconds old — a
+button that can be held down is a way to make {product-name} hammer somebody else's service from a
+page that only needs `instance:read`.
+
+[NOTE]
+====
+Alert channels and the mail relay are counted and never asked. The reason is not that the check
+would be hard: fetching a discovery document is a request somebody's server answers a thousand
+times an hour, and writing a small file into a bucket and taking it away again is a round trip
+nobody sees. Posting to a chat channel is a message a person reads, and a status page that pinged
+an incident channel every ten minutes would be a page nobody is allowed to keep open. Those keep
+the *Check* button they already have on their own configuration page.
+====
+
+.What a check actually does
+
+For a backup destination it is the whole round trip — write a small file, look for it, take it
+away again — because credentials that can log in and not write are the commonest way a destination
+is wrong, and a check that only opened a connection would pass for one that cannot be written to.
+For an identity provider it is a fetch of the issuer's discovery document, which is the same
+request a sign-in makes first. Something switched off is not asked at all.

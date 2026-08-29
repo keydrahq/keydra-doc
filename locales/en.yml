@@ -1,0 +1,84 @@
+# Interface strings for the documentation shell itself.
+#
+# The shell is the part of the page nobody wrote in AsciiDoc: the masthead, the menus,
+# the "on this page" heading, the search overlay, the 404. Every one of them lives here
+# so a language is added by adding a file rather than by finding string literals.
+
+site.title: Keydra documentation
+site.short: Documentation
+site.skipToContent: Skip to content
+
+nav.label: Documentation sections
+nav.toggle: Toggle the documentation navigation
+nav.breadcrumb: Breadcrumb
+nav.home: Documentation
+
+toc.title: On this page
+toc.label: Sections on this page
+
+pager.previous: Previous
+pager.next: Next
+
+page.editThis: Edit this page
+
+language.change: Change language
+language.unavailable: This page has not been translated yet.
+
+version.change: Change version
+version.development: Development documentation
+version.developmentBody: This describes Keydra as it is being built and is not a released version. What it documents can change before a release.
+version.unavailable: This page does not exist in that version.
+
+search.label: Search
+search.placeholder: Search documentation
+search.open: Search documentation
+search.close: Close search
+search.results: Results
+search.noResults: No results
+search.hint: Searching the {language} documentation, version {version}.
+search.resultCount_one: '{count} result'
+search.resultCount_other: '{count} results'
+search.unavailable: Search needs JavaScript, which this browser has turned off. The navigation and every page still work.
+
+code.copy: Copy
+code.copied: Copied
+
+table.label: Table
+image.open: Open the full-size screenshot
+heading.anchor: 'Link to this section: {title}'
+
+admonition.note: Note
+admonition.tip: Tip
+admonition.important: Important
+admonition.warning: Warning
+admonition.caution: Caution
+
+notFound.title: Page not found
+notFound.body: There is no page at this address. It may have moved, or the link that brought you here may be out of date.
+notFound.home: Go to the documentation home page
+notFound.search: Search the documentation
+
+footer.product: Keydra
+footer.docsVersion: Documentation for Keydra {version}
+footer.repository: Source repository
+
+theme.label: Appearance
+theme.system: System
+theme.light: Light
+theme.dark: Dark
+
+landing.browse: All sections
+landing.sectionPages_one: '{count} page'
+landing.sectionPages_other: '{count} pages'
+
+# Names of the navigation groups. Leaf entries take their label from the page's own
+# title, which is what keeps a navigation label and a page heading from disagreeing.
+nav.group.introduction: Introduction
+nav.group.install: Installation
+nav.group.targets: Targets
+nav.group.data: Keys and data
+nav.group.operate: Operating
+nav.group.automate: Automation
+nav.group.protect: Security
+nav.group.run: Running Keydra
+nav.group.reference: Reference

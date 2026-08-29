@@ -1,0 +1,38 @@
+[id="pairing-an-authenticator_{context}"]
+= Kimlik doğrulayıcı eklemek
+
+Çalınmış bir parola tek başına yetmez hâle gelir. İkinci faktör, telefonunuzdaki bir uygulamanın
+gösterdiği altı haneli koddur ve parolanın ardından değil, onunla aynı anda sorulur.
+
+.Ön koşullar
+
+* Burada bir parolayla oturum açmış olmak. Kimlik sağlayıcı üzerinden oturum açan bir hesap
+  kimliğini orada kanıtlar ve {product-name} ondan ayrıca ikinci faktör istemez.
+* Telefonda ya da bilgisayarda bir kimlik doğrulayıcı uygulaması.
+
+.Prosedür
+
+. *Ayarlar* sayfasına gidip *İkinci faktör* bölümünü bulun.
+. *Doğrulayıcı kur* düğmesine tıklayın. Bir QR kodu belirir; kamerası olmayan cihazlar için
+  aynı gizli anahtar hemen altında metin olarak da yazılıdır.
+. Kodu taratın, ardından uygulamanın gösterdiği altı haneyi yazıp *Onayla* düğmesine tıklayın.
+. On kurtarma kodu görünür. Bunları telefonun dışında bir yere kopyalayın.
+
+.Doğrulama
+
+Oturumu kapatıp yeniden açın. Form önce parolayı sorar; parola doğruysa ve kod isteniyorsa bir kod
+alanı belirir ve kodu ister. İkisi birlikte gider — aradaki yarı açılmış bir oturum durumu yoktur,
+dolayısıyla süresi dolacak ya da tekrar oynatılacak bir şey de yoktur.
+
+[IMPORTANT]
+====
+Kurtarma kodları bir kez gösterilir. Yalnızca özetleri saklandığı için {product-name} içindeki
+hiçbir şey onları yeniden gösteremez — kodları veren sayfa bunu söyler. Her biri bir kez çalışır ve
+kaybolan bir telefonu atlatılabilir kılan şey onlardır.
+
+Doğru bir kod yazılana kadar hiçbir şey zorunlu hâle gelmez. Bu sayfayı açıp hiçbir şey taratmadan
+sekmeyi kapatmak sizi dışarıda bırakmaz.
+====
+
+Kapatmak tek bir düğmedir ve o andan itibaren parola tek başına yeterlidir. Telefon değiştirmek de
+arka arkaya aynı iki adımdır: kapatın, yenisini ekleyin.

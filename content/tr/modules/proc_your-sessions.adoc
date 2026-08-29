@@ -1,0 +1,34 @@
+[id="your-sessions_{context}"]
+= Oturumlarınız
+
+Oturum yalnızca bir çerez değil, veritabanındaki bir kayıttır. Görüntülenebilmesini ve
+sonlandırılabilmesini sağlayan da budur.
+
+.Ön koşullar
+
+* Oturum açmış olmanız yeterlidir; ayrıca bir rol gerekmez. Hiç yetkisi olmayan bir hesap da
+  bir yerde açık unutulmuş olabilir.
+
+.Prosedür
+
+. *Ayarlar* sayfasına gidip *Giriş yapılmış tarayıcılar* bölümünü bulun.
+. Her satır oturumun nereden ve ne zaman açıldığını gösterir; kullandığınız oturumu *Bu
+  tarayıcı* olarak işaretler.
+. Tek bir oturum için *Sonlandır* düğmesine, diğerlerinin tamamı için *Diğer {count} oturumu
+  sonlandır* düğmesine tıklayın.
+
+.Doğrulama
+
+Sonlandırılan oturum, süresi dolduğunda değil *bir sonraki isteğinde* çalışmayı bırakır. İletişim
+kutusu bunu belirtir: *{what}, bir sonraki isteğinde oturumdan çıkarılacak.*
+
+Şu anda kullandığınız oturumu sonlandırmak çıkış yapmak demektir; iletişim kutusu bunu işlemden
+sonra değil önce söyler.
+
+[NOTE]
+====
+Başka birinin oturumlarını görüntüleyen bir sayfa yoktur: bir kişinin oturumları, nerede ve ne
+zaman çalıştığını gösterir. Yöneticiler bir kullanıcının oturumlarını *sonlandırabilir* — "bu
+hesap ele geçirildi" durumuna karşılık verebilmeleri gerekir — ve bu işlem denetim günlüğüne
+yazılır; yönetici işlemlerinin kaydedileceği yer de orasıdır.
+====

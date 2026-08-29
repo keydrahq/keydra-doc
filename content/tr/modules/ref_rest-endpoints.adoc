@@ -1,0 +1,11 @@
+[id="rest-endpoints_{context}"]
+= REST uç noktaları
+
+Uç noktalar, kaynakların taşıdığı etikete göre gruplanmıştır. *Gereken* sütunu, uç noktanın
+denetlediği izni gösterir; denetim yalnızca kaba bir role dayanıyorsa rol adı yazılır.
+
+Liste, arayüzün artık çağırmadığı uç noktaları da içerir. Bunlar, onları çağıran hiçbir şey
+kalmayana kadar yerinde durur: son çağıran taşındığı gün bir uç noktayı silmek, kimsenin
+hatırlamadığı bir istemciyi bozmanın en kolay yoludur.
+
+include::../snippets/generated/rest-endpoints.adoc[]

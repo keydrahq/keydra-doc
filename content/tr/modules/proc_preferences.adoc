@@ -1,0 +1,59 @@
+[id="your-preferences_{context}"]
+= Tercihleriniz
+
+Tercihler hedefe değil size bağlıdır ve hesabınızla birlikte saklanır — nereden giriş
+yaparsanız yapın aynı kalırlar. Hesabı olmayan bir örnekte ise o tarayıcıda saklanırlar ve
+sayfa, ikisinden hangisinin geçerli olduğunu söyler.
+
+.Ön koşullar
+
+* Giriş yapmış olmak. Herhangi bir rol gerekmez: hiçbir yetkisi olmayan bir hesabın da bir
+  renk şeması vardır.
+
+.Prosedür
+
+. *Ayarlar* sayfasına gidin.
+. *Görünüm* altında şunları seçin:
++
+--
+* *Renk şeması* — açık ya da koyu. Sistemi izlemek, sistem hangi saatte değiştiriyorsa onunla
+  birlikte değişir.
+* *Tema* — varsayılan ya da *Felt*: PatternFly'ın kendi belgelerinin giydiği tema, kırmızı
+  vurgular ve kapsül biçimli denetimler.
+* *Kontrast ve yüzey* — yüksek kontrast her kenarı ve etiketi güçlendirir. Cam, panelleri
+  yarı saydam çizer; bu bir görünüm tercihidir, erişilebilirlik yardımı değildir ve sayfa
+  bunu söyler.
+* *Dil*. Hemen uygulanır.
+--
+. *Anahtar tarama* altında şunları ayarlayın:
++
+--
+* *Bir seferde yüklenen anahtar* — bir taramanın kaç anahtar döndüreceği. Büyük sayfa, daha
+  az gidiş geliş ve ilkini beklerken daha uzun bir süre demektir.
+* *Silmeden önce sor*. Bunu kapatmak yalnızca tek anahtar silmedeki onayı kaldırır; bir ad
+  alanını ya da tüm hedefi temizlemek her zaman sorar.
+--
+
+image::ayarlar.jpg["Ayarlar sayfası; üstte görünüm ve anahtar tarama tercihleri, altta saklanan kimlik bilgileri ve ikinci faktör"]
+
+.Doğrulama
+
+Sayfa, seçim yapılır yapılmaz seçilen şema ve dille yeniden çizilir — kaydedilecek bir şey ve
+yeniden yükleme yoktur.
+
+[NOTE]
+====
+*Dil*, {product-name} arayüzünün dilidir. Aynı zamanda, tercihini belirtmiş bir hesap için
+davetiye ya da parola sıfırlama mektubunun yazıldığı dildir; yepyeni bir hesap hiçbir şey
+belirtmemiştir ve bir e-posta adresi dil taşımaz, bu yüzden o mektup kurulumun kendi diline
+düşer.
+====
+
+.Bu sayfada başka neler var
+
+*Saklanan kimlik bilgileri*, kullanılan şifreleme anahtarını ve o anahtarın altındaki gizli
+bilgi sayısını gösterir — bkz.
+xref:security.adoc#rotating-the-instance-key_security[Örnek anahtarını değiştirme]. *İkinci
+faktör* ve *Giriş yapılmış tarayıcılar* için bkz.
+xref:accounts.adoc#pairing-an-authenticator_accounts[Doğrulayıcı eşleştirme] ve
+xref:accounts.adoc#your-sessions_accounts[Oturumlarınız].

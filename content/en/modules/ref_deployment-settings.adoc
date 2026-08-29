@@ -1,0 +1,113 @@
+[id="deployment-settings_{context}"]
+= Everything a deployment can set
+
+Every environment variable {product-name} reads, grouped by the decision it belongs to,
+with the value a packaged runtime starts from. Anything with no default and no value is
+either off or absent.
+
+Two groups need reading before the others. *Required settings*, because {product-name} does
+not start without them. *Enforcement, cookies and sessions*, because their defaults are safe
+and turning one off is a decision rather than a tweak.
+
+include::../snippets/generated/deployment-environment.adoc[]
+
+[NOTE]
+====
+The same settings are listed alphabetically, with the property each one sets, in
+xref:configuration-reference.adoc[the configuration reference]. This page groups them by
+what you are deciding; that one answers "what is this".
+====
+
+== A complete example
+
+Every group at once, so nothing has to be guessed at. Most deployments set a fraction of
+it — the four under *Required*, an address, and whatever they actually run.
+
+[source,yaml]
+----
+env:
+  # --- Required -------------------------------------------------------------
+  - name: KEYDRA_DB_URL
+    value: postgresql://db.internal:5432/keydra
+  - name: KEYDRA_DB_USERNAME
+    value: keydra
+  - name: KEYDRA_DB_PASSWORD
+    valueFrom: { secretKeyRef: { name: keydra-db-password, key: keydra-db-password } }
+  # 32 random bytes, base64. Losing it loses every stored credential.
+  - name: KEYDRA_SECRET_KEY
+    valueFrom: { secretKeyRef: { name: keydra-secret-key, key: keydra-secret-key } }
+
+  # --- Address and reverse proxy --------------------------------------------
+  - name: KEYDRA_PUBLIC_URL
+    value: https://keydra.example.com
+  - name: KEYDRA_BEHIND_PROXY
+    value: "true"
+  - name: KEYDRA_TRUSTED_PROXIES
+    value: 10.0.0.0/8
+  # Raise only if a key import or a backup restore is larger than this.
+  - name: KEYDRA_MAX_BODY_SIZE
+    value: 25M
+
+  # --- Enforcement ----------------------------------------------------------
+  # On by default. Off admits everybody who can reach the address.
+  - name: KEYDRA_SECURITY_ENABLED
+    value: "true"
+  - name: KEYDRA_COOKIE_SECURE
+    value: "true"
+
+  # --- More than one instance ----------------------------------------------
+  - name: KEYDRA_INSTANCE_ID
+    value: keydra-a
+  # Keydra's own Redis. Never one of your targets.
+  - name: KEYDRA_STORE_URL
+    value: redis://store.internal:6379
+
+  # --- Outgoing mail --------------------------------------------------------
+  - name: KEYDRA_MAIL_HOST
+    value: smtp.example.com
+  - name: KEYDRA_MAIL_PORT
+    value: "587"
+  - name: KEYDRA_MAIL_TLS
+    value: "true"
+  - name: KEYDRA_MAIL_USERNAME
+    value: keydra
+  - name: KEYDRA_MAIL_API_KEY
+    valueFrom: { secretKeyRef: { name: keydra-mail-key, key: keydra-mail-key } }
+  - name: KEYDRA_MAIL_FROM
+    value: keydra@example.com
+
+  # --- Metrics storage --------------------------------------------------------
+  - name: KEYDRA_CLICKHOUSE_ENABLED
+    value: "true"
+  - name: KEYDRA_CLICKHOUSE_URL
+    value: http://clickhouse.internal:8123
+  - name: KEYDRA_CLICKHOUSE_USER
+    value: keydra
+  - name: KEYDRA_CLICKHOUSE_PASSWORD
+    valueFrom: { secretKeyRef: { name: keydra-clickhouse, key: keydra-clickhouse } }
+
+  # --- Observability --------------------------------------------------------
+  - name: KEYDRA_OTLP_ENDPOINT
+    value: http://otel-collector.internal:4317
+  - name: KEYDRA_JSON_LOGS
+    value: "true"
+----
+
+.Every secret comes from a secret
+[IMPORTANT]
+====
+The four `valueFrom` entries above are not decoration. A password written into a manifest
+is a password in the repository, in the deployment history and in whatever prints the
+manifest — and `KEYDRA_SECRET_KEY` in particular is the one value that unlocks every other
+credential {product-name} holds.
+====
+
+== Settings this page does not list
+
+`{product-name}` is a Quarkus application, so every Quarkus setting is available even when
+it has no `KEYDRA_`-prefixed name of its own. The mapping is Quarkus' own: upper-case the
+property and replace each non-alphanumeric character with an underscore, so
+`quarkus.http.port` is `QUARKUS_HTTP_PORT`.
+
+Confirm that mapping against your Quarkus version before relying on it for a property with
+unusual characters in its name.

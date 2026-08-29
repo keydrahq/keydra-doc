@@ -1,0 +1,34 @@
+[id="value-editors_{context}"]
+= Değerleri okuma ve değiştirme
+
+Sunucunun her veri türü için ayrı bir düzenleyici vardır ve her biri değeri bütün hâlde değil
+parça parça yükler: tarama yapılan türlerde `HSCAN`, `SSCAN` ve `ZSCAN`; listelerde `LRANGE`
+pencereleri; akışlarda `XRANGE` sayfaları. Büyük bir değer indirilmez, parça parça açılır.
+
+image::deger-duzenleyici.jpg["Anahtar listesinin yanında açılmış bir hash; alanları ve değerleri yerinde düzenlenebiliyor"]
+
+String:: Tek bir düzenleyici ve bir *Kodlama* seçicisi.
+
+Hash:: Satır içi düzenlenebilen *Alan* ve *Değer* tablosu. Yeni alan için *Yeni alan adı* ve
+*Yeni alan değeri* kutuları, her satırda da bir silme işlemi bulunur.
+
+Liste:: *Sıra* ve *Değer* tablosu. Yeni öğeler *Başa* ya da *Sona* eklenir.
+
+Set:: *Üye* tablosu ve *Yeni üye* kutusu.
+
+Sıralı set:: İkisi de düzenlenebilen *Üye* ve *Skor* sütunları.
+
+Stream:: Sayfalanan bir görüntüleyici.
+
+== Bütün hâlde döndürülemeyecek kadar büyük değerler
+
+Bazı değerler bütün hâlde döndürülemez. {product-name} bu değerlerin başını gösterir ve
+*Kısmen gösteriliyor* olarak işaretler; buradan düzenlemenin ya da kopyalamanın geri kalanı
+sileceğini açıklar. Kopyalama da aynı nedenle engellenir: kayıtlı olandan kısa bir metin
+üretirdi.
+
+== Değeri dışarı kopyalama
+
+Anahtar işlemleri menüsünde *Anahtar adını kopyala*, *JSON olarak kopyala* ve *redis-cli komutu
+olarak kopyala* seçenekleri bulunur. Sonuncusu, değeri doğrudan bir terminale ya da betiğe
+taşımanızı sağlar.

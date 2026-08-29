@@ -1,0 +1,29 @@
+[id="what-keydra-stores_{context}"]
+= Keydra neyi saklar, neyi korur
+
+{product-name} üç tür veri tutar ve her birine farklı davranır.
+
+Kimlik bilgileri:: Hedef parolaları, SSH anahtarları ve anahtar parolaları, kimlik sağlayıcı
+istemci sırları, yedek hedefi kimlik bilgileri, sohbet belirteçleri. Hepsi örnek anahtarıyla
+AES-256-GCM kullanılarak şifreli saklanır ve hiçbir API bunları geri döndürmez. Parola alanı
+boş gelen bir düzenleme formu, kayıtlı parolayı silmez; olduğu gibi bırakır.
+
+Hesap parolaları:: Argon2id ile özetlenir. Doğrulama bir işçi iş parçacığında yapılır; böylece
+bilinçli olarak yavaş tutulan özetleme bir olay döngüsünü meşgul etmez. Özetten parolaya geri
+dönülemez — {product-name} da dönemez.
+
+Diğer veriler:: Adlar, adresler, notlar, denetim günlüğü, zamanlanmış iş ayarları. Yazıldığı
+gibi saklanır. Bunlar için sütun bazlı şifreleme bilinçli olarak tercih edilmedi: verileri
+aranamaz hâle getirir, veritabanını zaten okuyabilen birine karşı ise koruma sağlamaz.
+
+.Örnek anahtarı
+[IMPORTANT]
+====
+`KEYDRA_SECRET_KEY`, saklanan bütün kimlik bilgilerini şifreleyen anahtardır. Kaybederseniz
+hepsini yeniden girmeniz gerekir. Anahtar, hizmet kesintisi olmadan değiştirilebilir — bkz.
+xref:security.adoc#rotating-the-instance-key_security[Örnek anahtarını değiştirme].
+====
+
+Hedeflerinizdeki anahtarlar saklanmaz. Bir sayfada gördüğünüz veri, siz istediğiniz anda
+hedeften okunmuştur. Tek istisna, tanımı gereği bir kopya olan yedektir; yedekler de onu yazan
+örneğin bile geri okuyamayacağı biçimde şifrelenebilir.

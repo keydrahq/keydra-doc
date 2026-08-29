@@ -1,0 +1,20 @@
+[id="graphql-operations_{context}"]
+= GraphQL işlemleri
+
+{product-name} arayüzünün gerçekte kullandığı işlemler. Mutasyonlar da listededir: yüzey salt
+okunur değildir.
+
+include::../snippets/generated/graphql-operations.adoc[]
+
+.Sınırlar
+[NOTE]
+====
+Şema, tek bir isteği ağır bir işe dönüştürmenin bilinen bütün yolları için sınır koyar:
+sorgunun kaç kat iç içe geçebileceği, toplamda kaç alan istenebileceği — takma ad saldırısını
+yalnızca derinlik sınırı yakalayamaz — ve ayrıştırıcının okumayı bırakmadan önce ne kadar
+kabul edeceği. Her biri ayrıca ayarlanmıştır; büyük belgelerle çalışan genel API'ler için
+düşünülmüş varsayılanlara bırakılmamıştır.
+
+Beklenmeyen hatalar tek bir genel cümleyle yanıtlanır. Uygulamanın içinden gelen istisna
+mesajı, uygulamanın yapısını anlatır; onun yeri günlüktür.
+====

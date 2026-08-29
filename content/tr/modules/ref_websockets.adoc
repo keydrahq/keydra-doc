@@ -1,0 +1,28 @@
+[id="websockets_{context}"]
+= WebSocket'ler ve akışlar
+
+include::../snippets/generated/websocket-endpoints.adoc[]
+
+== Bildirim zarfı
+
+Bildirim hattındaki bütün mesajlar aynı yapıdadır:
+
+[source,json]
+----
+{
+  "category": "ConnectionStatusChanged",
+  "payload": { },
+  "ts": "2026-01-01T00:00:00Z"
+}
+----
+
+Tek bir hedefe ait bir yayın, yalnızca sahibinin o hedefi görebildiği soketlere ulaşır.
+
+include::../snippets/generated/notification-categories.adoc[]
+
+== Server-Sent Events
+
+Anahtar sayımı, yanıtın tamamı hazırlanmadan Server-Sent Events olarak akıtılır; böylece arayüz
+`SCAN` sürerken ilk anahtarları çizer. Yanındaki GraphQL aboneliği ise yalnızca çağıranın
+istediği alanları gönderir: yalnızca ad ve tür gösteren bir tarayıcıya, bir milyon anahtarlık
+veritabanındaki her anahtarın TTL'i ve boyutu değil, yalnızca ad ve tür gider.

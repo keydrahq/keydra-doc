@@ -1,0 +1,27 @@
+[id="putting-targets-in-server-groups_{context}"]
+= Hedefleri sunucu gruplarına ekleme
+
+Sunucu grubu, yetkinin işaret ettiği yapıdır. Böylece kullanıcılara sunucuları tek tek değil,
+küme hâlinde yetki verirsiniz.
+
+.Ön koşullar
+
+* `groups:manage` izniniz olmalı.
+
+.Prosedür
+
+. *Erişim* sayfasına gidip *Sunucu grupları* sekmesini açın.
+. *Sunucu grubu ekle* düğmesine tıklayıp gruba ad verin. İsterseniz başka bir sunucu grubunun
+  *Üst grup* konumlandırın.
+. Grubu açıp *Sunucuları seç* ile hedefleri gruba ekleyin.
+
+.Doğrulama
+
+Grup, içindeki sunucuları listeler. Grubu silmek üzerindeki yetkileri de siler; sunuculara
+dokunulmaz.
+
+[NOTE]
+====
+Bir hedef birden fazla sunucu grubunda olabilir ve gruplar iç içe geçebilir. Üst gruba verilen
+yetki, altındaki her şeye ulaşır.
+====

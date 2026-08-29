@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="analysis"]
+= Anahtar uzayı analizi
+:description: Hangi ad alanı büyüdü ve bu belleğin ne kadarı geri gelmeyecek? Ad alanına, türe ve anahtarların kalan sürelerine göre gruplanmış ölçümler.
+:page-keywords: analiz, bellek, ad alanı, ttl, büyük anahtarlar, anahtar uzayı
+:context: analysis
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_keyspace-analysis.adoc[leveloffset=+1]
+
+include::../modules/proc_analysing-a-keyspace.adoc[leveloffset=+1]

@@ -1,0 +1,38 @@
+[id="pairing-an-authenticator_{context}"]
+= Pairing an authenticator
+
+A stolen password stops being enough. A second factor is a six-digit code from an app on your
+mobile phone, and it is asked for at the same moment as the password rather than afterwards.
+
+.Prerequisites
+
+* Being signed in with a password here. An account that signs in through an identity provider
+  proves who it is there, and {product-name} does not ask it for a second factor as well.
+* An authenticator app on a mobile phone or a laptop.
+
+.Procedure
+
+. Go to *Settings* and find *Second factor*.
+. Click *Set up an authenticator*. A QR code appears, with the same secret written out
+  underneath it for a device with no camera.
+. Scan it, then type the six digits the app shows and click *Confirm*.
+. Ten recovery codes appear. Copy them somewhere that is not the mobile phone.
+
+.Verification
+
+Sign out and sign in again. The form asks for the password first; when that is right and a code
+is wanted, a code field appears and asks for one. The two go together — there is no half-signed-in
+state in between, and nothing to expire or replay.
+
+[IMPORTANT]
+====
+The recovery codes are shown once. Only their hashes are kept, so nothing in {product-name} can
+show them again — the page that hands them over says so. Each works once, and they are what makes
+a lost mobile phone survivable.
+
+Nothing is enforced until a code has been typed correctly. Opening this page, scanning nothing and
+closing the tab does not lock you out.
+====
+
+Turning it off again is one button, and the password alone is enough from that moment. Replacing a
+mobile phone is the same two steps in a row: turn it off, pair the new one.

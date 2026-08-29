@@ -1,0 +1,22 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="accounts"]
+= Accounts and sessions
+:description: Invite somebody rather than choosing their password for them, reset one through the same mechanism, set the preferences that follow your account, pair a second factor and require one of everybody, and see and end the browsers that can act as you.
+:page-keywords: invitation, password reset, sessions, sign-in, throttle, lockout, second factor, TOTP, authenticator, recovery codes
+:context: accounts
+include::../attributes/attributes.adoc[]
+
+include::../modules/proc_inviting-somebody.adoc[leveloffset=+1]
+
+include::../modules/proc_resetting-a-password.adoc[leveloffset=+1]
+
+include::../modules/proc_your-sessions.adoc[leveloffset=+1]
+
+include::../modules/proc_preferences.adoc[leveloffset=+1]
+
+include::../modules/proc_pairing-an-authenticator.adoc[leveloffset=+1]
+
+include::../modules/con_requiring-a-second-factor.adoc[leveloffset=+1]
+
+include::../modules/con_sign-in-protection.adoc[leveloffset=+1]

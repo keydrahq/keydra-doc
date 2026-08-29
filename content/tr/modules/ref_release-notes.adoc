@@ -1,0 +1,60 @@
+[id="release-notes-0-0-1_{context}"]
+= Keydra 0.0.1
+
+include::../snippets/generated/versions.adoc[]
+
+[IMPORTANT]
+====
+{product-name}'nın etiketlenmiş bir sürümü henüz yok. `backend/pom.xml` dosyasında
+`{generated-keydra-version}` yazıyor ve depoda hiçbir git etiketi bulunmuyor. Bu kayıt, yayımlanmış
+bir sürümü değil geliştirme sürümünü anlatır. Dokümantasyon, olmayan bir sürüm geçmişi uydurmak
+yerine bu durumu olduğu gibi belirtir.
+====
+
+== Bu sürümde neler var
+
+Hedefler:: Tekil, küme ve Sentinel {redis-name} ile {valkey-name} sunucuları için bağlantı
+profilleri; TLS desteği — güvenilecek özel bir otorite ve sunulacak bir istemci sertifikası dahil —
+veritabanı seçimi ve bir kez tanımlanıp paylaşılan SSH tünelleri.
+
+Veri:: `SCAN` üzerinden akıtan bir anahtar tarayıcı, ad alanı ağacı, her değer türü için ayrı
+düzenleyici, çözücü zinciri, anahtar işlemleri ve sunucunun `DUMP` ile `RESTORE` komutlarına
+dayanan içe/dışa aktarma.
+
+İşletim:: İki gerekçe grubuyla komut reddeden bir konsol, canlı komut izleme, Pub/Sub, izleme
+panosu, anahtar uzayı analizi ve küme ile Sentinel topolojisi.
+
+Otomasyon:: İki hedef arasında anahtar taşıma, zamanlanmış işler, geçmiş taban çizgilerini
+destekleyen ve beş farklı kanaldan gönderim yapabilen uyarı kuralları, yedi tür hedefe
+yedekleme, saklama süresi ve şifreleme.
+
+Güvenlik:: İki döngüsüz graf üzerinde özne, kapsam, rol ve izinlerden oluşan yetki modeli;
+Argon2id ile yerel hesaplar; çalışırken tanımlanan kimlik sağlayıcıları; hesabın okuduğu dilde
+ve HTML olarak yazılan davet ve parola sıfırlama iletileri; listelenip sonlandırılabilen
+oturumlar; bir hesabın ekleyebildiği ve kurulumun zorunlu kılabildiği ikinci faktör; eksiksiz
+denetim günlüğü; boşaltılmadan önce kendi adını ya da ikinci bir kişiyi soracak biçimde
+ayarlanabilen hedefler; kesintisiz değiştirilebilen örnek anahtarı.
+
+Çalıştırma:: Tek kapsayıcı imajı, veritabanı kirasıyla aynı veritabanına bağlı birden fazla
+örnek, isteğe bağlı ortak depo, her örneğin neyi tuttuğunu ve kurulumun nelere eriştiğini
+gösteren bir sayfa, durdurulmadan önce boşaltılabilen örnekler, Prometheus ölçümleri,
+OpenTelemetry izleri ve JSON günlükleri.
+
+== Bilinen sınırlar
+
+Aşağıdakiler gizlenmiyor; sıkça sorulduğu için yazılıyor:
+
+* **LDAP.** Desteklenmiyor. LDAP tarayıcı yönlendirmesi değil bind ve arama gerektirir; sağlayıcı
+  altyapısının tamamı ise kendisine ait olmayan bir parolayı hiç görmemek üzerine kurulu.
+* **Her kural tek bir hedef içindir.** Birden fazla yerde duyurulabilir, ancak
+  karşılaştırdığı şey tek bir hedefin ölçümleridir.
+* **Keydra'nın kendisi için yalnızca erişilebilirlik uyarısı üretilir.** Cevap vermeyi bırakan bir
+  kimlik sağlayıcı ya da yedek hedefi kendini duyurur; vuruşu kesilen bir örnek ya da kimsenin
+  tutmadığı bir kira, örnekler sayfasından okunur ama kendini duyurmaz.
+* **İkinci faktör yalnızca yerel hesaplardan istenebilir.** Kimlik sağlayıcı üzerinden oturum
+  açan bir hesap kimliğini orada kanıtlamıştır; o sağlayıcının ikinci faktör isteyip istemediği
+  Keydra'nın bilebileceği ya da tekrarlayabileceği bir şey değildir.
+* **Keydra'nın kendi veritabanını yedeklemek** kurulumun sorumluluğundadır; sıradan bir
+  PostgreSQL'dir.
+* **Üretim OIDC yapılandırması gerçek bir sağlayıcıya karşı denenmedi.** Desteklenen yol,
+  arayüzden çalışırken tanımlanan sağlayıcılardır.

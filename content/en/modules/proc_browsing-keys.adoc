@@ -1,0 +1,29 @@
+[id="browsing-keys_{context}"]
+= Browsing keys
+
+.Prerequisites
+
+* You hold `keys:read` on the target.
+
+.Procedure
+
+. Go to *Connections* and open the target, or use *Keys* in the navigation while a target
+  is open.
+. Optionally narrow what is scanned:
++
+--
+* Type a glob into *Search keys* — for example `user:*`.
+* Choose a type from *All types*.
+* Click a branch in the namespace tree on the left.
+--
+. Click a key to open its value.
+
+.Verification
+
+The count in the toolbar rises while the scan runs and settles when it finishes. A key's
+row shows its type and, where it has one, its TTL; keys without one read *No expiry*.
+
+.Next steps
+
+* xref:values.adoc[Read and change a value]
+* xref:key-browser.adoc#deleting-renaming-and-expiring-keys_key-browser[Delete, rename or expire keys]

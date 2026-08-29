@@ -1,0 +1,38 @@
+[id="inviting-somebody_{context}"]
+= Birini davet etme
+
+Hesabı başkasının parolasını yazarak açtığınızda o parolanın kişiye ulaşması gerekir: sohbet
+mesajı, yapışkan not ya da masanın üzerinden söylenen bir cümle. Bunların hepsi parolayı
+gerekenden uzun süre ortada bırakır. Daha önemlisi, iki kişinin bildiği bir parola ortaya çıkar;
+denetim günlüğü de artık o hesabın yaptığı hiçbir iş için "bunu kim yaptı" sorusunu yanıtlayamaz.
+
+Bu yüzden hesabı yönetici açar, daveti {product-name} gönderir.
+
+.Ön koşullar
+
+* `users:manage` izniniz olmalı.
+
+.Prosedür
+
+. *Erişim* sayfasına gidip *Kullanıcılar* sekmesini açın ve hesabı *Parola* alanı boş bırakılmış
+  hâlde ekleyin.
+. Daveti gönderin.
+
+.Doğrulama
+
+Posta aktarıcısı tanımlıysa hesabın adresine bir bağlantı gider. Tanımlı değilse bağlantı size
+gösterilir; onu her zamanki yolla iletirsiniz. Aktarıcısı olmayan bir kurulumda kimseye hesap
+verilememesi kabul edilebilir bir durum değildir.
+
+Kişi bağlantıyı açar, kendi kullanıcı adı için *Bir parola belirleyin* ekranını görür ve parolasını
+belirler.
+
+[NOTE]
+====
+Her hesap için tek bir davet geçerlidir. Yeni davet gönderdiğinizde eskisi geçersiz olur; geçen
+hafta iletilmiş bir bağlantı, yenisi oluşturulduğu anda çalışmayı bırakır.
+
+Bağlantının süresi dolar ve yalnızca bir kez kullanılabilir. Süresiz bir bağlantı, adım sayısı
+fazla bir paroladır; iki kez çalışan bağlantı ise iki kişinin sahiplenebileceği bir hesap.
+Süresi dolan bağlantı hatalıymış gibi davranmaz; *Bu bağlantının süresi doldu.* der.
+====

@@ -1,0 +1,26 @@
+[id="mapping-provider-groups_{context}"]
+= Sağlayıcı gruplarını Keydra gruplarına eşleme
+
+.Ön koşullar
+
+* Sağlayıcı bir gruplar talebi göndermeli ve *Grup claim'i* alanı bu talebi göstermelidir.
+
+.Prosedür
+
+. Sağlayıcıyı açıp *Grup eşlemeleri* bölümünü bulun.
+. Eşleme ekleyin: *Sağlayıcıdaki adı* ve o gruptaki kullanıcının katılacağı
+  {product-name} grubu.
+
+.Doğrulama
+
+Sağlayıcı üzerinden giriş yapın. Hesabın eşlenmiş gruplardaki üyelikleri, sağlayıcının
+bildirdiğiyle aynı olur.
+
+[IMPORTANT]
+====
+Eşlenmiş gruplardaki üyelik her girişte yeniden yazılır. Bir kullanıcıyı {product-name} içinde
+elle eşlenmiş bir gruba eklerseniz, bu değişiklik ilk girişinde kaybolur. Amaçlanan da budur:
+kullanıcıyı dizinden çıkarmanın buradaki erişimini de kaldırmasını sağlar.
+
+Eşlenmemiş gruplara dokunulmaz.
+====

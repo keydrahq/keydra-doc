@@ -1,0 +1,24 @@
+extends: substitution
+message: 'Yanlış karşılık: "%s" yerine "%s".'
+level: error
+ignorecase: false
+# Belgelerde bir kez yapılmış ve bir daha yapılmaması gereken çeviri hataları.
+# Sağdaki karşılıklar arayüzün kendi Türkçesinden (frontend/locales/tr/public.json)
+# ya da yerleşik Türkçe teknik terimlerden alınmıştır.
+swap:
+  # "Başvuru" bir iş başvurusudur; dokümantasyondaki "reference" karşılığı değildir.
+  'başvurusu\b': referansı
+  'Başvuru\b': Referans
+  # "Uygulama" = the application. "Enforcement" karşılığı değildir.
+  'Uygulama varsayılan olarak açık': Güvenlik denetimi varsayılan olarak açık
+  # Arayüzün terimleri
+  'anahtar alanı': anahtar uzayı
+  'Anahtar alanı': Anahtar uzayı
+  'anahtar gezgini': anahtar tarayıcı
+  'Anahtar gezgini': Anahtar tarayıcı
+  # Türkçe bir sözcük değil; arayüz de "atlama sunucusu" diyor.
+  'bastion': atlama sunucusu
+  'Bastion': Atlama sunucusu
+  # İngilizceden birebir taşınmış, Türkçede karşılığı olmayan uydurmalar
+  'sorgusuz güncel': yoklama yapmadan güncel
+  'kalıcılığa kadar': veritabanına kadar

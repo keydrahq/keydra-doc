@@ -1,0 +1,15 @@
+# A blank issue is where a documentation report with no page reference comes from.
+blank_issues_enabled: false
+
+contact_links:
+  - name: A vulnerability in Keydra itself
+    url: https://github.com/keydrahq/keydra-backend/security/advisories/new
+    about: Report it privately against the backend, not here. Never in a public issue.
+
+  - name: Documentation that would leave an instance insecure
+    url: https://github.com/keydrahq/keydra-doc/security/advisories/new
+    about: A procedure that skips TLS, understates a permission, or leaks a secret.
+
+  - name: The application behaves differently from what the manual says
+    url: https://github.com/keydrahq/keydra-backend/issues
+    about: If the interface is right and the manual is wrong, file it here instead.

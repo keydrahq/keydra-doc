@@ -1,0 +1,152 @@
+# The documentation's shape.
+#
+# One file rather than one per language, deliberately. §178 of the specification asks that
+# the English and Turkish navigations represent an equivalent hierarchy with equivalent
+# page identity; a shared structure guarantees that by construction, where two files plus a
+# parity check only detects a divergence after somebody has written one.
+#
+# What differs by language is the wording, and it lives where wording lives: a group's
+# label is `nav.group.<id>` in `locales/<lang>.yml`, and a page's label is that page's own
+# AsciiDoc title, so a navigation entry cannot disagree with the heading it leads to.
+#
+#   id    stable and language-neutral — this is what the language switcher maps on
+#   slug  the URL segment, also language-neutral, so /docs/en/... and /docs/tr/... align
+#   page  the assembly under content/<lang>/assemblies/, without the extension
+
+nav:
+  - id: home
+    slug: ''
+    page: assembly_home
+    layout: landing
+
+  - id: introduction
+    slug: introduction
+    children:
+      - id: what-is-keydra
+        slug: what-is-keydra
+        page: assembly_what-is-keydra
+      - id: architecture
+        slug: architecture
+        page: assembly_architecture
+
+  - id: install
+    slug: installation
+    children:
+      - id: getting-started
+        slug: getting-started
+        page: assembly_getting-started
+      - id: installation
+        slug: deploying
+        page: assembly_installation
+
+  - id: targets
+    slug: targets
+    children:
+      - id: connections
+        slug: connections
+        page: assembly_connections
+      - id: tunnels
+        slug: tunnels
+        page: assembly_tunnels
+
+  - id: data
+    slug: data
+    children:
+      - id: key-browser
+        slug: key-browser
+        page: assembly_key-browser
+      - id: values
+        slug: values
+        page: assembly_values
+      - id: import-export
+        slug: import-export
+        page: assembly_import-export
+
+  - id: operate
+    slug: operating
+    children:
+      - id: console
+        slug: console
+        page: assembly_console
+      - id: pubsub
+        slug: pub-sub
+        page: assembly_pubsub
+      - id: monitoring
+        slug: monitoring
+        page: assembly_monitoring
+      - id: analysis
+        slug: keyspace-analysis
+        page: assembly_analysis
+      - id: topology
+        slug: topology
+        page: assembly_topology
+      - id: server-admin
+        slug: server-settings
+        page: assembly_server-admin
+
+  - id: automate
+    slug: automation
+    children:
+      - id: migration
+        slug: migration
+        page: assembly_migration
+      - id: schedules
+        slug: schedules
+        page: assembly_schedules
+      - id: alerts
+        slug: alerts
+        page: assembly_alerts
+      - id: backup-restore
+        slug: backup-restore
+        page: assembly_backup-restore
+
+  - id: protect
+    slug: security
+    children:
+      - id: security
+        slug: overview
+        page: assembly_security
+      - id: access-control
+        slug: access-control
+        page: assembly_access-control
+      - id: approvals
+        slug: approvals
+        page: assembly_approvals
+      - id: identity-providers
+        slug: identity-providers
+        page: assembly_identity-providers
+      - id: accounts
+        slug: accounts
+        page: assembly_accounts
+
+  - id: run
+    slug: running
+    children:
+      - id: configuration
+        slug: configuration
+        page: assembly_configuration
+      - id: observability
+        slug: observability
+        page: assembly_observability
+      - id: clustering
+        slug: clustering
+        page: assembly_clustering
+
+  - id: reference
+    slug: reference
+    children:
+      - id: api
+        slug: api
+        page: assembly_api
+      - id: configuration-reference
+        slug: configuration-reference
+        page: assembly_configuration-reference
+      - id: permissions-reference
+        slug: permissions
+        page: assembly_permissions-reference
+      - id: troubleshooting
+        slug: troubleshooting
+        page: assembly_troubleshooting
+      - id: release-notes
+        slug: release-notes
+        page: assembly_release-notes

@@ -1,0 +1,56 @@
+[id="running-keydra-for-the-first-time_{context}"]
+= Running Keydra for the first time
+
+Start {product-name} and the two local targets the repository ships, so there is
+something to connect to before anything is configured.
+
+.Prerequisites
+
+* Podman, with rootless containers working.
+* Java {java-version} and Node {node-version}, if you are running from source rather than
+  from the image. The repository ships `./mvnw`; do not use a system Maven.
+
+.Procedure
+
+. Start the local targets and {product-name}'s own PostgreSQL:
++
+[source,bash]
+----
+podman play kube deploy/keydra-dev.yaml
+----
++
+This publishes {redis-name} on `6479`, {valkey-name} on `6480`, PostgreSQL on `5442`, a
+{redis-name} for {product-name}'s own store on `6481`, and ClickHouse on `8223`. The ports
+are shifted off the defaults so the pod starts on a machine that already runs a
+{redis-name} or a PostgreSQL.
+
+. Start the backend:
++
+[source,bash]
+----
+cd backend && ./mvnw quarkus:dev
+----
+
+. Start the frontend, in a second terminal:
++
+[source,bash]
+----
+cd frontend && nvm use && yarn install && yarn dev
+----
+
+. Open {dev-frontend-url}.
+
+.Verification
+
+The backend answers its own questions without the interface:
+
+[source,bash]
+----
+curl -s http://localhost:8181/api/v1/about
+curl -s http://localhost:8181/q/health/ready
+----
+
+.Next steps
+
+* xref:getting-started.adoc#creating-the-first-administrator_getting-started[Create the first administrator]
+* xref:connections.adoc#adding-a-connection_connections[Add a connection]

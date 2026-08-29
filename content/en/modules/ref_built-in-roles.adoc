@@ -1,0 +1,16 @@
+[id="built-in-roles_{context}"]
+= The built-in roles
+
+include::../snippets/generated/roles-table.adoc[]
+
+These three cannot be edited. A deployment that needs something between them defines a role
+of its own, on the *Roles* tab of the *Access* page, choosing permissions from
+xref:permissions-reference.adoc[the full list].
+
+.Existing role claims keep working
+[NOTE]
+====
+A token carrying a `viewer`, `operator` or `admin` claim becomes a grant of that role on the
+instance scope. A deployment that was using the three global roles keeps working before
+anybody configures anything.
+====

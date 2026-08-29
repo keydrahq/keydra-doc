@@ -1,0 +1,11 @@
+Keydra documentation
+Copyright 2026 The Keydra Authors
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+The prose, the AsciiDoc sources and the rendered site are covered by that licence. The
+screenshots under content/*/images are of Keydra's own interface and are covered by it too.
+
+Third-party build dependencies are declared in package.json and keep their own licences.
+Vale's style packages (RedHat, AsciiDoc) are downloaded at lint time rather than vendored
+here, and are covered by their own terms.

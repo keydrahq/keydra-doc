@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="analysis"]
+= Keyspace analysis
+:description: Which namespace grew, and how much of this memory is never coming back — grouped by namespace, by type and by how long each key has left.
+:page-keywords: analysis, memory, namespace, ttl, big keys, keyspace
+:context: analysis
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_keyspace-analysis.adoc[leveloffset=+1]
+
+include::../modules/proc_analysing-a-keyspace.adoc[leveloffset=+1]

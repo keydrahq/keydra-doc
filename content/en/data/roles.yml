@@ -1,0 +1,8 @@
+viewer: 'Read-only, everywhere it is granted: see the target, browse its keys, read values, watch its
+  dashboard.'
+operator: Everything a viewer may do, plus changing the data — writing and deleting keys and values, running
+  a console, publishing, migrating, and arranging work on the target. Deliberately not changing what Keydra
+  points at.
+admin: 'Every permission there is, including the ones about Keydra itself: creating connections, managing
+  accounts and grants, identity providers, tunnels, backup destinations, alert deliveries, the audit log
+  and the encryption key.'

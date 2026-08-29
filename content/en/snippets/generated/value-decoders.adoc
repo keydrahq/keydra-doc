@@ -1,0 +1,51 @@
+////
+GENERATED FILE — do not edit.
+Written by scripts/build-generated-content.ts from the Keydra source tree.
+The descriptions come from the YAML files under content/en/data/; edit those.
+////
+[cols="2,4",options="header",role="kd-generated"]
+|===
+| Name | Description
+| `Base64`
+| Base64-encoded content, decoded and then offered to the rest of the chain.
+
+| `Brotli`
+| Brotli-compressed content. Guessed last and under conditions, because Brotli carries no header to recognize it by.
+
+| `Deflate`
+| Raw deflate, without the gzip wrapper.
+
+| `Gzip`
+| Gzip-compressed content. Announces itself with a magic number, so the guess is safe.
+
+| `Hex`
+| Bytes as hexadecimal, for values that are not text at all.
+
+| `JavaSerialized`
+| Java serialization. Described rather than deserialized: turning it back into an object means running code the value chooses.
+
+| `Json`
+| Recognised as JSON and shown formatted. The commonest thing a string holds.
+
+| `Lz4`
+| LZ4-compressed content.
+
+| `MsgPack`
+| MessagePack, decoded into a readable structure.
+
+| `PhpSerialized`
+| PHP's `serialize()` output, unpacked into a readable structure.
+
+| `Pickle`
+| Python pickle. Described rather than unpickled, for the same reason as Java serialization.
+
+| `Plain`
+| The bytes as they are, decoded as UTF-8 text. What most values are, and the last thing tried.
+
+| `Protobuf`
+| Protocol Buffers, shown as the field numbers and wire types the bytes actually contain — no schema is available, so the field names are not.
+
+| `Zstd`
+| Zstandard-compressed content.
+
+|===

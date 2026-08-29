@@ -1,0 +1,15 @@
+[id="built-in-roles_{context}"]
+= Yerleşik roller
+
+include::../snippets/generated/roles-table.adoc[]
+
+Bu üç rol değiştirilemez. Aralarında bir yetki düzeyine ihtiyaç duyan kurulumlar, *Erişim*
+sayfasının *Roller* sekmesinden kendi rolünü tanımlar ve izinleri
+xref:permissions-reference.adoc[tam listeden] seçer.
+
+.Mevcut rol talepleri çalışmaya devam eder
+[NOTE]
+====
+`viewer`, `operator` ya da `admin` talebi taşıyan bir belirteç, o rolün kurulum kapsamındaki
+yetkisine dönüşür. Üç genel rolü kullanan kurulumlar, hiçbir ayar yapmadan çalışmayı sürdürür.
+====

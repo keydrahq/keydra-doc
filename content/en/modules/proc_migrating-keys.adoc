@@ -1,0 +1,38 @@
+[id="migrating-keys_{context}"]
+= Migrating keys to another target
+
+.Prerequisites
+
+* You hold `migration:run` on both targets.
+* Both are up. The destination picker offers only targets you can see that are answering.
+
+.Procedure
+
+. Open the source target's *Keys* page.
+. Start *Move keys to another server*.
+. Choose the *Destination*.
+. Choose what to move under *Keys to move*:
++
+--
+* the keys ticked in the list,
+* everything matching the current filter,
+* every key on this target, or
+* keys matching a pattern you type — a glob such as `user:*`.
+--
+. Decide two things:
++
+--
+* *Overwrite keys that already exist* — without it, a key already on the destination is left
+  alone and counted as *Already there*.
+* *Remove each key from this server once the other one has it* — turns the copy into a move.
+--
+. Click *Start*.
+. Either watch it, or click *Leave it running* and close the dialog.
+
+.Verification
+
+*Migrations* shows the job with its *State* and *Progress*, and the tally *{migrated} of
+{scanned} found*, then *{skipped} already existed, {failed} were refused.* A finished job reads
+*done*.
+
+*Stop* halts a running migration; what has moved stays moved.

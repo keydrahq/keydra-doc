@@ -1,0 +1,70 @@
+[id="sending-alerts-somewhere_{context}"]
+= Sending alerts somewhere
+
+A delivery is a second copy. The event is in the history and on the notification hub either
+way; a delivery is for the hours when nobody has {product-name} open.
+
+.Prerequisites
+
+* You hold `alert-delivery:manage`. This is an administrator's: a delivery holds a
+  credential to somewhere outside, and choosing where a server's troubles are announced is
+  not part of watching that server.
+
+.Procedure
+
+. Go to *Alerts* and open *Deliveries*.
+. Click *Add a delivery*.
+. Choose the *Kind*:
++
+include::../snippets/generated/alert-delivery-kinds.adoc[]
++
+. Complete what that kind asks for. A delivery missing the one field its kind needs is
+  refused on the form — the worst moment to discover that a token was never saved is the
+  moment the message that would have said something is the message that is lost.
+. Save.
+
+.Verification
+
+The delivery appears in the list. A rule pointing at it shows *sending*, then *sent* — or
+*not delivered*, with the reason recorded on the event.
+
+A failure to deliver never loses the alert. It is already in the history and already on the
+notification hub.
+
+[NOTE]
+====
+Tokens are credentials and are treated as such: encrypted at rest, never returned by the
+API, and kept rather than cleared when an edit form arrives with the field empty. The
+recipient is not a credential — a channel name is a channel name — so a list can say where
+alerts go without decrypting anything.
+====
+
+.A rule can name more than one
+
+Pick every destination the rule should announce itself in. The alternative — writing the rule twice,
+once per destination — works on the day it is done and drifts from the day after: somebody raises
+the threshold on one copy, or disables one while investigating, and the same condition now alerts
+two channels differently.
+
+What the event records is the *worst* of what happened. Two of three delivered means somebody's
+channel did not hear, and an event that said *sent* would be reassuring exactly the person who needs
+to know it did not arrive; the detail then names which one failed and what it said.
+
+A destination that fails does not stop the others, which is the whole point of naming more than one.
+
+.Keydra's own troubles
+
+An identity provider or a backup destination that stops answering announces itself to whichever of
+these destinations is chosen under *{product-name}'s own troubles*, at the bottom of this page.
+
+It is not a rule and there is nothing to configure about _when_: a destination is reachable or it is
+not, so there is no threshold to pick and no window to average over. What varies is only where the
+news goes, and it goes to the same destinations the rules use so that a token is rotated in one
+place.
+
+Once on the way down and once on the way back. Something that has been unreachable since Tuesday is
+one message on Tuesday rather than one every ten minutes for a week, and _it is answering again_ is
+the message that closes the one before it.
+
+Choosing nothing is a real answer and the default: the instances page says what answered and how
+long ago that was found out, either way.

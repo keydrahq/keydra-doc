@@ -1,0 +1,9 @@
+required: Required settings
+address: Address and reverse proxy
+security: Enforcement, cookies and sessions
+egress: Outbound address restrictions
+oidc: An OIDC provider configured at startup
+instances: More than one instance
+mail: Mail server
+storage: Backup and metrics storage
+observability: Logs and traces

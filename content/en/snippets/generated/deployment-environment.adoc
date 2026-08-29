@@ -1,0 +1,228 @@
+////
+GENERATED FILE — do not edit.
+Written by scripts/build-generated-content.ts from the Keydra source tree.
+The descriptions come from the YAML files under content/en/data/; edit those.
+////
+.Required settings
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Environment variable | Default | Description
+| `KEYDRA_DB_URL`
+| `postgresql://localhost:5432/keydra`
+| The reactive PostgreSQL URL, as `postgresql://host:port/database`. No JDBC prefix — the application is non-blocking and uses a reactive driver.
+
+| `KEYDRA_DB_USERNAME`
+| `keydra`
+| The database user.
+
+| `KEYDRA_DB_PASSWORD`
+| 
+| The database password. +
+pass:[<span class="kd-note">Holds a secret. Never logged, never returned by the API.</span>]
+
+| `KEYDRA_SECRET_KEY`
+| 
+| The key that encrypts every stored credential — target passwords, tunnel keys, provider secrets, destination credentials. 32 random bytes, base64. There is no default: without it, nothing that was stored can be read. +
+pass:[<span class="kd-note">Holds a secret. Never logged, never returned by the API.</span>]
+
+|===
+.Address and reverse proxy
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Environment variable | Default | Description
+| `KEYDRA_PUBLIC_URL`
+| 
+| Where Keydra is, as a browser sees it. A provider's redirect and the links in outgoing mail are built from this, so it has to be the address people actually use rather than the one the process binds to.
+
+| `KEYDRA_BEHIND_PROXY`
+| `false`
+| Whether to believe the `X-Forwarded-*` headers. On behind a reverse proxy, and only then: a deployment that trusts them with nothing in front is a deployment where a caller states their own address.
+
+| `KEYDRA_TRUSTED_PROXIES`
+| 
+| Which proxies may set those headers, as addresses or CIDR ranges. Without it, believing them means believing anybody.
+
+| `KEYDRA_CSP`
+| `default-src 'self'; script-src 'self'; s…`
+| The content security policy the browser is told to enforce. A property rather than a literal, so a deployment serving assets from elsewhere can widen the one directive it needs instead of turning the header off. Widening one means restating them all, which is the point: a policy is a whole or it is nothing.
+
+| `KEYDRA_MAX_BODY_SIZE`
+| `25M`
+| The largest request body accepted. This is what bounds a key import and a backup restore.
+
+| `KEYDRA_ACCESS_LOG`
+| `true`
+| Whether every request is logged. A request line carries a path, and a path here can name a key.
+
+|===
+.Enforcement, cookies and sessions
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Environment variable | Default | Description
+| `KEYDRA_SECURITY_ENABLED`
+| `true`
+| Whether Keydra enforces who may do what. Turning it off admits everybody who can reach the address, with every permission, and every page then says so — an open instance that looks secured is how one ends up exposed.
+
+| `KEYDRA_COOKIE_SECURE`
+| `true`
+| Whether the session cookie is marked Secure. On in production: a session cookie sent over plain HTTP is a session cookie on the wire.
+
+| `KEYDRA_SOCKET_ORIGIN_CHECK`
+| `true`
+| Whether a WebSocket handshake must come from an origin Keydra recognizes. A socket is not covered by the same-origin policy the way a fetch is, so this is the check that replaces it.
+
+| `KEYDRA_SOCKET_ORIGINS`
+| 
+| The origins a WebSocket may be opened from, beyond the public URL. For a deployment where the interface is served from somewhere else.
+
+| `KEYDRA_SIGN_IN_THROTTLE`
+| `true`
+| Whether repeated sign-in failures are counted and refused. The limit is answered before the password hash, because Argon2id is slow on purpose and unlimited attempts consume the server’s memory as well as guessing a password.
+
+| `KEYDRA_GEOIP_DATABASE`
+| 
+| A GeoIP database, if one is available. Used to say where a sign-in came from when comparing it with the ones before it.
+
+| `KEYDRA_SESSION_SWEEP_INTERVAL`
+| `1h`
+| How often expired session rows are deleted. A session table nobody prunes is a table that grows for as long as the application runs.
+
+| `KEYDRA_INVITATION_VALID_FOR`
+| `P7D`
+| How long an invitation or password-reset link works. A link that works forever is a password with extra steps.
+
+| `KEYDRA_PREVIOUS_SECRET_KEYS`
+| 
+| Keys that may still be read but are no longer written. This is what makes a key rotation something other than an outage: the new key writes, the old ones keep decrypting what they wrote, and the re-encryption moves everything across while the instance is up. +
+pass:[<span class="kd-note">Holds a secret. Never logged, never returned by the API.</span>]
+
+|===
+.Outbound address restrictions
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Environment variable | Default | Description
+| `KEYDRA_EGRESS_ALLOW_PRIVATE`
+| `true`
+| Whether an address somebody typed may be on a private network. Usually yes: a webhook to an internal chat relay and an S3-compatible store on the same subnet are the ordinary cases. Link-local is refused regardless and has no setting.
+
+| `KEYDRA_EGRESS_ALLOW_LOOPBACK`
+| `false`
+| Whether an address somebody typed may point back at the machine Keydra runs on. Off outside development.
+
+| `KEYDRA_EGRESS_ALLOWED_HOSTS`
+| 
+| Hosts that are allowed regardless of the rules above. An escape hatch for the one internal address a deployment has to reach.
+
+|===
+.An OIDC provider configured at startup
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Environment variable | Default | Description
+| `KEYDRA_OIDC_URL`
+| 
+| The issuer of a single OIDC provider configured at boot. Providers added in the interface are the supported path and need none of these four; this is for a deployment that configures one before there is anybody to sign in and add it.
+
+| `KEYDRA_OIDC_CLIENT_ID`
+| `keydra`
+| The client id at that provider.
+
+| `KEYDRA_OIDC_SECRET`
+| 
+| The client secret at that provider. +
+pass:[<span class="kd-note">Holds a secret. Never logged, never returned by the API.</span>]
+
+| `KEYDRA_OIDC_ROLES_CLAIM`
+| `realm_access/roles`
+| Where the roles are in the token, as a path. A claim of `viewer`, `operator` or `admin` becomes a grant of that role on the instance.
+
+|===
+.More than one instance
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Environment variable | Default | Description
+| `KEYDRA_INSTANCE_ID`
+| 
+| What this instance calls itself, in the About page, in every log line and on every metric it produces. Generated when it is not set.
+
+| `KEYDRA_STORE_URL`
+| `redis://localhost:6481`
+| Keydra's own Redis, for the shared cache and for re-broadcasting notifications between instances. Never one of your targets: a cache living in a server somebody is browsing is a cache somebody empties with a bulk delete. Leave it unset for a single instance.
+
+| `KEYDRA_LEASE_SECONDS`
+| `15`
+| How long the leader lease is held before it has to be renewed. An instance that stops renewing loses it to whoever asks next, so this is also how long the work can be interrupted by a crash.
+
+| `KEYDRA_RECONCILE_SECONDS`
+| `30`
+| How often an instance checks whether it should be doing the leader work — claiming the lease if nobody holds it, and letting go of the schedules if it has lost it.
+
+|===
+.Mail server
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Environment variable | Default | Description
+| `KEYDRA_MAIL_HOST`
+| 
+| The SMTP relay outgoing mail goes through — invitations, password resets, and email alert deliveries.
+
+| `KEYDRA_MAIL_PORT`
+| `587`
+| The relay port.
+
+| `KEYDRA_MAIL_TLS`
+| `true`
+| Whether to use TLS to the relay.
+
+| `KEYDRA_MAIL_USERNAME`
+| 
+| The account Keydra authenticates to the relay as.
+
+| `KEYDRA_MAIL_API_KEY`
+| 
+| The relay password or API key. +
+pass:[<span class="kd-note">Holds a secret. Never logged, never returned by the API.</span>]
+
+| `KEYDRA_MAIL_FROM`
+| 
+| The address outgoing mail is sent from. Most relays refuse a message without one.
+
+|===
+.Backup and metrics storage
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Environment variable | Default | Description
+| `KEYDRA_BACKUP_DIR`
+| `backups`
+| The directory a local backup destination writes inside. A destination names a directory relative to this, so no destination can be pointed at an arbitrary path on the machine.
+
+| `KEYDRA_CLICKHOUSE_ENABLED`
+| `false`
+| Whether readings are also written somewhere that survives a restart. Off by default: another service in a deployment is a real cost, and an instance that does not want one must not be told it needs one.
+
+| `KEYDRA_CLICKHOUSE_URL`
+| `http://localhost:8123`
+| The ClickHouse HTTP interface. HTTP rather than the JDBC driver, which is blocking — and this application is not.
+
+| `KEYDRA_CLICKHOUSE_USER`
+| `default`
+| The ClickHouse user.
+
+| `KEYDRA_CLICKHOUSE_PASSWORD`
+| 
+| The ClickHouse password. +
+pass:[<span class="kd-note">Holds a secret. Never logged, never returned by the API.</span>]
+
+|===
+.Logs and traces
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Environment variable | Default | Description
+| `KEYDRA_OTLP_ENDPOINT`
+| 
+| Where OpenTelemetry traces are exported. Setting it is what turns tracing on; there is no second flag.
+
+| `KEYDRA_JSON_LOGS`
+| `true`
+| JSON on the console instead of the human-readable format, so a log shipper does not have to parse a layout written for a person.
+
+|===

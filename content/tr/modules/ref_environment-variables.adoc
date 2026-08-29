@@ -1,0 +1,16 @@
+[id="environment-variables_{context}"]
+= Ortam değişkenleri
+
+{product-name}'nın yapılandırmasının okuduğu bütün ortam değişkenleri ve ayarladıkları özellikler.
+
+include::../snippets/generated/environment-table.adoc[]
+
+.Quarkus bunlardan fazlasını okur
+[NOTE]
+====
+Bu tablo yalnızca {product-name} yapılandırmasının doğrudan tanımladığı değişkenleri listeler.
+Quarkus ayrıca herhangi bir özelliği büyük harfe çevirip alfanümerik olmayan karakterleri alt
+çizgiyle değiştirerek bir ortam değişkenine eşler; burada listelenmeyen Quarkus ayarları da bu
+yolla verilebilir. Adında olağandışı karakter bulunan bir özellikte bu kurala güvenmeden önce
+eşlemeyi Quarkus sürümünüzle doğrulayın.
+====

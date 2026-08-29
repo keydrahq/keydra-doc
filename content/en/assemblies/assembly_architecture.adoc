@@ -1,0 +1,14 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="architecture"]
+= Architecture
+:description: Two programs and one image: a PatternFly interface served by a Quarkus backend that holds your credentials and talks RESP to your servers.
+:page-keywords: architecture, quarkus, patternfly, postgresql, websocket, graphql
+:context: architecture
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_architecture.adoc[leveloffset=+1]
+
+include::../modules/con_what-keydra-stores.adoc[leveloffset=+1]
+
+include::../modules/con_multiple-instances.adoc[leveloffset=+1]

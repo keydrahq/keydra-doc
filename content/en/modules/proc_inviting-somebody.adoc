@@ -1,0 +1,36 @@
+[id="inviting-somebody_{context}"]
+= Inviting somebody
+
+Making an account by typing somebody else's password means the password then has to travel
+to them — a chat message, a sticky note, a sentence across a desk — and every one of those
+keeps it longer than anybody intends. Worse, it is a password two people know, which means
+the audit log can no longer answer "who did this" about anything that account ever does.
+
+So an administrator makes the account and {product-name} invites the person.
+
+.Prerequisites
+
+* You hold `users:manage`.
+
+.Procedure
+
+. Go to *Access*, open *Users*, and add the account with the *Password* field left empty.
+. Send the invitation.
+
+.Verification
+
+If a mail relay is configured, a link arrives at the account's address. If none is, the link
+is returned to you to pass on however you already pass things on — an instance with no relay
+must not be an instance where nobody can be given an account.
+
+The person opens the link, sees *Choose a password* for their username, and sets one.
+
+[NOTE]
+====
+One live invitation per account. Sending a new one ends the old one, so a link somebody
+forwarded last week stops working the moment a fresh one is asked for.
+
+A link expires and is used once. A link that works forever is a password with extra steps;
+one that works twice is an account two people can claim. An expired link says *This link has
+expired* rather than failing as though it were wrong.
+====

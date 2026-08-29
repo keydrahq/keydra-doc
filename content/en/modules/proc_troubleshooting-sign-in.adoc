@@ -1,0 +1,25 @@
+[id="nobody-can-sign-in_{context}"]
+= Nobody can sign in
+
+.Procedure
+
+If the sign-in form refuses a password you believe is right::
+Check whether the message is *Wrong username or password.* or *Too many sign-in attempts*.
+The second is the throttle; wait a few minutes. See
+xref:accounts.adoc#sign-in-protection_accounts[Sign-in protection].
+
+If a provider button sends you to the provider and the provider refuses::
+Almost always the redirect URI. Copy it from the provider's form in *Access* → *Sign-in*
+exactly as it appears, including the provider key, and register that at the provider.
+
+If the provider accepts you and {product-name} then shows nothing::
+The account exists and holds no grants. *An account lets somebody sign in and see nothing.*
+Grant a role — see xref:access-control.adoc#granting-access_access-control[Granting access].
+
+If the redirect comes back to the wrong host::
+Set `KEYDRA_PUBLIC_URL`, and `KEYDRA_BEHIND_PROXY` with `KEYDRA_TRUSTED_PROXIES` if there is
+a reverse proxy in front.
+
+If every page says *Security off*::
+`KEYDRA_SECURITY_ENABLED` is `false`. Everyone who can reach the instance can do everything.
+See xref:installation.adoc#configuring-authentication-before-exposing-keydra_installation[Configuring authentication before exposing Keydra].

@@ -1,0 +1,29 @@
+[id="browsing-keys_{context}"]
+= Anahtarlara göz atma
+
+.Ön koşullar
+
+* Hedefte `keys:read` izniniz olmalı.
+
+.Prosedür
+
+. *Bağlantılar* sayfasından hedefi açın; hedef zaten açıksa gezinmedeki *Anahtarlar* girdisini
+  kullanın.
+. Gerekiyorsa taranacak alanı daraltın:
++
+--
+* *Anahtar ara* alanına bir glob yazın, örneğin `user:*`.
+* *Tüm türler* seçicisinden bir tür seçin.
+* Soldaki ad alanı ağacından bir dala tıklayın.
+--
+. Değerini görmek için bir anahtara tıklayın.
+
+.Doğrulama
+
+Araç çubuğundaki sayaç tarama sürerken artar, tarama bitince sabitlenir. Her satırda anahtarın
+türü, varsa TTL değeri görünür; süresi olmayan anahtarlarda *Süresiz* yazar.
+
+.Sonraki adımlar
+
+* xref:values.adoc[Değer okuyup değiştirin]
+* xref:key-browser.adoc#deleting-renaming-and-expiring-keys_key-browser[Anahtar silin, adlandırın ya da süre verin]

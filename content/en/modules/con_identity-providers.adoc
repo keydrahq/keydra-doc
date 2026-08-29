@@ -1,0 +1,45 @@
+[id="identity-providers-concepts_{context}"]
+= Providers are rows, not environment variables
+
+An identity provider is configured while {product-name} is running, from the *Access* page,
+and takes effect without a redeploy.
+
+One authorization-code implementation serves two kinds:
+
+*OpenID Connect* — Keycloak, Entra, Google, Okta, Auth0. You give the *Issuer* and
+{product-name} fetches the discovery document when you save, remembering where the endpoints
+are.
+
+*OAuth 2* — GitHub, GitLab. No id token, so the *Authorization endpoint*, *Token endpoint*
+and *User endpoint* are typed in.
+
+What differs between the two is which URLs those are and what the claims are called, and
+both are configuration.
+
+Discovery runs when a provider is saved, not at sign-in. A wrong issuer is answered where
+somebody is waiting and able to fix it, rather than making every sign-in depend on the
+provider's slowest morning.
+
+Every flow uses PKCE and a state cookie only {product-name} can read. Both are what stand
+between the callback and signing somebody into an account they do not own.
+
+A session produced by a provider is the same cookie a password produces. A provider is a
+different way of arriving at a session, not a different kind of session.
+
+== Claim mapping
+
+*Which claim is which* says what identifies somebody. The *Subject claim* is the one that
+identifies them for good — `sub` for OpenID Connect, `id` at GitHub. Not the username:
+usernames change.
+
+*Groups claim* is optional. When it is set, membership of a mapped group is replaced at
+every sign-in by what the provider says — so removing somebody from a directory group
+removes their access — while groups nobody mapped are left alone.
+
+.LDAP is not supported
+[NOTE]
+====
+LDAP is the one provider that is not this flow: no browser redirect, no authorization code —
+a bind, a search, and a password {product-name} would read itself. Everything here is built
+on never seeing a password that is not its own.
+====

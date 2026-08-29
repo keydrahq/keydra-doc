@@ -1,0 +1,38 @@
+[id="migrating-keys_{context}"]
+= Anahtarları başka bir hedefe taşıma
+
+.Ön koşullar
+
+* Her iki hedefte de `migration:run` izniniz olmalı.
+* İkisi de çalışır durumda olmalı. Hedef seçicisi yalnızca görebildiğiniz ve yanıt veren
+  sunucuları listeler.
+
+.Prosedür
+
+. Kaynak hedefin *Anahtarlar* sayfasını açın.
+. *Anahtarları başka sunucuya taşı* işlemini başlatın.
+. *Hedef* seçin.
+. *Taşınacak anahtarlar* altında kapsamı belirleyin:
++
+--
+* listede işaretlediğiniz anahtarlar,
+* o anki süzgece uyanların tamamı,
+* bu hedefteki bütün anahtarlar ya da
+* yazacağınız bir desene uyanlar — örneğin `user:*`.
+--
+. İki karar verin:
++
+--
+* *Karşıda zaten varsa üzerine yaz* — işaretlemezseniz hedefte bulunan anahtarlar
+  olduğu gibi kalır ve *Zaten vardı* olarak sayılır.
+* *Karşı taraf aldıktan sonra bu sunucudan sil* — kopyalamayı taşımaya çevirir.
+--
+. *Başlat* düğmesine tıklayın.
+. İsterseniz işlemi izleyin; isterseniz *Arka planda çalışsın* deyip kutuyu kapatın.
+
+.Doğrulama
+
+*Göç işleri* sayfası işi *Durum* ve *İlerleme* bilgileriyle gösterir; ayrıca *bulunan {scanned} anahtarın {migrated} tanesi* ve *{skipped} zaten vardı, {failed} reddedildi* dökümünü verir.
+Tamamlanan işlerde *bitti* yazar.
+
+*Durdur* düğmesi süren işi keser; o ana kadar taşınanlar hedefte kalır.

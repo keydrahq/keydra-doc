@@ -1,0 +1,10 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="release-notes"]
+= Sürüm notları
+:description: Bu sürümde neler var ve ona güvenmeden önce bilmeniz gereken sınırlar neler.
+:page-keywords: sürüm notları, sürüm, sınırlar, değişiklik günlüğü
+:context: release-notes
+include::../attributes/attributes.adoc[]
+
+include::../modules/ref_release-notes.adoc[leveloffset=+1]

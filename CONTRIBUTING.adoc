@@ -1,0 +1,248 @@
+= Contributing to the Keydra documentation
+:toc: macro
+:toclevels: 2
+
+toc::[]
+
+== The one rule
+
+Everything here has to be true of the Keydra in the repository. Before writing that a page
+has a button, open the component and read the label. Before writing that a property
+defaults to something, open `application.properties`. Before writing that an endpoint needs
+a permission, read the annotation.
+
+Where a fact can be read from the source tree, it is generated rather than typed — see
+<<generated>>. Where it cannot, it is your job to have checked.
+
+== Before you start
+
+The documentation and the application are separate repositories, and the build reads both:
+every configuration default, permission, endpoint and interface label in these pages comes
+out of the Keydra source tree.
+
+[source,bash]
+----
+git clone https://github.com/keydrahq/keydra
+git clone https://github.com/keydrahq/docs
+cd docs
+
+nvm use && corepack enable
+make install
+make docs && make docs-serve
+----
+
+Checked out side by side, the build finds Keydra by itself. Anywhere else, point at it with
+`KEYDRA_SOURCE=/path/to/keydra`.
+
+== Writing a module
+
+Three kinds, and the kind decides the shape.
+
+=== A concept
+
+Answers "what is this and why is it like that". It does not tell anybody to click anything.
+
+[source,asciidoc]
+----
+[id="what-a-tunnel-is_{context}"]
+= What a tunnel is
+
+A tunnel is …
+
+== Why it is a thing of its own
+
+…
+----
+
+=== A procedure
+
+[source,asciidoc]
+----
+[id="adding-a-connection_{context}"]
+= Adding a connection
+
+One sentence saying what the reader will have when they are done.
+
+.Prerequisites
+
+* The permission it needs, named.
+* Anything that must already exist.
+
+.Procedure
+
+. In the Keydra console, go to *Connections*.
+. Click *Add connection*.
+
+.Verification
+
+What the reader should see. Not "it should work".
+
+.Next steps
+
+* xref:other-page.adoc[The thing they would do next]
+----
+
+Rules:
+
+* Steps are an AsciiDoc ordered list. Never number them yourself.
+* An interface label goes in `*bold*`, spelled exactly as the interface spells it.
+* Say the permission in *Prerequisites*, by its id — `keys:read`, not "you need to be an
+  operator".
+* *Verification* says what the reader will observe, not that the step worked.
+
+=== A reference
+
+Facts to look up. Usually a table, often a generated one.
+
+== Naming
+
+`con_`, `proc_` or `ref_`, then the subject in kebab-case:
+`proc_adding-a-connection.adoc`.
+
+**The same file name in every language.** `content/en/modules/proc_adding-a-connection.adoc`
+and `content/tr/modules/proc_adding-a-connection.adoc`. The title differs; the file name and
+the id do not. That is how a language switch knows where to go.
+
+Every module's id ends `_{context}`, so the same module can be included by two assemblies
+without producing two identical anchors.
+
+== Writing an assembly
+
+An assembly composes modules and contributes nothing but its abstract.
+
+[source,asciidoc]
+----
+[id="connections"]
+= Managing connections
+:description: One sentence, used as the card text and the page description.
+:page-keywords: connection, profile, target
+:context: connections
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_connection-profiles.adoc[leveloffset=+1]
+
+include::../modules/proc_adding-a-connection.adoc[leveloffset=+1]
+----
+
+Never paste a module's text into an assembly.
+
+== Interface labels, and the language they are in
+
+This is the part that goes wrong most often.
+
+The Keydra interface is translated. It has English strings and Turkish strings, and a
+reader with the interface in Turkish sees Turkish buttons.
+
+So:
+
+* **English documentation quotes the English label.** `Click *Add connection*.`
+* **Turkish documentation quotes the Turkish label.** `*Bağlantı ekle* düğmesine tıklayın.`
+
+Both are read out of `frontend/locales/<lang>/public.json`. Do not translate a label
+yourself, and do not leave an English label in a Turkish procedure: check the file.
+
+`make docs-check` checks this for you. Every `*bold*` string in the content is compared
+against what the interface actually says, and a string close enough to a real label to have
+been meant as one — but not equal to it — fails the build, naming the key it should have
+matched. That is the check that cannot be done by reading: somebody renames a label in the
+application and nothing about this documentation looks wrong afterwards.
+
+Bold is therefore reserved for interface labels. Emphasis on an ordinary word uses italics
+(`_like this_`), which also keeps the check quiet.
+
+An identifier is not a label. Configuration properties, environment variables, permission
+ids, commands, class names and field names stay exactly as the code spells them, in every
+language:
+
+[source,asciidoc]
+----
+*Ayarlar* sayfasında `keydra.store.url` değerini ayarlayın.
+----
+
+== Translating
+
+English is the authoring baseline. The workflow:
+
+. Change the English source.
+. Change the Turkish source, same file name, same id, same structure.
+. `make docs-check` — it fails on a missing counterpart, a missing description key and a
+  missing interface string.
+. `make docs-lint`.
+. `make docs-serve`, and read both.
+
+Turkish is not a literal translation. It is professional Turkish technical writing that
+happens to describe the same thing:
+
+* Use the equivalents in `glossary/tr.yml`.
+* Keep product names, standards and identifiers untranslated.
+* Turkish orthography, not English sentence case. The Red Hat capitalisation rules are a
+  decision English made for itself.
+* Suffixes on a proper noun take an apostrophe: `Keydra'yı`, `Keydra'nın`.
+
+A page you have not translated yet is not an exception — mark it `:page-status: draft` and
+it stays out of a production build in both languages until it is ready.
+`content/translation-exceptions.txt` is for content that genuinely does not belong in a
+language, which is rare.
+
+[[generated]]
+== Generated tables
+
+Anything under `content/<lang>/snippets/generated/` is written by the build. Editing it is
+pointless: the next build overwrites it.
+
+To change what a generated table says:
+
+* The **fact** — a default, a permission, a path — comes from the Keydra source. Change the
+  code, or accept the fact.
+* The **description** comes from `content/<lang>/data/*.yml`. Change it there, in every
+  language.
+
+A new property with no description shows an em dash and `make docs-check` names it.
+
+== Adding a navigation entry
+
+`navigation/nav.yml`. Choose an `id` that will not need to change — it is what links a page
+to its translation — and a `slug` that is language-neutral.
+
+A group's label is `nav.group.<id>` in every `locales/<lang>.yml`. A page's label is its own
+title; do not add one.
+
+== Moving a page
+
+. Change its `slug` in `navigation/nav.yml`.
+. Add an entry per language to `navigation/redirects.yml`, from the old address to the new
+  one.
+. `make docs-check`, which will name any cross-reference still pointing at the old id.
+
+Keep the `id` if the page is the same page. Change it only if it has become a different
+one, and then fix every `xref:` that named it.
+
+== Release notes
+
+`content/<lang>/modules/ref_release-notes.adoc`. Written from what the repository shows —
+tags, the version in `pom.xml`, what the phases actually shipped. Never invent a release
+history, and never write a limitation out of the notes because it is awkward: the "Known
+limitations" section is the most-read part of a release note.
+
+== Before you open a pull request
+
+[source,bash]
+----
+make docs-check
+----
+
+That runs the inventory, the tests, a production build, validation and Vale. CI runs the
+same thing, so a green run locally is a green run there.
+
+If the change affects addresses — a slug, the navigation, a redirect — also run:
+
+[source,bash]
+----
+make docs-pages
+----
+
+which builds under the base path GitHub Pages serves from and validates that. It is the one
+thing a plain local build cannot check.
+
+If Vale reports a warning you believe is wrong for this documentation, do not silence it in
+the file. Say so in `.vale.ini`, with the reason, where the next person will find it.

@@ -1,0 +1,26 @@
+[id="putting-targets-in-server-groups_{context}"]
+= Putting targets in server groups
+
+A server group is what a grant points at, so people get access to a set of servers rather
+than one at a time.
+
+.Prerequisites
+
+* You hold `groups:manage`.
+
+.Procedure
+
+. Go to *Access* and open the *Server groups* tab.
+. Click *Add server group* and name it. Optionally place it *Inside* another server group.
+. Open it and use *Choose servers* to put targets in it.
+
+.Verification
+
+The group lists its servers. Removing the group removes the grants on it; the servers
+themselves are untouched.
+
+[NOTE]
+====
+A target may be in zero or more server groups, and groups nest. A grant on a parent reaches
+everything under it.
+====

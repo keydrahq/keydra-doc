@@ -1,0 +1,18 @@
+////
+GENERATED FILE — do not edit.
+Written by scripts/build-generated-content.ts from the Keydra source tree.
+The descriptions come from the YAML files under content/en/data/; edit those.
+////
+[cols="3,4",options="header",role="kd-generated"]
+|===
+| Path | Description
+| `/api/v1/connections/{connectionId}/commands`
+| The target’s own MONITOR stream, with secrets redacted before they leave the engine. Off until asked for, because it costs the server work while it is on.
+
+| `/api/v1/connections/{connectionId}/console`
+| A command console session against one target. Typed results are streamed back as they arrive.
+
+| `/api/v1/notifications`
+| The notification hub. One socket for the whole interface, carrying every server-side change as an envelope of a category, a payload and a timestamp. A broadcast about one target reaches only the sockets whose owner may see it.
+
+|===

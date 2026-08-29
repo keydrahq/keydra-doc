@@ -1,0 +1,23 @@
+[id="watching-what-ran_{context}"]
+= Çalışmaları izleme
+
+.Prosedür
+
+. *Zamanlanmış işler* sayfasına gidin.
+. Bir işin *Ayrıntılar* bölümünü açıp çalışma geçmişini görün: her çalışmanın başlangıç ve
+  bitiş zamanı, neye dokunduğu ve varsa hata bilgisi.
+
+.Doğrulama
+
+Liste başlığı *{count} tanesi başarısız* durumdaki işleri sayar. Böylece sessizce çalışmayı bırakmış bir işi,
+beslediği önbelleğin boş kalmasından değil bu sayfadan fark edersiniz.
+
+Başarısız çalışmalar ayrıca, {product-name} içinde hangi sayfada olursanız olun bildirim
+olarak gelir.
+
+[NOTE]
+====
+Aynı veritabanına birden fazla {product-name} bağlıysa zamanlanmış işler yalnızca kirayı elinde
+tutan örnekte kayıtlıdır. Devir sırasında zamanı gelen bir iş, o an kirayı hangi örnek
+tutuyorsa orada bir kez çalışır.
+====

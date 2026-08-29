@@ -1,0 +1,30 @@
+////
+GENERATED FILE — do not edit.
+Written by scripts/build-generated-content.ts from the Keydra source tree.
+The descriptions come from the YAML files under content/en/data/; edit those.
+////
+[cols="2,4",options="header",role="kd-generated"]
+|===
+| Name | Description
+| `LOCAL`
+| A directory on the machine Keydra runs on, which is also how a mounted share is reached. Convenient, and no protection against that machine going away.
+
+| `S3`
+| S3 and everything that speaks its API: MinIO, Cloudflare R2, DigitalOcean Spaces.
+
+| `AZURE_BLOB`
+| A container in an Azure storage account.
+
+| `GCS`
+| A bucket in Google Cloud.
+
+| `SFTP`
+| Over SSH, with a password or a private key.
+
+| `FTP`
+| Plain FTP, or FTPS where the server offers it.
+
+| `CUSTOM`
+| Anywhere reachable by an endpoint address — a message queue, an HTTP endpoint, a mail server, another storage service. Write only: a backup can be sent here and cannot be listed, restored or pruned.
+
+|===

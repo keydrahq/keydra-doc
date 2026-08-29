@@ -1,0 +1,18 @@
+[id="openapi_{context}"]
+= OpenAPI
+
+A running {product-name} publishes its own OpenAPI document:
+
+[source,bash]
+----
+curl -s http://localhost:8181/api/openapi > keydra-openapi.yaml
+----
+
+In the development profile, `/q/swagger-ui` browses it interactively.
+
+That document is the authoritative schema: request and response shapes, status codes and
+validation rules come from the code that serves them. The tables below name the endpoints
+and what each requires; the document names the fields.
+
+The GraphQL schema is served at `/graphql/schema.graphql` in development, where
+introspection is also on. Both are off in production.

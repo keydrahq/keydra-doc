@@ -1,0 +1,12 @@
+# Files that are deliberately present in one language and not another.
+#
+# `make docs-check` fails when a module, an assembly or a description file has no
+# counterpart in every published language. That is the rule; this is where an exception to
+# it is written down, one repository-relative path per line, with the reason beside it.
+#
+# An exception is for content that genuinely does not belong in a language — not for a
+# translation nobody has got to yet. A page that is merely untranslated should be marked
+# `:page-status: draft` instead, which keeps it out of a production build in every
+# language until it is ready.
+#
+# Nothing is excepted today.

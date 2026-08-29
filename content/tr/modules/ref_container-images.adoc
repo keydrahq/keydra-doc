@@ -1,0 +1,44 @@
+[id="container-images_{context}"]
+= Yayımlanan imajlar
+
+{product-name}, `{image-registry}` adresinde üç imaj olarak yayımlanır. Hangisini seçeceğiniz,
+arayüzü {product-name}'nın mı yoksa başka bir sunucunun mu sunacağına bağlıdır.
+
+[cols="2,3",options="header"]
+|===
+| İmaj | İçeriği
+
+| `{image-standalone}`
+| Arayüz, API'nin statik kaynakları içine gömülüdür; tek kapsayıcı ikisini birden sunar.
+Olağan kurulum budur ve depodaki manifestler de bu imajı kullanır.
+
+| `{image-backend}`
+| Yalnızca API. Arayüzü ayrı sunan kurulumlar içindir: bir CDN'den, mevcut bir web
+sunucusundan ya da kendi pod'undan.
+
+| `{image-ui}`
+| Yalnızca arayüz; statik dosyalar hâlinde.
+|===
+
+.Arayüz ile API aynı kökende olmalıdır
+[IMPORTANT]
+====
+Arayüz, `{api-base}` ve `/graphql` adreslerini göreli yol olarak çağırır. Onu başka bir
+yerdeki API'ye yönlendiren bir ayar bilinçli olarak yoktur: statik bir pakete gömülen mutlak
+API adresi, çalışma zamanına ait bir bilgiyi derleme zamanında sabitlemek olur; üstelik
+çerezleri çapraz kökene taşır.
+
+Bu yüzden ayrık kurulumda ikisinin önünde bir ters vekil sunucu bulunmalıdır: arayüzü `/`
+altında sunmalı, `/api` ve `/graphql` isteklerini — üzerlerindeki WebSocket yükseltmeleriyle
+birlikte — arka uca iletmelidir. Oturum çerezi böylece birinci taraf çerezi olarak kalır ve
+`SameSite=Lax` beklendiği gibi çalışır.
+
+Böyle bir vekil sunucuya zaten ihtiyacınız yoksa `{image-standalone}` imajını kullanın.
+====
+
+.Etiketler
+[NOTE]
+====
+Buradaki örneklerde `{image-tag}` kullanılıyor. Kurulumlarda bunun yerine bir sürüm sabitleyin;
+aksi hâlde yeniden başlatma, kimsenin planlamadığı bir yükseltmeye dönüşebilir.
+====

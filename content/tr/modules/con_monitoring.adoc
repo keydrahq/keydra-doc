@@ -1,0 +1,29 @@
+[id="monitoring-concepts_{context}"]
+= Örnekleme nedir, neden kapalıdır
+
+Örnekleme, kimse bakmasa bile her aralıkta bir gidiş dönüşe mal olur; bu yüzden siz
+başlatmadan çalışmaz. Açıkken {product-name} hedefin `INFO` çıktısını düzenli aralıklarla
+okur, okumaları saklar ve her birini bildirim hattına verir. Pano hiçbir zaman sunucuyu
+yoklamaz.
+
+image::izleme.jpg["İzleme panosu; saniyedeki işlem, bellek, isabet oranı ve bağlı istemciler"]
+
+Örneklemeyi tek bir düğme değil, *gerekçeler* ayakta tutar. Panoyu açmak bir gerekçedir; etkin
+bir uyarı kuralı başka bir gerekçedir. Siz panoyu kapattığınızda bir çalışma arkadaşınızın
+panosu ya da bir kural izlemeyi sürdürüyorsa örnekleme durmaz.
+
+== Grafiklerdeki sayılar nereden gelir
+
+İki kaynaktan gelir ve sayfa hangisini kullandığını yazar:
+
+Bellekten:: Süreç içindeki halka tamponda tutulan son bir saat. Hızlıdır; {product-name}
+yeniden başlayınca kaybolur.
+
+Depodan:: Ölçüm deposu olarak tanımlanmış ClickHouse; veriler zaman kovalarına ayrılmıştır.
+Grafiğin yeniden başlatmadan önceki haftayı gösterebilmesini sağlayan budur. İsteğe bağlıdır ve
+varsayılan olarak kapalıdır — bkz.
+xref:observability.adoc#keeping-readings-across-restarts_observability[Ölçümleri kalıcı saklama].
+
+*Aralık* seçicisi *Canlı*, *1 saat*, *24 saat*, *7 gün* ve *30 gün* seçeneklerini sunar. O
+kadar geriye ait veri yoksa sayfa boş grafik çizmez; *Bu kadar geriye ait kayıt yok*
+der.

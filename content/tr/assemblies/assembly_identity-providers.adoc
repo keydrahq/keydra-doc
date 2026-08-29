@@ -1,0 +1,14 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="identity-providers"]
+= Kimlik sağlayıcıları
+:description: OpenID Connect ve OAuth 2 sağlayıcıları, ortam değişkeniyle değil Keydra çalışırken tanımlanır; her sağlayıcı için ayrı talep ve grup eşlemesi yapılır.
+:page-keywords: oidc, oauth2, keycloak, entra, google, okta, github, gitlab, sso, talepler
+:context: identity-providers
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_identity-providers.adoc[leveloffset=+1]
+
+include::../modules/proc_adding-an-identity-provider.adoc[leveloffset=+1]
+
+include::../modules/proc_mapping-provider-groups.adoc[leveloffset=+1]

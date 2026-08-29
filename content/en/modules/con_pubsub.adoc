@@ -1,0 +1,14 @@
+[id="pubsub-concepts_{context}"]
+= How subscriptions work here
+
+A subscription belongs to the server, not to your browser tab. {product-name} subscribes
+once and fans the messages out over the notification hub, so every tab — and every
+colleague — sees the same messages, and closing a tab does not end the subscription.
+
+image::pubsub.jpg["The Pub/Sub page, with channels and patterns to subscribe to beside the messages that arrive"]
+
+That is also why subscribing is not something the console does: `SUBSCRIBE` never returns,
+and the console's connection is shared.
+
+Channels and patterns are both supported. A pattern subscription uses `PSUBSCRIBE`, so
+`news.*` follows every channel under `news`.

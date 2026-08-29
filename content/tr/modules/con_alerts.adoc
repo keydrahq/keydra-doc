@@ -1,0 +1,51 @@
+[id="alerts-concepts_{context}"]
+= Kural nedir
+
+Kural beş bilgiden oluşur: hedef, ölçüm, karşılaştırma yönü (üstünde ya da altında), eşik
+değeri ve koşulun ne kadar sürmesi gerektiği.
+
+image::uyarilar.jpg["Bir uyarı kuralı; koşulu cümle hâlinde yazılmış ve ölçütün o anki değeri gösteriliyor"]
+
+Süre koşulu, kuralı kullanılabilir kılan kısımdır. Süre olmasaydı her ani sıçrama uyarı
+üretirdi; iki kez boşa alarm veren bir uyarı da susturulur ve hiç uyarı olmamasından kötü bir
+duruma yol açar. Seçenekler: *ilk okuma*, *1 dakika*, *5 dakika*, *15 dakika* ve *1 saat*.
+
+Kural kendi zamanlayıcısıyla değil, yeni bir ölçüm geldiğinde değerlendirilir. Yani kural
+yazmak aynı zamanda izlemeyi başlatmaktır: etkin bir kural, kimse pano açmasa bile hedefini
+örneklenmiş tutar.
+
+== Üç durum, yalnızca geçişler olay
+
+Kural *sessiz → beklemede → tetikte* sırasıyla ilerler ve geri döner. Yalnızca durum geçişleri
+kaydedilir ve gönderilir. Salı gününden beri tetikte olan bir kural geçmişte bir kez görünür;
+sessizleşmesi de bir kez görünür.
+
+== İzlenebilecek ölçümler
+
+include::../snippets/generated/alert-metrics.adoc[]
+
+*Yanıt vermiyor* ölçümü ayrıca anılmayı hak eder. Yanıt vermeyen bir hedef, eşikle karşılaştırılacak
+bellek değeri de bildirmez; oysa haber alınması en gerekli durum tam olarak budur. Bu yüzden
+ölçümün gelmemesi, veride boşluk değil bir koşul sayılır.
+
+== Sabit sayı yerine geçmişle karşılaştırma
+
+Eşik, ölçümün daha önceki bir zaman aralığında aldığı değerin yüzdesi olabilir: bir önceki saat,
+dün aynı saat ya da geçen hafta aynı saat. Yüz kırk, o değerin yüzde kırk üstü demektir; altmış
+ise yüzde kırk altı.
+
+İnsanların çoğunlukla kastettiği de budur. "Her zamankinden yoğun" ifadesi hizmetle birlikte
+hareket eder; sabit bir sayı ise iki durumda birden yanılır: trafiğin haklı nedenle ikiye
+katlandığı gün fazla düşük, bir şeyin sessizce sızdığı gece fazla yüksek kalır.
+
+Her ölçüm için taban çizgisi kurulamaz. Kurulamayanlar sessizce hiç tetiklenmek yerine kural
+yazılırken reddedilir:
+
+* İki okuma arasından hesaplanan hız değerlerinin, tek bir toplu kovada karşılığı yoktur.
+* Evet-hayır koşullarının yüzdesi alınacak bir değeri yoktur.
+* Ölçüm deposunun kapsamadığı bir zaman aralığı seçilemez: bellek yaklaşık bir saat tutar, geçen
+  haftayla karşılaştırmak için
+  xref:observability.adoc#keeping-readings-across-restarts_observability[ölçüm deposu] gerekir.
+
+Taban çizgisi o an okunamayan kural olduğu gibi bırakılır: ne tetiklenir ne sessizleşir. Verinin
+olmaması bir değer değildir.

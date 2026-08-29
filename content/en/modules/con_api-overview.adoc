@@ -1,0 +1,62 @@
+[id="api-overview_{context}"]
+= The two surfaces, and which is which
+
+include::../snippets/generated/versions.adoc[]
+
+{product-name} answers on two surfaces, and they are not two halves of one thing.
+
+GraphQL at `/graphql`:: {generated-graphql-operations} operations. **This is what the
+{product-name} interface uses.** Nearly every page — the connection catalog, the key
+browser's tree and its mutations, monitoring, migrations, schedules, alerts, backups,
+tunnels, access control, the audit log, sessions — asks its questions here.
+
+REST under `{api-base}`:: {generated-rest-endpoints} endpoints. The complete surface, and
+the one to write a script or another tool against. Versioned in the path, so `{api-base}` is
+a promise in a way an internal query is not.
+
+Both call the same services and return the same shapes: a GraphQL type is the DTO the REST
+endpoint already returns, which is what keeps the two from drifting into disagreeing about
+what a field is called. Every operation on both carries the same permission check — a
+resolver that reached a repository directly would be a second door into the same house.
+
+== Why the interface moved
+
+A page that needs three unrelated things made three requests, and a page showing six columns
+of a long list downloaded all of every row. `{api-base}/migrations` answers 31 KB and
+`{api-base}/schedules/runs` 22 KB; a table showing six columns of each reads perhaps a tenth
+of it.
+
+Pages moved one at a time, and whole — half a page on each surface is two caches to reason
+about. A REST endpoint stays until nothing calls it, which is why the list below is longer
+than what the interface uses.
+
+== What the interface still asks over REST
+
+Not leftovers, in most cases, but the things GraphQL is the wrong shape for:
+
+Files:: Exporting keys, and importing them. A file is not a field.
+
+Values:: Reading and writing the contents of a key, and the list of encodings.
+
+Signing in:: The form post, sign-out, first-run setup, the provider redirect, and the
+invitation and password-reset pages. These run before there is a session to ask a question
+with.
+
+`{api-base}/about`:: One small record, read once.
+
+The sockets:: The notification hub, the console and the command watch. Each carries a kind of
+event to whoever is listening; a subscription per page would be a second socket saying the
+same thing.
+
+== Authentication
+
+Both surfaces are authenticated by the session cookie the interface already holds. There is
+no separate API token mechanism: a script runs as somebody, and that somebody signs in.
+
+GraphQL refuses `GET`. A query in a URL is a query in a proxy log, a browser history and a
+referrer header, and {product-name}'s queries name connection ids and key patterns.
+
+Introspection and the schema document are on in development and off in production. Neither
+is a vulnerability by itself — an authenticated caller reaches what they may reach either way
+— but a schema is a map of every field and argument, and a production deployment has nobody
+who needs the map.

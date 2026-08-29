@@ -1,0 +1,22 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="installation"]
+= Keydra'yı dağıtma
+:description: Keydra'nın gereksinimleri, yayımlanan üç imajdan hangisini seçeceğiniz ve kurulumu dışarı açmadan önce yapılandırmanız gerekenler.
+:page-keywords: kurulum, dağıtım, kapsayıcı, podman, imaj, portlar
+:context: installation
+include::../attributes/attributes.adoc[]
+
+include::../modules/ref_requirements.adoc[leveloffset=+1]
+
+include::../modules/ref_container-images.adoc[leveloffset=+1]
+
+include::../modules/proc_deploying-the-container-image.adoc[leveloffset=+1]
+
+include::../modules/proc_configuring-authentication-before-exposing.adoc[leveloffset=+1]
+
+include::../modules/ref_deployment-settings.adoc[leveloffset=+1]
+
+include::../modules/ref_ports-and-endpoints.adoc[leveloffset=+1]
+
+include::../modules/proc_building-from-source.adoc[leveloffset=+1]

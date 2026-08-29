@@ -1,0 +1,50 @@
+[id="draining-an-instance_{context}"]
+= Reading the instances page, and draining one
+
+Where more than one {product-name} runs, the *Instances* page says who is here, what each of them
+is holding, and what they all rest on. It is also where an instance is taken out of service before
+it is stopped.
+
+image::instances.jpg["The Instances page, with the graph of what this installation rests on and which instance answered"]
+
+.Prerequisites
+
+* `instance:read` to read the page.
+* `instance:drain` to drain one. A separate permission on purpose: reading where the work is and
+  deciding where it goes are not the same act.
+
+.Procedure
+
+. Open *Instances*. Each row is one running {product-name}, with when it was first heard from and
+  when it last renewed its lease. One of them is marked as holding the chores — the work that must
+  happen once, wherever there are several.
+. Read what each is holding: *sockets* is how many browsers it is talking to, *streams* is how many
+  connections it holds open against a target because somebody is watching, and *jobs* is long work
+  under way. Expand a row to see which targets it holds clients for.
+. To take one out of service, open its actions and choose *Drain*. The dialog says what that does
+  before it does it.
+. Watch the numbers fall. Sockets go first as browsers reconnect and the balancer sends them
+  elsewhere; streams follow them; jobs stay, because those do not move on their own.
+. At zero, stopping the instance costs nobody anything. *Put back into service* undoes it.
+
+.Verification
+
+A draining instance reports itself unready at `/q/health/ready`, which is what makes a load
+balancer stop sending to it, and gives the chores back within a beat. Liveness stays up: draining
+is not a way to get a pod killed.
+
+[NOTE]
+====
+The request arrives wherever the balancer sent it, not at the instance being drained. Two
+{product-name} instances never connect to each other — they meet through the database, and the
+instance being drained reads the instruction on the beat it already makes. Its own column on the
+roster rather than folded into the role, because the interesting moment is when an instance is
+both: still the leader, already draining, about to stop being the first.
+
+A process that has just started is not draining, whatever the row said before it. That is why
+there is no configuration property for this: `draining=true` in a manifest is a thing somebody sets
+once and forgets, and what it produces is a fleet that comes up refusing traffic.
+====
+
+Stopping the instance is not done from here. That belongs to whatever started it — and the thing
+that restarts pods would start it again.

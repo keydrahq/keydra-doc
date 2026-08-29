@@ -1,0 +1,9 @@
+required: Zorunlu ayarlar
+address: Adres ve ters vekil sunucu
+security: Güvenlik denetimi, çerezler ve oturumlar
+egress: Dışarı çıkan bağlantı kısıtlamaları
+oidc: Açılışta tanımlanan OIDC sağlayıcı
+instances: Çok örnekli kurulum
+mail: Posta sunucusu
+storage: Yedek ve ölçüm deposu
+observability: Günlükler ve izler

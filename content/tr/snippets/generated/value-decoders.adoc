@@ -1,0 +1,51 @@
+////
+ÜRETİLMİŞ DOSYA — elle düzenlemeyin.
+scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
+Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
+////
+[cols="2,4",options="header",role="kd-generated"]
+|===
+| Ad | Açıklama
+| `Base64`
+| Base64 ile kodlanmış içerik; çözülür ve zincirin geri kalanına verilir.
+
+| `Brotli`
+| Brotli ile sıkıştırılmış içerik. Brotli'yi tanıtan bir başlık olmadığı için en son ve koşullu olarak tahmin edilir.
+
+| `Deflate`
+| Gzip sarmalayıcısı olmadan ham deflate.
+
+| `Gzip`
+| Gzip ile sıkıştırılmış içerik. Kendini bir sihirli sayıyla tanıttığı için tahmin güvenlidir.
+
+| `Hex`
+| Baytlar onaltılık olarak; hiç metin olmayan değerler için.
+
+| `JavaSerialized`
+| Java serileştirmesi. Nesneye dönüştürülmez, yalnızca tarif edilir: geri dönüştürmek, değerin seçtiği kodu çalıştırmak demektir.
+
+| `Json`
+| JSON olarak tanınır ve biçimlendirilmiş gösterilir. Bir string'in en sık tuttuğu şey.
+
+| `Lz4`
+| LZ4 ile sıkıştırılmış içerik.
+
+| `MsgPack`
+| MessagePack; okunabilir bir yapıya çözülür.
+
+| `PhpSerialized`
+| PHP'nin `serialize()` çıktısı; okunabilir bir yapıya açılır.
+
+| `Pickle`
+| Python pickle. Java serileştirmesiyle aynı nedenle açılmaz, yalnızca tarif edilir.
+
+| `Plain`
+| Baytların kendisi, UTF-8 metin olarak çözülür. Değerlerin çoğu budur ve zincirde en son denenir.
+
+| `Protobuf`
+| Protocol Buffers; baytların gerçekten içerdiği alan numaraları ve tel tipleri olarak gösterilir — bir şema bulunmadığı için alan adları gösterilemez.
+
+| `Zstd`
+| Zstandard ile sıkıştırılmış içerik.
+
+|===

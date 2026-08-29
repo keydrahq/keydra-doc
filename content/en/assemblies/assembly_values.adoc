@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="values"]
+= Reading and editing values
+:description: An editor per type, loaded in segments so a large value is opened rather than downloaded, and a decoder chain that reads what was stored.
+:page-keywords: value, string, hash, list, set, sorted set, stream, decoder, encoding
+:context: values
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_value-editors.adoc[leveloffset=+1]
+
+include::../modules/ref_value-decoders.adoc[leveloffset=+1]

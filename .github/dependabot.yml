@@ -1,0 +1,63 @@
+# Dependency updates for the documentation toolchain.
+#
+# Weekly and grouped. This repository builds a static site; a broken dependency costs a
+# build rather than an outage, so the bar is lower than the application's — but not so low
+# that a major version of the renderer arrives unannounced.
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+
+    # A major is an API change somebody has to read about, and Asciidoctor's output is what
+    # every page here is made of.
+    ignore:
+      - dependency-name: '*'
+        update-types: [version-update:semver-major]
+
+    groups:
+      # What turns AsciiDoc into HTML. A failure in this group is a rendering change, and
+      # it should be one pull request to look at rather than five.
+      asciidoctor:
+        applies-to: version-updates
+        patterns:
+          - '@asciidoctor/*'
+          - 'asciidoctor*'
+
+      # What the pages are styled and built with.
+      toolchain:
+        applies-to: version-updates
+        patterns:
+          - '@patternfly/*'
+          - 'vite'
+          - 'typescript'
+          - 'tsx'
+
+      minor-and-patch:
+        applies-to: version-updates
+        update-types: [minor, patch]
+        exclude-patterns:
+          - '@asciidoctor/*'
+          - 'asciidoctor*'
+          - '@patternfly/*'
+          - 'vite'
+          - 'typescript'
+          - 'tsx'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      actions:
+        patterns: ['*']
+    labels:
+      - dependencies
+      - ci

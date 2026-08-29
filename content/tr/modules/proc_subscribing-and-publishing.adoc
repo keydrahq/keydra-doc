@@ -1,0 +1,28 @@
+[id="subscribing-and-publishing_{context}"]
+= Bir kanala abone olma ve yayımlama
+
+.Ön koşullar
+
+* Dinlemek için `pubsub:subscribe`, mesaj göndermek için `pubsub:publish` izni.
+
+.Prosedür
+
+Dinlemek için:
+
+. Hedefi açıp *Pub/Sub* sayfasına gidin.
+. *Kanallar* alanına bir ya da birkaç kanal yazın — yer tutucu biçimi gösterir: `news, events`.
+  Alternatif olarak *Desenler* alanına `news.*` gibi bir desen girin.
+. *Abone ol* düğmesine tıklayın. Zaten açık bir abonelik varsa düğmede *Aboneliği değiştir*
+  yazar.
+. *Dinlemeyi bırak* seçeneği aboneliği herkes için sonlandırır.
+
+Yayımlamak için:
+
+. *Kanal* ve *Mesaj* alanlarını doldurun.
+. *Yayınla* düğmesine tıklayın.
+
+.Doğrulama
+
+Mesajlar *Mesajlar* başlığı altında, *Geliş* zamanıyla birlikte listelenir. Abonelik açık olup
+henüz mesaj gelmediyse panel bozuk görünmez; şunu yazar: *Abonelik açık; buraya yayımlanan her
+şey burada görünecek.*

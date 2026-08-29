@@ -1,0 +1,51 @@
+[id="architecture-overview_{context}"]
+= How Keydra is put together
+
+{product-name} is two programs and one image. The browser talks only to the backend; the
+backend talks to your servers.
+
+[source,text]
+----
+  Browser
+     │  HTTPS + one WebSocket
+     ▼
+  Keydra backend  ── PostgreSQL   profiles, accounts, grants, schedules, audit
+   (Quarkus)      ── Redis/Valkey (optional) shared cache and cross-instance events
+     │            ── ClickHouse   (optional) readings that outlive a restart
+     │  RESP, optionally through an SSH tunnel
+     ▼
+  Redis / Valkey targets
+----
+
+Frontend:: A React and PatternFly application. It is built into static files and served by
+the backend, so a deployment is one process and the interface never has to be told where
+the API is.
+
+Backend:: A Quarkus application. Every request is non-blocking from HTTP through
+persistence to the target, which is what lets one process stream a million-key scan to
+several browsers at once.
+
+Keydra's own store:: PostgreSQL holds what {product-name} knows: connection profiles,
+accounts and grants, schedules and their runs, alert rules, audit entries. Your keys are
+never copied into it.
+
+== The two API surfaces
+
+GraphQL at `/graphql`:: What the interface uses for nearly everything it reads and changes.
+
+REST under `{api-base}`:: The complete surface, versioned in its path, and what another tool
+or a script is written against. The interface still uses it for files, values, signing in and
+the sockets.
+
+Both call the same services and are guarded by the same permissions.
+
+Both are described in xref:api.adoc[the API reference].
+
+== How the interface stays current without polling
+
+One WebSocket, at `{api-base}/notifications`, carries every server-side change: a target
+going up or down, a key changing, a fresh metrics reading, a migration's progress, a
+schedule that failed. The interface opens it once and every page listens.
+
+Where several instances of {product-name} share a store, each one re-broadcasts what the
+others published, so a change made on one reaches a browser attached to another.

@@ -1,0 +1,269 @@
+////
+ÜRETİLMİŞ DOSYA — elle düzenlemeyin.
+scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
+Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
+////
+[cols="2,2,1,3",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Özellik | Varsayılan | Açıklama
+| `KEYDRA_ACCESS_LOG`
+| `quarkus.http.access-log.enabled`
+| `true`
+| Her isteğin günlüğe yazılıp yazılmayacağı. Bir istek satırı bir yol taşır ve buradaki bir yol bir anahtarı adlandırabilir.
+
+| `KEYDRA_APPROVAL_SWEEP_INTERVAL`
+| `keydra.approvals.sweep-interval`
+| `5m`
+| Kirayı elinde tutan örneğin, süresi dolmuş istekleri ne sıklıkla aradığı. Bu, "süresi doldu" ifadesinin çözünürlüğüdür; bir gün bekleyen hiç kimsenin fark etmediği bir incelik.
+
+| `KEYDRA_APPROVAL_TTL`
+| `keydra.approvals.ttl`
+| `24h`
+| Bir işlemin, yanıtlanabilir olmaktan çıkmadan önce ikinci bir kişiyi ne kadar beklediği. Bir gün: başka bir zaman diliminden bir meslektaşın görmesine yetecek kadar uzun, kimsenin üç hafta önce baktığı bir anahtar uzayında toplu silmeyi onaylamayacağı kadar kısa. Süresi dolduğunda satır silinmez, durumunu söyler — çünkü önlenen hata, hiç gerçekleşmeyecek bir işlemi ayarlanmış sanmaktır.
+
+| `KEYDRA_BACKUP_DIR`
+| `keydra.backup.local-root`
+| `backups`
+| Yerel bir yedek hedefinin içine yazdığı dizin. Hedefler dizini buna göreli olarak adlandırır; böylece hiçbir hedef makinedeki rastgele bir yola yönlendirilemez.
+
+| `KEYDRA_BEHIND_PROXY`
+| `quarkus.http.proxy.proxy-address-forwarding`
+| `false`
+| `X-Forwarded-*` başlıklarına inanılıp inanılmayacağı. Yalnızca bir ters vekil sunucunun arkasındayken açın: önünde hiçbir şey yokken onlara güvenen bir kurulum, çağıranın kendi adresini kendisinin bildirdiği bir kurulumdur.
+
+| `KEYDRA_CLICKHOUSE_ENABLED`
+| `keydra.metrics.clickhouse.enabled`
+| `true`
+| Okumaların ayrıca yeniden başlatmaya dayanan bir yere yazılıp yazılmayacağı. Varsayılan olarak kapalı: bir kuruluma ikinci bir servis eklemek gerçek bir maliyettir ve bunu istemeyen bir örneğe gerekli olduğu söylenmemelidir.
+
+| `KEYDRA_CLICKHOUSE_PASSWORD`
+| `keydra.metrics.clickhouse.password`
+| 
+| ClickHouse parolası.
+
+| `KEYDRA_CLICKHOUSE_URL`
+| `keydra.metrics.clickhouse.url`
+| `http://localhost:8123`
+| ClickHouse’un HTTP arabirimi. JDBC sürücüsü yerine HTTP, çünkü sürücü bloklayıcıdır — bu uygulama ise değildir.
+
+| `KEYDRA_CLICKHOUSE_USER`
+| `keydra.metrics.clickhouse.username`
+| `default`
+| ClickHouse kullanıcısı.
+
+| `KEYDRA_COOKIE_SECURE`
+| `keydra.security.cookie-secure`
+| `true`
+| Oturum çerezinin Secure olarak işaretlenip işaretlenmediği. Üretimde açık: düz HTTP üzerinden giden bir oturum çerezi, hat üzerindeki bir oturum çerezidir.
+
+| `KEYDRA_CSP`
+| `keydra.http.content-security-policy`
+| `default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' ws: wss:; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'`
+| Tarayıcıya uygulatılan içerik güvenliği politikası. Sabit metin yerine bir özellik olması, varlıkları başka yerden sunan bir kurulumun başlığı kapatmak yerine ihtiyaç duyduğu tek yönergeyi genişletebilmesi içindir. Birini genişletmek hepsini yeniden yazmak demektir; asıl nokta da budur: politika ya bütündür ya hiçtir.
+
+| `KEYDRA_DB_PASSWORD`
+| `quarkus.datasource.password`
+| 
+| Veritabanı parolası.
+
+| `KEYDRA_DB_URL`
+| `quarkus.datasource.reactive.url`
+| `postgresql://localhost:5432/keydra`
+| Reaktif PostgreSQL adresi; `postgresql://sunucu:port/veritabani` biçiminde. JDBC öneki yok — uygulama bloklamayan bir yapıdadır ve reaktif bir sürücü kullanır.
+
+| `KEYDRA_DB_USERNAME`
+| `quarkus.datasource.username`
+| `keydra`
+| Veritabanı kullanıcısı.
+
+| `KEYDRA_EGRESS_ALLOW_LOOPBACK`
+| `keydra.egress.allow-loopback`
+| `false`
+| Birinin yazdığı bir adresin Keydra’nın çalıştığı makineyi gösterip gösteremeyeceği. Geliştirme dışında kapalı.
+
+| `KEYDRA_EGRESS_ALLOW_PRIVATE`
+| `keydra.egress.allow-private`
+| `true`
+| Birinin yazdığı bir adresin özel bir ağda olup olamayacağı. Genelde evet: iç bir sohbet aktarıcısına giden webhook ve aynı alt ağdaki S3 uyumlu depo olağan durumlardır. Link-local her hâlükârda reddedilir ve ayarı yoktur.
+
+| `KEYDRA_EGRESS_ALLOWED_HOSTS`
+| `keydra.egress.allowed-hosts`
+| 
+| Yukarıdaki kurallardan bağımsız olarak izin verilen sunucular. Bir kurulumun erişmek zorunda olduğu tek bir iç adres için kaçış kapağı.
+
+| `KEYDRA_GEOIP_DATABASE`
+| `keydra.security.geoip-database`
+| 
+| Varsa bir GeoIP veritabanı. Bir girişin öncekilerle karşılaştırılırken nereden geldiğini söylemek için kullanılır.
+
+| `KEYDRA_INSTANCE_ID`
+| `keydra.cluster.instance-id`
+| 
+| Örneğin kendine verdiği ad. Hakkında sayfasında, her günlük satırında ve ürettiği her ölçümde görünür. Ayarlanmadığında kendiliğinden üretilir.
+
+| `KEYDRA_INVITATION_VALID_FOR`
+| `keydra.invitations.valid-for`
+| `P7D`
+| Davet ve parola sıfırlama bağlantılarının geçerlilik süresi. Süresiz bir bağlantı, adım sayısı fazla bir paroladır.
+
+| `KEYDRA_JSON_LOGS`
+| `quarkus.log.console.json.enabled`
+| `true`
+| İnsan okuyabilir biçim yerine konsolda JSON; böylece bir günlük toplayıcı, insan için yazılmış bir düzeni ayrıştırmak zorunda kalmaz.
+
+| `KEYDRA_KEY_SCRIPTING`
+| `keydra.keys.scripting.enabled`
+| `false`
+| Bir taşımanın, her anahtara ne olacağına karar veren bir Lua betiği taşıyıp taşıyamayacağı. Öntanımlı olarak kapalı ve ilginç olan da bu: Keydra'nın yaptığı her şey birinin sunucusunda çalışır, betik ise Keydra'nın içinde — her hedefin kimlik bilgilerini tutan sürecin içinde — çalışır. Kapatmak, kim isterse istesin isteği doğrudan reddeder.
+
+| `KEYDRA_KEYSPACE_FLUSH_INTERVAL`
+| `keydra.keyspace.flush-interval`
+| `2s`
+| Birikmiş anahtar uzayı değişikliklerinin ne sıklıkla gönderildiği. Her değişiklik için bir mesaj, saniyede binlerce yazma yapan bir sunucuda her yazma başına bir yayın demektir — hem de o hedefi izleyen her sekmeye. Küçük değer daha çabuk güncellenen bir liste, büyük değer aynı haber için daha az mesaj demektir.
+
+| `KEYDRA_KEYSPACE_LEASE`
+| `keydra.keyspace.lease`
+| `2m`
+| Bir anahtar uzayı izleme kirasının ne kadar geçerli olduğu. Tarayıcı yok olabilir — kapanan bir dizüstü, kopan bir ağ — bu yüzden izleme, veda etmeyebilecek bir sayfaya değil, birileri bakarken yenilenen bir kiraya bağlıdır.
+
+| `KEYDRA_LEASE_SECONDS`
+| `keydra.cluster.lease-seconds`
+| `15`
+| Lider kirasının yenilenmeden önce ne kadar tutulduğu. Yenilemeyi bırakan örnek, kirayı sonraki isteyene kaptırır; dolayısıyla bu aynı zamanda bir çökmenin işi ne kadar kesintiye uğratabileceğidir.
+
+| `KEYDRA_MAIL_API_KEY`
+| `keydra.mail.password`
+| 
+| Aktarıcı parolası ya da API anahtarı.
+
+| `KEYDRA_MAIL_FROM`
+| `keydra.mail.from`
+| 
+| Giden postanın gönderildiği adres. Çoğu aktarıcı bu olmadan bir mesajı reddeder.
+
+| `KEYDRA_MAIL_HOST`
+| `keydra.mail.host`
+| 
+| Giden postanın geçtiği SMTP aktarıcısı — davetler, parola sıfırlamaları ve e-posta uyarı gönderimleri.
+
+| `KEYDRA_MAIL_LANGUAGE`
+| `keydra.mail.language`
+| `en`
+| Muhatabı hangi dilde okuduğunu hiç söylememişse davetin hangi dilde yazılacağı. `en` ya da `tr`.
+
+| `KEYDRA_MAIL_PORT`
+| `keydra.mail.port`
+| `587`
+| Aktarıcı portu.
+
+| `KEYDRA_MAIL_TLS`
+| `keydra.mail.tls`
+| `true`
+| Aktarıcıya TLS ile bağlanılıp bağlanılmayacağı.
+
+| `KEYDRA_MAIL_USERNAME`
+| `keydra.mail.username`
+| 
+| Keydra’nın aktarıcıya kimliğini doğrularken kullandığı hesap.
+
+| `KEYDRA_MAX_BODY_SIZE`
+| `quarkus.http.limits.max-body-size`
+| `25M`
+| Kabul edilen en büyük istek gövdesi. Bir anahtar içe aktarımını ve bir yedek geri yüklemesini sınırlayan budur.
+
+| `KEYDRA_OIDC_CLIENT_ID`
+| `quarkus.oidc.client-id`
+| `keydra`
+| O sağlayıcıdaki istemci kimliği.
+
+| `KEYDRA_OIDC_ROLES_CLAIM`
+| `quarkus.oidc.roles.role-claim-path`
+| `realm_access/roles`
+| Rollerin belirteç içindeki yeri; bir yol olarak. `viewer`, `operator` ya da `admin` talebi, o rolün örnek kapsamındaki bir yetkisine dönüşür.
+
+| `KEYDRA_OIDC_SECRET`
+| `quarkus.oidc.credentials.secret`
+| 
+| O sağlayıcıdaki istemci sırrı.
+
+| `KEYDRA_OIDC_URL`
+| `quarkus.oidc.auth-server-url`
+| 
+| Açılışta yapılandırılan tek bir OIDC sağlayıcının yayıncısı. Desteklenen yol arayüzden eklenen sağlayıcılardır ve bu dördüne ihtiyaç duymaz; bu, henüz giriş yapıp sağlayıcı ekleyecek kimse yokken bir sağlayıcı tanımlayan kurulumlar içindir.
+
+| `KEYDRA_OTLP_ENDPOINT`
+| `quarkus.otel.exporter.otlp.endpoint`
+| 
+| OpenTelemetry izlerinin aktarılacağı yer. İzlemeyi açan şey bunun ayarlanmasıdır; ikinci bir bayrak yoktur.
+
+| `KEYDRA_PREVIOUS_SECRET_KEYS`
+| `keydra.crypto.previous-secrets`
+| 
+| Hâlâ okunabilen ama artık yazma yapmayan anahtarlar. Anahtar değişimini kesintiden ayıran özellik budur: yeni anahtar yazar, eskiler kendi yazdıklarını çözmeyi sürdürür ve yeniden şifreleme bütün kayıtları kurulum ayaktayken taşır.
+
+| `KEYDRA_PUBLIC_URL`
+| `keydra.public-url`
+| 
+| Tarayıcının gördüğü biçimiyle Keydra’nın adresi. Sağlayıcı yönlendirmeleri ve giden postadaki bağlantılar bu adresten üretilir; sürecin bağlandığı adres değil, kullanıcıların gerçekten yazdığı adres olmalıdır.
+
+| `KEYDRA_REACHABILITY_HISTORY`
+| `keydra.reachability.history-kept`
+| `90d`
+| Erişilebilirlik değişikliği kaydının ne kadar saklandığı. Yanıtlar değil değişiklikler tutulduğu için, çalışan bir şey yılda birkaç satır eder. Sonsuza kadar değil: iki kez değiştirilmiş bir hedefe üç yıl önce ne olduğu, hiçbir şeyin kanıtı değildir.
+
+| `KEYDRA_REACHABILITY_INTERVAL`
+| `keydra.reachability.interval`
+| `10m`
+| Bir sunucunun kimlik sağlayıcılara ve yedek hedeflerine cevap verip vermediklerini ne sıklıkla sorduğu. Sıfır, sormayı kapatır.
+
+| `KEYDRA_REACHABILITY_MIN_GAP`
+| `keydra.reachability.minimum-gap`
+| `30s`
+| Bir cevabın ardından durum sayfasındaki *Şimdi denetle* düğmesinin ne kadar sonra yeniden sorabileceği.
+
+| `KEYDRA_RECONCILE_SECONDS`
+| `keydra.cluster.reconcile-seconds`
+| `30`
+| Örneğin, lider işlerini üstlenip üstlenmemesi gerektiğini hangi sıklıkta denetlediği. Kirayı kimse tutmuyorsa alır; kaybettiyse zamanlanmış işleri bırakır.
+
+| `KEYDRA_SECRET_KEY`
+| `keydra.crypto.secret`
+| 
+| Saklanan her kimlik bilgisini şifreleyen anahtar — hedef parolaları, tünel anahtarları, sağlayıcı sırları, hedef kimlik bilgileri. 32 rastgele bayt, base64. Varsayılanı yoktur: o olmadan saklanan hiçbir şey okunamaz.
+
+| `KEYDRA_SECURITY_ENABLED`
+| `keydra.security.enabled`
+| `true`
+| Keydra’nın kimin neyi yapabileceğini uygulayıp uygulamadığı. Kapatmak, adrese erişebilen herkesi bütün izinlerle içeri alır ve her sayfa bunu söyler — güvenli görünen açık bir örnek, insanın ifşa olma biçimidir.
+
+| `KEYDRA_SESSION_SWEEP_INTERVAL`
+| `keydra.sessions.sweep-interval`
+| `1h`
+| Süresi dolmuş oturum satırlarının ne sıklıkta silindiği. Kimsenin budamadığı bir oturum tablosu, uygulama çalıştığı sürece büyüyen bir tablodur.
+
+| `KEYDRA_SIGN_IN_THROTTLE`
+| `keydra.security.sign-in.throttle-enabled`
+| `true`
+| Art arda gelen giriş hatalarının sayılıp reddedilip reddedilmediği. Sınır, parola özetinden önce yanıtlanır; çünkü Argon2id bilerek yavaştır ve sınırsız deneme, parola tahmin etmenin yanında sunucunun belleğini harcamanın da yoludur.
+
+| `KEYDRA_SOCKET_ORIGIN_CHECK`
+| `keydra.security.socket-origin-check`
+| `true`
+| Bir WebSocket el sıkışmasının, Keydra’nın tanıdığı bir kaynaktan gelmesinin zorunlu olup olmadığı. Bir soket, bir fetch gibi aynı köken politikasının kapsamında değildir; bu, onun yerine geçen kontroldür.
+
+| `KEYDRA_SOCKET_ORIGINS`
+| `keydra.security.socket-origins`
+| 
+| Genel adresin dışında, bir WebSocket’in açılabileceği kaynaklar. Arayüzün başka bir yerden sunulduğu kurulumlar için.
+
+| `KEYDRA_STORE_URL`
+| `keydra.store.url`
+| `redis://localhost:6481`
+| Ortak önbellek ve örnekler arası bildirim yayını için Keydra’nın kendi Redis adresi. Hedeflerinizden biri olmamalıdır: birinin göz attığı bir sunucuda duran önbellek, birinin toplu silme yaparken boşalttığı önbellek olur. Tek örnekli kurulumlarda boş bırakın.
+
+| `KEYDRA_TRUSTED_PROXIES`
+| `quarkus.http.proxy.trusted-proxies`
+| 
+| O başlıkları hangi vekillerin ayarlayabileceği; adres ya da CIDR aralığı olarak. Bu olmadan onlara inanmak, herkese inanmak demektir.
+
+|===

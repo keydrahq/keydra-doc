@@ -1,0 +1,37 @@
+[id="observability-concepts_{context}"]
+= What Keydra reports about itself
+
+Health:: `/q/health`, with `/q/health/live` and `/q/health/ready` for the two probes the
+manifests use.
+
+Metrics:: Prometheus at `/q/metrics`. The runtime's own meters — requests, JVM, event loops
+— plus the ones only {product-name} can produce: targets up and down, how long a reading
+takes and how often one fails, how much this instance has asked of the targets it watches,
+schedule runs by outcome, alerts raised and delivered, migrations in flight, and whether
+this instance holds the leader's work.
++
+Labels are ids and outcomes, never names. A target's name is a fact about somebody's estate
+and a series keeps its labels for its whole life; an id says the same thing to anybody
+entitled to resolve it, and does not add a series every time a target is renamed.
+
+Traces:: OpenTelemetry, exporting nowhere until `KEYDRA_OTLP_ENDPOINT` is set — and turned
+on by that endpoint being set rather than by a second flag somebody has to remember. A
+tracing SDK pointed at nothing produces a log line per export attempt, which is worse than
+no tracing at all.
+
+Logs:: The ordinary human-readable format, or JSON on the console where the deployment asks
+for it with `KEYDRA_JSON_LOGS`. Every line carries the instance.
+
+The *About* page says what is exported and where, because "is this build sending metrics
+anywhere" should not be answered by reading a deployment manifest.
+
+== Metric labels
+
+Meters are tagged by target *id* and never by name. A metric label is read by systems nobody
+in this project controls and lives provided that the series does; `production-payments` is a
+fact about somebody's estate, and an id says the same thing to anyone entitled to resolve it.
+
+Every meter carries the instance that made it, under `keydra_instance` rather than
+`instance`: behind a load balancer the same question asked twice reaches two processes, and
+a graph that mixes them says nothing — while a scraper puts its own `instance` label on what
+it collects and renames anything that arrives already carrying one.

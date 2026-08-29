@@ -1,0 +1,264 @@
+# Türkçe çeviri sözlüğü.
+#
+# `keep: true` olan terimler çevrilmez: ürün adları, standart adları ve kod
+# tanımlayıcıları. Geri kalanların karşılığı burada kararlaştırılır ve
+# .vale/styles/KeydraTR/Terimler.yml bunları denetler.
+#
+# Arayüz etiketleri bu sözlüğün konusu değildir: bir prosedür, arayüzün o dilde
+# gösterdiği etiketi aynen yazar.
+
+terms:
+- term: Keydra
+  translation: Keydra
+  keep: true
+  note: The product name. A proper noun in every language; never translated, never lower-cased mid-sentence.
+- term: Redis
+  translation: Redis
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: Valkey
+  translation: Valkey
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: Quarkus
+  translation: Quarkus
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: PatternFly
+  translation: PatternFly
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: PostgreSQL
+  translation: PostgreSQL
+  keep: true
+  note: Ürün adı; çevrilmez. "Postgres" yazılmaz.
+- term: ClickHouse
+  translation: ClickHouse
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: Prometheus
+  translation: Prometheus
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: OpenTelemetry
+  translation: OpenTelemetry
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: Keycloak
+  translation: Keycloak
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: Podman
+  translation: Podman
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: OIDC
+  translation: OIDC
+  keep: true
+  note: Kısaltma korunur. İlk geçtiğinde "OpenID Connect" açılabilir.
+- term: OpenID Connect
+  translation: OpenID Connect
+  keep: true
+  note: Standardın adı; çevrilmez.
+- term: OAuth 2
+  translation: OAuth 2
+  keep: true
+  note: Standardın adı; çevrilmez.
+- term: API
+  translation: API
+  keep: true
+  note: Kısaltma korunur.
+- term: REST
+  translation: REST
+  keep: true
+  note: Kısaltma korunur.
+- term: GraphQL
+  translation: GraphQL
+  keep: true
+  note: Ürün adı; çevrilmez.
+- term: WebSocket
+  translation: WebSocket
+  keep: true
+  note: Teknoloji adı; çevrilmez.
+- term: endpoint
+  translation: uç nokta
+  keep: false
+  note: Bir HTTP adresi anlamında. Kod içindeki `endpoint` tanımlayıcıları çevrilmez.
+- term: instance
+  translation: örnek
+  keep: false
+  note: Çalışan bir Keydra süreci. Bir sunucu değil, bir kurulum kopyası.
+- term: cluster
+  translation: küme
+  keep: false
+  note: Redis/Valkey kümesi. Arayüzde "Küme" olarak geçer.
+- term: node
+  translation: düğüm
+  keep: false
+  note: Küme düğümü.
+- term: connection
+  translation: bağlantı
+  keep: false
+  note: Arayüzde "Bağlantılar" sayfası.
+- term: connection profile
+  translation: bağlantı profili
+  keep: false
+  note: Bir hedefin Keydra’daki tanımı.
+- term: target
+  translation: hedef
+  keep: false
+  note: Keydra’nın yönettiği Redis/Valkey sunucusu. Arayüzde "Hedef".
+- term: backup
+  translation: yedek
+  keep: false
+  note: İşlem olarak "yedekleme", nesne olarak "yedek".
+- term: restore
+  translation: geri yükleme
+  keep: false
+  note: Arayüzde "Geri yükle".
+- term: migration
+  translation: göç
+  keep: false
+  note: Anahtarların iki hedef arasında taşınması. Arayüzde "Göçler".
+- term: credential
+  translation: kimlik bilgisi
+  keep: false
+  note: Parola, anahtar, belirteç — hepsinin üst kavramı.
+- term: secret
+  translation: sır
+  keep: false
+  note: Şifreli saklanan ve API tarafından döndürülmeyen değer.
+- term: token
+  translation: belirteç
+  keep: false
+  note: Ortam değişkeni ve alan adları (`token`) çevrilmez.
+- term: role
+  translation: rol
+  keep: false
+  note: Yerleşik rol adları (`viewer`, `operator`, `admin`) çevrilmez.
+- term: permission
+  translation: izin
+  keep: false
+  note: İzin kimlikleri (`keys:read`) çevrilmez.
+- term: grant
+  translation: yetki
+  keep: false
+  note: '"Bir özne bir kapsamda bir rol tutar" cümlesindeki bağ.'
+- term: scope
+  translation: kapsam
+  keep: false
+  note: Bir yetkinin neye dair olduğu.
+- term: subject
+  translation: özne
+  keep: false
+  note: Bir kullanıcı ya da grup.
+- term: server group
+  translation: sunucu grubu
+  keep: false
+  note: Yetkinin işaret ettiği hedef kümesi.
+- term: health check
+  translation: sağlık yoklaması
+  keep: false
+  note: Uç nokta adı `/q/health` olarak kalır.
+- term: readiness
+  translation: hazır olma
+  keep: false
+  note: '`/q/health/ready` yoklaması.'
+- term: liveness
+  translation: canlılık
+  keep: false
+  note: '`/q/health/live` yoklaması.'
+- term: metrics
+  translation: ölçümler
+  keep: false
+  note: Prometheus ölçümleri.
+- term: tracing
+  translation: izleme
+  keep: false
+  note: OpenTelemetry izleri. "Monitoring" karşılığı olan "izleme" ile karışmaması için bağlamda "iz"
+    kullanılır.
+- term: monitoring
+  translation: izleme
+  keep: false
+  note: Arayüzde "İzleme" sayfası.
+- term: keyspace
+  translation: anahtar alanı
+  keep: false
+  note: Bir hedefteki anahtarların bütünü.
+- term: namespace
+  translation: ad alanı
+  keep: false
+  note: Anahtar adının `:` ile ayrılan öneki.
+- term: jump host
+  translation: atlama sunucusu
+  keep: false
+  note: '"bastion" hiçbir dilde kullanılmaz — Türkçe bir sözcük değil ve arayüzün de birincil terimi "jump
+    host" / "atlama sunucusu".'
+- term: tunnel
+  translation: tünel
+  keep: false
+  note: SSH tüneli.
+- term: schedule
+  translation: zamanlanmış iş
+  keep: false
+  note: Arayüzde "Zamanlanmış işler".
+- term: alert
+  translation: uyarı
+  keep: false
+  note: Arayüzde "Uyarılar".
+- term: delivery
+  translation: gönderim
+  keep: false
+  note: Bir uyarının gönderildiği yer.
+- term: baseline
+  translation: taban çizgisi
+  keep: false
+  note: Geçmiş bir pencerenin okuduğu değer.
+- term: lease
+  translation: kira
+  keep: false
+  note: Lider seçimini sağlayan veritabanı satırı.
+- term: audit log
+  translation: denetim günlüğü
+  keep: false
+  note: Arayüzde "Denetim".
+- term: session
+  translation: oturum
+  keep: false
+  note: Arayüzde "Oturum açmış tarayıcılar".
+- term: sign in
+  translation: giriş yapmak
+  keep: false
+  note: Arayüzde "Giriş yap". Kavram olarak "oturum açma".
+- term: authentication
+  translation: kimlik doğrulama
+  keep: false
+  note: ''
+- term: authorization
+  translation: yetkilendirme
+  keep: false
+  note: ''
+- term: encryption at rest
+  translation: durağan hâlde şifreleme
+  keep: false
+  note: Kısaca "şifreli saklanır" tercih edilir.
+- term: deployment
+  translation: kurulum
+  keep: false
+  note: Bir Keydra kurulumu. Kubernetes Deployment nesnesi kastediliyorsa çevrilmez.
+- term: container image
+  translation: kapsayıcı imajı
+  keep: false
+  note: ''
+- term: decoder
+  translation: çözücü
+  keep: false
+  note: Değer kodlamalarını okuyan zincir.
+- term: glob
+  translation: glob
+  keep: true
+  note: Desen türü; çevrilmez.
+- term: cursor
+  translation: imleç
+  keep: false
+  note: '`SCAN` imleci.'

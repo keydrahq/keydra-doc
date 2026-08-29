@@ -1,0 +1,28 @@
+[id="sign-in-protection_{context}"]
+= Giriş koruması
+
+Her giriş denemesi kaydedilir ve sınır, parola özeti hesaplanmadan *önce* denetlenir. Argon2id
+bilinçli olarak yavaştır; sınırsız deneme yalnızca parola tahmin etmenin değil, sunucunun
+belleğini tüketmenin de yolu olurdu.
+
+image::giris-etkinligi.jpg["Giriş etkinliği; başarılı bir giriş, yeni bir tarayıcıdan geldiği için işaretlenmiş"]
+
+Sınırlama:: Başarısız denemeler, veritabanındaki kayan bir pencerede hem hesap hem ağ bazında
+sayılır; yeniden başlatma sayacı sıfırlamaz. Bir reddin kendisi, o reddi üreten sınıra
+eklenmez; aksi hâlde kapıyı sürekli çalmak, adı bilinen bir hesabı kapalı tutmaya yeterdi. Form
+şunu gösterir: *Çok fazla giriş denemesi yapıldı. Birkaç dakika bekleyip yeniden deneyin.*
+
+Anormallikler:: *Başarılı* girişler kendisinden öncekilerle karşılaştırılır; çünkü çalınmış
+parola doğru paroladır. Alışılmadık bir konumdan, uzun bir sessizliğin ardından ya da otomatik
+bir aracı düşündüren bir hızda gelen giriş işaretlenir ve bildirim üretir.
+
+Pencere süresi, sınırlar ve saklama süresi yapılandırmayla belirlenir; `keydra.security.sign-in.*`
+ayarları için bkz. xref:configuration-reference.adoc[Yapılandırma referansı].
+
+.Neyin gelmediği açıkça yazılmıştır
+[NOTE]
+====
+Uzunluk alt sınırının ötesinde bir parola politikası bilinçli olarak eklenmedi. Karakter çeşidi
+kuralları parolaları güçlendirmez; işe yarayan yöntem sızdırılmış parola denetimidir ve o da
+{product-name}'nın yapmadığı bir ağ çağrısı gerektirir.
+====

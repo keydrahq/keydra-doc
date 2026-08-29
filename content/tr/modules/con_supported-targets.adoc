@@ -1,0 +1,47 @@
+[id="supported-targets_{context}"]
+= Desteklenen hedefler
+
+İki ayrı soru var ve bunlar aynı soru değil. *Depo ne konuşuyor?* sorusu, {product-name}'nın
+onunla hangi motor üzerinden konuşacağını, dolayısıyla neler sunabileceğini belirler. *Nasıl
+kurulmuş?* sorusu ise tek bir adresin arkasında kaç makine olduğunu belirler.
+
+== Depo ne konuşuyor
+
+include::../snippets/generated/engine-types.adoc[]
+
+Her depo tek bir arayüzün arkasında durur; bu yüzden motorun üstündeki sayfalar protokollerle
+değil, anahtarlar ve sunucularla ilgilenir. Başka bir depo eklemek, sayfaları değiştirmek
+değil, bir motor eklemek demektir.
+
+.Bir deponun sahip olmadığı yetenek bozuk değil, yoktur
+[NOTE]
+====
+Komut konsolu ve Pub/Sub, ilk çağrıda hata veren yöntemler değil, motorda isteğe bağlı
+yeteneklerdir; bu yüzden komut dili olmayan bir depo bunu arayüzde söyler: sekme orada
+değildir. Bir TiKV hedefinde *Konsol* ve *Pub/Sub* sekmelerinin bulunmamasının, bir Redis
+hedefinde ikisinin de bulunmasının nedeni budur.
+
+TiKV hedefinde TTL sütununun boş olması da aynı akıl yürütmenin sonucudur. TTL açık
+başlatılmamış bir TiKV kümesinden bir anahtarın yaşam süresini istemek hata döndürmez —
+sunucu panikler ve süreç ölür. Bu yüzden bu motor hiç sormaz; boş sütun bir eksiklik değil,
+bilinçli bir rettir.
+====
+
+== Nasıl kurulmuş
+
+include::../snippets/generated/connection-types.adoc[]
+
+Bunlar bir RESP hedefini tanımlar. {product-name}, yük devretmede değişen bir adresle
+yetinmek yerine sentinel'e master'ın şu anda nerede olduğunu sorar; bir cluster'ın düğümlerini
+ve slot aralıklarını da hedefin kendisinden keşfeder — bkz.
+xref:topology.adoc[Cluster ve sentinel topolojisi].
+
+== Türev tespiti bir koşul değil, bilgidir
+
+RESP hedefleri için {product-name}, sunucunun `INFO server` çıktısını okur ve bulduğu türevi
+ile sürümü gösterir. Tanımadığı bir sunucuyu reddetmez; karşısında ne olduğunu size bildirir.
+
+Bu yanıtla yaptığı şey, hedefin kendi komut tablosunu okuyup o türevin desteklemediği
+işlemleri gizlemek ya da kapatmaktır. Bu soruyu yanıtlamayan bir hedef *Sorulamadı* olarak
+işaretlenir ve ona her şey sunulur; çünkü desteklenmeyen bir işlemin kullanıldığı yerde
+başarısız olması, sunucunun aslında yapabildiği bir işlemi sessizce gizlemekten iyidir.

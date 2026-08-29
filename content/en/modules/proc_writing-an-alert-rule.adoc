@@ -1,0 +1,27 @@
+[id="writing-an-alert-rule_{context}"]
+= Writing an alert rule
+
+.Prerequisites
+
+* You hold `alert:manage` on the target.
+
+.Procedure
+
+. Go to *Alerts*.
+. Click *Add a rule*.
+. Choose the target and the *Metric*.
+. Choose *Above or below* and give the threshold.
+. Choose *Has to hold for*.
+. Leave *Enabled* ticked. The hint says what that means: an enabled rule keeps its target
+  sampled, whether or not anybody has the dashboard open.
+. Optionally choose a *Delivery*. Without one the rule reads *in Keydra only* — the event is
+  still recorded and shown here either way.
+. Save.
+
+.Verification
+
+The rule appears with its condition written out as a sentence and what it currently reads.
+When it fires, a notification arrives wherever you are in {product-name}, and *History*
+records the transition.
+
+Deleting a rule removes it and everything it has said. Nothing on the target changes.

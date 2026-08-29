@@ -1,0 +1,24 @@
+[id="keyspace-analysis-concepts_{context}"]
+= The two questions a full server raises
+
+Every console can name the single biggest key. That is rarely the question. A server that
+is filling up raises two others, and keyspace analysis exists to answer them:
+
+image::analysis.jpg["Keyspace analysis, showing memory by type beside how long the measured memory has left"]
+
+*Which namespace grew?* {product-name} groups the keyspace on the `:` delimiter and reports
+memory and key count per namespace, so growth has a name rather than a number.
+
+*How much of this memory is never coming back?* Keys are grouped by how long they have
+left — *Never — no expiry set*, *Within an hour*, *Within a day*, *Within a week*, *Longer
+than a week*. When a large share has no expiry, the page says so plainly: a cache whose
+entries never expire is not a cache, it is a growing table.
+
+== Census or sample
+
+A small keyspace is measured entirely, and the page says so: *All {count} keys were
+measured.*
+
+A large one is sampled, and the page says that too: *{sampled} of {total} keys measured —
+the proportions hold, the totals do not.* Stating which of the two you are looking at is
+the difference between a measurement and a guess presented as one.

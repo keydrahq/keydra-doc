@@ -1,0 +1,30 @@
+# Which versions of Keydra are documented.
+#
+# Discovered rather than chosen: `backend/pom.xml` reads 0.0.1-SNAPSHOT,
+# `frontend/package.json` reads 0.0.1, and `git tag` lists nothing. So there is one
+# version, it is a development version, and this file says so instead of inventing a
+# release that has not happened.
+#
+# Adding a release later is three lines here and a `ref` pointing at its tag; the build
+# already emits one tree per entry and the version menu already reads this file.
+
+# The alias every unversioned link resolves to.
+latest: '0.0.1'
+
+# The newest version marked `state: stable`, or empty when none is. The renderer shows a
+# "this is development documentation" notice on any version that is not this one.
+stable: ''
+
+versions:
+  - id: '0.0.1'
+    # What the version menu shows.
+    label: '0.0.1'
+    # stable | development. A development version is banner-marked in the interface and
+    # excluded from `stable` above.
+    state: development
+    # The git ref this version's content is built from. `build-version.ts` checks the ref
+    # out into a worktree when it is not the working tree's own ref; `WORKTREE` means
+    # "whatever is checked out", which is what a development version is.
+    ref: WORKTREE
+    # Shown beside the version in the About-style footer.
+    keydraVersion: 0.0.1-SNAPSHOT

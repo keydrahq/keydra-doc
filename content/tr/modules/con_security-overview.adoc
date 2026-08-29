@@ -1,0 +1,44 @@
+[id="security-overview_{context}"]
+= Keydra neyi, nasıl korur
+
+{product-name} yönettiği bütün sunucuların kimlik bilgilerini tutar. Bu onu doğrudan bir hedef
+hâline getirir; aşağıdaki önlemler de bunu ciddiye almanın sonucudur.
+
+Kimlik bilgileri şifreli saklanır:: Örnek anahtarıyla AES-256-GCM kullanılır ve hiçbir API
+bunları geri döndürmez. Bkz.
+xref:architecture.adoc#what-keydra-stores_architecture[Keydra neyi saklar, neyi korur].
+
+Parolalar özetlenir:: Argon2id kullanılır ve doğrulama bir işçi iş parçacığında yapılır.
+
+Oturum yalnızca çerez değil, bir kayıttır:: Oturumu sonlandırmak bir sonraki istekte etkili
+olur; parola değiştirmek de o ana kadar açılmış bütün oturumları kapatır. Bkz.
+xref:accounts.adoc#your-sessions_accounts[Oturumlarınız].
+
+İzinler her istekte yeniden hesaplanır:: Erişimi geri almak için kullanıcının çıkış yapmasını
+beklemek gerekmez.
+
+Tarayıcıya uygulatılan başlıklar:: İçerik güvenliği politikası, `X-Content-Type-Options:
+nosniff` ve diğerleri varsayılmaz, başlık olarak gönderilir. Politika bir yapılandırma
+değeridir; varlıkları başka bir sunucudan sunan bir kurulum, başlığı kapatmak yerine yalnızca
+ihtiyaç duyduğu yönergeyi genişletir.
+
+Çerezler:: Oturum çerezi `HttpOnly` işaretlidir; hiçbir betik onu okuyamaz. `SameSite=Lax`
+işaretlidir; başka bir site onu kullanamaz. Üretimde ayrıca `Secure` olur.
+
+Dış adresler çağrılmadan önce denetlenir:: Webhook'lar, sağlayıcı keşfi ve nesne deposu uç
+noktaları aynı denetimden geçer. Link-local adresler reddedilir ve bunu açan bir ayar yoktur:
+`169.254.169.254` adresi makinenin bulut kimlik bilgilerini döndürür, uyarı tanımlamak ise
+yönetici değil operatör işidir. Denetim hem adres kaydedilirken hem de istek atılmadan önce
+çalışır; kayıt, denetimden eski olabilir.
+
+Yayınlar hangi hedefe ait olduklarını belirtir:: Tek bir hedefe ait bildirim, yalnızca sahibinin
+o hedefi görebildiği soketlere ulaşır. Tek bir sunucuda yetkisi olan bir kullanıcı, diğerleri
+hakkında hiçbir şey duymaz.
+
+Sırlar günlüğe yazılmaz:: Ne hedef parolaları, ne belirteçler, ne anahtar parolaları. Komut
+izleyici de sırları motordan çıkmadan önce maskeler.
+
+Anahtar uzayını boşaltan işlemler bekletilebilir:: Bir hedef, kendi adı yazılmadıkça ya da
+isteği açandan başka biri onaylamadıkça boşaltılmayı reddedebilir. İkisi de bir yetki
+olmadığı için, açmak kimseyi dışarıda bırakmaz — bkz.
+xref:approvals.adoc[İkinci bir kişiyi bekleyen işlemler].

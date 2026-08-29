@@ -1,0 +1,27 @@
+[id="monitoring-concepts_{context}"]
+= What sampling is, and why it is off
+
+Sampling costs a round trip per interval whether anyone is watching or not, so it is off
+until asked for. When it is on, {product-name} reads the target's `INFO` on a timer, keeps
+the readings, and pushes each one over the notification hub. The dashboard never polls.
+
+image::monitoring.jpg["The monitoring dashboard, with operations per second, memory, hit ratio and connected clients"]
+
+Sampling is held by *reasons* rather than by a single switch. Opening a dashboard is one
+reason; an enabled alert rule is another. Closing your dashboard does not stop a
+colleague's, and it does not stop a rule from watching.
+
+== Where a chart's numbers come from
+
+Two places, and the page says which:
+
+From memory:: The last hour, held in a ring buffer in the process. Fast, and gone when
+{product-name} restarts.
+
+From the store:: A ClickHouse configured as the readings store, in buckets. This is what
+lets a chart show the week before a restart. Optional, and off by default — see
+xref:observability.adoc#keeping-readings-across-restarts_observability[Keeping readings across restarts].
+
+The *Window* selector offers *Live*, *1 hour*, *24 hours*, *7 days* and *30 days*. A window
+nothing kept that far back says *Nothing kept this far back* rather than drawing an empty
+chart.

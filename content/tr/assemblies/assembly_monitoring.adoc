@@ -1,0 +1,14 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="monitoring"]
+= İzleme
+:description: Ölçümler canlı gelir, pano sunucuyu yoklamaz. Örnekleme siz başlatana kadar kapalıdır; her grafik sayılarının bellekten mi depodan mı geldiğini belirtir.
+:page-keywords: izleme, pano, info, yavaş komutlar, istemciler, bellek, isabet oranı
+:context: monitoring
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_monitoring.adoc[leveloffset=+1]
+
+include::../modules/proc_watching-a-target.adoc[leveloffset=+1]
+
+include::../modules/proc_slowlog-and-clients.adoc[leveloffset=+1]

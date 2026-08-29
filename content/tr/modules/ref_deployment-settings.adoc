@@ -1,0 +1,113 @@
+[id="deployment-settings_{context}"]
+= Bir kurulumun ayarlayabileceği her şey
+
+Aşağıda {product-name}'nın okuduğu bütün ortam değişkenleri, ilgili oldukları karara göre
+gruplanmış hâlde ve paketlenmiş çalışma zamanının başlangıç değerleriyle birlikte listelenir.
+Varsayılanı ve değeri boş olan ayarlar kapalıdır ya da tanımsızdır.
+
+İki grup diğerlerinden önce okunmalıdır. *Zorunlu ayarlar*, çünkü {product-name} onlar
+olmadan başlamaz. *Güvenlik denetimi, çerezler ve oturumlar*, çünkü varsayılanları güvenlidir
+ve birini kapatmak ince ayar değil karardır.
+
+include::../snippets/generated/deployment-environment.adoc[]
+
+[NOTE]
+====
+Aynı ayarlar, her birinin ayarladığı özellikle birlikte alfabetik olarak
+xref:configuration-reference.adoc[Yapılandırma referansında] listelenir. Bu sayfa onları
+verdiğiniz karara göre gruplar; o sayfa "bu nedir" sorusunu yanıtlar.
+====
+
+== Eksiksiz bir örnek
+
+Hiçbir ayar tahmin edilmek zorunda kalmasın diye bütün gruplar bir arada verilmiştir. Çoğu
+kurulum bunun küçük bir bölümünü kullanır: *Zorunlu ayarlar* altındaki dört değişken, bir
+adres ve gerçekten çalıştırdıkları bileşenler.
+
+[source,yaml]
+----
+env:
+  # --- Zorunlu --------------------------------------------------------------
+  - name: KEYDRA_DB_URL
+    value: postgresql://db.internal:5432/keydra
+  - name: KEYDRA_DB_USERNAME
+    value: keydra
+  - name: KEYDRA_DB_PASSWORD
+    valueFrom: { secretKeyRef: { name: keydra-db-password, key: keydra-db-password } }
+  # 32 rastgele bayt, base64. Kaybetmek, saklanan bütün kimlik bilgilerini kaybetmektir.
+  - name: KEYDRA_SECRET_KEY
+    valueFrom: { secretKeyRef: { name: keydra-secret-key, key: keydra-secret-key } }
+
+  # --- Adres ve ters vekil sunucu -------------------------------------------
+  - name: KEYDRA_PUBLIC_URL
+    value: https://keydra.example.com
+  - name: KEYDRA_BEHIND_PROXY
+    value: "true"
+  - name: KEYDRA_TRUSTED_PROXIES
+    value: 10.0.0.0/8
+  # Yalnızca bir anahtar içe aktarımı ya da bir yedek geri yüklemesi bundan büyükse artırın.
+  - name: KEYDRA_MAX_BODY_SIZE
+    value: 25M
+
+  # --- Güvenlik denetimi ----------------------------------------------------
+  # Varsayılan olarak açık. Kapalıysa adrese erişebilen herkesi içeri alır.
+  - name: KEYDRA_SECURITY_ENABLED
+    value: "true"
+  - name: KEYDRA_COOKIE_SECURE
+    value: "true"
+
+  # --- Birden fazla örnek ---------------------------------------------------
+  - name: KEYDRA_INSTANCE_ID
+    value: keydra-a
+  # Keydra'nın kendi Redis'i. Asla hedeflerinizden biri değil.
+  - name: KEYDRA_STORE_URL
+    value: redis://store.internal:6379
+
+  # --- Giden posta ----------------------------------------------------------
+  - name: KEYDRA_MAIL_HOST
+    value: smtp.example.com
+  - name: KEYDRA_MAIL_PORT
+    value: "587"
+  - name: KEYDRA_MAIL_TLS
+    value: "true"
+  - name: KEYDRA_MAIL_USERNAME
+    value: keydra
+  - name: KEYDRA_MAIL_API_KEY
+    valueFrom: { secretKeyRef: { name: keydra-mail-key, key: keydra-mail-key } }
+  - name: KEYDRA_MAIL_FROM
+    value: keydra@example.com
+
+  # --- Ölçüm deposu ---------------------------------------------------------
+  - name: KEYDRA_CLICKHOUSE_ENABLED
+    value: "true"
+  - name: KEYDRA_CLICKHOUSE_URL
+    value: http://clickhouse.internal:8123
+  - name: KEYDRA_CLICKHOUSE_USER
+    value: keydra
+  - name: KEYDRA_CLICKHOUSE_PASSWORD
+    valueFrom: { secretKeyRef: { name: keydra-clickhouse, key: keydra-clickhouse } }
+
+  # --- Gözlemlenebilirlik ---------------------------------------------------
+  - name: KEYDRA_OTLP_ENDPOINT
+    value: http://otel-collector.internal:4317
+  - name: KEYDRA_JSON_LOGS
+    value: "true"
+----
+
+.Her sır bir sırdan gelir
+[IMPORTANT]
+====
+Yukarıdaki dört `valueFrom` girdisi süs değildir. Manifeste düz yazılan bir parola; depoya,
+dağıtım geçmişine ve manifesti ekrana basan her araca da yazılmış olur. Özellikle
+`KEYDRA_SECRET_KEY`, {product-name}'nın tuttuğu bütün kimlik bilgilerini açan tek anahtardır.
+====
+
+== Bu sayfanın listelemediği ayarlar
+
+{product-name} bir Quarkus uygulamasıdır. Bu yüzden `KEYDRA_` önekli karşılığı olmayan
+Quarkus ayarları da kullanılabilir. Dönüşüm kuralı Quarkus'a aittir: özellik adını büyük harfe
+çevirin, alfanümerik olmayan karakterleri alt çizgiyle değiştirin. Örneğin
+`quarkus.http.port` için `QUARKUS_HTTP_PORT` yazılır.
+
+Adında olağandışı karakterler bulunan bir özellik için buna güvenmeden önce eşlemeyi
+Quarkus sürümünüze karşı doğrulayın.

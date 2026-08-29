@@ -1,0 +1,24 @@
+[id="keyspace-analysis-concepts_{context}"]
+= Dolan bir sunucunun iki sorusu
+
+Her konsol en büyük anahtarı söyleyebilir. Oysa asıl sorulan bu değildir. Dolmakta olan bir
+sunucu iki soru daha doğurur; anahtar uzayı analizi bu iki soruyu yanıtlar.
+
+image::analiz.jpg["Anahtar uzayı analizi; türe göre bellek ve ölçülen belleğin ne kadar süresi kaldığı yan yana"]
+
+*Hangi ad alanı büyüdü?* {product-name} anahtar uzayını `:` ayıracına göre gruplar ve ad alanı
+başına bellek ile anahtar sayısını bildirir. Böylece büyümenin bir sayısı değil, bir adı olur.
+
+*Bu belleğin ne kadarı geri gelmeyecek?* Anahtarlar kalan sürelerine göre gruplanır: *Hiçbir
+zaman — süre tanımlı değil*, *Bir saat içinde*, *Bir gün içinde*, *Bir hafta içinde*, *Bir
+haftadan uzun*. Süresi tanımlı olmayanların oranı yüksekse sayfa bunu açıkça yazar: girdileri
+hiç sona ermeyen bir önbellek, önbellek değil sürekli büyüyen bir tablodur.
+
+== Sayım mı, örneklem mi
+
+Küçük anahtar uzayları bütünüyle ölçülür ve sayfa bunu belirtir: *{count} anahtarın hepsi
+ölçüldü.*
+
+Büyük anahtar uzaylarında örneklem alınır; sayfa bunu da belirtir: *{total} anahtarın {sampled}
+tanesi ölçüldü — oranlar geçerli, toplamlar değil.* Hangisine baktığınızı söylemek, ölçümle
+ölçüm diye sunulan tahmin arasındaki farktır.

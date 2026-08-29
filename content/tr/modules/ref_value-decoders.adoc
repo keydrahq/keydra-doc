@@ -1,0 +1,28 @@
+[id="value-decoders_{context}"]
+= Keydra'nın çözebildiği kodlamalar
+
+*Kodlama* seçicisi varsayılan olarak *Otomatik* gelir; biçimi sunucu belirler. Kodlamayı elle
+seçmek, tahminin yanlış olduğu ya da bir değerin iki farklı biçimde okunabildiği durumlar
+içindir.
+
+include::../snippets/generated/value-decoders.adoc[]
+
+.Çözme bir görünümdür, değişiklik değil
+[NOTE]
+====
+Çözme işlemi değer okunurken sunucuda yapılır ve hedefte hiçbir şeyi değiştirmez. Kayıtlı veri
+olduğu gibi kalır.
+====
+
+.Brotli en son ve temkinli denenir
+[NOTE]
+====
+Brotli kendini tanıtan bir imza taşımaz. Bu yüzden tahmini sıkı koşullara bağlıdır: düz
+metinden hemen önce, en son denenir; kayıtlı değerin bayt dizisi görünümünde olması gerekir;
+çıkan sonucun da yazdırılabilir ve girdiden büyük olması gerekir. Koşullar sağlanmazsa değer
+olduğu gibi gösterilir.
+====
+
+Java serileştirmesi ve Python pickle verileri açılmaz, yalnızca tarif edilir. Bunları nesneye
+çevirmek, değerin kendi seçtiği kodu çalıştırmak demektir; bu bir özellik değil, uzaktan kod
+çalıştırma açığıdır.

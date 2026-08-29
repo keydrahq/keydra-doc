@@ -1,0 +1,28 @@
+[id="signing-in_{context}"]
+= Oturum açma
+
+.Ön koşullar
+
+* Bir yöneticinin size açtığı hesap olmalı ya da bir kimlik sağlayıcı tanımlı olmalı ve
+  oradaki hesabınız {product-name}'daki bir gruba eşlenmiş olmalı.
+
+.Prosedür
+
+. Size verilen adresi açın.
+. {product-name} hesabıyla girmek için *Kullanıcı adı* ve *Parola* alanlarını doldurup
+  *Giriş yap* düğmesine tıklayın.
+. Sağlayıcıyla girmek için *Veya şununla giriş yapın* başlığı altındaki düğmeyi kullanın.
+  Düğmede *{name} ile devam et* yazar.
+
+.Doğrulama
+
+Üst çubukta kullanıcı adınız görünür ve gezinme, yetkilerinizin kapsadığı sayfaları listeler.
+Erişemediğiniz sayfalar listelenmez. İsteği zaten arka uç reddeder; gizlenen bağlantı bir
+güvenlik önlemi değil, ekranı sadeleştiren bir kolaylıktır.
+
+[NOTE]
+====
+Arka arkaya başarısız denemeler sınırlandırılır. Form *Çok fazla giriş denemesi yapıldı*
+diyorsa birkaç dakika bekleyin. Sayaç yeniden başlatmadan etkilenmez ve hem hesap hem ağ
+bazında sayar — bkz. xref:accounts.adoc#sign-in-protection_accounts[Giriş koruması].
+====

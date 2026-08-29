@@ -1,0 +1,52 @@
+[id="architecture-overview_{context}"]
+= Keydra neyden oluşur
+
+{product-name} iki programdan ve tek bir imajdan oluşur. Tarayıcı yalnızca arka uçla
+konuşur; sunucularınızla konuşan arka uçtur.
+
+[source,text]
+----
+  Tarayıcı
+     │  HTTPS ve tek bir WebSocket
+     ▼
+  Keydra arka ucu  ── PostgreSQL   profiller, hesaplar, yetkiler, zamanlanmış işler, denetim
+   (Quarkus)       ── Redis/Valkey (isteğe bağlı) paylaşılan önbellek, örnekler arası olaylar
+     │             ── ClickHouse   (isteğe bağlı) kalıcı ölçüm kaydı
+     │  RESP; gerekirse SSH tüneli üzerinden
+     ▼
+  Redis / Valkey hedefleri
+----
+
+Ön uç:: React ve PatternFly ile yazılmıştır. Statik dosyalar hâlinde derlenir ve arka uç
+tarafından sunulur. Bu yüzden kurulum tek bir süreçtir ve arayüze API adresini ayrıca
+bildirmek gerekmez.
+
+Arka uç:: Bir Quarkus uygulamasıdır. HTTP katmanından veritabanına ve hedefe kadar hiçbir
+noktada iş parçacığı bloklanmaz. Tek bir sürecin, bir milyon anahtarlık taramayı aynı anda
+birden çok tarayıcıya akıtabilmesinin nedeni budur.
+
+Keydra'nın kendi deposu:: PostgreSQL, {product-name}'nın kendi verisini tutar: bağlantı
+profilleri, hesaplar, yetkiler, zamanlanmış işler ve çalışma kayıtları, uyarı kuralları,
+denetim kayıtları. Hedeflerinizdeki anahtarlar buraya kopyalanmaz.
+
+== İki API yüzeyi
+
+`/graphql` üzerinde GraphQL:: Arayüz, okuduğu ve değiştirdiği hemen her şeyi buradan ister.
+
+`{api-base}` altında REST:: Sürüm numarasını yolunda taşıyan eksiksiz yüzey. Bir betik ya da
+başka bir araç bu yüzeye göre yazılır. Arayüz de dosya alışverişi, değer okuma ve yazma,
+oturum açma ve soketler için hâlâ bunu kullanır.
+
+Her ikisi de aynı servisleri çağırır ve aynı izinlerle korunur. Ayrıntılar için bkz.
+xref:api.adoc[API referansı].
+
+== Arayüz yoklama yapmadan nasıl güncel kalır
+
+`{api-base}/notifications` adresindeki tek bir WebSocket, sunucu tarafındaki her değişikliği
+taşır: bir hedefin ayağa kalkması ya da düşmesi, anahtarların değişmesi, yeni bir ölçüm
+okuması, bir göç işinin ilerlemesi, başarısız olan bir zamanlanmış iş. Arayüz bu soketi bir
+kez açar, sayfaların hepsi onu dinler.
+
+Birden çok {product-name} örneği aynı depoyu paylaşıyorsa her örnek, diğerlerinin yayımladığı
+olayları kendi soketlerine iletir. Böylece bir örnekte yapılan değişiklik, başka bir örneğe
+bağlı tarayıcıya da ulaşır.

@@ -1,0 +1,16 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="connections"]
+= Bağlantıları yönetme
+:description: Bağlantı profili, Keydra'nın bir hedefe nasıl eriştiğini tanımlar. Profil ekleme, test etme, parolayı yeniden girmeden düzenleme ve veritabanları arasında geçiş.
+:page-keywords: bağlantı, profil, hedef, redis, valkey, tls, sentinel, küme, veritabanı
+:context: connections
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_connection-profiles.adoc[leveloffset=+1]
+
+include::../modules/proc_adding-a-connection.adoc[leveloffset=+1]
+
+include::../modules/proc_editing-and-deleting-a-connection.adoc[leveloffset=+1]
+
+include::../modules/proc_switching-database.adoc[leveloffset=+1]

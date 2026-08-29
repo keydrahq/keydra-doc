@@ -1,0 +1,18 @@
+////
+ÜRETİLMİŞ DOSYA — elle düzenlemeyin.
+scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
+Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
+////
+[cols="3,4",options="header",role="kd-generated"]
+|===
+| Yol | Açıklama
+| `/api/v1/connections/{connectionId}/commands`
+| Hedefin kendi MONITOR akışı; sırlar motordan çıkmadan önce maskelenir. İstenene kadar kapalıdır, çünkü açıkken sunucuya iş çıkarır.
+
+| `/api/v1/connections/{connectionId}/console`
+| Tek bir hedefe karşı bir komut konsolu oturumu. Türlü sonuçlar geldikçe akıtılır.
+
+| `/api/v1/notifications`
+| Bildirim hattı. Bütün arayüz için tek soket; her sunucu tarafı değişikliği bir kategori, bir yük ve bir zaman damgasından oluşan zarf olarak taşır. Tek bir hedefe dair yayın, yalnızca sahibinin o hedefi görebildiği soketlere ulaşır.
+
+|===

@@ -1,0 +1,33 @@
+[id="topology-concepts_{context}"]
+= Bir hedefin düzeni
+
+Topoloji sayfası, hedefin nasıl kurulduğunu ve {product-name}'nın hangi işlemleri
+yapabileceğini gösterir.
+
+image::topoloji.jpg["Tek bir sunucunun topolojisi; sunucu türü, modu ve desteklediği işlemler"]
+
+Tekil sunucu:: Sayfa bunu belirtir; çizilecek başka bir şey yoktur.
+
+Küme:: Düğümler *Adres*, *Rol* (`birincil` ya da `kopya`), *Slotlar*, *Pay*, *Bağlantı* ve
+*Düğüm kimliği* sütunlarıyla listelenir. Ayrıca hangi hash slotuna hangi düğümün hizmet
+verdiğini gösteren bir çubuk çizilir. Başlıkta *{total} slotun tamamı hizmet görüyor.* yazar.
+Verilmiyorsa *{total} slotun {missing} tanesine kimse bakmıyor — bu slotlara düşen anahtarlar
+okunamaz ve yazılamaz.* uyarısı çıkar; asıl önemli bilgi budur ve düğüm listesine
+bakarak fark edilmez.
++
+Taşınmakta olan slotlar da çizilir; bir kümenin tanımında _olan_ değil _oluyor_ olan tek kısım
+budur. Yalnızca {product-name}'nın bağlandığı düğüme değil, her birincil düğüme sorulur: bir düğüm
+yalnızca _kendi_ taşıdığı slotları adlandırır, başkasınınkiler hakkında hiçbir şey söylemez —
+dolayısıyla başka iki düğüm arasındaki bir yeniden dağıtım, sayfayı eksiksiz ve durgun gösterirdi.
+
+Sentinel kurulumu:: Master'ın *Ad*, *Durum*, *Yeter sayı* ve *Kopyalar* bilgileri gösterilir.
+
+== Yetenekler
+
+*Burada desteklenenler* bölümü, hedefin kendi komut tablosundan okunan yetenekleri listeler.
+{product-name} bu bilgiyi, türevin desteklemediği işlemleri gizlemek ya da devre dışı bırakmak
+için kullanır.
+
+Bu soruya yanıt vermeyen hedefler *Sorulamadı* olarak işaretlenir ve bütün işlemler açık kalır.
+Desteklenmeyen bir işlem o zaman kullanıldığı yerde hata verir; bu, sunucunun aslında
+yapabildiği bir işlemi sessizce gizlemekten iyidir.

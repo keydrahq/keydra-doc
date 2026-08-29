@@ -1,0 +1,29 @@
+[id="switching-database_{context}"]
+= Switching database
+
+A profile names a default database index, and the key browser can look at any of the
+others without the profile being edited.
+
+.Prerequisites
+
+* You hold `keys:read` on the target.
+* The target is a standalone or Sentinel server. A cluster has one keyspace.
+
+.Procedure
+
+. Open the target's *Keys* page.
+. Use the database picker in the toolbar. It lists the databases the server reports, with
+  the number of keys in each.
+. Choose one.
+
+.Verification
+
+The chosen database appears in the page's address, so the view can be linked to and
+survives a reload. The key list reloads against it.
+
+[NOTE]
+====
+{product-name} keys its connection pool on the profile *and* the database, so two databases
+are two clients rather than one client issuing `SELECT`. A `SELECT` on a pooled connection
+would leak into whoever used it next.
+====

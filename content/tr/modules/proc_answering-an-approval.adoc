@@ -1,0 +1,54 @@
+[id="answering-an-approval_{context}"]
+= İşlem isteme ve bir isteği yanıtlama
+
+.Ön koşullar
+
+* İstemek için: işlemin kendisinin gerektirdiği yetki, ilgili hedefte.
+* Yanıtlamak için: aynı yetki ve isteği açan kişi olmamak.
+* Gereksinimi açmak için: hedefte `connection:edit` izni.
+
+.Prosedür
+
+Bir hedefin iki kişi istemesini sağlamak için:
+
+. *Bağlantılar* sayfasına gidin, hedefin işlemler menüsünü açın ve *Düzenle*'yi seçin.
+. *Konsol ve koruma* adımını açın.
+. *İkinci bir kişiyi bekle* kutusunu işaretleyin.
+. *Kaydet*'e tıklayın.
+
+Bir işlem istemek için:
+
+. İşlemi her zamanki gibi çalıştırın — glob ile toplu silin, bir seçimi silin, bir dosya içe
+  aktarın, bir taşıma başlatın ya da bunlardan birini yapan bir zamanlama kaydedin.
+. {product-name} işlemi yapmak yerine *Kaydedildi, yapılmadı* yanıtını verir ve isteği yazar.
+
+Bir isteği yanıtlamak için:
+
+. *Onaylar* sayfasına gidin. Göremediğiniz hedeflerle ilgili istekler listelenmez.
+. *Ne yapacak* sütununu okuyun, ayrıntı için satırı genişletin. Burada gördüğünüz, tam olarak
+  çalışacak olan işlemdir.
+. *Onayla*'ya tıklayın ya da *Reddet* deyip bir *Gerekçe* yazın — bunu isteği açan kişi okur,
+  bu yüzden yanıtınızı neyin değiştireceğini yazın.
+
+image::onaylar.jpg["Bekleyen istek bulunmayan Onaylar sayfası; bir işlemin, iki kişi isteyen bir hedefi boşaltacaksa burada görüneceğini açıklıyor"]
+
+.Doğrulama
+
+Onaylanan bir istek *Onaylandı; işlem {name} üzerinde çalışıyor* der, ardından *Tamamlandı*
+durumuna geçer ya da neyin ters gittiğini söyleyerek *Başarısız* olur. Reddedilen bir istek,
+gerekçe ve yanıtlayanın adıyla birlikte *Reddedildi* der.
+
+Biten istekleri görmek için *Yanıtlanmış istekleri göster* seçeneğini açın. Öntanımlı liste
+bekleyenlerdir; çünkü sayfayı açmanın sebebi zaten odur.
+
+[NOTE]
+====
+Kendi istekleriniz *Sizin isteğiniz* olarak işaretlenir ve *Onayla* düğmesi sunmaz — *Bu
+isteği siz açtınız, dolayısıyla başka birinin onaylaması gerekir.* Bir isteği *Geri
+çekebilirsiniz*; bu yalnızca size aittir ve yalnız istek beklerken yapılabilir.
+====
+
+.Sonraki adımlar
+
+* xref:connections.adoc#connection-profiles_connections[Bağlantı profilinin taşıdığı diğer bilgiler]
+* xref:schedules.adoc#creating-a-schedule_schedules[Bunlardan birini sonraya ayarlama]

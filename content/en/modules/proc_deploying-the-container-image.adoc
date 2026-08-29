@@ -1,0 +1,59 @@
+[id="deploying-the-container-image_{context}"]
+= Deploying Keydra
+
+.Prerequisites
+
+* Podman, or another engine that can run an OCI image.
+* A PostgreSQL {product-name} can reach, or the one in the manifest below.
+
+.Procedure
+
+. Create the secrets. `KEYDRA_SECRET_KEY` encrypts every stored credential:
++
+[source,bash]
+----
+printf 'keydra' | podman secret create keydra-db-password -
+openssl rand -base64 32 | podman secret create keydra-secret-key -
+----
++
+[IMPORTANT]
+====
+Losing `KEYDRA_SECRET_KEY` means losing every stored credential. Sharing it means sharing
+them. Keep it wherever your other secrets live, not in the repository.
+====
+
+. Pull the image:
++
+[source,bash]
+----
+podman pull {image-standalone}:{image-tag}
+----
+
+. Run it, together with a PostgreSQL:
++
+[source,bash]
+----
+podman play kube deploy/keydra-prod.yaml
+----
++
+The manifest names a locally built image. Point it at the published one:
++
+[source,yaml]
+----
+    - name: keydra
+      image: {image-standalone}:{image-tag}
+----
+
+.Verification
+
+[source,bash]
+----
+curl -s http://localhost:8181/q/health/ready
+----
+
+Then open `http://localhost:8181`.
+
+.Next steps
+
+* xref:installation.adoc#configuring-authentication-before-exposing-keydra_installation[Configure authentication before exposing Keydra]
+* xref:configuration.adoc[Configuration]

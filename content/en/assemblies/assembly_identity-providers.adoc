@@ -1,0 +1,14 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="identity-providers"]
+= Identity providers
+:description: OpenID Connect and plain OAuth 2, configured while Keydra is running rather than through environment variables, with claim and group mapping per provider.
+:page-keywords: oidc, oauth2, keycloak, entra, google, okta, github, gitlab, sso, claims
+:context: identity-providers
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_identity-providers.adoc[leveloffset=+1]
+
+include::../modules/proc_adding-an-identity-provider.adoc[leveloffset=+1]
+
+include::../modules/proc_mapping-provider-groups.adoc[leveloffset=+1]

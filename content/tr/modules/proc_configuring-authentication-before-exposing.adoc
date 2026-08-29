@@ -1,0 +1,52 @@
+[id="configuring-authentication-before-exposing-keydra_{context}"]
+= Keydra'yı dışarı açmadan önce kimlik doğrulamayı yapılandırma
+
+Güvenlik denetimi varsayılan olarak açıktır. `deploy/keydra-prod.yaml` bunu *kapalı* getirir;
+böylece manifest, yalnızca sizin erişebildiğiniz bir makinede hiçbir ayar yapmadan çalışır. Bu
+durumda arayüz her sayfada "güvenlik kapalı" uyarısı gösterir: güvenli görünen ama açık olan
+bir kurulum, ifşa olmanın en yaygın yoludur.
+
+.Prosedür
+
+. Kullanıcıların nasıl giriş yapacağına karar verin. Her biri tek başına yeterlidir:
++
+--
+* **Yerel hesaplar.** Yapılandırma gerektirmez. İlk çalıştırmada yöneticiyi oluşturun, geri
+  kalan kullanıcıları davet edin.
+* **Kimlik sağlayıcı.** Ortam değişkeniyle değil, {product-name} çalışırken arayüzden
+  tanımlanır — bkz. xref:identity-providers.adoc[Kimlik sağlayıcıları].
+--
+
+. Manifestten `KEYDRA_SECURITY_ENABLED` satırını kaldırarak ya da `true` yaparak denetimi
+  açın.
+
+. {product-name}'ya genel adresini bildirin; sağlayıcı yönlendirmesi bu adrese döner:
++
+[source,properties]
+----
+KEYDRA_PUBLIC_URL=https://keydra.example.com
+----
+
+. {product-name} ters vekil sunucu arkasındaysa bunu belirtin ve istemci adresi konusunda
+  hangi vekillere güvenileceğini yazın:
++
+[source,properties]
+----
+KEYDRA_BEHIND_PROXY=true
+KEYDRA_TRUSTED_PROXIES=10.0.0.0/8
+----
+
+. HTTPS üzerinden sunun. Oturum çerezi üretimde `Secure` işaretlidir; düz HTTP üzerinden
+  giden bir oturum çerezi ağda açıkta gider.
+
+.Doğrulama
+
+{product-name}'yı gizli pencerede açın. Arayüz yerine giriş formu ya da sağlayıcı düğmesi
+görünmeli, hiçbir sayfada "güvenlik kapalı" uyarısı bulunmamalıdır.
+
+[WARNING]
+====
+`KEYDRA_SECURITY_ENABLED=false` ayarı, adrese erişebilen herkesi bütün izinlerle içeri alır.
+Bunu yalnızca gösterim için ya da yalnızca sizin erişebildiğiniz bir makinede kullanın; dışarı
+açık hiçbir kurulumda kullanmayın.
+====

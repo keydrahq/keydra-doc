@@ -1,0 +1,61 @@
+connection:view: See that the target exists, and its status. Holding any permission on a target is what
+  makes it visible at all, and this is the smallest one.
+connection:edit: Change where a profile points and the credentials it uses, including which tunnel it
+  reaches through.
+connection:delete: Remove a profile. Nothing on the server itself changes.
+keys:read: Browse the keyspace and read key names, types and expiries.
+keys:write: Create, rename, duplicate keys and change their expiries.
+keys:delete: Delete keys, singly or in bulk.
+values:read: Read the contents of a key.
+values:write: Change the contents of a key.
+console:run: 'Run commands from the console. An operator’s: somebody trusted to change the data, deliberately
+  not somebody trusted to change what the server is — which is why the deny-list refuses CONFIG, MODULE
+  and EVAL.'
+pubsub:subscribe: Open a subscription to channels or patterns on the target.
+pubsub:publish: Publish a message to a channel.
+commands:watch: 'Watch every command the server runs. The most revealing thing there is: somebody who
+  may read one key at a time has no business reading all of them as they go past.'
+monitoring:read: See the dashboard, the slow log, the clients and the largest keys.
+monitoring:manage: Start and stop sampling, clear the slow log and disconnect a client.
+analysis:read: Run and read the keyspace analysis.
+server:read: Read the server’s own settings and persistence state.
+server:configure: Change the server’s settings, ask it for a snapshot, and rewrite its log.
+acl:read: See the users the target itself knows about.
+acl:manage: Create, change and remove the target’s own ACL users.
+migration:run: Move keys to or from this target. Required on both ends of a migration.
+schedule:manage: 'Arrange work to happen to this target later. Required as well as the permission the
+  work itself needs: a schedule is a way of doing something later, not a way of doing something you may
+  not do.'
+alert:manage: Write and change rules about this target. Beside monitoring:manage rather than inside it,
+  because a rule outlives the person who wrote it — it keeps the target sampled when nobody is watching
+  and sends messages outside.
+transfer:export: Export keys to a file, and take backups.
+transfer:import: Import keys from a file, and restore backups.
+connection:create: Add a target to this instance.
+groups:manage: Create and change user groups and server groups, and their membership.
+users:manage: Create, change, disable and remove accounts, and invite people.
+grants:manage: Write and remove grants — who holds which role on which scope.
+idp:manage: Configure identity providers and their claim and group mappings.
+backup:manage: 'Configure where backups go. An administrator’s: a destination carries credentials to somewhere
+  outside Keydra, and somebody who may back one server up is not thereby somebody who decides backups
+  leave for a bucket of their choosing.'
+tunnel:manage: 'Describe the jump hosts. An administrator’s alone: a jump host carries a credential that
+  reaches a whole network, and everything Keydra holds for everything behind it travels through it.'
+alert-delivery:manage: 'Decide where alerts are sent. An administrator’s, for the reason a backup destination
+  is: it holds a credential to somewhere outside, and choosing where a server’s troubles are announced
+  is not part of watching that server.'
+crypto:rotate: Move every stored credential onto a new key. The most consequential thing this application
+  can be asked to do, and the only permission that is about the secrets rather than about what they unlock.
+audit:read: Read the audit log.
+script:run: 'Run a migration script inside Keydra. On the instance rather than on a target, which is
+  the whole point of it: a script runs in Keydra’s own process, which holds every target’s credentials
+  and can reach every network Keydra can reach. Required as well as migration:run on the target.'
+instance:read: 'Read how Keydra itself is doing: which instances are running, what each of them is holding,
+  and what they all rest on. Not the same as being signed in — the roster names hosts and the dependency
+  list is a map of the installation.'
+instance:drain: 'Take an instance out of service and put it back. Separate from instance:read because
+  reading where the work is and deciding where it goes are not the same act: draining stops an instance
+  taking new browsers and hands its chores to another.'
+policy:manage: 'Decide what this installation asks of everybody who signs in — today, whether a second
+  factor is required. Its own permission because it restricts every person at once until they enrol,
+  which is a different blast radius from making one account.'

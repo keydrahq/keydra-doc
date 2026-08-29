@@ -1,0 +1,33 @@
+[id="creating-the-first-administrator_{context}"]
+= Creating the first administrator
+
+An instance with no accounts offers to make one instead of asking you to sign in. The
+endpoint that does it closes the moment any account exists, so this is a one-time
+opportunity rather than a door left open.
+
+.Prerequisites
+
+* {product-name} is running and reachable.
+* No account has been created on this instance yet.
+
+.Procedure
+
+. Open {product-name}. Because there are no accounts, the page reads *Set up Keydra* rather
+  than *Sign in to Keydra*.
+. Enter a *Username*.
+. Enter a *Password*, and the same one again under *Repeat the password*. The form states
+  the minimum length; it enforces no composition rules, because composition rules make
+  passwords worse.
+. Optionally expand *Name and email (optional)*. An email address is what a password-reset
+  link would be sent to later.
+. Click *Create the administrator*.
+
+.Verification
+
+You are signed in, and the whole navigation is available: the first account holds the
+built-in `admin` role, which carries every permission.
+
+.Next steps
+
+* xref:connections.adoc#adding-a-connection_connections[Add a connection]
+* xref:access-control.adoc[Give other people accounts and decide what they may do]

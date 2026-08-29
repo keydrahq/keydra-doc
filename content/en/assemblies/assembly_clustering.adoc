@@ -1,0 +1,16 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="clustering"]
+= Running more than one Keydra
+:description: What is claimed by exactly one instance and what may happen anywhere, the shared store that lets a change made on one instance reach a browser attached to another, and the page that says what each instance is holding and what the installation reaches.
+:page-keywords: clustering, high availability, lease, leader, instances, store, draining, reachability, status
+:context: clustering
+include::../attributes/attributes.adoc[]
+
+include::../modules/proc_running-several-instances.adoc[leveloffset=+1]
+
+include::../modules/con_multiple-instances.adoc[leveloffset=+1]
+
+include::../modules/proc_draining-an-instance.adoc[leveloffset=+1]
+
+include::../modules/proc_checking-what-keydra-reaches.adoc[leveloffset=+1]

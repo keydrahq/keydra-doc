@@ -1,0 +1,40 @@
+[id="requirements_{context}"]
+= Requirements
+
+.What Keydra needs to run
+[cols="1,3",options="header"]
+|===
+| Component | Requirement
+
+| Java
+| {java-version}, for a source build. The published image carries its own runtime.
+
+| PostgreSQL
+| Required. {product-name} keeps its own data here and there is no alternative — the
+application is non-blocking end to end and uses a reactive PostgreSQL driver.
+
+| Container engine
+| Podman or Docker, to run the image. The repository is built with Podman and its manifests
+are Kubernetes Pod manifests rather than Compose files.
+
+| A target
+| At least one, reachable from wherever {product-name} runs. {redis-name}, {valkey-name} or a
+compatible fork, an Aerospike or a TiKV.
+
+| {redis-name} for Keydra's own store
+| Optional. Needed only when more than one instance runs against one database. Never one of
+your targets.
+
+| ClickHouse
+| Optional. Only if readings should outlive a restart.
+
+| An SMTP relay
+| Optional. Only if invitations and password resets should arrive by mail.
+|===
+
+.Node and the build toolchain
+[NOTE]
+====
+Node {node-version} and yarn are needed only to build the frontend from source. A
+deployment that runs the published image needs neither.
+====

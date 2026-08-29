@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="migration"]
+= Migrating keys between targets
+:description: Keydra reads from one target and writes to the other a batch at a time, so the two servers never have to reach each other and the keyspace is walked rather than held.
+:page-keywords: migration, copy keys, move keys, environments
+:context: migration
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_migration.adoc[leveloffset=+1]
+
+include::../modules/proc_migrating-keys.adoc[leveloffset=+1]

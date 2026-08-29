@@ -1,0 +1,27 @@
+[id="writing-an-alert-rule_{context}"]
+= Uyarı kuralı yazma
+
+.Ön koşullar
+
+* Hedefte `alert:manage` izniniz olmalı.
+
+.Prosedür
+
+. *Uyarılar* sayfasına gidin.
+. *Kural ekle* düğmesine tıklayın.
+. Hedefi ve *Ölçüm* değerini seçin.
+. *Üstünde mi altında mı* seçeneğini belirleyip eşiği girin.
+. *Ne kadar sürmeli* değerini seçin.
+. *Etkin* işaretli kalsın. İpucu bunun anlamını açıklar: etkin kural, kimse pano açmasa bile
+  hedefini örneklenmiş tutar.
+. İsterseniz bir *Gönderim* seçin. Gönderim seçilmezse kuralda *yalnızca Keydra'da* yazar; olay
+  her durumda kaydedilir ve burada gösterilir.
+. Kaydedin.
+
+.Doğrulama
+
+Kural, koşulu cümle hâlinde yazılmış ve o anki ölçüm değeriyle birlikte listelenir.
+Tetiklendiğinde {product-name} içinde hangi sayfada olursanız olun bildirim gelir; *Geçmiş*
+bölümü de durum geçişini kaydeder.
+
+Kuralı silmek, kuralı ve ürettiği bütün kayıtları kaldırır. Hedefte hiçbir şey değişmez.

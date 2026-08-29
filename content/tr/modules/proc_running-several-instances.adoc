@@ -1,0 +1,48 @@
+[id="running-several-instances_{context}"]
+= Birden fazla örnek çalıştırma
+
+Yük dengeleyici arkasında iki örnek çalıştırmak, bir kurulumun parçası hâline gelen her uygulama
+için olağandır; erişilebilirlik için olmasa bile sürüm yükseltmeleri için gerekir. Eşgüdüm
+sağlanmazsa zamanlanmış işler iki kez çalışır, uyarılar iki kez tetiklenir ve izlenen her hedef
+kendini tek sanan iki süreç tarafından iki kez örneklenir. Bunların hiçbiri kendini belli etmez:
+gecelik bir boşaltma işinin ikinci kopyası, birincisiyle aynı görünür.
+
+.Ön koşullar
+
+* Ortak tek bir PostgreSQL.
+* Tarayıcıların diğer örnekteki değişiklikleri de görmesi gerekiyorsa {product-name}'nın kendi
+  deposu için bir {redis-name}.
+
+.Prosedür
+
+. Bütün örnekleri aynı veritabanına yönlendirin.
+. Her örneğe bir kimlik verin ya da kendisinin üretmesine izin verin:
++
+[source,properties]
+----
+KEYDRA_INSTANCE_ID=keydra-a
+----
+. Örnekleri ortak bir depoya yönlendirin:
++
+[source,properties]
+----
+KEYDRA_STORE_URL=redis://store.internal:6379
+----
+. Bütün örneklere aynı `KEYDRA_SECRET_KEY` değerini verin; hepsi aynı şifreli sütunları okur.
+
+.Doğrulama
+
+* Her örnekte *Hakkında* sayfasını açın. Örneğin adını ve o an lider işlerini üstlenip
+  üstlenmediğini gösterir.
+* Bir örnekte değişiklik yapın, diğerine bağlı bir tarayıcıyla bakın. Değişiklik oraya da ulaşır.
+* Kirayı elinde tutan örneği durdurun. Diğeri işi bir kira süresi içinde devralır.
+
+[NOTE]
+====
+Kira, PostgreSQL'deki tek bir satırdır: birkaç saniyeliğine alınır ve sürekli yenilenir. Ayrı bir
+eşgüdüm servisi kullanılmaz. PostgreSQL zaten zorunludur, zaten ortaktır ve kirayı beş saniye
+kaybetmenin en kötü sonucu beş saniye geç çalışan bir zamanlanmış iştir.
+
+Kiranın süresinin dolup dolmadığına veritabanının saati karar verir. Saatleri bir dakika farklı
+iki makine bile kimin kirasının bittiği konusunda hemfikir olur.
+====

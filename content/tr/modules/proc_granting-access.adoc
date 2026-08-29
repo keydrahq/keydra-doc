@@ -1,0 +1,35 @@
+[id="granting-access_{context}"]
+= Erişim verme
+
+.Ön koşullar
+
+* `grants:manage` izniniz olmalı.
+
+.Prosedür
+
+. *Erişim* sayfasına gidip *Yetkiler* sekmesini açın.
+. Üç bilgiyi belirten bir yetki ekleyin: _özne_ (kullanıcı ya da grup), _rol_ ve _kapsam_
+  (kurulumun tamamı, bir sunucu grubu ya da tek bir bağlantı).
+
+.Doğrulama
+
+*Matris* sekmesini açın: satırlarda özneler, sütunlarda kapsamlar, hücrelerde roller görünür.
+Dolu etiket, o kapsamda doğrudan verilmiş yetkiyi gösterir; çerçeveli etiket ise üst bir
+gruptan miras alınan yetkiyi.
+
+Matris her iki içermeyi de izler: kullanıcıları grupları üzerinden, hedefleri de grupları
+üzerinden. İnsanların gerçekte sorduğu soruyu yanıtlayan ve tek bir satıra bakarak
+göremeyeceğiniz bilgiyi veren şey budur.
+
+.Örnek
+
+*Ödeme ekibi ödeme önbelleğine yazabilsin, oturum önbelleğini okuyabilsin ve analitik kümesini
+hiç görmesin* demek için:
+
+. `odeme-gelistirici` adında bir grup oluşturup ekip üyelerini içine alın.
+. `odeme-sunuculari` ve `analitik-sunuculari` sunucu gruplarını oluşturup hedefleri
+  yerleştirin.
+. `odeme-gelistirici` grubuna `odeme-onbellek` bağlantısında `operator` rolü verin.
+. `odeme-gelistirici` grubuna `odeme-oturum` bağlantısında `viewer` rolü verin.
+. `analitik-sunuculari` kapsamında hiçbir yetki vermeyin. Ret, yetkinin yokluğudur: analitik
+  kümesi onlar için hiçbir listede görünmez.

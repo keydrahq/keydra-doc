@@ -1,0 +1,228 @@
+////
+ÜRETİLMİŞ DOSYA — elle düzenlemeyin.
+scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
+Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
+////
+.Zorunlu ayarlar
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Varsayılan | Açıklama
+| `KEYDRA_DB_URL`
+| `postgresql://localhost:5432/keydra`
+| Reaktif PostgreSQL adresi; `postgresql://sunucu:port/veritabani` biçiminde. JDBC öneki yok — uygulama bloklamayan bir yapıdadır ve reaktif bir sürücü kullanır.
+
+| `KEYDRA_DB_USERNAME`
+| `keydra`
+| Veritabanı kullanıcısı.
+
+| `KEYDRA_DB_PASSWORD`
+| 
+| Veritabanı parolası. +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+| `KEYDRA_SECRET_KEY`
+| 
+| Saklanan her kimlik bilgisini şifreleyen anahtar — hedef parolaları, tünel anahtarları, sağlayıcı sırları, hedef kimlik bilgileri. 32 rastgele bayt, base64. Varsayılanı yoktur: o olmadan saklanan hiçbir şey okunamaz. +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+|===
+.Adres ve ters vekil sunucu
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Varsayılan | Açıklama
+| `KEYDRA_PUBLIC_URL`
+| 
+| Tarayıcının gördüğü biçimiyle Keydra’nın adresi. Sağlayıcı yönlendirmeleri ve giden postadaki bağlantılar bu adresten üretilir; sürecin bağlandığı adres değil, kullanıcıların gerçekten yazdığı adres olmalıdır.
+
+| `KEYDRA_BEHIND_PROXY`
+| `false`
+| `X-Forwarded-*` başlıklarına inanılıp inanılmayacağı. Yalnızca bir ters vekil sunucunun arkasındayken açın: önünde hiçbir şey yokken onlara güvenen bir kurulum, çağıranın kendi adresini kendisinin bildirdiği bir kurulumdur.
+
+| `KEYDRA_TRUSTED_PROXIES`
+| 
+| O başlıkları hangi vekillerin ayarlayabileceği; adres ya da CIDR aralığı olarak. Bu olmadan onlara inanmak, herkese inanmak demektir.
+
+| `KEYDRA_CSP`
+| `default-src 'self'; script-src 'self'; s…`
+| Tarayıcıya uygulatılan içerik güvenliği politikası. Sabit metin yerine bir özellik olması, varlıkları başka yerden sunan bir kurulumun başlığı kapatmak yerine ihtiyaç duyduğu tek yönergeyi genişletebilmesi içindir. Birini genişletmek hepsini yeniden yazmak demektir; asıl nokta da budur: politika ya bütündür ya hiçtir.
+
+| `KEYDRA_MAX_BODY_SIZE`
+| `25M`
+| Kabul edilen en büyük istek gövdesi. Bir anahtar içe aktarımını ve bir yedek geri yüklemesini sınırlayan budur.
+
+| `KEYDRA_ACCESS_LOG`
+| `true`
+| Her isteğin günlüğe yazılıp yazılmayacağı. Bir istek satırı bir yol taşır ve buradaki bir yol bir anahtarı adlandırabilir.
+
+|===
+.Güvenlik denetimi, çerezler ve oturumlar
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Varsayılan | Açıklama
+| `KEYDRA_SECURITY_ENABLED`
+| `true`
+| Keydra’nın kimin neyi yapabileceğini uygulayıp uygulamadığı. Kapatmak, adrese erişebilen herkesi bütün izinlerle içeri alır ve her sayfa bunu söyler — güvenli görünen açık bir örnek, insanın ifşa olma biçimidir.
+
+| `KEYDRA_COOKIE_SECURE`
+| `true`
+| Oturum çerezinin Secure olarak işaretlenip işaretlenmediği. Üretimde açık: düz HTTP üzerinden giden bir oturum çerezi, hat üzerindeki bir oturum çerezidir.
+
+| `KEYDRA_SOCKET_ORIGIN_CHECK`
+| `true`
+| Bir WebSocket el sıkışmasının, Keydra’nın tanıdığı bir kaynaktan gelmesinin zorunlu olup olmadığı. Bir soket, bir fetch gibi aynı köken politikasının kapsamında değildir; bu, onun yerine geçen kontroldür.
+
+| `KEYDRA_SOCKET_ORIGINS`
+| 
+| Genel adresin dışında, bir WebSocket’in açılabileceği kaynaklar. Arayüzün başka bir yerden sunulduğu kurulumlar için.
+
+| `KEYDRA_SIGN_IN_THROTTLE`
+| `true`
+| Art arda gelen giriş hatalarının sayılıp reddedilip reddedilmediği. Sınır, parola özetinden önce yanıtlanır; çünkü Argon2id bilerek yavaştır ve sınırsız deneme, parola tahmin etmenin yanında sunucunun belleğini harcamanın da yoludur.
+
+| `KEYDRA_GEOIP_DATABASE`
+| 
+| Varsa bir GeoIP veritabanı. Bir girişin öncekilerle karşılaştırılırken nereden geldiğini söylemek için kullanılır.
+
+| `KEYDRA_SESSION_SWEEP_INTERVAL`
+| `1h`
+| Süresi dolmuş oturum satırlarının ne sıklıkta silindiği. Kimsenin budamadığı bir oturum tablosu, uygulama çalıştığı sürece büyüyen bir tablodur.
+
+| `KEYDRA_INVITATION_VALID_FOR`
+| `P7D`
+| Davet ve parola sıfırlama bağlantılarının geçerlilik süresi. Süresiz bir bağlantı, adım sayısı fazla bir paroladır.
+
+| `KEYDRA_PREVIOUS_SECRET_KEYS`
+| 
+| Hâlâ okunabilen ama artık yazma yapmayan anahtarlar. Anahtar değişimini kesintiden ayıran özellik budur: yeni anahtar yazar, eskiler kendi yazdıklarını çözmeyi sürdürür ve yeniden şifreleme bütün kayıtları kurulum ayaktayken taşır. +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+|===
+.Dışarı çıkan bağlantı kısıtlamaları
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Varsayılan | Açıklama
+| `KEYDRA_EGRESS_ALLOW_PRIVATE`
+| `true`
+| Birinin yazdığı bir adresin özel bir ağda olup olamayacağı. Genelde evet: iç bir sohbet aktarıcısına giden webhook ve aynı alt ağdaki S3 uyumlu depo olağan durumlardır. Link-local her hâlükârda reddedilir ve ayarı yoktur.
+
+| `KEYDRA_EGRESS_ALLOW_LOOPBACK`
+| `false`
+| Birinin yazdığı bir adresin Keydra’nın çalıştığı makineyi gösterip gösteremeyeceği. Geliştirme dışında kapalı.
+
+| `KEYDRA_EGRESS_ALLOWED_HOSTS`
+| 
+| Yukarıdaki kurallardan bağımsız olarak izin verilen sunucular. Bir kurulumun erişmek zorunda olduğu tek bir iç adres için kaçış kapağı.
+
+|===
+.Açılışta tanımlanan OIDC sağlayıcı
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Varsayılan | Açıklama
+| `KEYDRA_OIDC_URL`
+| 
+| Açılışta yapılandırılan tek bir OIDC sağlayıcının yayıncısı. Desteklenen yol arayüzden eklenen sağlayıcılardır ve bu dördüne ihtiyaç duymaz; bu, henüz giriş yapıp sağlayıcı ekleyecek kimse yokken bir sağlayıcı tanımlayan kurulumlar içindir.
+
+| `KEYDRA_OIDC_CLIENT_ID`
+| `keydra`
+| O sağlayıcıdaki istemci kimliği.
+
+| `KEYDRA_OIDC_SECRET`
+| 
+| O sağlayıcıdaki istemci sırrı. +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+| `KEYDRA_OIDC_ROLES_CLAIM`
+| `realm_access/roles`
+| Rollerin belirteç içindeki yeri; bir yol olarak. `viewer`, `operator` ya da `admin` talebi, o rolün örnek kapsamındaki bir yetkisine dönüşür.
+
+|===
+.Çok örnekli kurulum
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Varsayılan | Açıklama
+| `KEYDRA_INSTANCE_ID`
+| 
+| Örneğin kendine verdiği ad. Hakkında sayfasında, her günlük satırında ve ürettiği her ölçümde görünür. Ayarlanmadığında kendiliğinden üretilir.
+
+| `KEYDRA_STORE_URL`
+| `redis://localhost:6481`
+| Ortak önbellek ve örnekler arası bildirim yayını için Keydra’nın kendi Redis adresi. Hedeflerinizden biri olmamalıdır: birinin göz attığı bir sunucuda duran önbellek, birinin toplu silme yaparken boşalttığı önbellek olur. Tek örnekli kurulumlarda boş bırakın.
+
+| `KEYDRA_LEASE_SECONDS`
+| `15`
+| Lider kirasının yenilenmeden önce ne kadar tutulduğu. Yenilemeyi bırakan örnek, kirayı sonraki isteyene kaptırır; dolayısıyla bu aynı zamanda bir çökmenin işi ne kadar kesintiye uğratabileceğidir.
+
+| `KEYDRA_RECONCILE_SECONDS`
+| `30`
+| Örneğin, lider işlerini üstlenip üstlenmemesi gerektiğini hangi sıklıkta denetlediği. Kirayı kimse tutmuyorsa alır; kaybettiyse zamanlanmış işleri bırakır.
+
+|===
+.Posta sunucusu
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Varsayılan | Açıklama
+| `KEYDRA_MAIL_HOST`
+| 
+| Giden postanın geçtiği SMTP aktarıcısı — davetler, parola sıfırlamaları ve e-posta uyarı gönderimleri.
+
+| `KEYDRA_MAIL_PORT`
+| `587`
+| Aktarıcı portu.
+
+| `KEYDRA_MAIL_TLS`
+| `true`
+| Aktarıcıya TLS ile bağlanılıp bağlanılmayacağı.
+
+| `KEYDRA_MAIL_USERNAME`
+| 
+| Keydra’nın aktarıcıya kimliğini doğrularken kullandığı hesap.
+
+| `KEYDRA_MAIL_API_KEY`
+| 
+| Aktarıcı parolası ya da API anahtarı. +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+| `KEYDRA_MAIL_FROM`
+| 
+| Giden postanın gönderildiği adres. Çoğu aktarıcı bu olmadan bir mesajı reddeder.
+
+|===
+.Yedek ve ölçüm deposu
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Varsayılan | Açıklama
+| `KEYDRA_BACKUP_DIR`
+| `backups`
+| Yerel bir yedek hedefinin içine yazdığı dizin. Hedefler dizini buna göreli olarak adlandırır; böylece hiçbir hedef makinedeki rastgele bir yola yönlendirilemez.
+
+| `KEYDRA_CLICKHOUSE_ENABLED`
+| `false`
+| Okumaların ayrıca yeniden başlatmaya dayanan bir yere yazılıp yazılmayacağı. Varsayılan olarak kapalı: bir kuruluma ikinci bir servis eklemek gerçek bir maliyettir ve bunu istemeyen bir örneğe gerekli olduğu söylenmemelidir.
+
+| `KEYDRA_CLICKHOUSE_URL`
+| `http://localhost:8123`
+| ClickHouse’un HTTP arabirimi. JDBC sürücüsü yerine HTTP, çünkü sürücü bloklayıcıdır — bu uygulama ise değildir.
+
+| `KEYDRA_CLICKHOUSE_USER`
+| `default`
+| ClickHouse kullanıcısı.
+
+| `KEYDRA_CLICKHOUSE_PASSWORD`
+| 
+| ClickHouse parolası. +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+|===
+.Günlükler ve izler
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| Ortam değişkeni | Varsayılan | Açıklama
+| `KEYDRA_OTLP_ENDPOINT`
+| 
+| OpenTelemetry izlerinin aktarılacağı yer. İzlemeyi açan şey bunun ayarlanmasıdır; ikinci bir bayrak yoktur.
+
+| `KEYDRA_JSON_LOGS`
+| `true`
+| İnsan okuyabilir biçim yerine konsolda JSON; böylece bir günlük toplayıcı, insan için yazılmış bir düzeni ayrıştırmak zorunda kalmaz.
+
+|===

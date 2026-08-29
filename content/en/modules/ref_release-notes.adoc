@@ -1,0 +1,62 @@
+[id="release-notes-0-0-1_{context}"]
+= Keydra 0.0.1
+
+include::../snippets/generated/versions.adoc[]
+
+[IMPORTANT]
+====
+{product-name} has no tagged release. `backend/pom.xml` reads
+`{generated-keydra-version}` and the repository carries no git tag, so this entry describes
+the development version rather than a release. This documentation records that fact rather
+than inventing a release history.
+====
+
+== What this version does
+
+Targets:: Connection profiles for standalone, cluster and Sentinel {redis-name} and
+{valkey-name} servers, with TLS — including a private authority to trust and a client
+certificate to present — per-database selection and SSH tunnels described once and shared.
+
+Data:: A streaming key browser over `SCAN`, a namespace tree, an editor per value type, a
+decoder chain, key operations, and import and export through the server's own `DUMP` and
+`RESTORE`.
+
+Operating:: A command console with a deny-list that has two halves and refuses each for its
+own reason, a live command watch, Pub/Sub, a monitoring dashboard, keyspace analysis, and
+cluster and Sentinel topology.
+
+Automation:: Key migration between two targets, scheduled work, alert rules with historical
+baselines and five kinds of delivery, and backups to seven kinds of destination with
+retention and encryption.
+
+Security:: A grant model of subjects, scopes, roles and permissions over two acyclic graphs;
+local accounts with Argon2id; identity providers configured while running; invitations and
+password resets written as HTML in the language the account reads; sessions that can be
+listed and ended; a second factor an account can pair and an installation can require; a
+full audit log; targets that can be made to ask for their own name, or for a second person,
+before they are emptied; and an instance key that can be rotated without downtime.
+
+Running it:: One container image, more than one instance against one database with a
+database-held lease, an optional shared store, a page saying what each instance is holding
+and what the installation reaches, instances that can be drained before they are stopped,
+Prometheus metrics, OpenTelemetry traces and JSON logs.
+
+== Known limitations
+
+These are recorded because they are asked about, not because they are hidden:
+
+* **LDAP.** Not supported. It is a bind and a search rather than a browser redirect, and
+  everything in the provider work is built on never seeing a password that is not
+  {product-name}'s own.
+* **A rule is about one target.** It can announce itself in several places, but what it
+  compares is one target's readings.
+* **Only reachability alerts on {product-name} itself.** An identity provider or a backup
+  destination that stops answering announces itself; an instance that stops beating, or a lease
+  nobody holds, is readable on the instances page and does not announce itself.
+* **A second factor can be required of local accounts only.** An account that signs in
+  through an identity provider proved who it was there, and whether that provider asked for
+  a second factor is not something {product-name} can know or repeat.
+* **Backing up Keydra's own database** is the deployment's job. It is an ordinary PostgreSQL.
+* **The OIDC production configuration has not been exercised against a real provider** in
+  this environment. Providers configured at runtime, in the interface, are the supported
+  path.

@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="security"]
+= Security overview
+:description: Keydra holds the credentials to every server it manages. What that means for encryption at rest, sessions, outbound requests and the key that protects everything else.
+:page-keywords: security, encryption, key rotation, csp, cookies, egress
+:context: security
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_security-overview.adoc[leveloffset=+1]
+
+include::../modules/proc_rotating-the-instance-key.adoc[leveloffset=+1]

@@ -1,0 +1,38 @@
+[id="tunnels_{context}"]
+= Tünel neden ayrı bir kayıt
+
+Üretim ortamlarında hedeflerin özel ağda durması olağandır; olağan çözüm de bir atlama
+sunucusudur. {product-name} atlama sunucusunu bir kez, ayrı bir kayıt olarak tanımlar;
+arkasındaki bütün hedefler bu kayda işaret eder.
+
+image::tuneller.jpg["Henüz atlama sunucusu tanımlanmamışken Tüneller sayfası"]
+
+Alternatifi, her bağlantı profiline ayrı SSH alanları koymaktı. Tek bir hedef için yeterliydi;
+yirmi hedef olduğunda aynı anahtarın yirmi kopyası anlamına geliyordu. Anahtarı değiştirmek de
+yirmi profili düzenlemek ve birini gözden kaçırmak demekti.
+
+Tünel kaydında *Ad*, *Sunucu* ve *Bağlantı noktası*, *Kullanıcı adı*, bir kimlik bilgisi ve
+sunucudan beklenen anahtar bulunur.
+
+Tek bir SSH oturumu arkasındaki bütün hedeflere hizmet eder. Bir atlama sunucusunun arkasındaki
+yirmi hedef için yirmi bağlantı değil, her hedefin ihtiyaç duyduğu yerel yönlendirmeleri
+taşıyan tek bir bağlantı açılır.
+
+== Tüneli neler kullanabilir
+
+Bağlantı profilleri:: Profilde *Bu hedefe SSH tüneliyle eriş* seçeneğini işaretleyin.
+
+Yedek hedefleri:: Aynı atlama sunucusunun arkasındaki SFTP dizinleri ve S3 uyumlu depolar.
+Genel bulutlar bunun dışındadır: yönlendirilen port bir sunucu adresine ve porta ulaşır; AWS,
+Azure ve Google ise sertifika içindeki adla tanınır. Form bu birleşimi baştan reddeder, çünkü
+aksi hâlde bağlantı sonradan, satıra bakınca anlaşılmayan bir nedenle başarısız olurdu.
+
+== Sunucu anahtarını sabitleme
+
+Anahtar sabitlemeyen bir tünel, atlama sunucusunun adresine yanıt veren her şeyi kabul eder.
+{product-name}'nın o sunucunun arkasındaki hedefler için tuttuğu bütün bilgiler oradan geçtiği
+için bu ciddi bir risktir. Arayüz hangi tünellerin anahtar sabitlemediğini gösterir; sınama
+sırasında gördüğü anahtarı da önerir, böylece sabitlemek için terminale gitmeniz gerekmez.
+
+Sabitleme isteğe bağlıdır: sürüm yükseltmesinde mevcut bütün tünelleri reddetmek daha kötü bir
+sonuç olurdu.

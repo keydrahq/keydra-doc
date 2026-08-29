@@ -1,0 +1,60 @@
+[id="api-overview_{context}"]
+= İki yüzey ve hangisi ne için
+
+include::../snippets/generated/versions.adoc[]
+
+{product-name} iki ayrı yüzeyde yanıt verir. Bunlar tek bir yapının iki yarısı değildir.
+
+`/graphql` üzerinde GraphQL:: {generated-graphql-operations} işlem bulunur. **{product-name}
+arayüzünün kullandığı yüzey budur.** Bağlantı kataloğu, anahtar tarayıcının ağacı ve değişiklik
+işlemleri, izleme, göç işleri, zamanlanmış işler, uyarılar, yedekler, tüneller, erişim
+denetimi, denetim günlüğü, oturumlar — hemen bütün sayfalar sorularını buraya sorar.
+
+`{api-base}` altında REST:: {generated-rest-endpoints} uç nokta bulunur. Eksiksiz yüzeydir ve
+bir betiği ya da başka bir aracı bu yüzeye göre yazarsınız. Sürüm numarası yolun içindedir; bu
+da iç bir sorgunun veremeyeceği bir kararlılık sözü verir.
+
+İkisi de aynı servisleri çağırır ve aynı yapıları döndürür: GraphQL tipleri, REST uç noktasının
+zaten döndürdüğü DTO'lardır. İkisinin bir alanın adı konusunda ayrışmasını engelleyen de budur.
+Her iki yüzeydeki her işlem aynı izin denetiminden geçer; doğrudan veritabanına uzanan bir
+çözücü, aynı eve açılan ikinci bir kapı olurdu.
+
+== Arayüz neden GraphQL'e taşındı
+
+Üç ayrı veriye ihtiyaç duyan bir sayfa üç istek yapıyordu; uzun bir listenin altı sütununu
+gösteren bir sayfa ise her satırın tamamını indiriyordu. `{api-base}/migrations` 31 KB,
+`{api-base}/schedules/runs` 22 KB yanıt döndürür; altı sütun gösteren bir tablo bunun belki
+onda birini kullanır.
+
+Sayfalar tek tek ve bütün hâlinde taşındı. Yarısı bir yüzeyde, yarısı diğerinde kalan bir sayfa
+iki ayrı önbellek anlamına gelirdi. REST uç noktaları, onları çağıran hiçbir şey kalmayana kadar
+yerinde durur; aşağıdaki listenin arayüzün kullandığından uzun olmasının nedeni budur.
+
+== Arayüzün hâlâ REST kullandığı yerler
+
+Bunların çoğu artık kullanılmayan kalıntılar değil, GraphQL'in uygun olmadığı işlerdir:
+
+Dosyalar:: Anahtarları dışa ve içe aktarma. Dosya bir alan değildir.
+
+Değerler:: Anahtar içeriğini okuma ve yazma, kodlama listesini alma.
+
+Oturum açma:: Form gönderimi, çıkış, ilk kurulum, sağlayıcı yönlendirmesi, davet ve parola
+sıfırlama sayfaları. Bunlar, soru sorulacak bir oturum daha oluşmadan çalışır.
+
+`{api-base}/about`:: Bir kez okunan küçük bir kayıt.
+
+Soketler:: Bildirim hattı, konsol ve komut izleme. Her biri dinleyene belirli türde olay taşır;
+sayfa başına ayrı abonelik açmak, aynı bilgiyi tekrarlayan ikinci bir soket olurdu.
+
+== Kimlik doğrulama
+
+Her iki yüzey de arayüzün zaten taşıdığı oturum çereziyle doğrulanır. Ayrı bir API belirteci
+mekanizması yoktur: betik de bir kullanıcı olarak çalışır ve o kullanıcı oturum açar.
+
+GraphQL `GET` isteklerini reddeder. Adres satırındaki bir sorgu; vekil günlüğüne, tarayıcı
+geçmişine ve yönlendiren başlığına da yazılır. {product-name} sorguları ise bağlantı kimlikleri
+ve anahtar desenleri içerir.
+
+İç gözlem ve şema belgesi geliştirmede açık, üretimde kapalıdır. Hiçbiri tek başına açık değildir
+— kimliği doğrulanmış bir çağıran her iki durumda da erişebildiğine erişir — ama şema, bütün
+alanların ve argümanların haritasıdır; üretim kurulumunda bu haritaya ihtiyaç duyan kimse yoktur.

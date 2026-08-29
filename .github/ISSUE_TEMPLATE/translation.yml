@@ -1,0 +1,41 @@
+name: A translation is wrong
+description: The Turkish reads badly, or does not match the Turkish interface
+labels: [documentation, i18n]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keydra's interface is translated, so the Turkish manual quotes the Turkish labels —
+        not translations of the English ones. A mismatch between the two is the commonest
+        fault here and the easiest to miss.
+
+  - type: input
+    id: page
+    attributes:
+      label: Which page
+      placeholder: /docs/tr/0.1/data/key-browser/
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What it says, and what it should say
+      placeholder: |
+        Yazan: "Süzgeçleri temizle"
+        Arayüzde: "Tüm filtreleri temizle"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of problem
+      options:
+        - It quotes a label the Turkish interface does not use
+        - The Turkish is grammatically wrong or reads as machine translation
+        - A technical term has been translated that should have been left alone
+        - The English page has something this one does not
+        - Something else
+    validations:
+      required: true

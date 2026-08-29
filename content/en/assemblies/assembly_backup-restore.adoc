@@ -1,0 +1,16 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="backup-restore"]
+= Backup and restore
+:description: Backups of what Keydra can read, sent somewhere that is not this machine, optionally sealed so that not even the instance that wrote them can read them back.
+:page-keywords: backup, restore, destination, s3, sftp, retention, encryption, passphrase
+:context: backup-restore
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_backups.adoc[leveloffset=+1]
+
+include::../modules/proc_adding-a-backup-destination.adoc[leveloffset=+1]
+
+include::../modules/con_backup-encryption.adoc[leveloffset=+1]
+
+include::../modules/proc_taking-and-restoring-a-backup.adoc[leveloffset=+1]

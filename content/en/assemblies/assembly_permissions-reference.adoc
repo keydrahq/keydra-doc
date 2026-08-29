@@ -1,0 +1,10 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="permissions-reference"]
+= Permissions reference
+:description: Every permission Keydra defines and the scope a grant of it can be written at.
+:page-keywords: permissions, reference, scope, roles, grants
+:context: permissions-reference
+include::../attributes/attributes.adoc[]
+
+include::../modules/ref_permissions.adoc[leveloffset=+1]

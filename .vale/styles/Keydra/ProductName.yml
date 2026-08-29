@@ -1,0 +1,13 @@
+extends: substitution
+message: 'Use "%s" rather than "%s".'
+level: error
+ignorecase: false
+# The product's name is a proper noun and is spelled one way.
+swap:
+  'KeyDra': Keydra
+  'keyDra': Keydra
+  'Key Dra': Keydra
+  'REDIS': Redis
+  'valkey': Valkey
+  'PatternFly 6': PatternFly
+  'Postgres\b': PostgreSQL

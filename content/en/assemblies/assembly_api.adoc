@@ -1,0 +1,18 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="api"]
+= API reference
+:description: A REST surface under /api/v1 and a GraphQL one beside it, both calling the same services under the same permissions, plus the sockets and streams.
+:page-keywords: api, rest, graphql, openapi, websocket, sse, notifications
+:context: api
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_api-overview.adoc[leveloffset=+1]
+
+include::../modules/ref_openapi.adoc[leveloffset=+1]
+
+include::../modules/ref_websockets.adoc[leveloffset=+1]
+
+include::../modules/ref_rest-endpoints.adoc[leveloffset=+1]
+
+include::../modules/ref_graphql-operations.adoc[leveloffset=+1]

@@ -1,0 +1,51 @@
+[id="rotating-the-instance-key_{context}"]
+= Örnek anahtarını değiştirme
+
+`KEYDRA_SECRET_KEY`, saklanan bütün kimlik bilgilerini şifreler. Değiştirilemeyen bir anahtar,
+kimsenin değiştirmediği anahtardır; bu da ilk ayrılan çalışandan sonra anahtarın hiç olmaması
+kadar risklidir.
+
+Şifreli her değer, kendisini yazan anahtarı belirtir; böylece aynı anda birden fazla anahtar
+okunabilir. Anahtar değişimini kesintiden ayıran özellik budur.
+
+.Ön koşullar
+
+* `crypto:rotate` izniniz olmalı. Yalnızca yöneticilerde bulunur: değişim, kurulumdaki bütün
+  kimlik bilgilerini yeniden yazar.
+
+.Prosedür
+
+. Yeni anahtarı üretin:
++
+[source,bash]
+----
+openssl rand -base64 32
+----
+
+. Yeni anahtar yazacak, eski anahtar hâlâ okuyacak biçimde dağıtın:
++
+[source,properties]
+----
+KEYDRA_SECRET_KEY=<yeni anahtar>
+KEYDRA_PREVIOUS_SECRET_KEYS=<eski anahtar>
+----
++
+Bu dağıtım, hiçbir veri yeniden şifrelenmeden de çalışır. Mevcut değerler kendilerini yazan
+anahtarla çözülmeye devam eder.
+
+. Arayüzden yeniden şifrelemeyi başlatın. İşlem şifreli bütün sütunları — hedef parolaları,
+  tünel kimlik bilgileri, sağlayıcı istemci sırları, yedek hedefi kimlik bilgileri — yeni
+  anahtara taşır ve kaç kaydı taşıdığını bildirir.
+
+. `KEYDRA_PREVIOUS_SECRET_KEYS` satırını kaldırıp yeniden dağıtın.
+
+.Doğrulama
+
+Kurulum açılır, bütün hedefler bağlanır ve bütün tüneller çalışır. Yeni açılışın eski anahtara
+ihtiyaç duymaması, değişimin tamamlandığının kanıtıdır.
+
+[IMPORTANT]
+====
+Yeniden şifreleme bütün kayıtları taşıdığını bildirmeden eski anahtarı kaldırmayın. Eski
+anahtarı silinmiş, yarım kalmış bir değişim, hiçbir şeyin okunamadığı bir veritabanı demektir.
+====

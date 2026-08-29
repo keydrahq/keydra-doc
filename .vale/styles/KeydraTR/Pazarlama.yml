@@ -1,0 +1,14 @@
+extends: existence
+message: '"%s" pazarlama dilidir. Ne yaptığını yazın.'
+level: error
+ignorecase: true
+tokens:
+  - devrim niteliğinde
+  - sınıfının en iyisi
+  - yeni nesil
+  - inanılmaz
+  - muhteşem
+  - kusursuz(ca)?
+  - zahmetsiz(ce)?
+  - son teknoloji
+  - oyun değiştiri(ci|r)

@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="migration"]
+= Anahtarları hedefler arasında taşıma
+:description: Keydra bir hedeften okuyup diğerine yığınlar hâlinde yazar. İki sunucunun birbirine erişmesi gerekmez; anahtar uzayı bellekte tutulmadan gezilir.
+:page-keywords: göç, anahtar kopyalama, anahtar taşıma, ortamlar
+:context: migration
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_migration.adoc[leveloffset=+1]
+
+include::../modules/proc_migrating-keys.adoc[leveloffset=+1]

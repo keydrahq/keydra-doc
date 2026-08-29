@@ -1,0 +1,20 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="access-control"]
+= Erişim denetimi
+:description: Yetki, bir öznenin bir kapsamda bir rol taşıdığını söyler. Gruplar ve sunucu grupları iç içe geçer, ret kuralı yoktur; yetkinin yokluğu rettir.
+:page-keywords: izinler, roller, yetkiler, gruplar, sunucu grupları, matris, denetim, rbac
+:context: access-control
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_authorization-model.adoc[leveloffset=+1]
+
+include::../modules/ref_built-in-roles.adoc[leveloffset=+1]
+
+include::../modules/proc_creating-users-and-groups.adoc[leveloffset=+1]
+
+include::../modules/proc_server-groups.adoc[leveloffset=+1]
+
+include::../modules/proc_granting-access.adoc[leveloffset=+1]
+
+include::../modules/con_audit-log.adoc[leveloffset=+1]

@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="import-export"]
+= Anahtarları içe ve dışa aktarma
+:description: Seçili anahtarları ya da bir desene uyanların tamamını dışa aktarın ve geri yükleyin. Sunucunun kendi DUMP ve RESTORE komutları kullanıldığı için değerler hiç bozulmaz.
+:page-keywords: içe aktarma, dışa aktarma, dump, restore, aktarım, anahtarlar
+:context: import-export
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_import-export.adoc[leveloffset=+1]
+
+include::../modules/proc_exporting-and-importing-keys.adoc[leveloffset=+1]

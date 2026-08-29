@@ -1,0 +1,61 @@
+[id="deploying-the-container-image_{context}"]
+= Keydra'yı dağıtma
+
+.Ön koşullar
+
+* Podman ya da OCI imajı çalıştırabilen başka bir motor.
+* {product-name}'nın erişebileceği bir PostgreSQL; ya da aşağıdaki manifestteki kapsayıcı.
+
+.Prosedür
+
+. Sırları oluşturun. `KEYDRA_SECRET_KEY`, saklanan bütün kimlik bilgilerini şifreler:
++
+[source,bash]
+----
+printf 'keydra' | podman secret create keydra-db-password -
+openssl rand -base64 32 | podman secret create keydra-secret-key -
+----
++
+[IMPORTANT]
+====
+`KEYDRA_SECRET_KEY`'i kaybetmek, saklanan bütün kimlik bilgilerini kaybetmek demektir;
+paylaşmak ise hepsini paylaşmak. Diğer sırlarınızı nerede tutuyorsanız orada tutun, depoda
+değil.
+====
+
+. İmajı çekin:
++
+[source,bash]
+----
+podman pull {image-standalone}:{image-tag}
+----
+
+. PostgreSQL ile birlikte çalıştırın:
++
+[source,bash]
+----
+podman play kube deploy/keydra-prod.yaml
+----
++
+Manifest yerel olarak derlenmiş bir imajı gösterir. Yayımlanan imajı kullanmak için satırı
+değiştirin:
++
+[source,yaml]
+----
+    - name: keydra
+      image: {image-standalone}:{image-tag}
+----
+
+.Doğrulama
+
+[source,bash]
+----
+curl -s http://localhost:8181/q/health/ready
+----
+
+Ardından `http://localhost:8181` adresini açın.
+
+.Sonraki adımlar
+
+* xref:installation.adoc#configuring-authentication-before-exposing-keydra_installation[Keydra'yı dışarı açmadan önce kimlik doğrulamayı yapılandırın]
+* xref:configuration.adoc[Yapılandırma]

@@ -1,0 +1,38 @@
+[id="adding-an-identity-provider_{context}"]
+= Kimlik sağlayıcı ekleme
+
+.Ön koşullar
+
+* `idp:manage` izniniz olmalı.
+* `KEYDRA_PUBLIC_URL` tanımlı olmalı; yönlendirme bu adrese döner.
+
+.Prosedür
+
+. *Erişim* sayfasına gidip *Giriş* sekmesini açın.
+. *Sağlayıcı ekle* düğmesine tıklayın.
+. *Tür* seçin.
+. *Anahtar* girin: küçük harf, rakam ve tire kullanılabilir. Yönlendirme adresinde göründüğü
+  için sonradan değiştirilemez.
+. OpenID Connect için *Issuer* adresini girin. OAuth 2 için *Yetkilendirme uç noktası*,
+  *Token uç noktası* ve *Kullanıcı uç noktası* adreslerini girin.
+. İstemci kimliğini ve *Client secret* girin. Sır şifreli saklanır ve geri döndürülmez.
+. *Kapsamlar* değerini belirleyin.
+. *Hangi claim hangisi* bölümünde *Subject claim* ve *Kullanıcı adı claim'i* alanlarını doldurun;
+  gerekiyorsa *E-posta claim'i*, *Ad claim'i* ve *Grup claim'i* alanlarını da.
+. Formdaki *Yönlendirme adresi* değerini kopyalayıp sağlayıcıya *birebir* aynı şekilde kaydedin.
+. Kaydedin.
+
+.Doğrulama
+
+Satırda *Uç noktalar biliniyor* yazar. Çıkış yapın; giriş sayfasında *Veya şununla giriş yapın*
+başlığı altında *<ad> ile devam et* düğmesi görünür.
+
+[TIP]
+====
+İlk deneme genellikle yönlendirme adresi tam eşleşmediği için reddedilir. Adresi elle yazmak
+yerine formdan kopyalayın.
+====
+
+.Sonraki adımlar
+
+* xref:identity-providers.adoc#mapping-provider-groups_identity-providers[Sağlayıcı gruplarını Keydra gruplarına eşleyin]

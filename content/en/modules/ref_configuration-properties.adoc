@@ -1,0 +1,7 @@
+[id="configuration-properties_{context}"]
+= Configuration properties
+
+Every `keydra.*` property, read from `backend/src/main/resources/application.properties`.
+A property with an environment variable is one a deployment is expected to set that way.
+
+include::../snippets/generated/configuration-table.adoc[]

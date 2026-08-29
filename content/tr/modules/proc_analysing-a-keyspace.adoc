@@ -1,0 +1,19 @@
+[id="analysing-a-keyspace_{context}"]
+= Anahtar uzayını analiz etme
+
+.Ön koşullar
+
+* Hedefte `analysis:read` izniniz olmalı.
+
+.Prosedür
+
+. Hedefi açıp *Analiz* sayfasına gidin.
+. Panelleri okuyun: *Türe göre bellek*, *Bu bellek ne zaman geri gelecek*, *Ad alanına göre
+  bellek* ve *En büyük anahtarlar*.
+. Bir değişiklikten sonra beklediğiniz sonucu verip vermediğini görmek için *Yeniden ölç*
+  düğmesine tıklayın.
+
+.Doğrulama
+
+Başlık, bütün anahtarların mı yoksa bir örneklemin mi ölçüldüğünü ve örneklem büyüklüğünü
+belirtir. Veritabanı boşsa boş grafikler çizilmez; *Ölçülecek bir şey yok* yazar.

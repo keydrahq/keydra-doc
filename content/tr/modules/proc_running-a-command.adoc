@@ -1,0 +1,30 @@
+[id="running-a-command_{context}"]
+= Komut çalıştırma
+
+.Ön koşullar
+
+* Hedefte `console:run` izniniz olmalı.
+
+.Prosedür
+
+. Hedefi açıp *Konsol* sayfasına gidin.
+. *Komut satırı* alanına komutu yazın. Tamamlamak için kbd:[Tab], geçmişe bakmak için kbd:[↑]
+  tuşunu kullanın.
+. kbd:[Enter] tuşuna basın ya da *Çalıştır* düğmesine tıklayın.
+
+.Doğrulama
+
+Döküm, yanıtı ve komutun ne kadar sürdüğünü gösterir. Boş yanıt `(boş)`, nil yanıt `(nil)`
+olarak yazılır.
+
+Reddedilen komutlarda gerekçe de görünür: *Konsol <komut> komutunu çalıştırmaz — paylaşılan bir
+bağlantıda hiç dönmez, sunucuyu kilitler ya da o bağlantının herkes için ne olduğunu değiştirir.*
+
+*Dökümü temizle ve geçmişi unut* seçeneği ikisini birden siler.
+
+[NOTE]
+====
+Giriş alanının yanındaki durum *Bağlı*, *Bağlanıyor* ya da *Bağlantı kesildi* olur. Oturum
+sonlanırsa sayfa *Oturum sona erdi* der ve yenilemenizi ister: konsol tek bir oturumdur,
+kendiliğinden yeniden bağlanmaz.
+====

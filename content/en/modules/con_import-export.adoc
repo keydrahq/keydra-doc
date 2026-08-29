@@ -1,0 +1,13 @@
+[id="import-export-concepts_{context}"]
+= Moving keys in and out of a file
+
+Export writes the keys, their values and their expiries in the same shape the import reads.
+It uses the server's own `DUMP` and `RESTORE`, so a value survives the round trip exactly —
+including types {product-name} has no editor for.
+
+It is not an RDB file. A snapshot is the server writing its own memory to its own disk,
+inside its own container, and {product-name} has no filesystem there. What it can export is
+what it can read.
+
+The same format is what a backup destination receives, so a file exported by hand and one
+written by a nightly job are the same thing.

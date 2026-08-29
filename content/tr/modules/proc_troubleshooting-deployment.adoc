@@ -1,0 +1,36 @@
+[id="deployment-problems_{context}"]
+= Dağıtım sorunları
+
+.Prosedür
+
+Uygulama başlamıyor::
++
+--
+* `KEYDRA_DB_URL`, `KEYDRA_DB_USERNAME` ve `KEYDRA_DB_PASSWORD` değerlerini kontrol edin. Bellek
+  içi bir alternatif yoktur: {product-name} yalnızca PostgreSQL ile çalışır.
+* `KEYDRA_SECRET_KEY` değerinin tanımlı olduğunu kontrol edin. Bu anahtar olmadan saklanan
+  kimlik bilgileri çözülemez.
+--
+
+Dağıtımdan sonra kimlik bilgileri çözülmüyor::
+`KEYDRA_SECRET_KEY` değişmiş ve eski anahtar `KEYDRA_PREVIOUS_SECRET_KEYS` içine yazılmamış
+demektir. Eski anahtarı geri koyun ve
+xref:security.adoc#rotating-the-instance-key_security[Örnek anahtarını değiştirme] adımlarını
+sırasıyla izleyin.
+
+Arayüz açılıyor ama bütün istekler reddediliyor::
+Oturumunuzun açık olup olmadığını kontrol edin. Oturum durumunu sormak herkese açıktır; bu
+soruya gelen bir `401`, sunulan çerezin reddedildiği anlamına gelir. Çoğunlukla başka bir
+tarayıcıdan sonlandırılmış bir oturumdur.
+
+Bir örnekteki değişiklikler diğerindeki tarayıcıya ulaşmıyor::
+`KEYDRA_STORE_URL` tanımlı değildir ya da örnekler farklı depoları gösteriyordur. Ortak depo
+olmadan bildirim hattı yalnızca kendi soketlerine yayın yapar.
+
+Yedek hedefi sınaması MinIO ya da S3 uyumlu bir depoda başarısız oluyor::
+*Kovayı yol olarak adresle* seçeneğini işaretleyin. Bu seçenek kapalıyken IP adresindeki bir
+MinIO `bucket.10.0.0.4` olarak aranır ve hata bir DNS sorunu gibi görünür.
+
+Dış adres reddediliyor::
+Link-local adresler reddedilir ve bunu açan bir ayar yoktur. `169.254.169.254` adresi makinenin
+bulut kimlik bilgilerini döndürür.

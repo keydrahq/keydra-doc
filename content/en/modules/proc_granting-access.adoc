@@ -1,0 +1,34 @@
+[id="granting-access_{context}"]
+= Granting access
+
+.Prerequisites
+
+* You hold `grants:manage`.
+
+.Procedure
+
+. Go to *Access* and open the *Grants* tab.
+. Add a grant naming three things: the _subject_ (a person or a group), the _role_, and the
+  _scope_ (the instance, a server group, or one connection).
+
+.Verification
+
+Open the *Matrix* tab: subjects down, scopes across, roles in the cells. A filled label was
+granted there; an outlined one arrived from a group above.
+
+The matrix follows both containments — people through their groups, targets through theirs
+— which is what makes it answer the question people actually arrive with and that no single
+row anywhere states.
+
+.Example
+
+To express *the payments team may write the payments cache, may read the sessions cache, and
+must not know the analytics cluster exists*:
+
+. Make a group `payments-devs` and put the people in it.
+. Make server groups `payments-servers` and `analytics-servers`, and put the targets in
+  them.
+. Grant `payments-devs` the `operator` role on the `payments-cache` connection.
+. Grant `payments-devs` the `viewer` role on the `payments-sessions` connection.
+. Grant nothing on `analytics-servers`. Absence is the denial — the analytics cluster does
+  not appear anywhere for them.

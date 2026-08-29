@@ -1,0 +1,8 @@
+extends: existence
+message: 'An interface label goes in *bold*, not "quotation marks" or `code`.'
+level: warning
+ignorecase: false
+scope: paragraph
+# The labels most often quoted wrongly, taken from the frontend's own strings.
+tokens:
+  - '"(Add connection|Test connection|Save|Delete|Edit|Start sampling|Measure|Restore|Back up now|Sign in)"'

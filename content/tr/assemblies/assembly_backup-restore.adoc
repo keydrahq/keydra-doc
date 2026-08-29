@@ -1,0 +1,16 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="backup-restore"]
+= Yedekleme ve geri yükleme
+:description: Keydra'nın okuyabildiği veri yedeklenir ve bu makinenin dışına gönderilir. İstenirse yedek, onu yazan örneğin bile geri okuyamayacağı biçimde mühürlenir.
+:page-keywords: yedek, geri yükleme, hedef, s3, sftp, saklama, şifreleme, parola
+:context: backup-restore
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_backups.adoc[leveloffset=+1]
+
+include::../modules/proc_adding-a-backup-destination.adoc[leveloffset=+1]
+
+include::../modules/con_backup-encryption.adoc[leveloffset=+1]
+
+include::../modules/proc_taking-and-restoring-a-backup.adoc[leveloffset=+1]

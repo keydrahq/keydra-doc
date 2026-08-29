@@ -1,0 +1,40 @@
+[id="adding-a-tunnel_{context}"]
+= Adding a tunnel
+
+.Prerequisites
+
+* You hold `tunnel:manage`. This is an administrator's permission: a jump host carries a
+  credential that reaches a whole network.
+
+.Procedure
+
+. Go to *Tunnels*.
+. Click *New tunnel*.
+. On the first step, give a *Name*, *Host*, *Port* and *Username*.
+. On the *Logging in* step, supply either:
++
+--
+* a *Private key* — choose a key file or paste the key, with a *Key passphrase* if it has
+  one; or
+* a *Password*.
+
+Both may be given, and the key is tried first. Either is stored encrypted and never written
+to disk.
+--
+. On the *Host key* step, click *Test connection*.
+. When the jump host answers, the key it presented is offered. Click *Expect this key* to pin
+  it.
+. Click *Save*.
+
+.Verification
+
+The row appears under *Tunnels*, marked *pinned* rather than *any key*, and its *Used by*
+column reads *nothing yet*.
+
+Click *Test it* at any time. On success the page says *"<name>" works*; on failure, *"<name>"
+did not work*, and a refused host key says which key it saw — which is the whole point of
+pinning one.
+
+.Next steps
+
+* xref:connections.adoc#adding-a-connection_connections[Point a connection at it]

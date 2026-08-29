@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="import-export"]
+= Importing and exporting keys
+:description: Export selected keys or everything matching a pattern, and restore them — through the server's own DUMP and RESTORE, so a value survives exactly.
+:page-keywords: import, export, dump, restore, transfer, keys
+:context: import-export
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_import-export.adoc[leveloffset=+1]
+
+include::../modules/proc_exporting-and-importing-keys.adoc[leveloffset=+1]

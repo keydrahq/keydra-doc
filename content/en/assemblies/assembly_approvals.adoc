@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="approvals"]
+= Operations that wait for a second person
+:description: A target can refuse to be emptied until its name is typed, or until somebody other than the person who asked agrees to it. What waits, who may answer, and what is checked again when it runs.
+:page-keywords: approvals, four eyes, second person, purge, guarded target, dual control
+:context: approvals
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_approvals.adoc[leveloffset=+1]
+
+include::../modules/proc_answering-an-approval.adoc[leveloffset=+1]

@@ -1,0 +1,14 @@
+[id="pubsub-concepts_{context}"]
+= Abonelikler nasıl çalışır
+
+Abonelik tarayıcı sekmenize değil sunucuya aittir. {product-name} bir kez abone olur ve gelen
+mesajları bildirim hattı üzerinden dağıtır. Böylece bütün sekmeler — ve bütün kullanıcılar —
+aynı mesajları görür; sekmeyi kapatmak aboneliği sonlandırmaz.
+
+image::pubsub.jpg["Pub/Sub sayfası; abone olunacak kanallar ve desenler, gelen mesajların yanında"]
+
+Abone olma işleminin konsolda yapılmamasının nedeni de budur: `SUBSCRIBE` geri dönmez ve
+konsolun bağlantısı paylaşılır.
+
+Hem kanallar hem desenler desteklenir. Desen aboneliği `PSUBSCRIBE` kullanır; `news.*` deseni
+`news` altındaki bütün kanalları izler.

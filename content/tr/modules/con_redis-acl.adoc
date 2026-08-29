@@ -1,0 +1,32 @@
+[id="target-acl_{context}"]
+= Hedefin kendi kullanıcılarını yönetme
+
+{redis-name} ve {valkey-name} sunucularının kendi ACL sistemi vardır: kullanıcılar, parolalar ve
+her kullanıcının çalıştırabileceği komut kategorileri. Bu, {product-name}'yı kimin
+kullanabileceğinden ayrı bir konudur ve {product-name} ikisini birbirine karıştırmaz.
+
+image::sunucu-kullanicilari.jpg["Hedefin kendi kullanıcıları; her birinin kullanabildiği anahtar desenleri ve komut kategorileri"]
+
+.Prosedür
+
+. Hedefi açıp ACL sayfasına gidin. Görüntülemek için `acl:read`, değiştirmek için `acl:manage`
+  izni gerekir.
+. Sayfa, hedefin tanıdığı kullanıcıları ve tanımladığı izin kategorilerini listeler.
+
+.Doğrulama
+
+Değişiklikler sunucuda hemen etkili olur ve denetim günlüğüne *ACL* konusuyla kaydedilir.
+
+[NOTE]
+====
+`ACL` komutu konsolun ret listesindedir. Konsoldan hedefte kullanıcı oluşturmak,
+{product-name}'nın bilmediği bir kimlik yaratırdı; {product-name} da onu gösteremez, süzemez ve
+geri alamazdı. Bu iş için ayrı bir sayfa vardır.
+====
+
+.Anahtar bazlı kurallar
+[NOTE]
+====
+{product-name}'nın kendi anahtar bazlı izinleri yoktur. Sunucunun ACL'i bu soruyu zaten
+yanıtlar; tek bir soruya iki ayrı yanıt vermek, tek yanıt vermekten kötüdür.
+====

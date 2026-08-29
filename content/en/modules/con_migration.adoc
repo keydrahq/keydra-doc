@@ -1,0 +1,33 @@
+[id="migration-concepts_{context}"]
+= How keys move between two targets
+
+{product-name} reads from one target and writes to the other, a batch at a time. The two
+servers never have to reach each other — {product-name} is frequently the only thing that
+can reach both — and the keyspace is walked with `SCAN` rather than held, so its size is not
+a limit.
+
+image::migrations.jpg["The Migrations page before anything has moved"]
+
+A migration is a row that outlives the dialog that started it. Progress goes out over the
+notification hub, so the dialog can be closed and the job carries on; *Migrations* lists
+every job, whichever target it came from and whoever started it.
+
+== What the counts mean
+
+Moved:: Written to the destination.
+
+Already there:: The key existed on the destination and *Overwrite keys that already exist*
+was off, so it was left as it was.
+
+Refused:: The destination would not accept it.
+
+Removed from source:: Only when *Remove each key from this server once the other one has
+it* was ticked, and only for keys the destination accepted. That is what turns a copy into
+a move without risking a key that exists nowhere.
+
+== Interrupted migrations
+
+If {product-name} stops while a migration is running, the row is marked *interrupted* on the
+next start, with the note *Keydra stopped while this was running. What had already been
+written is written.* That sweep is a leader's job, so two instances do not mark each other's
+running migrations.

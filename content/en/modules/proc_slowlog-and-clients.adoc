@@ -1,0 +1,29 @@
+[id="slow-commands-and-clients_{context}"]
+= Slow commands, clients and the largest keys
+
+The dashboard carries three tables beside the charts.
+
+.Procedure
+
+To read the slow log:
+
+. Scroll to *Slow commands*. It lists *When*, *Took* and *Command*.
+. *Refresh* re-reads it. *Clear* empties the server's own log.
+
+To see who is connected:
+
+. Scroll to the clients table. It lists *Address*, *Name*, *Age*, *Idle* and *Last command*.
+. To cut one off, open its row actions and choose *Disconnect*. The dialog warns that
+  whatever is on the other end will lose its connection and may or may not reconnect.
+
+To find the largest keys:
+
+. Scroll to *Largest keys*. It reads *Not measured yet* until asked.
+. Click *Measure*. Measuring costs one round trip per key, so it runs on request; the page
+  says how many keys a run looks at.
+
+.Verification
+
+The largest-keys panel reports what it measured, not what exists: *Largest of {sampled}
+keys measured, holding {total} between them.* That sentence is the honest one — a sample is
+a sample, and the panel says how large it was so nobody has to guess how far to trust it.

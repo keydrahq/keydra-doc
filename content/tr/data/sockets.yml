@@ -1,0 +1,7 @@
+/api/v1/notifications: Bildirim hattı. Bütün arayüz için tek soket; her sunucu tarafı değişikliği bir
+  kategori, bir yük ve bir zaman damgasından oluşan zarf olarak taşır. Tek bir hedefe dair yayın, yalnızca
+  sahibinin o hedefi görebildiği soketlere ulaşır.
+/api/v1/connections/{connectionId}/console: Tek bir hedefe karşı bir komut konsolu oturumu. Türlü sonuçlar
+  geldikçe akıtılır.
+/api/v1/connections/{connectionId}/commands: Hedefin kendi MONITOR akışı; sırlar motordan çıkmadan önce
+  maskelenir. İstenene kadar kapalıdır, çünkü açıkken sunucuya iş çıkarır.

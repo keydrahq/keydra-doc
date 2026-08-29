@@ -1,0 +1,14 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="console"]
+= Console and live commands
+:description: A command line against one target, with a deny-list in two halves: one this application will never allow, and one a target may take names out of.
+:page-keywords: console, command, monitor, deny-list, policy, live commands
+:context: console
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_console.adoc[leveloffset=+1]
+
+include::../modules/proc_running-a-command.adoc[leveloffset=+1]
+
+include::../modules/proc_watching-live-commands.adoc[leveloffset=+1]

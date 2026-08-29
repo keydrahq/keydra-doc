@@ -1,0 +1,22 @@
+[id="watching-a-target_{context}"]
+= Watching a target
+
+.Prerequisites
+
+* `monitoring:read` to see the dashboard, `monitoring:manage` to start and stop sampling.
+
+.Procedure
+
+. Open the target and go to *Monitoring*.
+. Click *Start sampling*. The toolbar then reads *Sampling every {seconds}s*.
+. Choose a *Window*.
+
+.Verification
+
+The charts fill: *Operations per second*, *Memory used* against the configured limit,
+*Hit ratio*, *Connected clients*. A figure the server does not report says *This server has
+not reported this figure* rather than plotting zero.
+
+.Next steps
+
+* xref:alerts.adoc[Be told when a reading crosses a line]

@@ -1,0 +1,19 @@
+# Addresses that used to point somewhere else.
+#
+# Each entry becomes a small page at `from` that sends a browser to `to` and tells a
+# crawler which of the two is canonical. Nothing is here yet, because nothing has moved —
+# the file exists so that the first page to move has somewhere to say so, and so the
+# build's redirect handling is exercised rather than written on the day it is needed.
+#
+# Both paths are absolute, include the base path, and end with a slash:
+#
+#   redirects:
+#     - from: /docs/en/0.1/getting-started/
+#       to:   /docs/en/0.1/installation/getting-started/
+#     - from: /docs/tr/0.1/getting-started/
+#       to:   /docs/tr/0.1/installation/getting-started/
+#
+# A redirect is per language: the Turkish tree moves with the English one, and an entry
+# that only redirects one of them leaves the other broken.
+
+redirects: []

@@ -1,0 +1,42 @@
+[id="connection-profiles_{context}"]
+= Bağlantı profili nedir
+
+Bağlantı profili, {product-name}'nın bir hedefi nasıl tanıdığıdır: nerede olduğu, ona nasıl
+kimlik doğrulanacağı ve ona nasıl erişileceği. Profil canlı bir bağlantı değildir.
+{product-name} bağlantıyı gerektiğinde açar, kullanıldığı sürece açık tutar ve profil
+değiştiğinde kapatır — çünkü değişen profil artık başka bir sunucuyu gösteriyor olabilir.
+
+image::baglantilar.jpg["Bağlantılar sayfası; her hedef için durumunu, sunucu türünü ve adresini gösteren birer kart"]
+
+Profilde şunlar bulunur:
+
+Ad:: Hedefin {product-name} içindeki adı. Benzersizdir; denetim günlüğü, zamanlanmış işler ve
+uyarılar bu ada atıfta bulunur.
+
+Sunucu adresi ve Port:: Sunucunun dinlediği adres.
+
+Tür:: *Tekil*, *Küme* ya da *Sentinel*. Sentinel profilinde ayrıca *Sentinel master adı*
+bulunur; {product-name} master'ın güncel adresini Sentinel'e sorar, böylece devir sırasında
+değişen adresi elle güncellemeniz gerekmez.
+
+Kullanıcı adı ve Parola:: İsteğe bağlıdır. Şifreli saklanır ve API bunları hiçbir zaman geri
+döndürmez. Düzenleme formunda parola alanı boş gelir ve yardım metni şunu söyler: *Kayıtlı bir
+parola var. Korumak için boş bırakın, değiştirmek için yenisini yazın.*
+
+TLS kullan:: Hedefle TLS konuşulup konuşulmayacağı. İstemci sistem sertifika deposunu kullanır.
+İstemci sertifikası sunma desteklenmez.
+
+Veritabanı indeksi:: Profilin varsayılan olarak açtığı veritabanı. Anahtar tarayıcı, profili
+düzenlemeden başka bir veritabanına geçebilir.
+
+Notlar:: Listeyi sonra okuyacak kişi için serbest metin.
+
+SSH tüneli:: İsteğe bağlıdır. *Tüneller* sayfasında bir kez tanımlanan tüneli gösterir — bkz.
+xref:tunnels.adoc[Hedeflere atlama sunucusu üzerinden erişme].
+
+== Durum bilgisi nereden gelir
+
+{product-name} izlediği her profili düzenli olarak yoklar ve durumunu *Çalışıyor*,
+*Erişilemiyor*, *Bağlanıyor* ya da *Bilinmiyor* olarak bildirir. Yanında, tespit ettiği sunucu
+türevi ve sürümü de görünür. Durum sorgulanarak değil, bildirim hattı üzerinden iletilir:
+sayfa bir zamanlayıcıyla değil, hedef değiştiği anda güncellenir.

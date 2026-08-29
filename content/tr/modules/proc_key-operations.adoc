@@ -1,0 +1,41 @@
+[id="deleting-renaming-and-expiring-keys_{context}"]
+= Anahtarları silme, yeniden adlandırma ve süre verme
+
+.Ön koşullar
+
+* Silmek için `keys:delete`; yeniden adlandırmak, çoğaltmak ya da TTL değiştirmek için
+  `keys:write`.
+
+.Prosedür
+
+Silmek için:
+
+. Bir ya da birkaç satır seçin; ya da tek bir satırın işlemler menüsünü açın.
+. *Sil* düğmesine tıklayın. Çoklu seçimde düğmede *{count} tanesini sil* yazar.
+. İletişim kutusu neyin silineceğini belirtir ve işlemin geri alınamayacağını söyler.
+  Onaylayın.
+
+Yeniden adlandırmak için:
+
+. Satırın işlemler menüsünü açıp *Yeniden adlandır* seçeneğini seçin.
+. *Yeni ad* girin. O adda bir anahtar zaten varsa işlem reddedilir ve *Hedef zaten varsa
+  üzerine yaz* seçeneği sunulur.
+. Onaylayın.
+
+Çoğaltmak için:
+
+. Satırın işlemler menüsünü açıp *Çoğalt* seçeneğini seçin.
+. *Yeni ad* girin; aynı üzerine yazma seçeneği burada da vardır.
+
+Süre vermek ya da kaldırmak için:
+
+. Satırın işlemler menüsünü açıp *Yaşam süresi ayarla* seçeneğini seçin.
+. *Sona ermeye kalan saniye* değerini girin ya da *Bunun yerine süreyi kaldır* seçeneğini
+  işaretleyin.
+. Onaylayın.
+
+.Doğrulama
+
+Liste yeniden tarama gerektirmeden güncellenir: değişiklik bildirim hattı üzerinden yayımlanır,
+böylece o hedefe bakan bütün tarayıcılar — çalışma arkadaşlarınızınki dahil — güncel listeyi
+görür.

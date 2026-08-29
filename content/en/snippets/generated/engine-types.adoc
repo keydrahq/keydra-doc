@@ -1,0 +1,18 @@
+////
+GENERATED FILE — do not edit.
+Written by scripts/build-generated-content.ts from the Keydra source tree.
+The descriptions come from the YAML files under content/en/data/; edit those.
+////
+[cols="2,4",options="header",role="kd-generated"]
+|===
+| Name | Description
+| `RESP`
+| Redis, Valkey and the forks that speak the same protocol — KeyDB, Dragonfly, Garnet. One engine serves all of them, and which flavour a target is running is detected at runtime rather than configured. Everything Keydra offers is offered here: types, expiry, a command console, Pub/Sub, server statistics, cluster and Sentinel topology.
+
+| `AEROSPIKE`
+| Aerospike, which speaks its own protocol and keeps a different shape of key. A record is identified by a namespace, a set and a user key rather than by one string — and the user key is stored only when the application that wrote it asked for that. The default is not to, so for most existing data there is no name to show. What works is browsing by set, reading and writing a record's bins, and its expiry.
+
+| `TIKV`
+| TiKV, a flat keyspace of bytes. Its keys map onto Keydra's better than Aerospike's do — they are strings of bytes, so the namespace tree and prefix globs work without translation, and a glob's literal prefix becomes the range scan TiKV actually offers. What it has none of is everything above that: no types, no server statistics, no command language, no Pub/Sub.
+
+|===

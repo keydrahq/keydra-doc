@@ -1,0 +1,25 @@
+[id="key-browser-concepts_{context}"]
+= Anahtar tarayıcı, anahtar uzayını nasıl okur
+
+{product-name} hiçbir zaman `KEYS` komutunu çalıştırmaz. Anahtarlar her zaman imleç tabanlı
+`SCAN` ile sayılır ve sonuçlar sunucu ürettikçe tarayıcıya akıtılır. Böylece tarama sürerken
+ilk anahtarlar ekrana gelir; her boyutta bir anahtar uzayı bellekte tutulmadan gezilebilir.
+
+image::anahtar-tarayici.jpg["Anahtar tarayıcı; solda ad alanı ağacı, sağda anahtarlar türleri ve yaşam süreleriyle"]
+
+Sayfanın tarama sırasında *{count} anahtar şu ana kadar* demesinin ve düğmede *Yenile* yerine
+*Yeniden tara* yazmasının nedeni budur: yenilenecek, önbellekte duran bir liste yoktur.
+
+Ad alanı ağacı:: Anahtarlar `:` ayıracına göre bir ağaçta gruplanır ve dallar gerektikçe
+yüklenir. Ağacın çizebileceğinden fazla alt öğesi olan dallarda *ve {count} tane daha — arama
+kutusunu kullanın* yazar.
+
+Arama:: Bir glob deseni girersiniz; {product-name} bunu `SCAN` komutunun `MATCH` değeri olarak
+gönderir. Yer tutucu beklenen biçimi gösterir: `user:*`.
+
+Tür süzgeci:: Listeyi sunucunun tanıdığı türlerden birine daraltır.
+
+Sınır:: Sayfa güvenle tutabileceği kadar anahtar tutar. Bu sınıra ulaştığında *Sınıra ulaşıldı*
+der ve süzgeci daraltarak farklı anahtarlara bakabileceğinizi açıklar. Sessizce durmaz.
+
+Her satırda anahtarın türü ve TTL değeri bulunur; ikisi de aynı taramada okunur.

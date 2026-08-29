@@ -1,0 +1,347 @@
+= Keydra documentation
+:toc: macro
+:toclevels: 2
+
+The Keydra documentation: AsciiDoc content, a PatternFly 6 renderer, English and Turkish,
+published as a static site and as a PDF per language.
+
+toc::[]
+
+== What this is
+
+Everything factual here is derived from the Keydra source tree rather than typed by hand.
+The configuration tables, the permission list, the endpoint reference and the interface
+labels quoted in procedures are read out of `backend/` and `frontend/` on every build, so
+a default that changes in the code changes here too.
+
+[source,text]
+----
+  Keydra source tree                content/en          content/tr
+  backend/ frontend/                AsciiDoc            AsciiDoc
+        │                              │                   │
+        ▼                              └─────────┬─────────┘
+  build-inventory.ts                             │
+        │                                   Asciidoctor
+        ▼                                        │
+  generated snippets ───────────────▶     PatternFly renderer
+                                                 │
+                              ┌──────────────────┼──────────────────┐
+                              ▼                  ▼                  ▼
+                        static HTML        search indexes          PDF
+----
+
+== Requirements
+
+* Node, the version in `.nvmrc`. Use https://github.com/nvm-sh/nvm[nvm]: `nvm install && nvm use`.
+* yarn 4, through Corepack: `corepack enable`.
+* A checkout of the Keydra application repository. The build reads it.
+
+Nothing else. Vale downloads itself on first use, and the PDF's browser downloads itself
+when `yarn playwright install chromium` is run.
+
+[[source-tree]]
+=== Where the Keydra source has to be
+
+This repository holds the documentation; the application is its own repository, and the
+build reads it for every fact in the reference tables. It is looked for, in order:
+
+. `--source <path>` on the build command,
+. the `KEYDRA_SOURCE` environment variable,
+. the parent directory — which is what a checkout beside this one already gives.
+
+[source,bash]
+----
+git clone https://github.com/keydrahq/keydra
+git clone https://github.com/keydrahq/docs
+cd docs && make docs          # finds ../keydra
+
+# or, from anywhere
+KEYDRA_SOURCE=/path/to/keydra make docs
+----
+
+A build that cannot find it stops and says so, rather than publishing empty tables.
+
+== Building it
+
+[source,bash]
+----
+make install        # install the dependencies
+make docs           # build every language and version into dist/
+make docs-serve     # serve dist/ at http://localhost:9100
+----
+
+`make docs-serve` prints the address of each language.
+
+Other targets:
+
+[cols="1,3",options="header"]
+|===
+| Target | What it does
+
+| `make docs-en` / `make docs-tr`
+| One language. Useful while writing; note that the parity check needs both.
+
+| `make docs-pages`
+| Build and serve exactly as GitHub Pages will, base path and all.
+
+| `make docs-check`
+| Everything a pull request must pass: inventory, tests, build, validation, style.
+
+| `make docs-lint`
+| Vale alone.
+
+| `make docs-pdf`
+| The PDFs, from a completed `make docs`.
+
+| `make docs-test`
+| The renderer and build tests.
+
+| `make docs-source-inventory`
+| Re-read the Keydra source tree into `.generated/source-inventory.json`.
+
+| `make docs-clean`
+| Remove `dist/`, `.cache/`, `.generated/` and the PDFs.
+
+| `make docs-container`
+| Build the container that serves `dist/`.
+|===
+
+== How the pieces fit
+
+[cols="1,3",options="header"]
+|===
+| Directory | What is in it
+
+| `content/en`, `content/tr`
+| The documentation. One directory per language, with the same file names in each.
+
+| `navigation/nav.yml`
+| The site's shape. One file for both languages — see <<navigation>>.
+
+| `locales/*.yml`
+| The interface strings of the documentation shell itself.
+
+| `glossary/*.yml`
+| The translation decisions, and which terms are never translated.
+
+| `renderer/src`
+| The PatternFly 6 shell, rendered to static HTML at build time, and the small script
+that runs in the browser.
+
+| `scripts`
+| The build, the inventory, validation, linting, the PDF and the local server.
+
+| `.vale.ini`, `.vale/styles`
+| Style checking. Red Hat's rules for the English, this project's own for both.
+
+| `dist`
+| The output. Git-ignored.
+|===
+
+== Content structure
+
+Red Hat modular documentation. A page is an *assembly*, which composes *modules*:
+
+[cols="1,3",options="header"]
+|===
+| Prefix | What it is
+
+| `con_`
+| A concept. What something is and why it works the way it does.
+
+| `proc_`
+| A procedure. Prerequisites, numbered steps, verification, next steps.
+
+| `ref_`
+| A reference. Facts to look up, usually a table.
+
+| `assembly_`
+| Composes modules into a page. Contributes no prose beyond its abstract.
+|===
+
+Modules are never pages of their own. An assembly is what gets a URL, and the modules
+inside it become its sections.
+
+[[navigation]]
+== Navigation
+
+`navigation/nav.yml` is one file rather than one per language, deliberately. What differs
+between the languages is wording, and wording lives where wording lives: a group's label is
+`nav.group.<id>` in `locales/<lang>.yml`, and a page's label is that page's own AsciiDoc
+title. A navigation entry therefore cannot disagree with the heading it leads to, and the
+two languages cannot drift into different hierarchies.
+
+Each entry has:
+
+`id`:: Stable and language-neutral. This is what the language switcher maps on, so changing
+one breaks the link between a page and its translation.
+
+`slug`:: The URL segment, also language-neutral, so `/docs/en/…` and `/docs/tr/…` line up.
+
+`page`:: The assembly under `content/<lang>/assemblies/`, without the extension.
+
+== Adding a page
+
+. Pick an id and a slug and add the entry to `navigation/nav.yml`.
+. Write `content/en/assemblies/assembly_<name>.adoc`:
++
+[source,asciidoc]
+----
+[id="<id>"]
+= The title
+:description: One sentence. It is the card text and the page description.
+:page-keywords: words, somebody, might, search
+:context: <id>
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_something.adoc[leveloffset=+1]
+----
+. Write the modules it includes, under `content/en/modules/`.
+. Write the Turkish counterparts, with **the same file names** and the same ids.
+. `make docs-check`.
+
+The build skips a navigation entry whose page does not exist, so a half-added page does not
+break the site — but `make docs-check` fails on it, which is what keeps it from being
+forgotten.
+
+== Adding a language
+
+. Add it to `site.yml` under `languages.published`.
+. Copy `locales/en.yml` to `locales/<code>.yml` and translate it.
+. Create `content/<code>/` with the same tree, and translate the content.
+. Add `glossary/<code>.yml` and, if the language needs its own style rules, a section in
+  `.vale.ini` and a style directory beside `KeydraTR`.
+
+The parity validator will list every file that is missing.
+
+== Adding a version
+
+. Tag the release in the Keydra repository.
+. Add an entry to `versions.yml` with the tag as its `ref`, and set `stable` and `latest`.
+
+`latest` is emitted as a tree of redirects rather than a second copy, so a search engine is
+never asked to choose between two identical pages.
+
+== What the reference tables are made of
+
+`scripts/build-inventory.ts` reads the Keydra source tree and writes
+`.generated/source-inventory.json`: the REST endpoints and what each requires, the GraphQL
+operations, every configuration property and its environment variable, the permissions, the
+frontend routes, and every interface string in both languages.
+
+`scripts/build-generated-content.ts` turns that into AsciiDoc tables under
+`content/<lang>/snippets/generated/`, joining each fact to a hand-written description from
+`content/<lang>/data/*.yml`. A reference module then includes the table.
+
+So a new configuration property appears in the table by itself, with an em dash where its
+description should be, and `make docs-check` says which language is missing it.
+
+Never edit anything under `snippets/generated/`. Edit the description in `data/`, or the
+code the fact comes from.
+
+== Search
+
+One index per language and per version, built with the pages. Turkish folding is the part
+worth knowing about: the dotted and dotless i are removed from *both* the index and the
+query, so `yapilandirma` and `yapılandırma` reach the same page and an English `IP` is not
+turned into `ıp`. `renderer/src/search/normalise.ts` is the whole of it, and
+`tests/normalise.test.ts` is why it stays correct.
+
+== Style
+
+English follows Red Hat's documentation style, checked by Vale with the `RedHat` package.
+Turkish is checked for AsciiDoc structure and this project's terminology, and deliberately
+not by English grammar rules — running them over Turkish produces a page of failures that
+mean nothing.
+
+`make docs-lint` fails on errors and reports warnings. `yarn lint --strict` fails on
+everything, which is the run to make before deciding a warning is acceptable.
+
+One deviation is deliberate and recorded in `.vale.ini`: the em dash. See the comment
+there.
+
+== Publishing
+
+The output is static files and needs no application server.
+
+=== GitHub Pages
+
+This is how the site is published. `.github/workflows/publish.yml` runs on every push to
+`main`: it checks out this repository and the Keydra one, builds, validates, and deploys.
+
+The site answers at **https://keydrahq.github.io/docs/**.
+
+Two build arguments make a Pages build different from a local one, and the workflow
+supplies both rather than assuming them:
+
+[cols="1,3",options="header"]
+|===
+| Argument | Why
+
+| `--base-path`
+| Pages serves a project site under `/<repo>/`. Every URL, asset, redirect, canonical link
+and sitemap entry is derived from it, so renaming the repository does not quietly break
+every link. Read from `actions/configure-pages`, never hard-coded.
+
+| `--docs-prefix ""`
+| The repository is already called `docs`, so the base path supplies that segment. Without
+emptying the prefix the site would answer at `/docs/docs/en/…`. Together the two produce
+the same address a contributor sees locally: `/docs/en/latest/`.
+|===
+
+Preview exactly what will be published:
+
+[source,bash]
+----
+make docs-pages     # builds with the Pages settings, validates, and serves
+----
+
+.Turning it on, once
+[NOTE]
+====
+In the repository settings, under *Pages*, set *Source* to *GitHub Actions*. Nothing else
+is needed: the workflow holds the `pages: write` and `id-token: write` permissions and
+deploys through the environment Pages creates.
+
+A pull request — including one from a fork — never publishes. It runs `check.yml`, which
+holds read permissions only.
+====
+
+.A custom domain
+[NOTE]
+====
+Set `product.pages.customDomain` in `site.yml`. The build writes it into a `CNAME` file on
+every deploy, which is what stops the next deploy from clearing the domain. Set
+`product.baseUrl` to match, so canonical links and the sitemap agree with it.
+====
+
+.A private application repository
+[NOTE]
+====
+The workflows check Keydra out with `github.token`, which reaches a public repository. If
+the application repository is private, add a repository secret named
+`KEYDRA_SOURCE_TOKEN` holding a token with read access to it; the workflows already use it
+when it is present.
+====
+
+=== A container, for anywhere else
+
+[source,bash]
+----
+make docs-container
+podman run --rm -p 8080:8080 localhost/keydra-docs:dev
+----
+
+The image is UBI nginx, runs unprivileged, and works under an arbitrary OpenShift-assigned
+UID. For a deployment under a subpath, pass the base path at build time:
+
+[source,bash]
+----
+podman build --build-arg BASE_PATH=/keydra/ -t keydra-docs -f Containerfile .
+----
+
+Every URL the build emits is derived from that, so nothing has to be rewritten afterwards.
+
+== Contributing
+
+See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc].

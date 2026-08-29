@@ -1,0 +1,55 @@
+[id="ports-and-endpoints_{context}"]
+= Ports and endpoints
+
+.What Keydra listens on
+[cols="2,1,3",options="header"]
+|===
+| Address | Port | What it is
+
+| `/`
+| 8181
+| The interface and everything below. One port serves the API and the page that calls it.
+
+| `{api-base}`
+| 8181
+| The REST API.
+
+| `/graphql`
+| 8181
+| The GraphQL surface. `GET` is refused; introspection and the schema document are on in
+development and off in production.
+
+| `/q/health`, `/q/health/live`, `/q/health/ready`
+| 8181
+| Health. The manifests use `ready` for readiness and `live` for liveness.
+
+| `/q/metrics`
+| 8181
+| Prometheus.
+
+| `/api/openapi`
+| 8181
+| The OpenAPI document.
+
+| `/q/swagger-ui`
+| 8181
+| Interactive API browsing. Development profile only.
+|===
+
+.Development ports
+[cols="2,1,3",options="header"]
+|===
+| What | Host port | Notes
+
+| Backend | 8181 | `./mvnw quarkus:dev`
+| Frontend dev server | 9000 | `yarn dev`, proxying `/api` and `/graphql` to the backend
+| {redis-name} target | 6479 | From `deploy/keydra-dev.yaml`
+| {valkey-name} target | 6480 | From `deploy/keydra-dev.yaml`
+| {redis-name} for Keydra's store | 6481 | Never one of the targets
+| PostgreSQL | 5442 | Keydra's own database
+| ClickHouse | 8223 | Optional readings store
+|===
+
+The host ports are shifted off the defaults deliberately, so the pod starts on a machine
+that already runs a {redis-name} or a PostgreSQL. Inside the pod they keep their canonical
+numbers.

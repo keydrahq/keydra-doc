@@ -1,0 +1,161 @@
+////
+ÜRETİLMİŞ DOSYA — elle düzenlemeyin.
+scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
+Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
+////
+[cols="2,1,4",options="header",role="kd-generated"]
+|===
+| İzin | Kapsam | Açıklama
+| `connection:view`
+| Hedef
+| Hedefin varlığını ve durumunu görmek. Hedefte herhangi bir izin bulunması onu görünür kılar; bu izin de en küçüğüdür.
+
+| `connection:edit`
+| Hedef
+| Profilin gösterdiği adresi ve kullandığı kimlik bilgilerini — hangi tünelden geçtiği dahil — değiştirmek.
+
+| `connection:delete`
+| Hedef
+| Profili kaldırmak. Sunucunun kendisinde hiçbir şey değişmez.
+
+| `keys:read`
+| Hedef
+| Anahtar uzayına göz atmak; anahtar adlarını, türlerini ve son kullanma sürelerini okumak.
+
+| `keys:write`
+| Hedef
+| Anahtar oluşturmak, yeniden adlandırmak, çoğaltmak ve son kullanma sürelerini değiştirmek.
+
+| `keys:delete`
+| Hedef
+| Anahtarları tek tek ya da toplu silmek.
+
+| `values:read`
+| Hedef
+| Anahtarın içeriğini okumak.
+
+| `values:write`
+| Hedef
+| Anahtarın içeriğini değiştirmek.
+
+| `console:run`
+| Hedef
+| Konsoldan komut çalıştırmak. Operatör iznidir: operatör veriyi değiştirebilir ama sunucunun kendisini değiştiremez. Ret listesinin CONFIG, MODULE ve EVAL komutlarını reddetmesinin nedeni budur.
+
+| `pubsub:subscribe`
+| Hedef
+| Hedefteki kanallara ya da desenlere abonelik açmak.
+
+| `pubsub:publish`
+| Hedef
+| Kanala mesaj yayımlamak.
+
+| `commands:watch`
+| Hedef
+| Sunucunun çalıştırdığı bütün komutları izlemek. En çok bilgi açığa çıkaran izindir: tek tek anahtar okuyabilen birinin, geçen bütün anahtarları okuması beklenmez.
+
+| `monitoring:read`
+| Hedef
+| Panoyu, yavaş komut günlüğünü, istemcileri ve en büyük anahtarları görmek.
+
+| `monitoring:manage`
+| Hedef
+| Örneklemeyi başlatıp durdurmak, yavaş komut günlüğünü temizlemek ve bir istemcinin bağlantısını kesmek.
+
+| `analysis:read`
+| Hedef
+| Anahtar uzayı analizini çalıştırmak ve okumak.
+
+| `server:read`
+| Hedef
+| Sunucunun kendi ayarlarını ve kalıcılık durumunu okumak.
+
+| `server:configure`
+| Hedef
+| Sunucunun ayarlarını değiştirmek, ondan anlık görüntü istemek ve günlüğünü yeniden yazdırmak.
+
+| `acl:read`
+| Hedef
+| Hedefin kendisinin tanıdığı kullanıcıları görmek.
+
+| `acl:manage`
+| Hedef
+| Hedefin kendi ACL kullanıcılarını oluşturmak, değiştirmek ve kaldırmak.
+
+| `migration:run`
+| Hedef
+| Bu hedefe ya da bu hedeften anahtar taşımak. Göç işinin iki ucunda da gerekir.
+
+| `schedule:manage`
+| Hedef
+| Bu hedefte iş zamanlamak. İşin kendisinin gerektirdiği iznin yanı sıra aranır: zamanlanmış iş, bir işi sonraya bırakmanın yoludur; yetkiniz olmayan bir işi yapmanın yolu değil.
+
+| `alert:manage`
+| Hedef
+| Bu hedef için kural yazmak ve değiştirmek. monitoring:manage izninin içinde değil yanındadır; çünkü kural, onu yazan kişiden uzun yaşar: kimse bakmıyorken hedefi örneklenmiş tutar ve dışarıya mesaj gönderir.
+
+| `transfer:export`
+| Hedef
+| Anahtarları bir dosyaya aktarmak ve yedek almak.
+
+| `transfer:import`
+| Hedef
+| Bir dosyadan anahtar almak ve yedek geri yüklemek.
+
+| `script:run`
+| Örnek
+| Keydra’nın içinde bir taşıma betiği çalıştırmak. Hedefte değil sunucu düzeyinde, ki bütün mesele bu: bir betik Keydra’nın kendi süreci içinde çalışır — her hedefin kimlik bilgilerini tutan ve Keydra’nın erişebildiği her ağa erişebilen süreç. Hedefteki migration:run yerine değil, ona ek olarak gerekir.
+
+| `connection:create`
+| Örnek
+| Bu örneğe hedef eklemek.
+
+| `groups:manage`
+| Örnek
+| Kullanıcı gruplarını ve sunucu gruplarını, üyelikleriyle birlikte oluşturmak ve değiştirmek.
+
+| `users:manage`
+| Örnek
+| Hesap oluşturmak, değiştirmek, devre dışı bırakmak, kaldırmak ve insanları davet etmek.
+
+| `grants:manage`
+| Örnek
+| Yetki yazmak ve kaldırmak — kim hangi kapsamda hangi rolü tutuyor.
+
+| `idp:manage`
+| Örnek
+| Kimlik sağlayıcılarını ve talep/grup eşlemelerini yapılandırmak.
+
+| `backup:manage`
+| Örnek
+| Yedeklerin nereye gideceğini belirlemek. Yönetici iznidir: yedek hedefi, Keydra dışındaki bir servise ait kimlik bilgisi taşır ve bir sunucunun yedeğini alabilen kişi, yedeklerin nereye gideceğine karar veren kişi değildir.
+
+| `tunnel:manage`
+| Örnek
+| Atlama sunucularını tanımlamak. Yalnızca yöneticilerde bulunur: atlama sunucusunun kimlik bilgisi bütün bir ağa erişim sağlar ve Keydra’nın arkasındaki hedefler için tuttuğu bütün bilgiler oradan geçer.
+
+| `alert-delivery:manage`
+| Örnek
+| Uyarıların nereye gönderileceğini belirlemek. Yedek hedefiyle aynı nedenle yönetici iznidir: dışarıdaki bir servise ait kimlik bilgisi tutar ve bir sunucunun sorunlarının nerede duyurulacağını seçmek, o sunucuyu izlemenin parçası değildir.
+
+| `crypto:rotate`
+| Örnek
+| Saklanan bütün kimlik bilgilerini yeni bir anahtara taşımak. Bu uygulamadan istenebilecek en kritik işlemdir ve sırların açtıklarına değil sırların kendisine dair tek izindir.
+
+| `audit:read`
+| Örnek
+| Denetim günlüğünü okumak.
+
+| `policy:manage`
+| Örnek
+| Bu kurulumun oturum açan herkesten ne istediğine karar vermek — bugün için, ikinci faktörün zorunlu olup olmadığı. Kendi izni olmasının sebebi, kaydolana kadar herkesi aynı anda kısıtlaması: tek bir hesap açmaktan farklı bir etki alanı.
+
+| `instance:read`
+| Örnek
+| Keydra’nın kendi durumunu okumak: hangi sunucular çalışıyor, her biri neyi tutuyor ve hepsi neyin üzerinde duruyor. Oturum açmış olmakla aynı şey değil — sunucu listesi makine adlarını, bağımlılık listesi ise kurulumun haritasını verir.
+
+| `instance:drain`
+| Örnek
+| Bir sunucuyu hizmet dışına almak ve geri döndürmek. instance:read’den ayrı, çünkü işin nerede olduğunu okumakla nereye gideceğine karar vermek aynı edim değil: boşaltma, sunucunun yeni tarayıcı almasını durdurur ve düzenli işlerini bir başkasına devreder.
+
+|===

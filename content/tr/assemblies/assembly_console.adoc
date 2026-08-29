@@ -1,0 +1,14 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="console"]
+= Konsol ve canlı komutlar
+:description: Tek bir hedefe karşı komut satırı. Ret listesi iki yarıdan oluşur: biri bu uygulamanın asla açmayacağı, diğeri bir hedefin isim çıkarabileceği yarı.
+:page-keywords: konsol, komut, monitor, ret listesi, politika, canlı komutlar
+:context: console
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_console.adoc[leveloffset=+1]
+
+include::../modules/proc_running-a-command.adoc[leveloffset=+1]
+
+include::../modules/proc_watching-live-commands.adoc[leveloffset=+1]

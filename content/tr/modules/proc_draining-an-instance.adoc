@@ -1,0 +1,50 @@
+[id="draining-an-instance_{context}"]
+= Örnekler sayfasını okumak ve bir örneği boşaltmak
+
+Birden fazla {product-name} çalıştığında *Örnekler* sayfası kimlerin ayakta olduğunu, her birinin
+neyi tuttuğunu ve hepsinin neyin üzerinde durduğunu söyler. Bir örneği durdurmadan önce hizmet
+dışına almak da buradan yapılır.
+
+image::ornekler.jpg["Örnekler sayfası; bu kurulumun neye dayandığı ve isteği hangi örneğin yanıtladığı"]
+
+.Ön koşullar
+
+* Sayfayı okumak için `instance:read`.
+* Bir örneği boşaltmak için `instance:drain`. Bilerek ayrı bir izin: işin nerede olduğunu okumakla
+  nereye gideceğine karar vermek aynı edim değildir.
+
+.Prosedür
+
+. *Örnekler* sayfasını açın. Her satır çalışan bir {product-name}'dır; ilk ne zaman haber verdiğini
+  ve kirasını en son ne zaman yenilediğini gösterir. İçlerinden biri düzenli işleri üstlenmiş olarak
+  işaretlidir — birden fazla örnek varken yalnızca bir kez yapılması gereken işler.
+. Her birinin neyi tuttuğunu okuyun: *soket* kaç tarayıcıyla konuştuğu, *akış* birileri izlediği
+  için bir hedefe karşı açık tuttuğu bağlantı sayısı, *iş* ise süren uzun işlerdir. Satırı
+  genişletirseniz hangi hedefler için istemci tuttuğunu görürsünüz.
+. Bir örneği hizmet dışına almak için işlemler menüsünden *Boşalt* seçeneğini kullanın. İletişim
+  kutusu, yapmadan önce ne yapacağını söyler.
+. Sayıların düşüşünü izleyin. Önce soketler gider — tarayıcılar yeniden bağlanır ve yük dengeleyici
+  onları başka yere yönlendirir; akışlar onları izler; işler yerinde kalır, çünkü onlar kendiliğinden
+  taşınmaz.
+. Sıfıra indiğinde örneği durdurmak kimseye bir şeye mal olmaz. *Hizmete geri al* işlemi geri alır.
+
+.Doğrulama
+
+Boşaltılan bir örnek `/q/health/ready` adresinde kendini hazır değil olarak bildirir — yük
+dengeleyicinin ona istek göndermeyi bırakmasını sağlayan budur — ve düzenli işleri bir vuruş içinde
+geri verir. Canlılık denetimi açık kalır: boşaltmak, bir kapsayıcıyı öldürtmenin yolu değildir.
+
+[NOTE]
+====
+İstek, boşaltılan örneğe değil, yük dengeleyicinin gönderdiği yere ulaşır. İki {product-name} örneği
+birbirine hiç bağlanmaz — veritabanı üzerinden buluşurlar ve boşaltılan örnek talimatı zaten attığı
+vuruşta okur. Rolün içine katılmak yerine kendi sütunu olmasının sebebi, ilginç anın örneğin ikisini
+birden olduğu an olmasıdır: hâlâ lider, çoktan boşalıyor, birinci olmayı bırakmak üzere.
+
+Yeni başlamış bir süreç, satırda daha önce ne yazıyorsa yazsın, boşalıyor değildir. Bunun için bir
+yapılandırma özelliği olmamasının sebebi de budur: bir manifest dosyasındaki `draining=true` birinin
+bir kez yazıp unuttuğu şeydir ve ürettiği sonuç, ayağa kalkıp trafiği reddeden bir filodur.
+====
+
+Örneği durdurmak buradan yapılmaz. Bu, onu başlatan şeyin işidir — ve kapsayıcıları yeniden başlatan
+şey onu zaten yeniden başlatırdı.

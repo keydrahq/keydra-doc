@@ -1,0 +1,5 @@
+STANDALONE: Tek adreste tek sunucu. En yaygın durum.
+CLUSTER: Redis ya da Valkey kümesi. Keydra düğümleri ve slot aralıklarını hedeften keşfeder ve topoloji
+  sayfasında gösterir.
+SENTINEL: Sentinel kurulumu. Profil master adını taşır; Keydra master’ın güncel adresini Sentinel’e sorar,
+  böylece devir sırasında değişen adresi elle girmeniz gerekmez.

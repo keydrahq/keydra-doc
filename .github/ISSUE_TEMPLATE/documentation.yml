@@ -1,0 +1,55 @@
+name: Something in the manual is wrong or missing
+description: A page that does not match the interface, or one that should exist
+labels: [documentation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every procedure here is written against the interface's own labels, so "the button
+        is not called that any more" is a real report and a useful one.
+
+  - type: input
+    id: page
+    attributes:
+      label: Which page
+      description: The address, or the file under content/.
+      placeholder: /docs/en/0.1/data/key-browser/ — or content/en/modules/proc_browsing-keys.adoc
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Which language
+      multiple: true
+      options:
+        - English
+        - Türkçe
+        - Both
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What it says, and what it should say
+      description: Quote the sentence if you can — it is faster to find than to describe.
+      placeholder: |
+        The page says to type a glob into *Search keys*. The field is called
+        *Pattern* and its placeholder reads "Glob pattern, e.g. user:*".
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you file
+      options:
+        - label: >
+            This is about the documentation. If the application itself is wrong, it belongs
+            in keydra-backend or keydra-frontend.
+          required: true
+        - label: >
+            Nothing here would tell somebody how to attack an unpatched instance. If it
+            would, use private reporting instead.
+          required: true

@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="pubsub"]
+= Pub/Sub
+:description: Kanallara ve desenlere abone olun, mesaj yayımlayın. Abonelik sunucuya ait olduğu için bütün sekmeler aynı mesajları görür.
+:page-keywords: pubsub, yayımlama, abonelik, kanal, desen
+:context: pubsub
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_pubsub.adoc[leveloffset=+1]
+
+include::../modules/proc_subscribing-and-publishing.adoc[leveloffset=+1]

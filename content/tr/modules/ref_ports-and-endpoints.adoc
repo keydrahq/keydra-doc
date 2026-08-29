@@ -1,0 +1,55 @@
+[id="ports-and-endpoints_{context}"]
+= Portlar ve uç noktalar
+
+.Keydra'nın dinlediği adresler
+[cols="2,1,3",options="header"]
+|===
+| Adres | Port | Açıklama
+
+| `/`
+| 8181
+| Arayüz ve altındaki her şey. Tek port hem API'yi hem onu çağıran sayfayı sunar.
+
+| `{api-base}`
+| 8181
+| REST API.
+
+| `/graphql`
+| 8181
+| GraphQL yüzeyi. `GET` reddedilir. İç gözlem ve şema belgesi geliştirmede açık, üretimde
+kapalıdır.
+
+| `/q/health`, `/q/health/live`, `/q/health/ready`
+| 8181
+| Sağlık yoklamaları. Manifestler hazır olma için `ready`, canlılık için `live` kullanır.
+
+| `/q/metrics`
+| 8181
+| Prometheus ölçümleri.
+
+| `/api/openapi`
+| 8181
+| OpenAPI belgesi.
+
+| `/q/swagger-ui`
+| 8181
+| API'yi etkileşimli olarak gezme. Yalnızca geliştirme profilinde açıktır.
+|===
+
+.Geliştirme portları
+[cols="2,1,3",options="header"]
+|===
+| Bileşen | Ana makine portu | Notlar
+
+| Arka uç | 8181 | `./mvnw quarkus:dev`
+| Ön uç geliştirme sunucusu | 9000 | `yarn dev`; `/api` ve `/graphql` arka uca yönlendirilir
+| {redis-name} hedefi | 6479 | `deploy/keydra-dev.yaml` dosyasından
+| {valkey-name} hedefi | 6480 | `deploy/keydra-dev.yaml` dosyasından
+| Keydra'nın deposu için {redis-name} | 6481 | Hedeflerden biri değildir
+| PostgreSQL | 5442 | Keydra'nın kendi veritabanı
+| ClickHouse | 8223 | İsteğe bağlı ölçüm deposu
+|===
+
+Ana makine portları bilinçli olarak varsayılanlardan kaydırılmıştır: makinede zaten bir
+{redis-name} ya da PostgreSQL çalışıyorsa pod yine de açılır. Pod içinde bileşenler kendi
+standart portlarını kullanmayı sürdürür.

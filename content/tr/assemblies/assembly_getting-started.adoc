@@ -1,0 +1,14 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="getting-started"]
+= Başlangıç
+:description: Keydra'yı depoyla gelen yerel Redis ve Valkey sunucularıyla ayağa kaldırın, ilk yöneticiyi oluşturun ve oturum açın.
+:page-keywords: başlangıç, ilk çalıştırma, podman, giriş, kurulum
+:context: getting-started
+include::../attributes/attributes.adoc[]
+
+include::../modules/proc_running-keydra-for-the-first-time.adoc[leveloffset=+1]
+
+include::../modules/proc_creating-the-first-administrator.adoc[leveloffset=+1]
+
+include::../modules/proc_signing-in.adoc[leveloffset=+1]

@@ -1,0 +1,24 @@
+////
+GENERATED FILE — do not edit.
+Written by scripts/build-generated-content.ts from the Keydra source tree.
+The descriptions come from the YAML files under content/en/data/; edit those.
+////
+[cols="2,4",options="header",role="kd-generated"]
+|===
+| Name | Description
+| `WEBHOOK`
+| An HTTP endpoint. A JSON body naming the rule, the target and the reading — which is how Slack, Teams, Discord and most on-call tools take a message.
+
+| `EMAIL`
+| Mail, through a server you nominate. The subject names the target and what happened, because a subject line is what somebody sees first.
+
+| `TELEGRAM`
+| A Telegram bot token and a chat id, so the message arrives in the group people are already in.
+
+| `SLACK`
+| A Slack bot token and a channel by name. Beside the webhook kind rather than instead of it: naming the channel means it can be changed without issuing a new address.
+
+| `WHATSAPP`
+| The WhatsApp Cloud API. Needs a numbered identity to send *from* as well as one to send to, which is the one field the other chat kinds do not have.
+
+|===

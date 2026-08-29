@@ -1,0 +1,14 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="alerts"]
+= Alerts
+:description: A rule watches one reading of one target and says so when it crosses a line — against a number, or against what the same hour read last week.
+:page-keywords: alerts, rules, thresholds, baseline, webhook, slack, telegram, whatsapp, email
+:context: alerts
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_alerts.adoc[leveloffset=+1]
+
+include::../modules/proc_writing-an-alert-rule.adoc[leveloffset=+1]
+
+include::../modules/proc_sending-alerts-somewhere.adoc[leveloffset=+1]

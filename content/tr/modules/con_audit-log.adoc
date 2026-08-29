@@ -1,0 +1,24 @@
+[id="audit-log_{context}"]
+= Denetim günlüğü
+
+Bir şeyi değiştiren her işlem kaydedilir: kimin yaptığı, ne yaptığı, hangi hedefte yaptığı, ne
+zaman yaptığı ve işlemin başarılı mı yoksa reddedilmiş mi olduğu.
+
+Okuma işlemleri kaydedilmez. Her sayfa görüntülemesini günlüğe yazmak, birinin gerçekten
+arayacağı kayıtları gözden kaçırtırdı.
+
+.Prosedür
+
+. *Denetim* sayfasına gidin. `audit:read` izni gerekir.
+. *Ne* ve *Kim* alanlarıyla süzün, sayfalar arasında gezinin.
+
+image::denetim-kaydi.jpg["Denetim kaydı; ne yapıldığı, kimin yaptığı, hangi hedefte ve yapıldı mı reddedildi mi"]
+
+.Doğrulama
+
+Her satır, değişikliğin konusunu arayüzün kendi terimleriyle adlandırır: *Bağlantı*, *Yetki*,
+*Şifreleme anahtarı*, *Yedek hedefi*, *Zamanlanmış iş* gibi. Sonuç sütununda *bitti* ya da
+*reddedildi* yazar.
+
+Reddedilen işlemler de kaydedilir. Yetkisi olmayan birinin denemesi, denetim günlüğünün var
+olma nedenidir.

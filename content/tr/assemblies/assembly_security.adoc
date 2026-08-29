@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="security"]
+= Güvenliğe genel bakış
+:description: Keydra yönettiği bütün sunucuların kimlik bilgilerini tutar. Bunun şifreleme, oturumlar, dış istekler ve her şeyi koruyan anahtar açısından anlamı.
+:page-keywords: güvenlik, şifreleme, anahtar değişimi, csp, çerezler, dış erişim
+:context: security
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_security-overview.adoc[leveloffset=+1]
+
+include::../modules/proc_rotating-the-instance-key.adoc[leveloffset=+1]

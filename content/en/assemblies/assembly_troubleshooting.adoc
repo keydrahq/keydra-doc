@@ -1,0 +1,18 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="troubleshooting"]
+= Troubleshooting
+:description: The failures Keydra actually produces, what each of them means, and what to do about it.
+:page-keywords: troubleshooting, errors, connection failed, sign-in, schedules, alerts
+:context: troubleshooting
+include::../attributes/attributes.adoc[]
+
+include::../modules/proc_troubleshooting-connections.adoc[leveloffset=+1]
+
+include::../modules/proc_troubleshooting-sign-in.adoc[leveloffset=+1]
+
+include::../modules/proc_troubleshooting-work.adoc[leveloffset=+1]
+
+include::../modules/proc_troubleshooting-keys.adoc[leveloffset=+1]
+
+include::../modules/proc_troubleshooting-deployment.adoc[leveloffset=+1]

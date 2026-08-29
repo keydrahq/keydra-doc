@@ -1,0 +1,48 @@
+[id="running-several-instances_{context}"]
+= Running more than one instance
+
+Two instances behind a load balancer is how anything that becomes part of a deployment gets
+deployed — for upgrades if not for availability. Without coordination the schedules run
+twice, the alerts fire twice, and every watched target is sampled twice by two processes that
+each believe they are the only one. None of that announces itself: the second copy of a
+nightly flush looks exactly like the first.
+
+.Prerequisites
+
+* One PostgreSQL, shared.
+* A {redis-name} for {product-name}'s own store, if browsers should hear about changes made
+  on the other instance.
+
+.Procedure
+
+. Point every instance at the same database.
+. Give each one an identity, or let it generate one:
++
+[source,properties]
+----
+KEYDRA_INSTANCE_ID=keydra-a
+----
+. Point them at a shared store:
++
+[source,properties]
+----
+KEYDRA_STORE_URL=redis://store.internal:6379
+----
+. Give every instance the same `KEYDRA_SECRET_KEY`. They read the same encrypted columns.
+
+.Verification
+
+* Open *About* on each. It names the instance and says whether it currently holds the
+  leader's work.
+* Make a change on one instance with a browser attached to the other. It arrives.
+* Kill the instance holding the lease. The other picks the work up within a lease.
+
+[NOTE]
+====
+The lease is one row in PostgreSQL, held for a few seconds and renewed. Not a coordination
+service: PostgreSQL is already required, already shared, and the worst case of losing a lease
+for five seconds is a schedule that runs five seconds late.
+
+The clock that decides whether a lease has expired is the database's. Two machines whose
+clocks differ by a minute must still agree about whose lease has run out.
+====

@@ -1,0 +1,19 @@
+extends: substitution
+message: 'Terim tutarlılığı: "%s" yerine "%s".'
+level: warning
+ignorecase: true
+# Sözlükte (glossary/tr.yml) kararlaştırılan karşılıklar. Kod tanımlayıcıları, ortam
+# değişkenleri ve komutlar çevrilmez; buradaki kurallar yalnızca düz metin içindir.
+swap:
+  'authentication': kimlik doğrulama
+  'authorization': yetkilendirme
+  'endpoint': uç nokta
+  'token': belirteç
+  'backup(?! )': yedek
+  'restore': geri yükleme
+  'migration': göç
+  'cluster': küme
+  'instance': örnek
+  'configuration': yapılandırma
+  'permission': izin
+  'grant(?!s?\.)': yetki

@@ -1,0 +1,45 @@
+[id="checking-what-keydra-reaches_{context}"]
+= {product-name}'nın nelere eriştiğini denetlemek
+
+*Örnekler* sayfasının alt yarısı bu kurulumun eriştiği her şeyi listeler: veritabanı, depolar,
+kimlik sağlayıcılar, posta sunucusu, yedek hedefleri, uyarı kanalları, tüneller ve hedeflerin
+kendisi.
+
+.Neler sayılır, nelere sorulur
+
+Satırların çoğu sayımdır — kaç tane var ve kaçı açık. Bunlardan ikisi bundan fazlasını taşır.
+
+Kimlik sağlayıcılara ve yedek hedeflerine cevap verip vermedikleri *sorulur*. Bunu, düzenli işleri
+üstlenen örnek yavaş bir saatle — öntanımlı olarak on dakikada bir — yapar ve dönen cevabı yazar.
+Sayfa istek üretmek yerine o kaydı okur; sayfayı izleyen on kişinin, bir kişinin dışa giden
+trafiğinin on katına dönüşmemesini sağlayan da budur, üstelik o trafik başkasının hizmetine gider.
+
+Ayrıntı sütunu ne bulunduğunu ve bunun ne kadar önce öğrenildiğini söyler:
+
+* `1 / 2 cevap veriyor · 6dk önce denetlendi` — biri cevap vermeyi bırakmış ve okuma altı dakikalık.
+* `Henüz denetlenmedi` — hiç sorulmamış. Satır bu yüzden kırmızıya boyanmaz: sorulmamış olmak,
+  başarısız olmuş olmaktan başka bir şeydir.
+
+.Şimdi sormak
+
+*Şimdi denetle*, her şeye hemen sorar; bir yedek hedefini yeni değiştirmiş ve bir sonraki turu
+beklemek istemeyen kişi içindir. Son cevap birkaç saniyelikse reddedilir — basılı tutulabilen bir
+düğme, yalnızca `instance:read` gerektiren bir sayfadan {product-name}'ya başkasının hizmetini
+dövdürmenin yoludur.
+
+[NOTE]
+====
+Uyarı kanalları ve posta sunucusu sayılır ama hiç sorulmaz. Sebep denetimin zor olması değil: bir
+keşif belgesini çekmek, birinin sunucusunun saatte bin kez cevapladığı bir istektir ve bir kovaya
+küçük bir dosya yazıp geri almak kimsenin görmediği bir gidiş-dönüştür. Bir sohbet kanalına ileti
+göndermek ise bir insanın okuduğu iletidir; olay kanalını on dakikada bir dürten bir durum sayfası,
+kimsenin açık tutmasına izin verilmeyecek bir sayfa olurdu. Bunlar kendi yapılandırma sayfalarındaki
+*Denetle* düğmesini korur.
+====
+
+.Bir denetim aslında ne yapar
+
+Yedek hedefi için gidiş-dönüşün tamamıdır — küçük bir dosya yaz, ara, geri al — çünkü oturum açabilen
+ama yazamayan kimlik bilgileri bir hedefin en sık bozulma biçimidir ve yalnızca bağlantı açan bir
+denetim, yazılamayan bir hedefi de geçirirdi. Kimlik sağlayıcı için, sağlayıcının keşif belgesinin
+çekilmesidir; bu, bir oturum açmanın da ilk yaptığı istektir. Kapalı olan bir şeye hiç sorulmaz.

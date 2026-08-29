@@ -1,0 +1,32 @@
+[id="topology-concepts_{context}"]
+= How a target is arranged
+
+The topology page reads how the target is put together and what it will let {product-name}
+do.
+
+image::topology.jpg["The topology of a single server, with its flavour, mode and the operations it supports"]
+
+A single server:: The page says so and there is nothing more to draw.
+
+A cluster:: The nodes with their *Address*, *Role* (`primary` or `replica`), *Slots*,
+*Share*, *Link* and *Node ID*, and a bar showing which node serves each of the hash slots.
+The header states *All {total} slots are served.* — or, when they are not, *{missing} of
+{total} slots are served by nobody — keys hashing to them cannot be read or written*, which
+is the sentence that matters and is not something a node list makes obvious.
++
+Slots on the move are drawn too, which is the only part of a cluster's description that is
+happening rather than being. Every primary is asked, not only the one {product-name}'s
+connection landed on: a node names the slots _it_ is moving and nothing about anybody else's,
+so a reshard between two other nodes would otherwise leave the page looking complete and
+still.
+
+A Sentinel deployment:: The master's *Name*, *Status*, *Quorum* and *Replicas*.
+
+== Capabilities
+
+*Supported here* lists what the target says it can do, read from its own command table.
+{product-name} uses it to hide or disable operations a flavor does not support.
+
+A target that will not answer that question is marked *Not asked*, and everything is
+offered — an unsupported operation then fails where it is used, which is better than
+silently hiding something the server can in fact do.

@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="configuration-reference"]
+= Configuration reference
+:description: Every Keydra configuration property and environment variable, read from the backend's own application.properties.
+:page-keywords: configuration, properties, environment variables, reference, defaults
+:context: configuration-reference
+include::../attributes/attributes.adoc[]
+
+include::../modules/ref_configuration-properties.adoc[leveloffset=+1]
+
+include::../modules/ref_environment-variables.adoc[leveloffset=+1]

@@ -1,0 +1,62 @@
+[id="configuration-concepts_{context}"]
+= How Keydra is configured
+
+Configuration is Quarkus configuration: properties, with environment variables overriding
+them. Almost everything a deployment sets has an environment variable named for it in
+`application.properties`, which is where the mapping is written down rather than guessed.
+
+Three profiles:
+
+`%dev`:: `./mvnw quarkus:dev`. Points at the containers in `deploy/keydra-dev.yaml`.
+
+`%test`:: The test suite. PostgreSQL, {redis-name} and {valkey-name} come from
+Testcontainers.
+
+`%prod`:: The packaged runtime, which is what the image runs.
+
+== What a deployment must set
+
+Only two things have no useful default:
+
+[source,properties]
+----
+KEYDRA_DB_URL=postgresql://db.internal:5432/keydra
+KEYDRA_DB_USERNAME=keydra
+KEYDRA_DB_PASSWORD=<the password>
+KEYDRA_SECRET_KEY=<32 random bytes, base64>
+----
+
+Everything else has a default that is either correct or explicitly a development
+convenience.
+
+== What to set before exposing it
+
+[source,properties]
+----
+# Where Keydra is, as a browser sees it. A provider's redirect comes back here.
+KEYDRA_PUBLIC_URL=https://keydra.example.com
+
+# Behind a reverse proxy: believe the forwarded headers, from these proxies only.
+KEYDRA_BEHIND_PROXY=true
+KEYDRA_TRUSTED_PROXIES=10.0.0.0/8
+----
+
+See xref:configuration-reference.adoc[the configuration reference] for everything.
+
+== Keydra's own store
+
+With nothing configured, {product-name} is one instance with one memory and no dependency to
+install — which is the deployment most people have.
+
+`KEYDRA_STORE_URL` points at a {redis-name} that several instances share. It is used for two
+things: re-broadcasting notifications so a change made on one instance reaches a browser
+attached to another, and caching the three reads every request would otherwise make.
+
+[IMPORTANT]
+====
+The store must be its own server, never one of your targets. A cache living in a server
+somebody is browsing is a cache somebody empties with a bulk delete.
+
+Everything it writes is namespaced and carries a TTL. A cache without an expiry is a memory
+leak with better manners.
+====

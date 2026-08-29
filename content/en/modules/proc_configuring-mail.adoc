@@ -1,0 +1,41 @@
+[id="configuring-mail_{context}"]
+= Configuring outgoing mail
+
+One relay, configured once, used by invitations, password resets and anything after them.
+
+.Procedure
+
+Set the four settings a relay needs:
+
+[source,properties]
+----
+KEYDRA_MAIL_HOST=smtp.example.com
+KEYDRA_MAIL_PORT=587
+KEYDRA_MAIL_TLS=true
+KEYDRA_MAIL_USERNAME=<username>
+KEYDRA_MAIL_API_KEY=<password or API key>
+KEYDRA_MAIL_FROM=keydra@example.com
+----
+
+.Verification
+
+Invite an account and check that the link arrives.
+
+[NOTE]
+====
+With nothing configured, an invitation is still created and its link is returned to the
+administrator who asked for it. That is worse than mail and much better than refusing: an
+instance with no relay must not be an instance where nobody can be given an account.
+====
+
+.What the letter looks like
+
+An invitation is the first thing somebody ever sees of {product-name}, so it goes out as HTML with
+a plain text part beside it — the plain part first, which is the order MIME asks for and what a
+client that reads only what it understands shows.
+
+It is written in the language the account reads, when the account has said. An account that has
+used {product-name} has a language preference and that answer wins; a brand-new one has expressed
+nothing, and an address does not carry a language — so the fallback is `KEYDRA_MAIL_LANGUAGE`, what
+the installation itself is run in. The link carries the choice, so the page it opens speaks the
+same language as the letter.

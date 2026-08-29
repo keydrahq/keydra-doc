@@ -1,0 +1,35 @@
+[id="adding-a-backup-destination_{context}"]
+= Adding a backup destination
+
+.Prerequisites
+
+* You hold `backup:manage`. An administrator's: a destination carries credentials to
+  somewhere outside {product-name}.
+
+.Procedure
+
+. Go to *Backups*.
+. Click *New destination*.
+. Give a *Name* and choose the *Kind*.
+. Complete where it is. What is asked depends on the kind — a *Bucket* and *Key prefix* for
+  S3, a *Host*, *Port* and *Remote directory* for SFTP, a *Directory* for a local one.
+. Complete *Getting in*. For S3, leaving *Access key id* empty uses the machine's own
+  credentials — an instance role or a mounted service account.
+. For anything that is not AWS itself, give the *Endpoint* and tick *Address the bucket by
+  path*.
+. Optionally choose a tunnel under *Reached through*.
+. Choose *How backups are sealed*.
+. Click *Save*, then *Test it*.
+
+.Verification
+
+*Test it* writes a small file and deletes it, and reports *"<name>" works* or *"<name>" did
+not work*. The moment to find out a destination does not work is while somebody is looking
+at it, not at three in the morning three weeks later.
+
+[NOTE]
+====
+*Address the bucket by path* is needed by nearly everything that is not AWS. Without it a
+MinIO on an IP address is looked up as `bucket.10.0.0.4`, and the failure reads as a DNS
+problem.
+====

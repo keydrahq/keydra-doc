@@ -1,0 +1,50 @@
+[id="taking-and-restoring-a-backup_{context}"]
+= Yedek alma ve geri yükleme
+
+.Ön koşullar
+
+* Yedek almak için hedefte `transfer:export`, geri yüklemek için `transfer:import` izni.
+* Tanımlı bir yedek hedefi bulunmalı.
+
+.Prosedür
+
+Hemen yedek almak için:
+
+. Hedefi açıp *Yedekler* sayfasına gidin.
+. *Hedef* seçin.
+. *Şimdi yedekle* düğmesine tıklayın.
+. Gerekiyorsa *Şu desene uyan anahtarlar* alanıyla kapsamı daraltın, *Dosya adı* öneki verin ve
+  *Son şu kadarını tut* değerini belirleyin.
+. Onaylayın.
+
+Yedeği geri yüklemek için:
+
+. Aynı sayfada dosyayı listeden bulun. Her satırda *Dosya*, *Boyut*, *Yazıldı*, *Nereden alındı*
+  ve *Ne zaman alındı* bilgileri vardır.
+. *Geri yükle* düğmesine tıklayın.
+. *Hedefte zaten olan anahtarların üzerine yaz* seçeneğine karar verin. Varsayılan olarak
+  kapalıdır: geri yükleme çoğunlukla o zamandan beri değişmiş bir depoya yapılır ve yeni verinin
+  sessizce üzerine yazılması, varsayılan olarak kimsenin istemeyeceği sonuçtur.
+. Hedef bir anahtara mühürlüyse *Özel anahtar* değerini girin. Yalnızca bu işlem için kullanılır,
+  hiçbir yere kaydedilmez.
+. Onaylayın.
+
+image::hedef-yedekleri.jpg["Henüz hedef tanımlanmamışken bir hedefin Yedekler sekmesi"]
+
+.Doğrulama
+
+Yedek alma işlemi kaç anahtarın alındığını, dosya boyutunu ve kaç eski dosyanın silindiğini
+bildirir: *{name} olarak yedeklendi*.
+
+Geri yükleme şu dökümü verir: *{restored} yazıldı, {skipped} zaten vardı, {failed} reddedildi.*
+
+[IMPORTANT]
+====
+Dosya başka bir hedeften alınmışsa {product-name} geri yüklemeden önce uyarır: *<nereden>
+adresinden alındı ve siz onu <nereye> içine geri yüklüyorsunuz.* Bu kimi zaman istenen sonuçtur
+— üretimi hazırlık ortamına kopyalamak gibi — kimi zaman da sonradan fark edilen bir hatadır.
+====
+
+.Sonraki adımlar
+
+* xref:schedules.adoc#creating-a-schedule_schedules[Yedeklemeyi zamanlanmış işe bağlayın]

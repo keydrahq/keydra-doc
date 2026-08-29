@@ -1,0 +1,37 @@
+[id="scheduled-work-and-alerts_{context}"]
+= Zamanlanmış iş çalışmadı ya da uyarı gelmedi
+
+.Prosedür
+
+Zamanlanmış iş çalışmadıysa::
++
+--
+. Her örnekte *Hakkında* sayfasına bakın. Zamanlanmış işleri yalnızca lider işlerini üstlenen
+  örnek kaydeder; hiçbiri üstlenmiyorsa hiçbir iş kayıtlı değildir.
+. İşin etkin olduğunu doğrulayın ve çalışma geçmişine bakın. Çalışma kaydı, iş başlamadan
+  *önce* oluşturulur; bu yüzden hiç bitmeyen bir iş "hiç çalışmadı" değil "bitmedi" olarak
+  görünür.
+. İzni kontrol edin. Zamanlanmış iş, elle yapılsaydı gereken izni ister ve bu izin çalışma
+  anında yeniden denetlenir. İş yazıldıktan sonra geri alınan bir yetki, çalışmayı sessiz değil
+  reddedilmiş hâle getirir.
+--
+
+Kural hiç tetiklenmiyorsa::
++
+--
+. Kuralın etkin olduğunu doğrulayın. Yalnızca etkin kurallar hedefi örneklenmiş tutar.
+. *Ne kadar sürmeli* değerini kontrol edin. O süre boyunca sürmeyen bir koşul *beklemede*
+  durumundan çıkmaz.
+. Kural geçmiş bir aralıkla karşılaştırıyorsa ölçüm deposunun tanımlı olduğunu ve o kadar
+  geriye ait veri tuttuğunu doğrulayın. Taban çizgisi okunamayan kural olduğu gibi bırakılır:
+  ne tetiklenir ne sessizleşir.
+--
+
+Kural tetikleniyor ama mesaj gelmiyorsa::
++
+--
+. Olayı *Geçmiş* bölümünden inceleyin. Gönderim sonucu, başarısızlık ve nedeni olay kaydına
+  işlenir.
+. Gönderimin kimlik bilgisini kontrol edin. API bu bilgiyi döndürmediği için, belirteç alanı boş
+  bırakılarak kaydedilen bir form eski değeri korumuş olabilir; ya da hiç belirteç girilmemiştir.
+--

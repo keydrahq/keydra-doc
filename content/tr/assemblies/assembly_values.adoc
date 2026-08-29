@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="values"]
+= Değerleri okuma ve düzenleme
+:description: Her veri türü için ayrı düzenleyici, büyük değerleri parça parça açan bir yükleme ve kayıtlı biçimi tanıyan bir çözücü zinciri.
+:page-keywords: değer, string, hash, list, set, sorted set, stream, çözücü, kodlama
+:context: values
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_value-editors.adoc[leveloffset=+1]
+
+include::../modules/ref_value-decoders.adoc[leveloffset=+1]

@@ -1,0 +1,19 @@
+[id="multiple-instances_{context}"]
+= More than one Keydra
+
+Two instances behind a load balancer share one PostgreSQL. Work that may happen anywhere —
+reading a keyspace, running a console command, drawing a dashboard — belongs to whichever
+instance the request reached. Work that must happen exactly once is claimed:
+
+* Scheduled jobs run on the instance holding the lease, and only there.
+* Alert rules are evaluated by that instance alone, so a firing rule sends one message.
+* The sweep that marks interrupted migrations runs there too.
+
+The lease is one row in the database, held for a few seconds and renewed, and the clock
+that decides whether it has expired is the database's rather than any instance's. An
+instance that stops renewing loses it to whoever asks next, which is what makes a crash
+recover without anybody deciding anything.
+
+The About page names the instance and says whether it currently holds the lease.
+
+See xref:clustering.adoc[Running more than one instance].

@@ -1,0 +1,76 @@
+[id="authorization-model_{context}"]
+= How Keydra decides who may do what
+
+Four nouns, and one sentence that joins them.
+
+image::access.jpg["The access map, reading from a person through the groups that carried a role to what it was granted on"]
+
+Subject:: A user, or a group. Groups contain users and other groups.
+
+Scope:: What a grant is about: the whole instance, one server group, or one connection.
+
+Role:: A named bundle of permissions. The built-in ones cannot be edited; you can define
+your own.
+
+Permission:: One thing somebody may do, from a closed list.
+
+[quote]
+____
+A grant says: this *subject* holds this *role* on this *scope*.
+____
+
+Everything else is derived. What somebody may do to a target is the union of the
+permissions of every role granted to them, or to any group containing them, on that target
+or on anything containing it.
+
+== Why a graph rather than a table
+
+Groups contain groups, and scopes contain scopes. Both are followed when a question is
+asked:
+
+[source,text]
+----
+subjects                     scopes
+  alice ──▶ payments-devs      instance
+              │                   │
+              ▼                   ├──▶ payments-servers ──▶ payments-cache
+            engineers             │                    └──▶ payments-sessions
+                                  └──▶ analytics-servers ──▶ analytics-cluster
+----
+
+Granting `operator` to `engineers` on `payments-servers` reaches Alice through the subject
+graph and reaches `payments-cache` through the scope graph. Neither edge is written twice —
+an organization that has to restate its structure in a permission table will stop
+maintaining the table.
+
+Both graphs are kept acyclic. A group containing itself has no useful meaning and would make
+the question unanswerable.
+
+== Grants only, never denials
+
+There are no deny rules. In a system with both, the answer to "why can Alice not see this?"
+is a search rather than a lookup, and the answer to "is this locked down?" is nobody's to
+give.
+
+Somebody who should not reach a server is granted nothing on it. Absence is the denial, and
+absence is visible: the *Access* page shows what is there, and what is there is all there is.
+
+== Visibility is not a separate setting
+
+A target appears to somebody when they hold *any* permission on it. There is no "can see"
+flag to keep in step — a target somebody may do nothing with is a target they have no reason
+to know about, and the two facts cannot drift apart because there is only one of them.
+
+This is filtered in one place, so the catalog, the fleet overview, the totals and a
+migration's destination list are all filtered by having asked one question.
+
+== Revocation takes effect on the next request
+
+A session carries a name and nothing else. Every request rebuilds what its owner may do from
+the grants as they are now, so revoking access does not wait for a sign-out.
+
+Where a shared store is configured, the identity behind a cookie and the permissions it
+carries are cached under a short TTL — and anything that changes an account, a grant, a
+group or a profile publishes an invalidation, so every instance drops what it was holding.
+The TTL is the safety net for a message nobody heard; the message is what keeps a revocation
+immediate.

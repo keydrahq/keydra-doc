@@ -1,0 +1,50 @@
+[id="taking-and-restoring-a-backup_{context}"]
+= Taking a backup and restoring one
+
+.Prerequisites
+
+* `transfer:export` on the target to take one, `transfer:import` to restore.
+* A destination exists.
+
+.Procedure
+
+To take one now:
+
+. Open the target and go to *Backups*.
+. Choose the *Destination*.
+. Click *Back up now*.
+. Optionally narrow with *Keys matching*, set a *File name* prefix, and choose *Keep the
+  last* _n_.
+. Confirm.
+
+To restore one:
+
+. On the same page, find the file in the list. Each row shows *File*, *Size*, *Written*,
+  *Taken from* and *Taken at*.
+. Click *Restore*.
+. Decide whether to *Overwrite keys that are already there*. This is off by default: a
+  restore usually goes into a store that has moved on since, and quietly overwriting the
+  newer data is the one outcome nobody wants by default.
+. If the destination seals to a key, supply the *Private key*. It is used for this restore
+  and kept nowhere.
+. Confirm.
+
+image::target-backups.jpg["A target’s Backups tab with no destination configured yet"]
+
+.Verification
+
+Taking one reports *Backed up as {name}* with how many keys, how large, and how many older
+files were removed.
+
+Restoring reports *{restored} written, {skipped} already there, {failed} refused.*.
+
+[IMPORTANT]
+====
+If the file came from a different target, {product-name} says so before restoring: *It was
+taken from <from> and you are restoring it into <into>.* That is sometimes exactly right —
+copying production into staging — and sometimes the mistake nobody notices until later.
+====
+
+.Next steps
+
+* xref:schedules.adoc#creating-a-schedule_schedules[Arrange it to happen on its own]

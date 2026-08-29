@@ -1,0 +1,63 @@
+[id="your-preferences_{context}"]
+= Your preferences
+
+// This module quotes interface labels that Red Hat's American-English rules object to —
+// the interface spells the setting *Colour scheme*, and §11 of the specification says a
+// label is written the way the interface writes it. The directive is file-wide because an
+// AsciiDoc comment inside a list is dropped before Vale ever sees it, so there is nowhere
+// narrower to put it. The prose here says "color" wherever it is prose rather than a label.
+// vale RedHat.TermsErrors = NO
+
+Preferences follow you rather than a target, and they are kept with your account — so they
+are the same wherever you sign in. On an instance with no accounts they are kept in that
+browser instead, and the page says which of the two is happening.
+
+.Prerequisites
+
+* Being signed in. No role is needed: an account with no grants still has preferences.
+
+.Procedure
+
+. Go to *Settings*.
+. Under *Appearance*, choose:
++
+--
+* *Colour scheme* — light or dark. Following the system changes with it, including on a
+  schedule the system keeps.
+* *Theme* — the default, or *Felt*, the theme PatternFly's own documentation wears: red
+  accents and pill-shaped controls.
+* *Contrast and surface* — high contrast strengthens every border and label. Glass draws
+  panels as translucent, which is a look rather than an aid, and the page says so.
+* *Language*. It applies straight away.
+--
+. Under *Browsing keys*, set:
++
+--
+* *Keys loaded at a time* — how many keys one scan returns. A larger page means fewer round
+  trips and a longer wait for the first of them.
+* *Ask before anything is deleted*. Turning it off removes the confirmation on single
+  deletions only; clearing a namespace or a whole target always asks.
+--
+
+image::settings.jpg["The Settings page, with appearance and key browsing preferences above stored credentials and the second factor"]
+
+.Verification
+
+The page redraws in the chosen scheme and language as soon as the choice is made — there is
+nothing to save, and no reload.
+
+[NOTE]
+====
+*Language* is the language of {product-name}'s interface. It is also the language an
+invitation or a password-reset letter is written in, for an account that has expressed a
+preference; a brand-new account has expressed none, and an email address does not carry a
+language, so that letter falls back to what the installation is run in.
+====
+
+.What else is on this page
+
+*Stored credentials* names the encryption key in use and how many secrets sit under it — see
+xref:security.adoc#rotating-the-instance-key_security[Rotating the instance key]. *Second
+factor* and *Signed-in browsers* are described in
+xref:accounts.adoc#pairing-an-authenticator_accounts[Pairing an authenticator] and
+xref:accounts.adoc#your-sessions_accounts[Your sessions].

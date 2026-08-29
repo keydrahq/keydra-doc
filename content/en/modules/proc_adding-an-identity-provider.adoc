@@ -1,0 +1,40 @@
+[id="adding-an-identity-provider_{context}"]
+= Adding an identity provider
+
+.Prerequisites
+
+* You hold `idp:manage`.
+* `KEYDRA_PUBLIC_URL` is set, so the redirect comes back to the right address.
+
+.Procedure
+
+. Go to *Access* and open the *Sign-in* tab.
+. Click *Add provider*.
+. Choose the *Kind*.
+. Give a *Key* — lowercase letters, digits and hyphens. It appears in the redirect URI, so
+  it cannot be changed later.
+. For OpenID Connect, give the *Issuer*. For OAuth 2, give the *Authorization endpoint*,
+  *Token endpoint* and *User endpoint*.
+. Give the client id and *Client secret*. The secret is stored encrypted and never sent
+  back.
+. Set *Scopes*.
+. Under *Which claim is which*, set the *Subject claim*, *Username claim*, and optionally
+  the *Email claim*, *Name claim* and *Groups claim*.
+. Copy the *Redirect URI* the form shows and register it with the provider *exactly* as it
+  appears.
+. Save.
+
+.Verification
+
+The row reads *Endpoints known*. Sign out and the login page offers *Continue with {name}*
+under *Or sign in with*.
+
+[TIP]
+====
+A first attempt is usually refused because the redirect URI does not match. Copy it from the
+form rather than typing it.
+====
+
+.Next steps
+
+* xref:identity-providers.adoc#mapping-provider-groups_identity-providers[Map the provider's groups to Keydra groups]

@@ -1,0 +1,55 @@
+[id="answering-an-approval_{context}"]
+= Asking for an operation, and answering one
+
+.Prerequisites
+
+* To ask: the permission the operation itself needs, on the target it is about.
+* To answer: the same permission, and not having been the person who asked.
+* `connection:edit` on the target, to turn the requirement on in the first place.
+
+.Procedure
+
+To make a target ask for two people:
+
+. Go to *Connections*, open the target's actions menu and choose *Edit*.
+. Open the *Console and care* step.
+. Tick *Wait for a second person*.
+. Click *Save*.
+
+To ask for an operation:
+
+. Run it as you normally would — purge by a glob, delete a selection, import a file, start
+  a migration, or save a schedule that does one of those.
+. Instead of doing it, {product-name} answers *Recorded, not done* and writes the request
+  down.
+
+To answer one:
+
+. Go to *Approvals*. Requests about targets you cannot see are not listed.
+. Read the *What it would do* column, and expand the row for the detail. This is the whole
+  operation, exactly as it will run.
+. Click *Approve*, or *Decline* and give a *Reason* — the person who asked reads it, so say
+  what would change your answer.
+
+image::approvals.jpg["The Approvals page with no requests waiting, explaining that an operation appears here when it would empty a target that asks for two people"]
+
+.Verification
+
+An approved request reads *Approved; the operation is running on {name}* and then moves to
+*Done*, or to *Failed* with what went wrong. A declined one reads *Declined* with the reason
+and the name of whoever answered.
+
+Turn on *Show answered requests* to see the ones that are finished. The default list is what
+is waiting, because that is the reason anybody opens the page.
+
+[NOTE]
+====
+Your own requests are marked *Yours* and offer no *Approve* button — *You asked for this one,
+so somebody else has to agree to it.* You can *Withdraw* one, which is yours alone and only
+while it is still waiting.
+====
+
+.Next steps
+
+* xref:connections.adoc#connection-profiles_connections[What else a connection profile carries]
+* xref:schedules.adoc#creating-a-schedule_schedules[Arranging one of these to happen later]

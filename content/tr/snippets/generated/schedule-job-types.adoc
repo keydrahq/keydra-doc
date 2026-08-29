@@ -1,0 +1,18 @@
+////
+ÜRETİLMİŞ DOSYA — elle düzenlemeyin.
+scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
+Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
+////
+[cols="2,4",options="header",role="kd-generated"]
+|===
+| Ad | Açıklama
+| `FLUSH_DATABASE`
+| Hedefteki bir veritabanını boşaltır. Herkesin bir kabuk betiği olan ve herkesin en az bir kez yanlış sunucuda çalıştırdığı iş — bu yüzden hedefini adlandırır ve onu adıyla ister.
+
+| `COPY_KEYS`
+| Anahtarları belirli aralıklarla başka bir hedefe kopyalar. Elle başlatılan bir göçün kullandığı kodun aynısı; gecelik kopya ile elle yapılan kopya aynı davranır.
+
+| `EXPORT_KEYS`
+| Anahtarları, değerlerini ve son kullanma sürelerini bir dosyaya yazar. Bir yedek hedefi tanımlıysa dosya makineden çıkar ve eskiler sondan düşer.
+
+|===

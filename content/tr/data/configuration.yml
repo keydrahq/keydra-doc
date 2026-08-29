@@ -1,0 +1,126 @@
+keydra.alerts.baseline-refresh: Geçmiş bir pencereyle karşılaştıran bir kuralın, o pencerenin okuduğu
+  değeri ne sıklıkta yeniden hesapladığı. Taban çizgisi geçen haftaya dair bir olgudur; her okumada depoya
+  sormak, kıpırdamayan bir sayı için kural başına okuma başına bir sorgu demek olurdu.
+keydra.backup.local-root: Yerel bir yedek hedefinin içine yazdığı dizin. Hedefler dizini buna göreli olarak
+  adlandırır; böylece hiçbir hedef makinedeki rastgele bir yola yönlendirilemez.
+keydra.cluster.instance-id: Örneğin kendine verdiği ad. Hakkında sayfasında, her günlük satırında ve ürettiği
+  her ölçümde görünür. Ayarlanmadığında kendiliğinden üretilir.
+keydra.cluster.lease-seconds: Lider kirasının yenilenmeden önce ne kadar tutulduğu. Yenilemeyi bırakan
+  örnek, kirayı sonraki isteyene kaptırır; dolayısıyla bu aynı zamanda bir çökmenin işi ne kadar kesintiye
+  uğratabileceğidir.
+keydra.cluster.reconcile-seconds: Örneğin, lider işlerini üstlenip üstlenmemesi gerektiğini hangi sıklıkta
+  denetlediği. Kirayı kimse tutmuyorsa alır; kaybettiyse zamanlanmış işleri bırakır.
+keydra.connections.health-check-interval: İzlenen bir hedefin ne sıklıkta yoklandığı. Durum değişikliği
+  arayüz tarafından sorgulanmaz, bildirim hattı üzerinden itilir.
+keydra.crypto.secret: 'Saklanan bütün kimlik bilgilerini şifreleyen anahtar. Varsayılanı ve yedeği yoktur:
+  bu anahtar olmadan hedef parolaları, tünel kimlik bilgileri, sağlayıcı sırları ve yedek hedefi kimlik
+  bilgileri çözülemez.'
+keydra.crypto.previous-secrets: 'Hâlâ okunabilen ama artık yazma yapmayan anahtarlar. Anahtar değişimini
+  kesintiden ayıran özellik budur: yeni anahtar yazar, eskiler kendi yazdıklarını çözmeyi sürdürür ve
+  yeniden şifreleme bütün kayıtları kurulum ayaktayken taşır.'
+keydra.egress.allow-loopback: Birinin yazdığı bir adresin Keydra’nın çalıştığı makineyi gösterip gösteremeyeceği.
+  Geliştirme dışında kapalı.
+keydra.egress.allow-private: 'Birinin yazdığı bir adresin özel bir ağda olup olamayacağı. Genelde evet:
+  iç bir sohbet aktarıcısına giden webhook ve aynı alt ağdaki S3 uyumlu depo olağan durumlardır. Link-local
+  her hâlükârda reddedilir ve ayarı yoktur.'
+keydra.egress.allowed-hosts: Yukarıdaki kurallardan bağımsız olarak izin verilen sunucular. Bir kurulumun
+  erişmek zorunda olduğu tek bir iç adres için kaçış kapağı.
+keydra.http.content-security-policy: 'Tarayıcıya uygulatılan içerik güvenliği politikası. Sabit metin
+  yerine bir özellik olması, varlıkları başka yerden sunan bir kurulumun başlığı kapatmak yerine ihtiyaç
+  duyduğu tek yönergeyi genişletebilmesi içindir. Birini genişletmek hepsini yeniden yazmak demektir;
+  asıl nokta da budur: politika ya bütündür ya hiçtir.'
+keydra.invitations.valid-for: Davet ve parola sıfırlama bağlantılarının geçerlilik süresi. Süresiz bir
+  bağlantı, adım sayısı fazla bir paroladır.
+keydra.mail.host: Giden postanın geçtiği SMTP aktarıcısı — davetler, parola sıfırlamaları ve e-posta uyarı
+  gönderimleri.
+keydra.mail.port: Aktarıcı portu.
+keydra.mail.tls: Aktarıcıya TLS ile bağlanılıp bağlanılmayacağı.
+keydra.mail.username: Keydra’nın aktarıcıya kimliğini doğrularken kullandığı hesap.
+keydra.mail.password: Aktarıcı parolası ya da API anahtarı.
+keydra.mail.from: Giden postanın gönderildiği adres. Çoğu aktarıcı bu olmadan bir mesajı reddeder.
+keydra.mail.language: 'Gönderilecek iletinin, muhatabı hiçbir şey söylememişse hangi dilde yazılacağı.
+  Keydra’yı kullanmış bir hesabın dil tercihi vardır ve o cevap kazanır; yeni açılmış bir hesap hiçbir
+  şey belirtmemiştir ve bir e-posta adresi dil taşımaz.'
+keydra.metrics.clickhouse.enabled: 'Okumaların ayrıca yeniden başlatmaya dayanan bir yere yazılıp yazılmayacağı.
+  Varsayılan olarak kapalı: bir kuruluma ikinci bir servis eklemek gerçek bir maliyettir ve bunu istemeyen
+  bir örneğe gerekli olduğu söylenmemelidir.'
+keydra.metrics.clickhouse.url: ClickHouse’un HTTP arabirimi. JDBC sürücüsü yerine HTTP, çünkü sürücü bloklayıcıdır
+  — bu uygulama ise değildir.
+keydra.metrics.clickhouse.username: ClickHouse kullanıcısı.
+keydra.metrics.clickhouse.password: ClickHouse parolası.
+keydra.metrics.clickhouse.retention-days: Okumaların ne kadar saklandığı. Keydra’nın uydurduğu bir politikayla
+  değil, ClickHouse’un kendi TTL’iyle uygulanır.
+keydra.public-url: Tarayıcının gördüğü biçimiyle Keydra’nın adresi. Sağlayıcı yönlendirmeleri ve giden
+  postadaki bağlantılar bu adresten üretilir; sürecin bağlandığı adres değil, kullanıcıların gerçekten
+  yazdığı adres olmalıdır.
+keydra.public-url-from-request: Yapılandırılmış bir adres yokken genel adresin istekten çıkarılıp çıkarılamayacağı.
+  Geliştirmede kullanışlı, üretimde başkasının denetimindeki bir başlık.
+keydra.security.enabled: Keydra’nın kimin neyi yapabileceğini uygulayıp uygulamadığı. Kapatmak, adrese
+  erişebilen herkesi bütün izinlerle içeri alır ve her sayfa bunu söyler — güvenli görünen açık bir örnek,
+  insanın ifşa olma biçimidir.
+keydra.security.cookie-secure: 'Oturum çerezinin Secure olarak işaretlenip işaretlenmediği. Üretimde açık:
+  düz HTTP üzerinden giden bir oturum çerezi, hat üzerindeki bir oturum çerezidir.'
+keydra.security.geoip-database: Varsa bir GeoIP veritabanı. Bir girişin öncekilerle karşılaştırılırken
+  nereden geldiğini söylemek için kullanılır.
+keydra.security.dev-administrator.username: 'Başlangıçta oluşturulan bir yönetici; yalnızca geliştirme
+  için. Üretimde asla ayarlamayın: parolası yapılandırmada duran bir hesaptır.'
+keydra.security.dev-administrator.password: O geliştirme yöneticisinin parolası.
+keydra.security.sign-in.throttle-enabled: Art arda gelen giriş hatalarının sayılıp reddedilip reddedilmediği.
+  Sınır, parola özetinden önce yanıtlanır; çünkü Argon2id bilerek yavaştır ve sınırsız deneme, parola
+  tahmin etmenin yanında sunucunun belleğini harcamanın da yoludur.
+keydra.security.sign-in.window: Hataların sayıldığı kayan pencere.
+keydra.security.sign-in.max-failures-per-account: Pencerenin bir hesaba karşı kaç hataya izin verdiği.
+  Bir ret, kendisini üreten sınıra sayılmaz — yoksa kapıyı tekrar tekrar çalmak, adı bilinen bir hesabı
+  kapalı tutardı.
+keydra.security.sign-in.max-failures-per-network: Pencerenin tek bir ağdan kaç hataya izin verdiği.
+keydra.security.sign-in.suspicious-failures-before: Başarılı bir girişin hemen öncesindeki kaç hatanın
+  o başarıyı işaretlenmeye değer kıldığı. Çalınmış bir parola doğru bir paroladır; bu yüzden karşılaştırılan
+  şey başarılardır.
+keydra.security.sign-in.suspicious-volume: Pencere içinde kaç girişin, otomatik bir aracı düşündüren bir
+  hız sayılacağı.
+keydra.security.sign-in.suspicious-accounts: Tek bir kaynağın, bunun kendisi anormallik sayılmadan önce
+  kaç ayrı hesaba giriş yapabileceği.
+keydra.security.sign-in.dormant-after: Bir hesaba yapılan girişin dikkat çekici sayılması için hesabın
+  ne kadar süre kullanılmamış olması gerektiği.
+keydra.security.sign-in.travel-allowance: İki giriş arasında birinin ne kadar hızlı yol almış olması gerekeceği
+  — çiftin imkânsız sayılması için. Bir anlam ifade etmesi için GeoIP veritabanı gerekir.
+keydra.security.sign-in.retention: Giriş denemesi kaydının ne kadar saklandığı.
+keydra.security.socket-origin-check: Bir WebSocket el sıkışmasının, Keydra’nın tanıdığı bir kaynaktan
+  gelmesinin zorunlu olup olmadığı. Bir soket, bir fetch gibi aynı köken politikasının kapsamında değildir;
+  bu, onun yerine geçen kontroldür.
+keydra.security.socket-origins: Genel adresin dışında, bir WebSocket’in açılabileceği kaynaklar. Arayüzün
+  başka bir yerden sunulduğu kurulumlar için.
+keydra.sessions.sweep-interval: Süresi dolmuş oturum satırlarının ne sıklıkta silindiği. Kimsenin budamadığı
+  bir oturum tablosu, uygulama çalıştığı sürece büyüyen bir tablodur.
+keydra.store.url: 'Ortak önbellek ve örnekler arası bildirim yayını için Keydra’nın kendi Redis adresi.
+  Hedeflerinizden biri olmamalıdır: birinin göz attığı bir sunucuda duran önbellek, birinin toplu silme
+  yaparken boşalttığı önbellek olur. Tek örnekli kurulumlarda boş bırakın.'
+keydra.store.authz-ttl: 'Bir çerezin arkasındaki kimliğin ve taşıdığı izinlerin ne kadar önbelleklendiği.
+  Mekanizma değil, emniyet ağı: kimin neyi yapabileceğini değiştiren her şey bir geçersizleştirme yayımlar;
+  TTL yalnızca kimsenin duymadığı mesajı karşılar.'
+keydra.reachability.interval: 'Düzenli işleri üstlenen sunucunun, kimlik sağlayıcılara ve yedek hedeflerine
+  cevap verip vermediklerini ne sıklıkla sorduğu. Sayfa açılışında değil: durum sayfasını izleyen on kişi,
+  bir kişinin dışa giden trafiğinin on katı demek olurdu ve bu trafik başkasının hizmetine gider. Sıfır,
+  sormayı kapatır.'
+keydra.reachability.minimum-gap: 'Bir cevabın ardından sayfadaki *Şimdi denetle* düğmesinin ne kadar sonra
+  yeniden sorabileceği. Basılı tutulabilen bir düğme, Keydra''ya başkasının hizmetini dövdürmenin yoludur.'
+keydra.approvals.ttl: 'Bir işlemin, yanıtlanabilir olmaktan çıkmadan önce ikinci bir kişiyi ne kadar beklediği.
+  Bir gün: başka bir zaman diliminden bir meslektaşın görmesine yetecek kadar uzun, kimsenin üç hafta önce
+  baktığı bir anahtar uzayında toplu silmeyi onaylamayacağı kadar kısa. Süresi dolduğunda satır silinmez,
+  durumunu söyler — çünkü önlenen hata, hiç gerçekleşmeyecek bir işlemi ayarlanmış sanmaktır.'
+keydra.approvals.sweep-interval: Kirayı elinde tutan örneğin, süresi dolmuş istekleri ne sıklıkla aradığı.
+  Bu, "süresi doldu" ifadesinin çözünürlüğüdür; bir gün bekleyen hiç kimsenin fark etmediği bir incelik.
+keydra.keys.scripting.enabled: 'Bir taşımanın, her anahtara ne olacağına karar veren bir Lua betiği taşıyıp
+  taşıyamayacağı. Öntanımlı olarak kapalı ve ilginç olan da bu: Keydra''nın yaptığı her şey birinin sunucusunda
+  çalışır, betik ise Keydra''nın içinde — her hedefin kimlik bilgilerini tutan sürecin içinde — çalışır.
+  Kapatmak, kim isterse istesin isteği doğrudan reddeder.'
+keydra.keyspace.lease: Bir anahtar uzayı izleme kirasının ne kadar geçerli olduğu. Tarayıcı yok olabilir
+  — kapanan bir dizüstü, kopan bir ağ — bu yüzden izleme, veda etmeyebilecek bir sayfaya değil, birileri
+  bakarken yenilenen bir kiraya bağlıdır.
+keydra.keyspace.flush-interval: Birikmiş anahtar uzayı değişikliklerinin ne sıklıkla gönderildiği. Her
+  değişiklik için bir mesaj, saniyede binlerce yazma yapan bir sunucuda her yazma başına bir yayın demektir
+  — hem de o hedefi izleyen her sekmeye. Küçük değer daha çabuk güncellenen bir liste, büyük değer aynı
+  haber için daha az mesaj demektir.
+keydra.reachability.history-kept: 'Erişilebilirlik değişikliği kaydının ne kadar saklandığı. Yanıtlar değil
+  değişiklikler tutulduğu için, çalışan bir şey yılda birkaç satır eder. Sonsuza kadar değil: iki kez değiştirilmiş
+  bir hedefe üç yıl önce ne olduğu, hiçbir şeyin kanıtı değildir.'

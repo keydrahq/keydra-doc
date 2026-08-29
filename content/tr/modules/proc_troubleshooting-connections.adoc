@@ -1,0 +1,23 @@
+[id="a-target-will-not-connect_{context}"]
+= Bir hedefe bağlanılamıyor
+
+Satır *Erişilemiyor* durumunda kalıyor ya da *Bağlantıyı test et* başarısız oluyor.
+
+.Prosedür
+
+. {product-name}'nın adrese erişip erişemediğini kontrol edin. Bağlantıyı kuran tarayıcınız
+  değil {product-name}'dır; dizüstünüzden çalışan bir adres kapsayıcıdan çalışmayabilir.
+. Hedef özel bir ağdaysa profile bir tünel tanımlayın — bkz.
+  xref:tunnels.adoc[Hedeflere atlama sunucusu üzerinden erişme].
+. Kimlik bilgilerini kontrol edin. Parola isteyen bir hedef, parola verilmediğinde bağlantı
+  aşamasında değil kimlik doğrulama aşamasında reddeder; dışarıdan ikisi aynı görünür.
+. Hedef TLS konuşuyorsa *TLS kullan* seçeneğini işaretleyin. Sertifika özel bir otorite
+  tarafından imzalanmışsa, o otoritenin {product-name}'nın çalıştığı makinenin güven deposunda
+  bulunması gerekir; {product-name} sistem deposunu kullanır ve kendi ayarı yoktur.
+. Sentinel profillerinde *Sentinel master adı* değerini kontrol edin. {product-name} master'ın
+  adresini Sentinel'e sorar; Sentinel'in tanımadığı bir ad için adres dönmez.
+
+.Doğrulama
+
+*Bağlantıyı test et*, hiçbir şey kaydetmeden formdaki bilgilerle bağlantıyı dener ve sonucu
+bildirir.

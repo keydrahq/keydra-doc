@@ -1,0 +1,27 @@
+[id="schedules-concepts_{context}"]
+= Zamanlanmış iş nedir
+
+Zamanlanmış iş dört bilgiden oluşur: yapılacak iş, hedef, sıklık ve açık/kapalı durumu. Her
+çalışma ayrı bir denemedir; ne yaptığı ve başarılı olup olmadığı kaydedilir.
+
+image::zamanlanmis-isler.jpg["Zamanlanmış işler; her zamanlamanın işi, hedefi, sıklığı ve sonraki çalışması"]
+
+Bunların dışındaki her şey — hangi anahtarlar, hangi ikinci hedef, aynı anda kaç tane — işin
+kendi ayarlarında tutulur; çünkü iş türlerinin tekrarlanabilir olmak dışında ortak yanı azdır.
+
+Kullanılabilir iş türleri:
+
+include::../snippets/generated/schedule-job-types.adoc[]
+
+== İzinler
+
+Zamanlanmış iş, elle çalıştırılması hâlinde gereken izni *ve* hedefte `schedule:manage` iznini
+ister. İkisi de hem kaydederken hem çalışırken denetlenir. Zamanlanmış iş, bir işi sonraya
+bırakmanın yoludur; yetkiniz olmayan bir işi yapmanın yolu değil.
+
+== Çalışmalar başlamadan önce kaydedilir
+
+Hiç bitmeyen bir iş, "hiç çalışmadı" olarak değil "bitmedi" olarak görünür.
+
+Başarısız çalışmalar bildirim üretir. Başarılı olanlar üretmez — beş dakikada bir gelen bildirim
+asıl önemli olanı gözden kaçırtırdı — ama "son çalışma" sütunu her iki durumda da güncellenir.

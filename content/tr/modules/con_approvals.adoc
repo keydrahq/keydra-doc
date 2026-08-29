@@ -1,0 +1,97 @@
+[id="approvals-concepts_{context}"]
+= Bir boşaltmayı yavaşlatmanın iki yolu
+
+{product-name}'nın yaptığı işlerin çoğu tek bir anahtarı ilgilendirir. Birkaç işlem ise
+anahtar uzayının tamamını ilgilendirir; bir meslek hayatı boyunca yanlış hedefte bir kez
+çalıştırılan işlemler de bunlardır. Bağlantı profili iki yanıt sunar ve bunlar derece
+bakımından değil, tür bakımından farklıdır.
+
+*Boşaltmadan önce bu hedefin adı sorulsun*:: Kişinin tıklayıp geçemeyeceği bir onay. Glob
+ile silme, seçimi silme, üzerine içe aktarma ve buraya taşıma, hedefin kendi adı yazılmadıkça
+reddedilir. Bu, yalnızca hatayı durdurur — kişi kararı yine tek başına verir ve bir saniyede
+verir.
+
+*İkinci bir kişiyi bekle*:: İşlem yapılmaz, kaydedilir ve aynı yetkiye sahip başka birini
+bekler. Hem hatayı durdurur hem de o işi tek başına yapması doğru olmayan kişiyi durdurur.
+
+Her ikisi de hedef başınadır ve bağlantı profilinde bulunur; çünkü doğru yanıt, geçici bir
+önbellek ile ödeme akışının okuduğu depo için aynı değildir. Her yerde iki kişi isteyen bir
+kurulumun eline geçecek olan şey, kimsenin okumadığı bir kuyruk ve bakmadan onaylama
+alışkanlığıdır.
+
+image::konsol-ve-koruma.jpg["Bağlantı sihirbazının Konsol ve koruma adımı; konsolun çalıştırabileceği komutların üstünde iki koruma seçeneği görünüyor"]
+
+== Ne bekler
+
+Beş tür var ve bunlar tam olarak zaten hedefini adıyla söylemek zorunda olan işlemler:
+
+Glob ile eşleşen her şeyi silmek:: Desen, anahtar uzayının başka bir adıdır.
+
+Adı verilen bir seçimi silmek:: Yeterince uzun bir liste de öyle.
+
+Var olanın üzerine içe aktarmak:: Çalışan bir deponun üzerine bir döküm yazmak.
+
+Anahtarları başka bir hedefe taşımak ya da kopyalamak:: İki ucu olan tek tür ve iki uç da
+sayılır — bir hedefe yazmak onun üzerine yazabilir, bir hedeften anahtar taşımak ise onu
+silmek kadar kesin biçimde boşaltır. Onaylayan kişinin yetkiyi her iki uçta da taşıması
+gerekir.
+
+Yukarıdakilerden birini sonraya ayarlamak:: Bu olmasaydı, gereksinimde içinden yürünecek
+kadar geniş bir delik kalırdı: bir hedefi tek başına boşaltamayan biri, onu iki dakika sonra
+boşaltan bir zamanlama yazar ve kendisine hiçbir şey sorulmazdı. Onaylanan şey, ayarlamanın
+kendisidir; onaylamak da onu oluşturan şeydir. Tetiklenme yeniden onaylanmaz, çünkü gece
+üçte kimse orada değildir.
+
+Tek bir yazma, tek bir anahtar, bir yaşam süresi: bunların hiçbiri burada değil. Her sıradan
+düzenlemede sorulan bir onay, üçüncüsünde artık kimsenin okumadığı bir onaydır.
+
+== Bir isteği kim yanıtlayabilir
+
+İşlemin kendisinin gerektirdiği yetkiyi taşıyan — toplu silme için `keys:delete`, içe aktarma
+için `transfer:import`, taşıma için her iki uçta `migration:run` — ve isteği açan kişi olmayan
+herkes.
+
+`approval:decide` diye bir yetki bilerek yoktur. Böyle bir yetkinin, gereksinim açılmadan
+önce verilmiş olması gerekirdi; birileri onu verene kadar da bayrağı açılmış bir hedef,
+binadaki hiç kimsenin boşaltamayacağı bir hedef olurdu — ilk etkisi bir kesinti olan bir
+denetim. Bu yolla, açmak kimin neyi yapabileceği hakkında hiçbir şeyi değiştirmez. Her biri
+tek başına yapabilecek olan kişiler, artık ikişerli yapabilir.
+
+Ne taşırsanız taşıyın, kendi isteğinizi asla yanıtlayamazsınız. Yetkiyi tek bir kişi
+taşıyorsa işlem gerçekleşemez — iki kişi isteyip bir kişisi olan bir kurulumun istediği şey
+de zaten budur.
+
+== İstek, işlemin kendisidir
+
+Satır, işlemin ihtiyaç duyduğu her şeyi şifreli olarak taşır; istendiği anda yazılır ve başka
+hiçbir yerde bulunmaz. Onaylayanın okuduğu şey, çalışacak olan şeydir.
+
+Bunun alternatifi — isteyenin sonradan kullandığı bir kilit açma — globun, anahtar listesinin
+ya da üzerine yazma seçeneğinin, anlaşma ile eylem arasında değişmesine izin verirdi; bu da
+onayı, birinin sonradan yeniden yazdığı bir belgeye atılmış imza hâline getirirdi.
+
+Yük, içindekiler yüzünden şifrelenir: içe aktarma için değerlerin dökümü, toplu silme için
+anahtar adlarının listesi. {product-name}'daki her şey bunları zaten birinin hedefinin
+içeriği olarak görür.
+
+== Çalışırken yeniden neye bakılır
+
+İsteği açan kişinin, işlemin gerektirdiği yetkiyi hâlâ taşıyıp taşımadığına. İstek ile onay
+arasında tasarım gereği saatlerle ölçülen bir boşluk vardır; bu denetim olmasaydı o boşluk,
+geri alınmış bir erişimin hâlâ işlediği bir yer olurdu.
+
+Yazarı bir yetkiyi kaybetmiş bir istek, hangisini kaybettiğini birinin onu beklediği sayfada
+söyler — "artık `keys:delete` taşımıyor" ile "artık `migration:run` taşımıyor", düzeltilmesi
+gereken iki ayrı şeydir.
+
+== Yok olmaz, süresi dolar
+
+`keydra.approvals.ttl` süresi içinde — öntanımlı olarak bir gün — kimsenin yanıtlamadığı bir
+istek yanıtlanabilir olmaktan çıkar ve *Süresi doldu* der.
+
+Bir gün, başka bir zaman diliminden bir meslektaşın görmesine yetecek kadar uzun; kimsenin üç
+hafta önce baktığı bir anahtar uzayında toplu silmeyi onaylamayacağı kadar kısadır. Onay, bir
+cümleye değil dünyanın bir durumuna verilen rızadır ve dünya durmaz.
+
+Satır silinmez, biter; çünkü sürenin önlediği hata, hiç gerçekleşmeyecek bir işlemi ayarlanmış
+sanmaktır. Satır kalır ve kendisine ne olduğunu söyler.

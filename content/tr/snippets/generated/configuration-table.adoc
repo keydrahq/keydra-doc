@@ -1,0 +1,311 @@
+////
+ÜRETİLMİŞ DOSYA — elle düzenlemeyin.
+scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
+Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
+////
+[cols="2,2,1,3",options="header",role="kd-generated"]
+|===
+| Özellik | Ortam değişkeni | Varsayılan | Açıklama
+| `keydra.alerts.baseline-refresh`
+| 
+| `5m`
+| Geçmiş bir pencereyle karşılaştıran bir kuralın, o pencerenin okuduğu değeri ne sıklıkta yeniden hesapladığı. Taban çizgisi geçen haftaya dair bir olgudur; her okumada depoya sormak, kıpırdamayan bir sayı için kural başına okuma başına bir sorgu demek olurdu. +
+pass:[<span class="kd-note">Profil: test</span>]
+
+| `keydra.approvals.sweep-interval`
+| `KEYDRA_APPROVAL_SWEEP_INTERVAL`
+| `5m`
+| Kirayı elinde tutan örneğin, süresi dolmuş istekleri ne sıklıkla aradığı. Bu, "süresi doldu" ifadesinin çözünürlüğüdür; bir gün bekleyen hiç kimsenin fark etmediği bir incelik.
+
+| `keydra.approvals.ttl`
+| `KEYDRA_APPROVAL_TTL`
+| `24h`
+| Bir işlemin, yanıtlanabilir olmaktan çıkmadan önce ikinci bir kişiyi ne kadar beklediği. Bir gün: başka bir zaman diliminden bir meslektaşın görmesine yetecek kadar uzun, kimsenin üç hafta önce baktığı bir anahtar uzayında toplu silmeyi onaylamayacağı kadar kısa. Süresi dolduğunda satır silinmez, durumunu söyler — çünkü önlenen hata, hiç gerçekleşmeyecek bir işlemi ayarlanmış sanmaktır.
+
+| `keydra.backup.local-root`
+| `KEYDRA_BACKUP_DIR`
+| `backups`
+| Yerel bir yedek hedefinin içine yazdığı dizin. Hedefler dizini buna göreli olarak adlandırır; böylece hiçbir hedef makinedeki rastgele bir yola yönlendirilemez. +
+pass:[<span class="kd-note">Profil: test</span>]
+
+| `keydra.cluster.instance-id`
+| `KEYDRA_INSTANCE_ID`
+| 
+| Örneğin kendine verdiği ad. Hakkında sayfasında, her günlük satırında ve ürettiği her ölçümde görünür. Ayarlanmadığında kendiliğinden üretilir.
+
+| `keydra.cluster.lease-seconds`
+| `KEYDRA_LEASE_SECONDS`
+| `15`
+| Lider kirasının yenilenmeden önce ne kadar tutulduğu. Yenilemeyi bırakan örnek, kirayı sonraki isteyene kaptırır; dolayısıyla bu aynı zamanda bir çökmenin işi ne kadar kesintiye uğratabileceğidir. +
+pass:[<span class="kd-note">Profil: test</span>]
+
+| `keydra.cluster.reconcile-seconds`
+| `KEYDRA_RECONCILE_SECONDS`
+| `30`
+| Örneğin, lider işlerini üstlenip üstlenmemesi gerektiğini hangi sıklıkta denetlediği. Kirayı kimse tutmuyorsa alır; kaybettiyse zamanlanmış işleri bırakır. +
+pass:[<span class="kd-note">Profil: test</span>]
+
+| `keydra.connections.health-check-interval`
+| 
+| `10s`
+| İzlenen bir hedefin ne sıklıkta yoklandığı. Durum değişikliği arayüz tarafından sorgulanmaz, bildirim hattı üzerinden itilir.
+
+| `keydra.crypto.previous-secrets`
+| `KEYDRA_PREVIOUS_SECRET_KEYS`
+| 
+| Hâlâ okunabilen ama artık yazma yapmayan anahtarlar. Anahtar değişimini kesintiden ayıran özellik budur: yeni anahtar yazar, eskiler kendi yazdıklarını çözmeyi sürdürür ve yeniden şifreleme bütün kayıtları kurulum ayaktayken taşır. +
+pass:[<span class="kd-note">Profil: prod</span>] +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+| `keydra.crypto.secret`
+| 
+| `<redacted>`
+| Saklanan bütün kimlik bilgilerini şifreleyen anahtar. Varsayılanı ve yedeği yoktur: bu anahtar olmadan hedef parolaları, tünel kimlik bilgileri, sağlayıcı sırları ve yedek hedefi kimlik bilgileri çözülemez. +
+pass:[<span class="kd-note">Profil: dev, test, prod</span>] +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+| `keydra.egress.allow-loopback`
+| `KEYDRA_EGRESS_ALLOW_LOOPBACK`
+| `false`
+| Birinin yazdığı bir adresin Keydra’nın çalıştığı makineyi gösterip gösteremeyeceği. Geliştirme dışında kapalı. +
+pass:[<span class="kd-note">Profil: dev, test</span>]
+
+| `keydra.egress.allow-private`
+| `KEYDRA_EGRESS_ALLOW_PRIVATE`
+| `true`
+| Birinin yazdığı bir adresin özel bir ağda olup olamayacağı. Genelde evet: iç bir sohbet aktarıcısına giden webhook ve aynı alt ağdaki S3 uyumlu depo olağan durumlardır. Link-local her hâlükârda reddedilir ve ayarı yoktur.
+
+| `keydra.egress.allowed-hosts`
+| `KEYDRA_EGRESS_ALLOWED_HOSTS`
+| 
+| Yukarıdaki kurallardan bağımsız olarak izin verilen sunucular. Bir kurulumun erişmek zorunda olduğu tek bir iç adres için kaçış kapağı.
+
+| `keydra.http.content-security-policy`
+| `KEYDRA_CSP`
+| `default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' ws: wss:; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'`
+| Tarayıcıya uygulatılan içerik güvenliği politikası. Sabit metin yerine bir özellik olması, varlıkları başka yerden sunan bir kurulumun başlığı kapatmak yerine ihtiyaç duyduğu tek yönergeyi genişletebilmesi içindir. Birini genişletmek hepsini yeniden yazmak demektir; asıl nokta da budur: politika ya bütündür ya hiçtir. +
+pass:[<span class="kd-note">Profil: dev</span>]
+
+| `keydra.invitations.valid-for`
+| `KEYDRA_INVITATION_VALID_FOR`
+| `P7D`
+| Davet ve parola sıfırlama bağlantılarının geçerlilik süresi. Süresiz bir bağlantı, adım sayısı fazla bir paroladır.
+
+| `keydra.keys.scripting.enabled`
+| `KEYDRA_KEY_SCRIPTING`
+| `false`
+| Bir taşımanın, her anahtara ne olacağına karar veren bir Lua betiği taşıyıp taşıyamayacağı. Öntanımlı olarak kapalı ve ilginç olan da bu: Keydra'nın yaptığı her şey birinin sunucusunda çalışır, betik ise Keydra'nın içinde — her hedefin kimlik bilgilerini tutan sürecin içinde — çalışır. Kapatmak, kim isterse istesin isteği doğrudan reddeder.
+
+| `keydra.keyspace.flush-interval`
+| `KEYDRA_KEYSPACE_FLUSH_INTERVAL`
+| `2s`
+| Birikmiş anahtar uzayı değişikliklerinin ne sıklıkla gönderildiği. Her değişiklik için bir mesaj, saniyede binlerce yazma yapan bir sunucuda her yazma başına bir yayın demektir — hem de o hedefi izleyen her sekmeye. Küçük değer daha çabuk güncellenen bir liste, büyük değer aynı haber için daha az mesaj demektir.
+
+| `keydra.keyspace.lease`
+| `KEYDRA_KEYSPACE_LEASE`
+| `2m`
+| Bir anahtar uzayı izleme kirasının ne kadar geçerli olduğu. Tarayıcı yok olabilir — kapanan bir dizüstü, kopan bir ağ — bu yüzden izleme, veda etmeyebilecek bir sayfaya değil, birileri bakarken yenilenen bir kiraya bağlıdır.
+
+| `keydra.mail.from`
+| `KEYDRA_MAIL_FROM`
+| 
+| Giden postanın gönderildiği adres. Çoğu aktarıcı bu olmadan bir mesajı reddeder. +
+pass:[<span class="kd-note">Profil: dev</span>]
+
+| `keydra.mail.host`
+| `KEYDRA_MAIL_HOST`
+| 
+| Giden postanın geçtiği SMTP aktarıcısı — davetler, parola sıfırlamaları ve e-posta uyarı gönderimleri. +
+pass:[<span class="kd-note">Profil: dev</span>]
+
+| `keydra.mail.language`
+| `KEYDRA_MAIL_LANGUAGE`
+| `en`
+| Gönderilecek iletinin, muhatabı hiçbir şey söylememişse hangi dilde yazılacağı. Keydra’yı kullanmış bir hesabın dil tercihi vardır ve o cevap kazanır; yeni açılmış bir hesap hiçbir şey belirtmemiştir ve bir e-posta adresi dil taşımaz.
+
+| `keydra.mail.password`
+| `KEYDRA_MAIL_API_KEY`
+| 
+| Aktarıcı parolası ya da API anahtarı. +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+| `keydra.mail.port`
+| `KEYDRA_MAIL_PORT`
+| `587`
+| Aktarıcı portu.
+
+| `keydra.mail.tls`
+| `KEYDRA_MAIL_TLS`
+| `true`
+| Aktarıcıya TLS ile bağlanılıp bağlanılmayacağı.
+
+| `keydra.mail.username`
+| `KEYDRA_MAIL_USERNAME`
+| 
+| Keydra’nın aktarıcıya kimliğini doğrularken kullandığı hesap. +
+pass:[<span class="kd-note">Profil: dev</span>]
+
+| `keydra.metrics.clickhouse.enabled`
+| 
+| `false`
+| Okumaların ayrıca yeniden başlatmaya dayanan bir yere yazılıp yazılmayacağı. Varsayılan olarak kapalı: bir kuruluma ikinci bir servis eklemek gerçek bir maliyettir ve bunu istemeyen bir örneğe gerekli olduğu söylenmemelidir. +
+pass:[<span class="kd-note">Profil: dev, prod</span>]
+
+| `keydra.metrics.clickhouse.password`
+| `KEYDRA_CLICKHOUSE_PASSWORD`
+| 
+| ClickHouse parolası. +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+| `keydra.metrics.clickhouse.retention-days`
+| 
+| `30`
+| Okumaların ne kadar saklandığı. Keydra’nın uydurduğu bir politikayla değil, ClickHouse’un kendi TTL’iyle uygulanır.
+
+| `keydra.metrics.clickhouse.url`
+| `KEYDRA_CLICKHOUSE_URL`
+| `http://localhost:8123`
+| ClickHouse’un HTTP arabirimi. JDBC sürücüsü yerine HTTP, çünkü sürücü bloklayıcıdır — bu uygulama ise değildir. +
+pass:[<span class="kd-note">Profil: dev</span>]
+
+| `keydra.metrics.clickhouse.username`
+| `KEYDRA_CLICKHOUSE_USER`
+| `default`
+| ClickHouse kullanıcısı.
+
+| `keydra.public-url`
+| `KEYDRA_PUBLIC_URL`
+| 
+| Tarayıcının gördüğü biçimiyle Keydra’nın adresi. Sağlayıcı yönlendirmeleri ve giden postadaki bağlantılar bu adresten üretilir; sürecin bağlandığı adres değil, kullanıcıların gerçekten yazdığı adres olmalıdır. +
+pass:[<span class="kd-note">Profil: dev</span>]
+
+| `keydra.public-url-from-request`
+| 
+| `false`
+| Yapılandırılmış bir adres yokken genel adresin istekten çıkarılıp çıkarılamayacağı. Geliştirmede kullanışlı, üretimde başkasının denetimindeki bir başlık. +
+pass:[<span class="kd-note">Profil: dev, test</span>]
+
+| `keydra.reachability.history-kept`
+| `KEYDRA_REACHABILITY_HISTORY`
+| `90d`
+| Erişilebilirlik değişikliği kaydının ne kadar saklandığı. Yanıtlar değil değişiklikler tutulduğu için, çalışan bir şey yılda birkaç satır eder. Sonsuza kadar değil: iki kez değiştirilmiş bir hedefe üç yıl önce ne olduğu, hiçbir şeyin kanıtı değildir.
+
+| `keydra.reachability.interval`
+| `KEYDRA_REACHABILITY_INTERVAL`
+| `10m`
+| Düzenli işleri üstlenen sunucunun, kimlik sağlayıcılara ve yedek hedeflerine cevap verip vermediklerini ne sıklıkla sorduğu. Sayfa açılışında değil: durum sayfasını izleyen on kişi, bir kişinin dışa giden trafiğinin on katı demek olurdu ve bu trafik başkasının hizmetine gider. Sıfır, sormayı kapatır. +
+pass:[<span class="kd-note">Profil: test</span>]
+
+| `keydra.reachability.minimum-gap`
+| `KEYDRA_REACHABILITY_MIN_GAP`
+| `30s`
+| Bir cevabın ardından sayfadaki *Şimdi denetle* düğmesinin ne kadar sonra yeniden sorabileceği. Basılı tutulabilen bir düğme, Keydra'ya başkasının hizmetini dövdürmenin yoludur.
+
+| `keydra.security.cookie-secure`
+| `KEYDRA_COOKIE_SECURE`
+| `true`
+| Oturum çerezinin Secure olarak işaretlenip işaretlenmediği. Üretimde açık: düz HTTP üzerinden giden bir oturum çerezi, hat üzerindeki bir oturum çerezidir. +
+pass:[<span class="kd-note">Profil: dev, test</span>]
+
+| `keydra.security.dev-administrator.password`
+| 
+| `<redacted>`
+| O geliştirme yöneticisinin parolası. +
+pass:[<span class="kd-note">Profil: dev</span>] +
+pass:[<span class="kd-note">Bir sır tutar. Günlüğe yazılmaz, API tarafından döndürülmez.</span>]
+
+| `keydra.security.dev-administrator.username`
+| 
+| `admin`
+| Başlangıçta oluşturulan bir yönetici; yalnızca geliştirme için. Üretimde asla ayarlamayın: parolası yapılandırmada duran bir hesaptır. +
+pass:[<span class="kd-note">Profil: dev</span>]
+
+| `keydra.security.enabled`
+| `KEYDRA_SECURITY_ENABLED`
+| `true`
+| Keydra’nın kimin neyi yapabileceğini uygulayıp uygulamadığı. Kapatmak, adrese erişebilen herkesi bütün izinlerle içeri alır ve her sayfa bunu söyler — güvenli görünen açık bir örnek, insanın ifşa olma biçimidir. +
+pass:[<span class="kd-note">Profil: dev, test</span>]
+
+| `keydra.security.geoip-database`
+| `KEYDRA_GEOIP_DATABASE`
+| 
+| Varsa bir GeoIP veritabanı. Bir girişin öncekilerle karşılaştırılırken nereden geldiğini söylemek için kullanılır.
+
+| `keydra.security.sign-in.dormant-after`
+| 
+| `P60D`
+| Bir hesaba yapılan girişin dikkat çekici sayılması için hesabın ne kadar süre kullanılmamış olması gerektiği.
+
+| `keydra.security.sign-in.max-failures-per-account`
+| 
+| `8`
+| Pencerenin bir hesaba karşı kaç hataya izin verdiği. Bir ret, kendisini üreten sınıra sayılmaz — yoksa kapıyı tekrar tekrar çalmak, adı bilinen bir hesabı kapalı tutardı.
+
+| `keydra.security.sign-in.max-failures-per-network`
+| 
+| `40`
+| Pencerenin tek bir ağdan kaç hataya izin verdiği.
+
+| `keydra.security.sign-in.retention`
+| 
+| `P90D`
+| Giriş denemesi kaydının ne kadar saklandığı.
+
+| `keydra.security.sign-in.suspicious-accounts`
+| 
+| `5`
+| Tek bir kaynağın, bunun kendisi anormallik sayılmadan önce kaç ayrı hesaba giriş yapabileceği.
+
+| `keydra.security.sign-in.suspicious-failures-before`
+| 
+| `5`
+| Başarılı bir girişin hemen öncesindeki kaç hatanın o başarıyı işaretlenmeye değer kıldığı. Çalınmış bir parola doğru bir paroladır; bu yüzden karşılaştırılan şey başarılardır.
+
+| `keydra.security.sign-in.suspicious-volume`
+| 
+| `50`
+| Pencere içinde kaç girişin, otomatik bir aracı düşündüren bir hız sayılacağı.
+
+| `keydra.security.sign-in.throttle-enabled`
+| `KEYDRA_SIGN_IN_THROTTLE`
+| `true`
+| Art arda gelen giriş hatalarının sayılıp reddedilip reddedilmediği. Sınır, parola özetinden önce yanıtlanır; çünkü Argon2id bilerek yavaştır ve sınırsız deneme, parola tahmin etmenin yanında sunucunun belleğini harcamanın da yoludur.
+
+| `keydra.security.sign-in.travel-allowance`
+| 
+| `PT2H`
+| İki giriş arasında birinin ne kadar hızlı yol almış olması gerekeceği — çiftin imkânsız sayılması için. Bir anlam ifade etmesi için GeoIP veritabanı gerekir.
+
+| `keydra.security.sign-in.window`
+| 
+| `PT15M`
+| Hataların sayıldığı kayan pencere.
+
+| `keydra.security.socket-origin-check`
+| `KEYDRA_SOCKET_ORIGIN_CHECK`
+| `true`
+| Bir WebSocket el sıkışmasının, Keydra’nın tanıdığı bir kaynaktan gelmesinin zorunlu olup olmadığı. Bir soket, bir fetch gibi aynı köken politikasının kapsamında değildir; bu, onun yerine geçen kontroldür.
+
+| `keydra.security.socket-origins`
+| `KEYDRA_SOCKET_ORIGINS`
+| 
+| Genel adresin dışında, bir WebSocket’in açılabileceği kaynaklar. Arayüzün başka bir yerden sunulduğu kurulumlar için. +
+pass:[<span class="kd-note">Profil: dev</span>]
+
+| `keydra.sessions.sweep-interval`
+| `KEYDRA_SESSION_SWEEP_INTERVAL`
+| `1h`
+| Süresi dolmuş oturum satırlarının ne sıklıkta silindiği. Kimsenin budamadığı bir oturum tablosu, uygulama çalıştığı sürece büyüyen bir tablodur.
+
+| `keydra.store.authz-ttl`
+| 
+| `30s`
+| Bir çerezin arkasındaki kimliğin ve taşıdığı izinlerin ne kadar önbelleklendiği. Mekanizma değil, emniyet ağı: kimin neyi yapabileceğini değiştiren her şey bir geçersizleştirme yayımlar; TTL yalnızca kimsenin duymadığı mesajı karşılar.
+
+| `keydra.store.url`
+| `KEYDRA_STORE_URL`
+| `redis://localhost:6481`
+| Ortak önbellek ve örnekler arası bildirim yayını için Keydra’nın kendi Redis adresi. Hedeflerinizden biri olmamalıdır: birinin göz attığı bir sunucuda duran önbellek, birinin toplu silme yaparken boşalttığı önbellek olur. Tek örnekli kurulumlarda boş bırakın. +
+pass:[<span class="kd-note">Profil: dev</span>]
+
+|===

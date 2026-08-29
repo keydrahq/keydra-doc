@@ -1,0 +1,18 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="api"]
+= API referansı
+:description: /api/v1 altında REST, yanında GraphQL. İkisi de aynı servisleri aynı izinlerle çağırır; ayrıca soketler ve akışlar.
+:page-keywords: api, rest, graphql, openapi, websocket, sse, bildirimler
+:context: api
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_api-overview.adoc[leveloffset=+1]
+
+include::../modules/ref_openapi.adoc[leveloffset=+1]
+
+include::../modules/ref_websockets.adoc[leveloffset=+1]
+
+include::../modules/ref_rest-endpoints.adoc[leveloffset=+1]
+
+include::../modules/ref_graphql-operations.adoc[leveloffset=+1]

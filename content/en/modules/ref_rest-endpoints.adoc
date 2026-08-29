@@ -1,0 +1,11 @@
+[id="rest-endpoints_{context}"]
+= REST endpoints
+
+Grouped by the tag each resource carries. *Required* names the permission the endpoint
+checks; where a coarse role is the only gate, the role is named instead.
+
+This is the whole surface, including the endpoints the interface no longer calls. They stay
+until nothing calls them — deleting one the day its last caller moved is how a client nobody
+remembered gets broken.
+
+include::../snippets/generated/rest-endpoints.adoc[]

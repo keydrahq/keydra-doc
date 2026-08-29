@@ -1,0 +1,25 @@
+# The build context holds two checkouts: this repository as `docs/` and Keydra as
+# `keydra/`. Everything either of them generates stays out of it.
+
+docs/node_modules
+docs/dist
+docs/.cache
+docs/.generated
+docs/.vale/bin
+docs/.vale/styles/RedHat
+docs/.vale/styles/AsciiDoc
+docs/pdf/*.pdf
+
+# Keydra: only backend/src, frontend/locales, frontend/src and logo are read.
+keydra/backend/target
+keydra/backend/backups
+keydra/frontend/node_modules
+keydra/frontend/dist
+keydra/frontend/coverage
+keydra/docs
+keydra/deploy
+
+**/.git
+**/.github
+**/.idea
+**/*.log

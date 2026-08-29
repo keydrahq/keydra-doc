@@ -1,0 +1,14 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="tunnels"]
+= Hedeflere atlama sunucusu üzerinden erişme
+:description: SSH tüneli bir kez tanımlanır; arkasındaki bütün hedefler ve yedek hedefleri ona işaret eder. Böylece atlama sunucusunun anahtarını değiştirmek tek bir düzenlemedir.
+:page-keywords: ssh, tünel, atlama sunucusu, sunucu anahtarı, sabitleme
+:context: tunnels
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_tunnels.adoc[leveloffset=+1]
+
+include::../modules/proc_adding-a-tunnel.adoc[leveloffset=+1]
+
+include::../modules/proc_rotating-a-jump-host-credential.adoc[leveloffset=+1]

@@ -1,0 +1,84 @@
+# Central configuration for the Keydra documentation site.
+#
+# Everything a build needs to know that is not content: what the product is called, where
+# it lives, which languages are published, and where the output is served from. Nothing
+# here is duplicated in the renderer — a constant that appears twice is a constant that
+# disagrees with itself eventually.
+
+product:
+  # The name is a proper noun in both languages and is never translated.
+  name: Keydra
+  # The application's own repository, linked from the masthead and the footer.
+  repository: https://github.com/keydrahq/keydra
+  # Where this documentation lives. Separate from the application, so "Edit this page"
+  # points at the file somebody would actually change rather than at a path that does not
+  # exist in the other repository.
+  docsRepository: https://github.com/keydrahq/docs
+  # The branch an "Edit this page" link points at, in the docs repository.
+  branch: main
+  # Left empty deliberately. A production hostname nobody has chosen would be a fact
+  # invented to fill a field, and it is what the sitemap and the canonical links need.
+  # Set it (or pass --base-url) when the site gets an address.
+  baseUrl: ''
+  # Serving path. '/' for a site at the root of a host, '/docs/' for the GitHub Pages
+  # project site at keydrahq.github.io/docs. Every generated URL is built from this, so a
+  # subpath deployment needs no rewriting — and the publish workflow passes the real one
+  # rather than trusting this value.
+  basePath: /
+
+  pages:
+    # A custom domain, written into a CNAME file on every deploy. Empty means the site
+    # answers at <owner>.github.io/<repo>. Setting it here is what keeps the domain from
+    # being cleared by the next deploy.
+    customDomain: ''
+  # Where the published container images live. Named here rather than in the pages, so a
+  # registry move or a rename is one edit instead of forty.
+  images:
+    registry: quay.io/keydrahq
+    # One container serving the API and the interface it calls. The ordinary deployment.
+    standalone: keydra
+    # The API alone, for a deployment that serves the interface separately.
+    backend: keydra-backend
+    # The interface alone, served as static files behind a proxy that routes /api and
+    # /graphql to the backend.
+    ui: keydra-ui
+    # What the pages show in a `podman pull`. A deployment pins a version.
+    tag: latest
+
+  # No LICENSE file exists in the Keydra repository yet, so the footer says nothing
+  # about licensing rather than claiming a licence nobody chose. Fill this in when one
+  # is added and the footer picks it up.
+  license: ''
+
+languages:
+  default: en
+  published:
+    - code: en
+      # `htmlLang` is what goes into <html lang="…">.
+      htmlLang: en
+      name: English
+      # How this language names itself, for the language menu.
+      endonym: English
+      direction: ltr
+    - code: tr
+      htmlLang: tr
+      name: Turkish
+      endonym: Türkçe
+      direction: ltr
+
+search:
+  # Results per query in the overlay.
+  maxResults: 20
+  # Characters of context either side of a match in an excerpt.
+  excerptRadius: 90
+
+output:
+  # Where `make docs` writes. Relative to this file.
+  directory: dist
+  # Where the documentation tree begins under basePath: /docs/{lang}/{version}/...
+  #
+  # Locally the site is served from the root, so this supplies the `docs` segment. On
+  # GitHub Pages the repository is already called `docs` and supplies it through the base
+  # path, so the publish workflow passes `--docs-prefix ""`. Both produce the same
+  # address: /docs/en/latest/.
+  docsPrefix: docs

@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="approvals"]
+= İkinci bir kişiyi bekleyen işlemler
+:description: Bir hedef, adı yazılmadıkça ya da isteği açandan başka biri onaylamadıkça boşaltılmayı reddedebilir. Neyin beklediği, kimin yanıtlayabileceği ve işlem çalışırken neye yeniden bakıldığı.
+:page-keywords: onaylar, dört göz, ikinci kişi, toplu silme, korumalı hedef, çift denetim
+:context: approvals
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_approvals.adoc[leveloffset=+1]
+
+include::../modules/proc_answering-an-approval.adoc[leveloffset=+1]

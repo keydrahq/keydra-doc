@@ -1,0 +1,48 @@
+[id="requiring-a-second-factor_{context}"]
+= İkinci faktörü herkesten istemek
+
+Kimlik doğrulayıcı eklemek, bir yönetici bunu kurulumun kararı hâline getirene kadar kişinin kendi
+kararıdır. Anahtar *Erişim* → *Oturum açma* sekmesindedir ve `policy:manage` izni gerektirir.
+
+.Sahip olmadığınız bir şeyi zorunlu kılamazsınız
+
+Açma işlemi, işlemi yapan hesap zaten bir kimlik doğrulayıcı eklememişse reddedilir. Bir anahtarı
+kurulumu kaybetme yolundan ayıran tek denetim budur: ikinci faktörü zorunlu kılmak, eklememiş her
+hesabın bütün rollerini alır ve bu denetim olmasa bundan etkilenen ilk hesap anahtarı çeviren hesap
+olurdu.
+
+Yapılandırma özelliği değil, veritabanında tutulan bir ayar olmasının sebebi de aynı. Bir özellik,
+kimin kaydolduğunu göremeyen biri tarafından bir manifest dosyasına yazılır, kimsenin izlemediği bir
+yeniden başlatmada devreye girer ve kaydolmamış herkesi dışarıda bırakır.
+
+.İkinci faktörü olmayan bir hesap ne yapabilir
+
+Oturum açabilir, başka bir şey yapamaz. Oturum açmanın kendisi başarılı olur — parolada reddetmek
+kişiye gidecek yer bırakmazdı, çünkü kimlik doğrulayıcı eklemek yalnızca oturum açmış bir hesabın
+yapabileceği bir iştir — ve dönen oturum hiçbir rol taşımaz. Erişilebilir kalan şey, hiç yetkisi
+olmayan birine zaten açık olan şeydir: kendi ikinci faktörü, kendi oturumları, kendi tercihleri.
+Tarayıcı uygulamanın yerine kayıt sayfasını çizer ve sebebini söyler.
+
+Bir kod onaylandığı anda her şey bir sonraki istekte geri gelir.
+
+.Açmadan önce
+
+Sayfa, zorunluluğun kapsayacağı ve henüz kaydolmamış kaç hesap olduğunu söyler. Önce bilinmesi
+gereken sayı budur: bir sonraki isteklerinde uygulamayı boş bulacak kişi sayısıdır.
+
+[NOTE]
+====
+Yalnızca yerel hesaplar. Kimlik sağlayıcı üzerinden oturum açan bir hesap kimliğini başka bir yerde
+doğrulamıştır; o yerin ikinci faktör isteyip istemediği {product-name}'nın bilebileceği ya da
+tekrarlayabileceği bir şey değildir — bu hesapların {product-name} parolası da yoktur. Onlardan da
+ikinci faktör isteyen bir kurulum bunu sağlayıcı tarafında yapılandırır.
+====
+
+.Geri dönüş yolları
+
+* Faktör onaylandığında verilen kurtarma kodları.
+* Başka bir yönetici: bunu açabilen herkesin bir faktörü vardır, dolayısıyla kapatabilecek biri her
+  zaman bulunur.
+* Kendiniz. Zorunluluk açıkken kendi faktörünüzü kapatmak sizi bir sonraki istekte kısıtlar ve
+  kayıt, kısıtlanmış bir oturumun hâlâ yapabildiği tek iştir — telefon da böyle değiştirilir.
+  Reddedilmez, çünkü reddetmek telefon değiştirmeyi birinden izin istenecek bir işe dönüştürürdü.

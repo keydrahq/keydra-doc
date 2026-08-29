@@ -1,0 +1,8 @@
+viewer: 'Verildiği her yerde salt okunur: hedefi görmek, anahtarlarına göz atmak, değerleri okumak, panosunu
+  izlemek.'
+operator: 'Viewer rolünün yapabildiklerine ek olarak veriyi değiştirebilir: anahtar ve değer yazar ve
+  siler, konsol çalıştırır, mesaj yayımlar, anahtar taşır ve hedefte iş zamanlar. Keydra’nın hangi sunucuyu
+  gösterdiğini değiştirmek bilinçli olarak bu rolün dışındadır.'
+admin: 'Var olan bütün izinler; Keydra’nın kendisine dair olanlar dahil: bağlantı oluşturmak, hesapları
+  ve yetkileri yönetmek, kimlik sağlayıcıları, tüneller, yedek hedefleri, uyarı gönderimleri, denetim
+  günlüğü ve şifreleme anahtarı.'

@@ -1,0 +1,69 @@
+[id="adding-a-connection_{context}"]
+= Adding a connection
+
+.Prerequisites
+
+* You hold `connection:create`. The built-in `admin` role does.
+* The target is reachable from where {product-name} runs — or a tunnel to it exists.
+
+.Procedure
+
+. Go to *Connections*.
+. Click *Add connection*.
+. On the *Server* tab, complete:
++
+--
+* *Name* — required.
+* *Host* and *Port*.
+* *Type* — *Standalone*, *Cluster* or *Sentinel*. For *Sentinel*, also give the
+  *Sentinel master name*.
+* *Database index*, if the target should open on something other than database 0.
+--
+. On the *Authentication* tab, give a *Username* and *Password* if the target requires
+  them, and tick *Use TLS* if it speaks TLS. Leave the password empty if the target
+  requires none.
+. Optionally tick *Reach this target through an SSH tunnel* and choose one.
+. Click *Test connection* to probe what the form currently says. This records nothing.
+. Click *Save*.
+
+image::add-connection.jpg["The first step of the connection wizard, with the name, server type, host and port"]
+
+.Verification
+
+The new row appears in the table. Its *Status* moves from *Checking…* to *Up*, and the
+*Server* column names the flavor and version that answered.
+
+If it stays *Down*, see
+xref:troubleshooting.adoc#a-target-will-not-connect_troubleshooting[A target will not connect].
+
+.Next steps
+
+* xref:key-browser.adoc#browsing-keys_key-browser[Browse the keys]
+* xref:access-control.adoc#putting-targets-in-server-groups_access-control[Put the target in a server group so other people can be granted it]
+
+.Certificates, where the target's TLS needs them
+
+Two things a TLS target can need that the runtime's own truststore cannot supply.
+
+*Certificate authority*. {product-name} trusts the authorities the runtime already trusts, which
+is right for a managed target — Upstash, ElastiCache in transit, Azure Cache — and rarely right
+for a server inside a company, whose certificate is signed by an authority that exists only there.
+Naming that authority on the profile trusts it *for this target*: putting it in the runtime's own
+truststore instead would change what every other connection this process makes will accept, and could
+not be undone for one target either.
+
+*Client certificate and key*. Where the target asks the client to prove who it is. Both halves or
+neither — half a pair can only fail later, so it is refused here. The key is unencrypted PEM: a
+key protected by a passphrase cannot be used, and saying so at the form is better than a handshake
+failure that names nothing.
+
+Both are read when the profile is saved. A certificate that does not parse is refused while the
+form is open rather than at three in the morning.
+
+[NOTE]
+====
+Offered for {redis-name}, {valkey-name}, compatible targets and Aerospike. TiKV's client reads
+certificates from paths on disk rather than from material held in memory, so {product-name} refuses
+these fields on a TiKV profile rather than accept a setting it would not use — writing a private key
+to a temporary file to work around that would be worse than the gap.
+====

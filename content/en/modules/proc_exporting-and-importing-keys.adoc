@@ -1,0 +1,31 @@
+[id="exporting-and-importing-keys_{context}"]
+= Exporting and importing keys
+
+.Prerequisites
+
+* `transfer:export` to export, `transfer:import` to import.
+
+.Procedure
+
+To export:
+
+. Open the target's *Keys* page.
+. Either select rows and use *Export {count} keys*, or use *Export everything matching* to
+  export what the current glob matches.
+. The file downloads.
+
+To import:
+
+. On the *Keys* page, open *Import and export* and choose the import action.
+. Choose the file.
+. Decide what happens to a key that already exists: replace it, or leave it alone.
+. Confirm.
+
+.Verification
+
+The key list updates as keys arrive — the change goes out over the notification hub, so the
+count moves without a rescan.
+
+.Next steps
+
+* xref:backup-restore.adoc[Send the same export somewhere else, on a schedule]

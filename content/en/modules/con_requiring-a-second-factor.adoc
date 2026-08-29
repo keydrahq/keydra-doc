@@ -1,0 +1,49 @@
+[id="requiring-a-second-factor_{context}"]
+= Requiring a second factor of everybody
+
+Pairing an authenticator is a person's own decision until an administrator makes it the
+installation's. The switch is on *Access* → *Sign-in*, and it needs `policy:manage`.
+
+.You cannot require one you do not have
+
+Turning it on is refused unless the account doing the turning has already paired an authenticator.
+That single check is what separates a switch from a way to lose an installation: requiring a factor
+takes every role away from every account that has not paired one, and without the check the first
+such account is the one that flipped the switch.
+
+It is a stored setting rather than a configuration property for the same reason. A property is set
+in a manifest by somebody who cannot see who has enrolled, takes effect at a restart nobody is
+watching, and locks out everyone who had not.
+
+.What an account without one can still do
+
+Sign in, and nothing else. The sign-in itself succeeds — refusing at the password would leave
+somebody nowhere to go, because pairing an authenticator is something only a signed-in account can
+do — and the session that comes back holds no roles at all. What stays reachable is what was
+already reachable to somebody with no grants: their own second factor, their own sessions, their
+own preferences. The browser draws the enrolment page instead of the application and says why.
+
+The moment a code is confirmed, everything comes back on the next request.
+
+.Before you turn it on
+
+The page says how many accounts the requirement would catch and have not enrolled. That is the
+number to know first: it is how many people will find the application empty on their next request.
+
+[NOTE]
+====
+Local accounts only. An account that signs in through an identity provider authenticated
+somewhere else, and whether that somewhere else asked for a second factor is not
+{product-name}'s to know or to duplicate — those accounts have no {product-name} password
+either. An installation that wants a second factor from them configures it at the provider.
+====
+
+.The ways back in
+
+* The recovery codes handed out when the factor was confirmed.
+* Another administrator: everybody who can turn this on has a factor, so somebody can always turn
+  it off.
+* Yourself. Turning your own factor off while the requirement is on restricts you on the next
+  request, and enrolment is the one thing a restricted session can still do — which is also how a
+  mobile phone is replaced. It is not refused, because refusing it would make replacing a
+  mobile phone something you have to ask somebody for.

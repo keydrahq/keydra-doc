@@ -1,0 +1,12 @@
+[id="permissions-list_{context}"]
+= Permissions
+
+Every permission {product-name} defines. The Scope column says where a grant of it can be written: a
+permission about {product-name} itself can only be granted on the instance, and one about a
+server can be granted on a target, on a server group, or on the instance.
+
+include::../snippets/generated/permissions-table.adoc[]
+
+Which permissions each built-in role carries is described in
+xref:access-control.adoc#built-in-roles_access-control[The built-in roles]. A custom role
+chooses from this list.

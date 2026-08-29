@@ -1,0 +1,14 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="monitoring"]
+= Monitoring
+:description: Readings arrive live and nothing is polled. Sampling is off until asked for, and a chart says whether its numbers came from memory or from the store.
+:page-keywords: monitoring, dashboard, info, slowlog, clients, memory, hit ratio
+:context: monitoring
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_monitoring.adoc[leveloffset=+1]
+
+include::../modules/proc_watching-a-target.adoc[leveloffset=+1]
+
+include::../modules/proc_slowlog-and-clients.adoc[leveloffset=+1]

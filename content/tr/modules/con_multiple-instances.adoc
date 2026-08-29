@@ -1,0 +1,20 @@
+[id="multiple-instances_{context}"]
+= Birden fazla Keydra
+
+Yük dengeleyici arkasındaki iki örnek aynı PostgreSQL'i paylaşır. Her yerde yapılabilecek
+işler — anahtar uzayını okumak, konsol komutu çalıştırmak, pano çizmek — isteğin ulaştığı
+örnekte yapılır. Yalnızca bir kez yapılması gereken işler ise sahiplenilir:
+
+* Zamanlanmış işler yalnızca kirayı elinde tutan örnekte çalışır.
+* Uyarı kurallarını yalnızca o örnek değerlendirir; böylece tetiklenen kural tek bir mesaj
+  gönderir.
+* Yarım kalmış göç işlerini işaretleyen tarama da orada çalışır.
+
+Kira, veritabanındaki tek bir satırdır: birkaç saniyeliğine alınır ve sürekli yenilenir.
+Süresinin dolup dolmadığına örneklerin değil, veritabanının saati karar verir. Yenilemeyi
+kesen örnek kirayı bir sonraki isteyene bırakır; bir çökme sonrasında kimsenin müdahalesi
+gerekmeden toparlanmayı sağlayan da budur.
+
+Hakkında sayfası, örneğin adını ve o an kirayı elinde tutup tutmadığını gösterir.
+
+Bkz. xref:clustering.adoc[Birden fazla Keydra çalıştırma].

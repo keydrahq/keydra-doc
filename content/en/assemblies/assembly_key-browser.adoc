@@ -1,0 +1,14 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="key-browser"]
+= The key browser
+:description: Keys stream in as the server scans them, grouped into a namespace tree and filtered by glob and type. Never KEYS, always a cursor.
+:page-keywords: keys, scan, browse, namespace, glob, ttl, rename, delete
+:context: key-browser
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_key-browser.adoc[leveloffset=+1]
+
+include::../modules/proc_browsing-keys.adoc[leveloffset=+1]
+
+include::../modules/proc_key-operations.adoc[leveloffset=+1]

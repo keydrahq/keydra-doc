@@ -1,0 +1,14 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="tunnels"]
+= Reaching targets through a jump host
+:description: An SSH tunnel is described once and pointed at by every target and backup destination behind it, so rotating a jump host's key is one edit.
+:page-keywords: ssh, tunnel, jump host, host key, pinning
+:context: tunnels
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_tunnels.adoc[leveloffset=+1]
+
+include::../modules/proc_adding-a-tunnel.adoc[leveloffset=+1]
+
+include::../modules/proc_rotating-a-jump-host-credential.adoc[leveloffset=+1]

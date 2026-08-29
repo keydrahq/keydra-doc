@@ -1,0 +1,560 @@
+////
+ÜRETİLMİŞ DOSYA — elle düzenlemeyin.
+scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
+Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
+////
+.query
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| İşlem | Gereken | Ne yapar
+| `accounts`
+| `users:manage`
+| Every account, with the roles it holds
+
+| `aclCategories`
+| `acl:read`
+| The command categories a rule can name, as this server spells them
+
+| `aclUsers`
+| `acl:read`
+| The accounts the server itself knows about, and what each may run
+
+| `alertDeliveries`
+| `alert-delivery:manage`
+| The channels a firing rule can send word through
+
+| `alertEvents`
+| `viewer`, `operator`, `admin`
+| What has fired and what has cleared, newest first
+
+| `alertMetrics`
+| `viewer`, `operator`, `admin`
+| The metrics a rule can watch, each with its unit
+
+| `alertRules`
+| `viewer`, `operator`, `admin`
+| The rules, with what each one is reading now and which state it is in
+
+| `askableCommands`
+| `admin`
+| Commands a target can be allowed to run, each with what allowing it means
+
+| `auditActions`
+| `audit:read`
+| Every kind of action that has been recorded, for a filter to offer
+
+| `auditLog`
+| `audit:read`
+| A page of the audit log, newest first
+
+| `authState`
+| Oturum açmış olmak
+| What this instance expects of whoever is asking
+
+| `backup`
+| `transfer:import`
+| One backup's header, read without downloading the whole file
+
+| `backupDestinations`
+| `backup:manage`
+| Every destination, without the credentials they hold
+
+| `backups`
+| `transfer:import`
+| What is already in a destination, newest first
+
+| `biggestKeys`
+| `monitoring:read`
+| The biggest keys found by sampling the keyspace
+
+| `capabilities`
+| `connection:view`
+| What a target can do, which decides which tools are offered for it
+
+| `clients`
+| `monitoring:read`
+| Who is connected to the target right now
+
+| `connection`
+| `connection:view`
+| One target, by id
+
+| `connections`
+| `viewer`, `operator`, `admin`
+| Every target the caller can see, with its last known status
+
+| `consoleHistory`
+| `console:run`
+| What you have run against this target, newest first, with values redacted
+
+| `databases`
+| `connection:view`
+| The numbered databases on a target, with how many keys each holds
+
+| `deniedCommands`
+| `console:run`
+| The commands this target refuses to run, whoever is asking
+
+| `effectivePermissions`
+| Oturum açmış olmak
+| What the caller may do, over Keydra itself and over each target
+
+| `encryptionStatus`
+| `crypto:rotate`
+| Which key the stored secrets are under, and how many are not
+
+| `flaggedSignInCount`
+| `audit:read`
+| How many flagged sign-ins there are in the window
+
+| `flaggedSignIns`
+| `audit:read`
+| Sign-ins that worked but did not look like the ones before them
+
+| `fleet`
+| `viewer`, `operator`, `admin`
+| One reading from every target the caller can see
+
+| `grants`
+| `grants:manage`
+| Who holds which role, over what
+
+| `groups`
+| `groups:manage`
+| Every group, with who is in it
+
+| `identityProviders`
+| `idp:manage`
+| Every provider, with the redirect URI each one has to be told about
+
+| `keyspaceReport`
+| `analysis:read`
+| What the keyspace holds, worked out by sampling it
+
+| `keyspaceWatch`
+| `keys:read`
+| Whether a target announces its changes, and whether anybody is listening
+
+| `me`
+| Oturum açmış olmak
+| Who is asking, the roles they hold, and whether access is being enforced
+
+| `migrations`
+| `viewer`, `operator`, `admin`
+| A page of migrations, newest first, filtered to what the caller can see
+
+| `monitoring`
+| `monitoring:read`
+| Whether a target is being sampled, and since when
+
+| `monitoringHistory`
+| `monitoring:read`
+| Readings between two moments, evenly divided into points
+
+| `monitoringSample`
+| `monitoring:read`
+| One reading, taken now
+
+| `mySessionCount`
+| Oturum açmış olmak
+| How many browsers there are to page through
+
+| `mySessions`
+| Oturum açmış olmak
+| Every browser that can act as you right now, the one reading this first
+
+| `mySignInCount`
+| Oturum açmış olmak
+| How many sign-ins there are to page through
+
+| `mySignIns`
+| Oturum açmış olmak
+| Your own recent sign-ins, newest first
+
+| `namespaceTree`
+| `keys:read`
+| One level of the keyspace, grouped by a delimiter
+
+| `permissionCatalogue`
+| `grants:manage`
+| Every permission a role can carry, with the level it applies at
+
+| `persistence`
+| `server:read`
+| Whether the server is writing to disk, and when it last did
+
+| `refusedSignIns`
+| `audit:read`
+| Sign-ins that were refused, newest first
+
+| `roles`
+| `grants:manage`
+| Every role, built in or defined here, with the permissions it carries
+
+| `scheduleJobTypes`
+| `operator`, `admin`
+| The kinds of work that can be scheduled, with the permission each one needs
+
+| `scheduleRuns`
+| `operator`, `admin`
+| What became of the arranged work, newest first
+
+| `schedules`
+| `operator`, `admin`
+| Every schedule, with when it last ran and when it runs next
+
+| `serverGroups`
+| `groups:manage`
+| Every server group, with which targets are in it
+
+| `serverSettings`
+| `server:read`
+| The server's own configuration, as it reports it
+
+| `signInOptions`
+| Oturum açmış olmak
+| The ways of signing in this instance offers, other than a password here
+
+| `signInPolicy`
+| `policy:manage`
+| What this instance asks of whoever signs in
+
+| `slowLog`
+| `monitoring:read`
+| The commands the server itself recorded as slow
+
+| `subscription`
+| `pubsub:subscribe`
+| What this target is being listened to for, or nothing
+
+| `topology`
+| `connection:view`
+| The shape of the target: standalone, replicated, sentinel or clustered
+
+| `tunnels`
+| `tunnel:manage`
+| Every jump host, without the keys they hold
+
+|===
+.mutation
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| İşlem | Gereken | Ne yapar
+| `addGroupMember`
+| `groups:manage`
+| Puts an account, or another group, inside a group
+
+| `addProviderGroupMapping`
+| `idp:manage`
+| Says which local group a claim value puts somebody in
+
+| `addServerToGroup`
+| `groups:manage`
+| Puts a target in a server group
+
+| `announceKeyspaceChanges`
+| `server:configure`
+| Asks a target to announce its changes, keeping whatever its setting already said
+
+| `cancelMigration`
+| `migration:run`
+| Stops a migration; what has moved stays moved
+
+| `changeServerSetting`
+| `server:configure`
+| Changes one setting on the running server
+
+| `checkAlertDelivery`
+| `alert-delivery:manage`
+| Sends a test message through a channel and reports what happened
+
+| `checkBackupDestination`
+| `backup:manage`
+| Reaches the destination and reports what happened
+
+| `checkConnection`
+| `connection:create`
+| Opens a connection to the target and reports what came back
+
+| `checkTunnel`
+| `tunnel:manage`
+| Opens the tunnel and reports what happened
+
+| `clearConsoleHistory`
+| `console:run`
+| Empties your own command history on this target
+
+| `clearSlowLog`
+| `monitoring:manage`
+| Empties the server's own slow log
+
+| `copyKey`
+| `keys:write`
+| Copies a key, here or to another target
+
+| `createAccount`
+| `users:manage`
+| Adds an account; the password is set by whoever accepts the invitation
+
+| `createAlertDelivery`
+| `alert-delivery:manage`
+| Adds a channel for firing rules to send word through
+
+| `createAlertRule`
+| `alert:manage`
+| Adds a rule watching one metric on one target
+
+| `createBackupDestination`
+| `backup:manage`
+| Adds a destination for backups to be written to
+
+| `createConnection`
+| `connection:create`
+| Adds a target
+
+| `createGroup`
+| `groups:manage`
+| Adds a group
+
+| `createIdentityProvider`
+| `idp:manage`
+| Adds a provider people can sign in through
+
+| `createRole`
+| `grants:manage`
+| Defines a role
+
+| `createSchedule`
+| `schedule:manage`
+| Arranges a job to run on a cron expression
+
+| `createServerGroup`
+| `groups:manage`
+| Adds a server group, so a grant can name several targets at once
+
+| `createTunnel`
+| `tunnel:manage`
+| Adds a jump host
+
+| `deleteAccount`
+| `users:manage`
+| Removes an account and every grant it held
+
+| `deleteAclUser`
+| `acl:manage`
+| Removes one of the server's own accounts
+
+| `deleteAlertDelivery`
+| `alert-delivery:manage`
+| Removes a channel
+
+| `deleteAlertRule`
+| `alert:manage`
+| Removes a rule
+
+| `deleteBackupDestination`
+| `backup:manage`
+| Removes a destination
+
+| `deleteConnection`
+| `connection:delete`
+| Removes a target and everything Keydra kept about it
+
+| `deleteGroup`
+| `groups:manage`
+| Removes a group and every grant it held
+
+| `deleteIdentityProvider`
+| `idp:manage`
+| Removes a provider; accounts it created stay, and can no longer sign in with it
+
+| `deleteKeys`
+| `keys:delete`
+| Removes the named keys
+
+| `deleteRole`
+| `grants:manage`
+| Removes a role and every grant of it
+
+| `deleteSchedule`
+| `schedule:manage`
+| Removes a schedule
+
+| `deleteServerGroup`
+| `groups:manage`
+| Removes a server group and every grant scoped to it
+
+| `deleteTunnel`
+| `tunnel:manage`
+| Removes a jump host
+
+| `endOtherSessions`
+| Oturum açmış olmak
+| Ends every session but this one, and answers how many
+
+| `endSession`
+| Oturum açmış olmak
+| Ends one of your sessions; it stops on that browser's next request
+
+| `expireKey`
+| `keys:write`
+| Sets or clears a key's time to live
+
+| `generateBackupKeyPair`
+| `backup:manage`
+| Makes a key pair; the private half is shown once and never stored
+
+| `grant`
+| `grants:manage`
+| Gives a role to an account or a group, over an instance, group or target
+
+| `holdKeyspaceWatch`
+| `keys:read`
+| Takes or renews a lease on a target's changes
+
+| `importKeys`
+| `transfer:import`
+| Writes keys into a target from what was exported
+
+| `inviteAccount`
+| `users:manage`
+| Makes a link that lets an account set its own password
+
+| `killClient`
+| `monitoring:manage`
+| Closes one client's connection to the target
+
+| `persistServerSettings`
+| `server:configure`
+| Writes the running configuration to the server's own file
+
+| `publish`
+| `pubsub:publish`
+| Sends a message to a channel and answers how many subscribers took it
+
+| `purgeKeys`
+| `keys:delete`
+| Removes every key matching a glob, a batch at a time
+
+| `reencryptSecrets`
+| `crypto:rotate`
+| Rewrites every stored secret under the current key
+
+| `releaseKeyspaceWatch`
+| `keys:read`
+| Gives a lease back, closing the watch when it was the last
+
+| `removeGroupMember`
+| `groups:manage`
+| Takes a member out of a group
+
+| `removeProviderGroupMapping`
+| `idp:manage`
+| Removes a mapping; it stops applying at the next sign-in through that provider
+
+| `removeServerFromGroup`
+| `groups:manage`
+| Takes a target out of a server group
+
+| `renameKey`
+| `keys:write`
+| Renames a key
+
+| `requireSecondFactor`
+| `policy:manage`
+| Require a second factor of every local account, or stop requiring one
+
+| `restoreBackup`
+| `transfer:import`
+| Writes a backup's keys into a target
+
+| `revoke`
+| `grants:manage`
+| Takes a grant back; it stops applying on the holder's next request
+
+| `rewriteAppendLog`
+| `server:configure`
+| Asks the server to rewrite its append-only file
+
+| `runSchedule`
+| `schedule:manage`
+| Runs a scheduled job now, without waiting for its cron
+
+| `setAclUser`
+| `acl:manage`
+| Creates or replaces one of the server's own accounts
+
+| `startMigration`
+| `migration:run`
+| Starts moving keys from one target to another; answers before any have moved
+
+| `startMonitoring`
+| `monitoring:manage`
+| Starts sampling a target on a clock
+
+| `stopMonitoring`
+| `monitoring:manage`
+| Stops sampling a target
+
+| `subscribe`
+| `pubsub:subscribe`
+| Starts listening to channels or patterns on a target
+
+| `takeBackup`
+| `transfer:export`
+| Writes a backup of a target into a destination
+
+| `takeSnapshot`
+| `server:configure`
+| Asks the server to write a snapshot in the background
+
+| `unsubscribe`
+| `pubsub:subscribe`
+| Stops listening; answers whether anything was listening
+
+| `updateAccount`
+| `users:manage`
+| Changes an account
+
+| `updateAlertDelivery`
+| `alert-delivery:manage`
+| Changes a channel
+
+| `updateAlertRule`
+| `alert:manage`
+| Changes a rule
+
+| `updateBackupDestination`
+| `backup:manage`
+| Changes a destination
+
+| `updateConnection`
+| `connection:edit`
+| Changes a target
+
+| `updateIdentityProvider`
+| `idp:manage`
+| Changes a provider
+
+| `updateRole`
+| `grants:manage`
+| Changes what a role carries
+
+| `updateSchedule`
+| `schedule:manage`
+| Changes a schedule
+
+| `updateTunnel`
+| `tunnel:manage`
+| Changes a jump host
+
+|===
+.subscription
+[cols="2,2,4",options="header",role="kd-generated"]
+|===
+| İşlem | Gereken | Ne yapar
+| `keys`
+| `keys:read`
+| Walks a target's keyspace with SCAN, one key at a time. KEYS is never used.
+
+|===

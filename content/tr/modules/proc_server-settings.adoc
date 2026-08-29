@@ -1,0 +1,69 @@
+[id="reading-and-changing-server-settings_{context}"]
+= Sunucunun kendi ayarlarını okuma ve değiştirme
+
+*Sunucu* sekmesi, hedefin kendi yapılandırması ve kendi kalıcılığıdır; sunucudan okunur ve
+yine sunucuya yazılır. Bu, {product-name}'nın yapılandırması değildir ve bu sayfadaki hiçbir
+şey burada saklanmaz.
+
+.Ön koşullar
+
+* Sayfayı görmek için `server:read`, üzerinde bir şey değiştirmek için `server:configure`.
+* Ayarları hakkında soru yanıtlayan bir hedef. Sorulmayacak bir depo için burada boş bir
+  sekme değil, hiç sekme bulunmaz.
+
+.Prosedür
+
+Verinin nasıl saklandığını görmek için:
+
+. Hedefi açın ve *Sunucu* sekmesine gidin.
+. *Veriyi saklama* bölümünü okuyun: *Anlık görüntü* ve *Ekleme kaydı (AOF)* açık mı, sunucu
+  *Son kayıt* işlemini ne zaman yaptı, *Anlık görüntü dosyası* nerede ve o günden beri kaç
+  yazım oldu.
+
+Sunucudan şimdi kaydetmesini istemek için:
+
+. *Şimdi kaydet*'e tıklayın. Sayfa *Sunucu isteği kabul etti.* der ya da halihazırda bir
+  kayıt sürüyorsa *Sunucu şu anda yazıyor.* der.
+. *Kaydı yeniden yaz*, sunucunun tuttuğu ekleme kaydını sıkıştırır.
+
+Bir ayarı değiştirmek için:
+
+. Sunucunun bildirdiği birkaç yüz ayar arasında aradığınızı bulmak için *Ayarlarda süz*
+  alanına yazın.
+. Satırındaki kalem simgesine tıklayın, yeni değeri verin ve onaylayın. Sayfa *<ad>
+  değiştirildi.* der ya da sunucunun söylediğiyle birlikte *Sunucu reddetti* der.
+
+Bir değişikliğin yeniden başlatmadan sonra da kalması için:
+
+. *Bunları sunucunun dosyasına yaz* düğmesine tıklayın.
+
+image::sunucu.jpg["Sunucu sekmesi; solda verinin nasıl saklandığı, sağda sunucunun ayarları"]
+
+.Doğrulama
+
+*Değer* sütunundaki değer, sunucunun şu anda bildirdiği değerdir; çünkü tablo iyimser biçimde
+güncellenmez, yeniden okunur. Sunucunun değeri olmayan bir ayar *(tanımsız)* görünür.
+
+[IMPORTANT]
+====
+Değişiklik anında geçerli olur ve yeniden başlatınca unutulur. Sunucunun kendi dosyasına
+yazmak, tablonun üstündeki ayrı düğmedir — arayüz bunu sayfada söyler, çünkü "değiştirdim"
+ile "yarın da değişmiş olacak" arasındaki boşluk, bir gecelik emeğin kaybolduğu yerdir.
+
+*Şimdi kaydet*, sunucudan kendi belleğini kendi diskine — bir konteynerde çalışıyorsa onun
+içine — yazmasını ister. Bu, {product-name}'nın size uzatabileceği bir dosya değildir.
+Yanınızda götürebileceğiniz bir kopya için xref:backup-restore.adoc[bir yedek] ya da
+xref:import-export.adoc[bir dışa aktarma] kullanın.
+====
+
+[NOTE]
+====
+Son kayıt başarısız olduysa sayfa bunu ve ne anlama geldiğini söyler: başarılı bir kayıt
+olana kadar bir yeniden başlatma, son başarılı kayıttan sonra yazılan her şeyi kaybettirir.
+Bu, hedef hakkında bir cümledir ve bu sayfada hemen harekete geçmeyi hak eden tek şeydir.
+====
+
+.Sonraki adımlar
+
+* xref:backup-restore.adoc[Makineden çıkan bir yedek alın]
+* xref:server-admin.adoc#target-acl_server-admin[Hedefin kendi kullanıcılarını yönetin]

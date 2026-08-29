@@ -1,0 +1,23 @@
+// Her Türkçe sayfanın paylaştığı öznitelikler.
+//
+// Ürüne ait bilgiler burada durur; böylece bir sürüm numarası kırk dosyada değil tek dosyada geçer.
+// Keydra kaynak ağacından okunabilen hiçbir şey burada değildir: bunları derleme, envanterden
+// geçirir, böylece eskiyemezler. Bkz. scripts/build-inventory.ts.
+
+:product-name: Keydra
+:redis-name: Redis
+:valkey-name: Valkey
+
+// Arayüz yüzeylerinin adları; bir yeniden adlandırma tek düzenleme olsun diye.
+:console-name: {product-name} konsolu
+:api-base: /api/v1
+
+// Geliştirme kurulumunda nelerin nerede dinlediği — depoda yapılandırıldığı gibi.
+:dev-backend-url: http://localhost:8181
+:dev-frontend-url: http://localhost:9000
+
+// Dokümantasyon kuralları.
+:experimental:
+:sectanchors:
+:idprefix:
+:idseparator: -

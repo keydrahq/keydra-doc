@@ -1,0 +1,22 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="installation"]
+= Deploying Keydra
+:description: What Keydra needs, which of the three published images to run, and what to configure before it is reachable by anybody other than you.
+:page-keywords: installation, deployment, container, podman, image, ports
+:context: installation
+include::../attributes/attributes.adoc[]
+
+include::../modules/ref_requirements.adoc[leveloffset=+1]
+
+include::../modules/ref_container-images.adoc[leveloffset=+1]
+
+include::../modules/proc_deploying-the-container-image.adoc[leveloffset=+1]
+
+include::../modules/proc_configuring-authentication-before-exposing.adoc[leveloffset=+1]
+
+include::../modules/ref_deployment-settings.adoc[leveloffset=+1]
+
+include::../modules/ref_ports-and-endpoints.adoc[leveloffset=+1]
+
+include::../modules/proc_building-from-source.adoc[leveloffset=+1]

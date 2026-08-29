@@ -1,0 +1,25 @@
+[id="browsing-and-values_{context}"]
+= Keys and values behave unexpectedly
+
+.Procedure
+
+The key list stops before the end::
+The page says *Limit reached* — it holds as many keys as it safely can. Narrow the filter to
+see different ones. This is a limit on what is drawn, not on what exists.
+
+A value shows only its beginning::
+It is marked *Shown in part*. It is too large to return whole, and editing or copying from
+there would overwrite the rest with something shorter. Read it through the API or an export
+instead.
+
+A value looks like nonsense::
+Change *Encoding* from *Automatic* to the one it actually is. Automatic detection is a
+guess, and one format in particular — Brotli — announces itself in no way at all.
+
+A key that was in the list is gone when opened::
+The panel says *This key no longer exists — it expired or was deleted after the list was
+built.* A `SCAN` is a walk over a live keyspace, not a snapshot of one.
+
+A command is refused in the console::
+See xref:console.adoc#console-concepts_console[Why some commands are refused]. The refusal
+names the reason, and the list is configuration.

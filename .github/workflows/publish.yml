@@ -1,0 +1,111 @@
+name: Publish to GitHub Pages
+
+# Publishing is deliberately separate from checking and runs only on the default branch.
+# A pull request — especially one from a fork — is validated by check.yml and can publish
+# nothing: it never holds the `pages: write` permission this workflow needs.
+#
+# Two things make this build different from a local one:
+#
+#   --base-path     GitHub Pages serves a project site under /<repo>/, and every URL,
+#                   asset and redirect this site emits is derived from that path. It is
+#                   read from the Pages configuration rather than assumed, so renaming
+#                   the repository does not silently break every link.
+#
+#   --docs-prefix   The repository is already called `docs`, so the base path supplies
+#                   that segment. Without emptying the prefix the site would answer at
+#                   /docs/docs/en/… . Both settings together produce the same address a
+#                   contributor sees locally: /docs/en/latest/.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time, and never cancel one half-way: an interrupted deploy leaves
+# the site partly replaced.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  KEYDRA_SOURCE: ${{ github.workspace }}/keydra
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the documentation
+        uses: actions/checkout@v4
+        with:
+          path: docs
+          fetch-depth: 0
+
+      - name: Check out Keydra
+        uses: actions/checkout@v4
+        with:
+          repository: keydrahq/keydra-backend
+          path: keydra/backend
+          fetch-depth: 1
+          token: ${{ secrets.KEYDRA_SOURCE_TOKEN || github.token }}
+
+      - name: Check out the Keydra frontend
+        uses: actions/checkout@v4
+        with:
+          repository: keydrahq/keydra-frontend
+          path: keydra/frontend
+          fetch-depth: 1
+          token: ${{ secrets.KEYDRA_SOURCE_TOKEN || github.token }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: docs/.nvmrc
+          cache: yarn
+          cache-dependency-path: docs/yarn.lock
+
+      - run: corepack enable
+
+      - name: Install
+        working-directory: docs
+        run: yarn install --immutable
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build
+        working-directory: docs
+        run: |
+          yarn build \
+            --base-path "${{ steps.pages.outputs.base_path }}/" \
+            --docs-prefix "" \
+            --base-url "${{ steps.pages.outputs.origin }}"
+
+      # The same gate the pull request passed, run against the artefact that is about to
+      # be published. A base path is the one thing a local build cannot verify.
+      - name: Validate
+        working-directory: docs
+        run: yarn validate
+
+      - name: Upload
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

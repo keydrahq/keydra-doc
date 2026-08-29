@@ -1,0 +1,31 @@
+[id="editing-and-deleting-a-connection_{context}"]
+= Bağlantıyı düzenleme ve silme
+
+.Ön koşullar
+
+* Düzenlemek için hedefte `connection:edit`, silmek için `connection:delete` izni.
+
+.Prosedür
+
+Profili düzenlemek için:
+
+. *Bağlantılar* sayfasında satırın işlemler menüsünü açıp *Düzenle* seçeneğini seçin.
+. Gereken alanları değiştirin. Parola alanı boş gelir ve *Saklı — korumak için boş bırakın*
+  ibaresini taşır: dokunmazsanız kayıtlı parola korunur, yazarsanız değişir.
+. *Kaydet* düğmesine tıklayın.
+
+Profili silmek için:
+
+. Satırın işlemler menüsünü açıp *Sil* seçeneğini seçin.
+. İletişim kutusu *Bağlantı silinsin mi?* diye sorar ve hedef sunucudaki verilerin
+  etkilenmeyeceğini belirtir.
+. Onaylayın.
+
+.Doğrulama
+
+Düzenleme, profilin havuzdaki bağlantılarını ve tünelini kapatır; çünkü profil artık başka bir
+sunucuyu gösteriyor olabilir. Durum önce *Kontrol ediliyor…* olur, sonra yeni adresin yanıtına
+göre güncellenir.
+
+Silinen profil bütün listelerden kalkar: filo genel görünümünden de, göç işlerinin hedef
+listesinden de. Sunucunun kendisinde hiçbir şey değişmez.

@@ -1,0 +1,45 @@
+[id="supported-targets_{context}"]
+= Supported targets
+
+Two questions, and they are not the same question. *What does the store speak?* decides which
+engine {product-name} talks to it with, and therefore what it can offer. *How is it arranged?*
+decides how many machines are behind one address.
+
+== What the store speaks
+
+include::../snippets/generated/engine-types.adoc[]
+
+Every store sits behind one interface, so the pages above the engine deal in keys and servers
+rather than in protocols. Adding another store means adding an engine, not changing the pages.
+
+.A capability a store does not have is absent, not broken
+[NOTE]
+====
+A command console and Pub/Sub are optional on the engine rather than methods that fail at the
+first call, so a store without a command language says so in the interface: the tab is not
+there. That is why a TiKV target has no *Console* and no *Pub/Sub*, and a Redis one has both.
+
+The same reasoning explains an empty TTL column on a TiKV target. Asking a TiKV cluster that
+was not started with TTL enabled for a key's time to live does not answer an error — the
+server panics and the process dies. So this engine never asks, and the empty column is a
+deliberate refusal rather than a gap.
+====
+
+== How it is arranged
+
+include::../snippets/generated/connection-types.adoc[]
+
+These describe a RESP target. {product-name} asks Sentinel where the master currently is
+rather than being told an address that changes on failover, and it discovers a cluster's nodes
+and slot ranges from the target itself — see xref:topology.adoc[Cluster and Sentinel topology].
+
+== Flavor detection is a report, not a requirement
+
+For a RESP target, {product-name} reads the server's `INFO server` output and shows the
+flavor and version it found. It does not refuse a server it does not recognize; it tells you
+what answered.
+
+What it does with that answer is hide or disable the operations a flavor does not support,
+read from the target's own command table. A target that will not answer that question is
+marked *Not asked* and is offered everything, because an unsupported operation failing where
+it is used is better than silently hiding one the server can in fact do.

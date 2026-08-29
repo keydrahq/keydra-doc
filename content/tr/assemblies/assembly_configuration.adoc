@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="configuration"]
+= Yapılandırma
+:description: Bir kurulumun ayarlaması gerekenler, Keydra'yı dışarı açmadan önce yapılacaklar ve tek örneği birden fazla örneğe çeviren ortak depo.
+:page-keywords: yapılandırma, ortam değişkenleri, profiller, depo, vekil sunucu, posta
+:context: configuration
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_configuration.adoc[leveloffset=+1]
+
+include::../modules/proc_configuring-mail.adoc[leveloffset=+1]

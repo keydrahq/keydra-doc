@@ -1,0 +1,15 @@
+MEMORY_USED_BYTES: Sunucunun kullandığını bildirdiği bellek miktarı.
+MEMORY_FILL_PERCENT: Yapılandırılmış sınıra oranla kullanılan bellek. Sınırı olmayan bir sunucuda anlamsızdır;
+  bayt değerinin de bulunmasının nedeni budur.
+CONNECTED_CLIENTS: Sunucunun o an kaç istemcisi olduğu.
+OPS_PER_SECOND: Sunucunun bildirdiği biçimde saniyedeki komut sayısı.
+HIT_RATIO_PERCENT: Sonuç bulan anahtar aramalarının oranı. İsabet oranı düşen bir önbellek, kendini karşılamayı
+  bırakmış demektir.
+KEY_COUNT: Veritabanının kaç anahtar tuttuğu.
+EVICTED_KEYS_PER_MINUTE: Sunucunun bellek sınırına dayandığı için attığı anahtarlar. Bir hız olduğu için
+  geçmiş bir taban çizgisiyle karşılaştırılamaz.
+EXPIRED_KEYS_PER_MINUTE: TTL süresi dolduğu için kaldırılan anahtarlar. Bu da bir hızdır.
+UPTIME_SECONDS: Sunucunun ne kadar süredir açık olduğu. Bir eşiğin altına düşmesi yeniden başladığı anlamına
+  gelir.
+NO_ANSWER: Hedef yanıt vermeyi bırakmış. Sayı değil, evet-hayır koşulu; ve haber alınmaya en değer olanı
+  — hiçbir şeye yanıt vermeyen bir sunucu karşılaştırılacak başka bir ölçüm de bildirmez.

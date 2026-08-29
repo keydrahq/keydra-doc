@@ -1,0 +1,14 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="schedules"]
+= Scheduled work
+:description: A job, a target, a cadence and a switch — with the credentials already here and a run that stops being something you find out about.
+:page-keywords: schedule, cron, job, flush, export, copy keys, runs
+:context: schedules
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_schedules.adoc[leveloffset=+1]
+
+include::../modules/proc_creating-a-schedule.adoc[leveloffset=+1]
+
+include::../modules/proc_watching-what-ran.adoc[leveloffset=+1]

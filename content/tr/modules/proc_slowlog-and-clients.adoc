@@ -1,0 +1,30 @@
+[id="slow-commands-and-clients_{context}"]
+= Yavaş komutlar, istemciler ve en büyük anahtarlar
+
+Panoda grafiklerin yanında üç tablo bulunur.
+
+.Prosedür
+
+Yavaş komut günlüğünü okumak için:
+
+. *Yavaş komutlar* bölümüne inin. Tabloda *Ne zaman*, *Sürdü* ve *Komut* sütunları vardır.
+. *Yenile* günlüğü yeniden okur; *Temizle* sunucunun kendi günlüğünü boşaltır.
+
+Bağlı istemcileri görmek için:
+
+. İstemci tablosuna inin. *Adres*, *Ad*, *Yaş*, *Boşta* ve *Son komut* sütunlarını gösterir.
+. Bir istemcinin bağlantısını kesmek için satır işlemlerini açıp *Bağlantıyı kes* seçeneğini
+  seçin. İletişim kutusu, karşı taraftaki uygulamanın bağlantısını kaybedeceğini ve yeniden
+  bağlanabileceğini de bağlanamayabileceğini belirtir.
+
+En büyük anahtarları bulmak için:
+
+. *En büyük anahtarlar* bölümüne inin. Siz istemeden *Henüz ölçülmedi* yazar.
+. *Ölç* düğmesine tıklayın. Ölçüm anahtar başına bir gidiş dönüş gerektirdiği için yalnızca
+  istendiğinde çalışır; sayfa bir ölçümün kaç anahtara bakacağını belirtir.
+
+.Doğrulama
+
+Panel, var olan anahtarları değil ölçtüklerini bildirir: *Ölçülen {sampled} anahtarın en
+büyükleri; aralarında {total} tutuyorlar.* Örneklem sonuçta örneklemdir; panel örneklem
+büyüklüğünü de yazar ki sonuçlara ne kadar güvenebileceğinizi tahmin etmek zorunda kalmayın.

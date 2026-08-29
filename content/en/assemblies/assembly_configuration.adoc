@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="configuration"]
+= Configuration
+:description: What a deployment must set, what to set before exposing Keydra, and the shared store that turns one instance into several.
+:page-keywords: configuration, environment variables, profiles, store, proxy, mail
+:context: configuration
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_configuration.adoc[leveloffset=+1]
+
+include::../modules/proc_configuring-mail.adoc[leveloffset=+1]

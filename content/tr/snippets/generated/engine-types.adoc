@@ -1,0 +1,18 @@
+////
+ÜRETİLMİŞ DOSYA — elle düzenlemeyin.
+scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
+Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
+////
+[cols="2,4",options="header",role="kd-generated"]
+|===
+| Ad | Açıklama
+| `RESP`
+| Redis, Valkey ve aynı protokolü konuşan türevler — KeyDB, Dragonfly, Garnet. Hepsine tek bir motor hizmet eder ve bir hedefin hangi türü çalıştırdığı yapılandırmayla değil, çalışma anında algılanarak belirlenir. Keydra'nın sunduğu her şey burada sunulur: türler, yaşam süresi, komut konsolu, Pub/Sub, sunucu istatistikleri, cluster ve sentinel topolojisi.
+
+| `AEROSPIKE`
+| Kendi protokolünü konuşan ve anahtarı farklı biçimde tutan Aerospike. Bir kayıt, tek bir metinle değil; bir ad alanı, bir küme ve bir kullanıcı anahtarıyla tanımlanır — ve kullanıcı anahtarı yalnızca onu yazan uygulama istediğinde saklanır. Öntanımlı davranış saklamamaktır; bu yüzden mevcut verinin çoğunda gösterilecek bir ad yoktur. Çalışan şeyler: kümeye göre göz atma, bir kaydın bin'lerini okuma ve yazma, bir de süresi.
+
+| `TIKV`
+| Düz bir bayt anahtar uzayı olan TiKV. Anahtarları Keydra'nınkine Aerospike'ınkinden daha iyi oturur — bayt dizileri oldukları için ad alanı ağacı ve önek globları çeviri gerektirmeden çalışır, bir globun düz öneki de TiKV'nin gerçekten sunduğu aralık taramasına dönüşür. Bunun üstündeki her şeyden yoksundur: tür yok, sunucu istatistiği yok, komut dili yok, Pub/Sub yok.
+
+|===

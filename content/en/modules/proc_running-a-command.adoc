@@ -1,0 +1,30 @@
+[id="running-a-command_{context}"]
+= Running a command
+
+.Prerequisites
+
+* You hold `console:run` on the target.
+
+.Procedure
+
+. Open the target and go to *Console*.
+. Type into *Command line*. Press kbd:[Tab] to complete, kbd:[↑] for history.
+. Press kbd:[Enter], or click *Run*.
+
+.Verification
+
+The transcript shows the reply and how long the command took. An empty reply reads
+`(empty)`; a nil reply reads `(nil)`.
+
+A refused command says so in the words of the reason: *The console does not run <command> —
+it would never return on a shared connection, lock the server, or change what that
+connection is for everybody using it.*
+
+*Clear the transcript and forget the history* empties both.
+
+[NOTE]
+====
+The status beside the input reads *Connected*, *Connecting* or *Disconnected*. If the
+session ends, the page says *The session has ended* and asks you to reload — a console is
+one session, not a reconnecting one.
+====

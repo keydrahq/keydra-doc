@@ -1,0 +1,14 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="alerts"]
+= Uyarılar
+:description: Kural, tek bir hedefin tek bir ölçümünü izler ve eşiği aştığında haber verir. Eşik sabit bir sayı olabileceği gibi geçen hafta aynı saatin değeri de olabilir.
+:page-keywords: uyarılar, kurallar, eşikler, taban çizgisi, webhook, slack, telegram, whatsapp, e-posta
+:context: alerts
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_alerts.adoc[leveloffset=+1]
+
+include::../modules/proc_writing-an-alert-rule.adoc[leveloffset=+1]
+
+include::../modules/proc_sending-alerts-somewhere.adoc[leveloffset=+1]

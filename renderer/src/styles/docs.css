@@ -1,0 +1,1146 @@
+/*
+ * Documentation-specific styling.
+ *
+ * <p>PatternFly does the design system; this file does the four things a documentation
+ * site needs that a console does not — a readable measure for prose, the layout that puts
+ * navigation, article and contents side by side, the presentation of Asciidoctor's output,
+ * and print. Every value that PatternFly has a token for uses the token: a hard-coded
+ * colour here is a colour that is wrong in one of the four themes.
+ */
+
+/* --------------------------------------------------------------------------------------
+ * Layout
+ * ----------------------------------------------------------------------------------- */
+
+:root {
+  /* A measure, not a width. Roughly 78 characters at the body size, which is the band
+     typographic convention puts comfortable reading in. */
+  --kd-measure: 46rem;
+  --kd-sidebar-width: 17.5rem;
+  --kd-toc-width: 15rem;
+  --kd-masthead-height: 4.25rem;
+  --kd-gutter: var(--pf-t--global--spacer--lg);
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchored headings must clear the sticky masthead. */
+  scroll-padding-top: calc(var(--kd-masthead-height) + var(--pf-t--global--spacer--md));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.kd-body {
+  background-color: var(--pf-t--global--background--color--primary--default);
+  color: var(--pf-t--global--text--color--regular);
+  font-family: var(--pf-t--global--font--family--body);
+}
+
+.kd-page {
+  min-height: 100vh;
+  grid-template-columns: auto 1fr;
+}
+
+/* --------------------------------------------------------------------------------------
+ * Masthead
+ * ----------------------------------------------------------------------------------- */
+
+.kd-masthead {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  border-block-end: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+  background-color: var(--pf-t--global--background--color--secondary--default);
+  min-height: var(--kd-masthead-height);
+  gap: var(--pf-t--global--spacer--md);
+}
+
+.kd-brand {
+  display: inline-flex;
+  /* Centre, not baseline: an SVG has no text baseline, so `baseline` aligns its bottom
+     edge and the mark ends up sitting above the word beside it. */
+  align-items: center;
+  gap: var(--pf-t--global--spacer--sm);
+  color: var(--pf-t--global--text--color--regular);
+  text-decoration: none;
+}
+
+.kd-brand:hover .kd-brand__docs {
+  text-decoration: underline;
+}
+
+.kd-wordmark {
+  display: block;
+  height: 1.6rem;
+  width: auto;
+  color: var(--pf-t--global--text--color--regular);
+}
+
+.kd-brand__docs {
+  color: var(--pf-t--global--text--color--subtle);
+  font-size: var(--pf-t--global--font--size--body--default);
+  font-family: var(--pf-t--global--font--family--heading);
+  white-space: nowrap;
+  /* Optically centred against the wordmark's own cap height rather than its box. */
+  line-height: 1;
+  padding-block-start: 1px;
+}
+
+.kd-masthead__toolbar {
+  --pf-v6-c-toolbar--PaddingBlockStart: 0;
+  --pf-v6-c-toolbar--PaddingBlockEnd: 0;
+  background: transparent;
+  inline-size: 100%;
+}
+
+.kd-masthead__toolbar .pf-v6-c-toolbar__content,
+.kd-masthead__toolbar .pf-v6-c-toolbar__content-section {
+  padding: 0;
+  gap: var(--pf-t--global--spacer--sm);
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+}
+
+.kd-searchbutton {
+  --pf-v6-c-button--PaddingInlineEnd: var(--pf-t--global--spacer--sm);
+  min-inline-size: 14rem;
+  justify-content: flex-start;
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+.kd-searchbutton .pf-v6-c-button__text {
+  flex: 1;
+  text-align: start;
+}
+
+.kd-kbd {
+  border: var(--pf-t--global--border--width--regular) solid var(--pf-t--global--border--color--default);
+  border-radius: var(--pf-t--global--border--radius--small);
+  padding-inline: var(--pf-t--global--spacer--xs);
+  font-family: var(--pf-t--global--font--family--mono);
+  font-size: var(--pf-t--global--font--size--xs);
+  line-height: 1.4;
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+@media (max-width: 62rem) {
+  .kd-searchbutton {
+    min-inline-size: auto;
+  }
+  .kd-searchbutton .pf-v6-c-button__text,
+  .kd-kbd {
+    display: none;
+  }
+}
+
+/* Masthead menus. PatternFly's Menu is positioned by its React popper; a static page
+   places it itself, which is three properties rather than a positioning engine. */
+.kd-menu {
+  position: relative;
+}
+
+.kd-menu__toggle {
+  white-space: nowrap;
+}
+
+.kd-menu__list {
+  position: absolute;
+  inset-block-start: calc(100% + var(--pf-t--global--spacer--xs));
+  inset-inline-end: 0;
+  z-index: 400;
+  min-inline-size: 12rem;
+  box-shadow: var(--pf-t--global--box-shadow--md--bottom);
+}
+
+.kd-menu__list[hidden] {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------------------
+ * Sidebar
+ * ----------------------------------------------------------------------------------- */
+
+.kd-sidebar {
+  inline-size: var(--kd-sidebar-width);
+  border-inline-end: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+  background-color: var(--pf-t--global--background--color--primary--default);
+  position: sticky;
+  top: var(--kd-masthead-height);
+  align-self: start;
+  block-size: calc(100vh - var(--kd-masthead-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.kd-sidebar .pf-v6-c-page__sidebar-body {
+  padding-block: var(--pf-t--global--spacer--md);
+}
+
+.kd-nav .pf-v6-c-nav__link {
+  font-size: var(--pf-t--global--font--size--body--sm);
+}
+
+.kd-nav .pf-v6-c-nav__subnav .pf-v6-c-nav__link {
+  padding-inline-start: var(--pf-t--global--spacer--xl);
+}
+
+@media (max-width: 75rem) {
+  .kd-sidebar {
+    position: fixed;
+    inset-block-start: var(--kd-masthead-height);
+    inset-inline-start: 0;
+    z-index: 250;
+    transform: translateX(-100%);
+    transition: transform 150ms ease;
+    box-shadow: var(--pf-t--global--box-shadow--md--right);
+  }
+  .kd-sidebar-open .kd-sidebar {
+    transform: translateX(0);
+  }
+  .kd-page {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kd-sidebar {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------------------
+ * Main and the article grid
+ * ----------------------------------------------------------------------------------- */
+
+.kd-main {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.kd-main__body {
+  flex: 1;
+  padding: var(--kd-gutter);
+  padding-block-start: var(--pf-t--global--spacer--lg);
+}
+
+.kd-article-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--kd-toc-width);
+  gap: var(--pf-t--global--spacer--2xl);
+  align-items: start;
+  max-inline-size: calc(var(--kd-measure) + var(--kd-toc-width) + 4rem);
+  margin-inline: auto;
+}
+
+@media (max-width: 68rem) {
+  .kd-article-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.kd-article {
+  min-inline-size: 0;
+  max-inline-size: var(--kd-measure);
+}
+
+.kd-article__title {
+  font-family: var(--pf-t--global--font--family--heading);
+  font-size: var(--pf-t--global--font--size--heading--h1);
+  font-weight: var(--pf-t--global--font--weight--heading--bold);
+  line-height: var(--pf-t--global--font--line-height--heading);
+  margin-block: var(--pf-t--global--spacer--md) var(--pf-t--global--spacer--sm);
+}
+
+.kd-article__abstract {
+  font-size: var(--pf-t--global--font--size--body--lg);
+  color: var(--pf-t--global--text--color--subtle);
+  line-height: var(--pf-t--global--font--line-height--body);
+  margin-block-end: var(--pf-t--global--spacer--xl);
+}
+
+.kd-breadcrumb {
+  margin-block-end: var(--pf-t--global--spacer--sm);
+}
+
+.kd-version-notice {
+  margin-block-end: var(--pf-t--global--spacer--lg);
+}
+
+/* --------------------------------------------------------------------------------------
+ * Prose — Asciidoctor's output
+ * ----------------------------------------------------------------------------------- */
+
+.kd-prose {
+  line-height: var(--pf-t--global--font--line-height--body);
+  font-size: var(--pf-t--global--font--size--body--default);
+}
+
+.kd-prose p {
+  margin-block: 0 var(--pf-t--global--spacer--md);
+}
+
+.kd-heading {
+  font-family: var(--pf-t--global--font--family--heading);
+  font-weight: var(--pf-t--global--font--weight--heading--bold);
+  line-height: var(--pf-t--global--font--line-height--heading);
+  margin-block: var(--pf-t--global--spacer--2xl) var(--pf-t--global--spacer--sm);
+  scroll-margin-block-start: calc(var(--kd-masthead-height) + 1rem);
+  display: flex;
+  align-items: baseline;
+  gap: var(--pf-t--global--spacer--sm);
+}
+
+.kd-heading--1 {
+  font-size: var(--pf-t--global--font--size--heading--h2);
+  padding-block-end: var(--pf-t--global--spacer--xs);
+  border-block-end: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+}
+
+.kd-heading--2 {
+  font-size: var(--pf-t--global--font--size--heading--h3);
+}
+
+.kd-heading--3,
+.kd-heading--4 {
+  font-size: var(--pf-t--global--font--size--heading--h4);
+}
+
+.kd-heading__anchor {
+  opacity: 0;
+  text-decoration: none;
+  color: var(--pf-t--global--text--color--link--default);
+  font-weight: var(--pf-t--global--font--weight--body--regular);
+  transition: opacity 100ms ease;
+}
+
+.kd-heading:hover .kd-heading__anchor,
+.kd-heading__anchor:focus-visible {
+  opacity: 1;
+}
+
+.kd-prose a {
+  color: var(--pf-t--global--text--color--link--default);
+  text-underline-offset: 0.15em;
+}
+
+.kd-prose a:hover {
+  color: var(--pf-t--global--text--color--link--hover);
+}
+
+.kd-prose ul,
+.kd-prose ol {
+  margin-block: 0 var(--pf-t--global--spacer--md);
+  padding-inline-start: var(--pf-t--global--spacer--xl);
+}
+
+/* PatternFly's reset removes list markers, which is right for a menu and wrong for prose:
+   a list of prerequisites without bullets reads as an indented paragraph. Restored here
+   only inside an article, so nothing PatternFly draws is affected. */
+.kd-prose ul {
+  list-style: disc outside;
+}
+
+.kd-prose ul ul {
+  list-style: circle outside;
+}
+
+.kd-prose ol {
+  list-style: decimal outside;
+}
+
+.kd-prose ol ol {
+  list-style: lower-alpha outside;
+}
+
+/* Asciidoctor wraps a checklist's items in a list that must not carry markers. */
+.kd-prose .checklist,
+.kd-prose .checklist ul {
+  list-style: none;
+  padding-inline-start: var(--pf-t--global--spacer--md);
+}
+
+.kd-prose li {
+  margin-block-end: var(--pf-t--global--spacer--xs);
+}
+
+.kd-prose li > p:last-child {
+  margin-block-end: 0;
+}
+
+.kd-prose .olist ol > li::marker,
+.kd-prose ol > li::marker {
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+/* Asciidoctor labels a block that carries a title with a .title div. */
+.kd-prose .title {
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+  margin-block: var(--pf-t--global--spacer--lg) var(--pf-t--global--spacer--sm);
+}
+
+.kd-prose code {
+  font-family: var(--pf-t--global--font--family--mono);
+  font-size: 0.9em;
+  background-color: var(--pf-t--global--background--color--secondary--default);
+  border: var(--pf-t--global--border--width--regular) solid var(--pf-t--global--border--color--default);
+  border-radius: var(--pf-t--global--border--radius--small);
+  padding-inline: 0.3em;
+  padding-block: 0.1em;
+  overflow-wrap: anywhere;
+}
+
+.kd-prose kbd {
+  font-family: var(--pf-t--global--font--family--mono);
+  font-size: 0.85em;
+  border: var(--pf-t--global--border--width--regular) solid var(--pf-t--global--border--color--default);
+  border-block-end-width: 2px;
+  border-radius: var(--pf-t--global--border--radius--small);
+  padding-inline: 0.35em;
+}
+
+.kd-prose blockquote {
+  margin-inline: 0;
+  padding-inline-start: var(--pf-t--global--spacer--lg);
+  border-inline-start: 3px solid var(--pf-t--global--border--color--default);
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+.kd-prose dl {
+  margin-block-end: var(--pf-t--global--spacer--md);
+}
+
+.kd-prose dt {
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+  margin-block-start: var(--pf-t--global--spacer--sm);
+}
+
+.kd-prose dd {
+  margin-inline-start: var(--pf-t--global--spacer--lg);
+}
+
+.kd-prose img {
+  max-inline-size: 100%;
+  height: auto;
+}
+
+/* A screenshot is evidence, so it is framed rather than floated in the prose: a border
+ * says where the interface stops and the page begins, and the caption below it says what
+ * the reader is looking at. Both themes get a border of their own — a light screenshot on
+ * a dark page needs the edge more, not less. */
+.kd-prose .imageblock {
+  margin-block: var(--pf-t--global--spacer--lg);
+}
+
+.kd-prose .imageblock .content {
+  overflow-x: auto;
+}
+
+.kd-prose .imageblock img {
+  display: block;
+  border: var(--pf-t--global--border--width--regular) solid
+    var(--pf-t--global--border--color--default);
+  border-radius: var(--pf-t--global--border--radius--small);
+  background: var(--pf-t--global--background--color--secondary--default);
+}
+
+/* The picture is a link to itself at full size, so the pointer says so and a keyboard
+ * reaches it with the same outline every other link here gets. */
+.kd-prose .kd-figure__link {
+  display: block;
+  cursor: zoom-in;
+}
+
+.kd-prose .kd-figure__link:focus-visible {
+  outline: var(--pf-t--global--border--width--strong) solid
+    var(--pf-t--global--color--brand--default);
+  outline-offset: 2px;
+}
+
+.kd-prose .kd-figure__link:hover img {
+  border-color: var(--pf-t--global--color--brand--default);
+}
+
+.kd-prose .imageblock > .title {
+  color: var(--pf-t--global--text--color--subtle);
+  font-size: var(--pf-t--global--font--size--body--sm);
+  margin-block-start: var(--pf-t--global--spacer--sm);
+}
+
+/* A screenshot inside an admonition or a step is already framed by that block. */
+.kd-admonition .kd-prose .imageblock img {
+  border-color: var(--pf-t--global--border--color--nonstatus--gray--default);
+}
+
+.kd-prose hr {
+  border: 0;
+  border-block-start: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+  margin-block: var(--pf-t--global--spacer--xl);
+}
+
+.kd-external::after {
+  content: '';
+}
+
+/* --------------------------------------------------------------------------------------
+ * Admonitions and tables
+ * ----------------------------------------------------------------------------------- */
+
+.kd-admonition {
+  margin-block: var(--pf-t--global--spacer--lg);
+}
+
+.kd-admonition .pf-v6-c-alert__description > p:last-child {
+  margin-block-end: 0;
+}
+
+.kd-scroll {
+  overflow-x: auto;
+  margin-block: var(--pf-t--global--spacer--lg);
+  max-inline-size: 100%;
+}
+
+.kd-scroll:focus-visible {
+  outline: var(--pf-t--global--border--width--strong) solid var(--pf-t--global--color--brand--default);
+  outline-offset: 2px;
+}
+
+.kd-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--pf-t--global--font--size--body--sm);
+}
+
+.kd-table th,
+.kd-table td {
+  text-align: start;
+  vertical-align: top;
+  padding: var(--pf-t--global--spacer--sm) var(--pf-t--global--spacer--md);
+  border-block-end: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+}
+
+.kd-table thead th {
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+  color: var(--pf-t--global--text--color--regular);
+  white-space: nowrap;
+  border-block-end-width: var(--pf-t--global--border--width--strong);
+}
+
+.kd-table code {
+  white-space: nowrap;
+}
+
+.kd-table p {
+  margin-block-end: 0;
+}
+
+/* --------------------------------------------------------------------------------------
+ * Code blocks
+ * ----------------------------------------------------------------------------------- */
+
+.kd-code {
+  margin-block: var(--pf-t--global--spacer--lg);
+  border: var(--pf-t--global--border--width--regular) solid var(--pf-t--global--border--color--default);
+  border-radius: var(--pf-t--global--border--radius--medium);
+  overflow: hidden;
+  background-color: var(--pf-t--global--background--color--secondary--default);
+}
+
+.kd-code__title {
+  padding: var(--pf-t--global--spacer--sm) var(--pf-t--global--spacer--md);
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+  font-size: var(--pf-t--global--font--size--body--sm);
+  border-block-end: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+}
+
+.kd-code__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pf-t--global--spacer--sm);
+  padding-inline: var(--pf-t--global--spacer--md);
+  padding-block: var(--pf-t--global--spacer--xs);
+  border-block-end: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+}
+
+.kd-code__lang {
+  font-family: var(--pf-t--global--font--family--mono);
+  font-size: var(--pf-t--global--font--size--xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+.kd-code__pre {
+  margin: 0;
+  padding: var(--pf-t--global--spacer--md);
+  overflow-x: auto;
+  font-family: var(--pf-t--global--font--family--mono);
+  font-size: var(--pf-t--global--font--size--body--sm);
+  line-height: 1.6;
+  background-color: var(--pf-t--global--background--color--primary--default);
+  tab-size: 2;
+}
+
+.kd-code__pre:focus-visible {
+  outline: var(--pf-t--global--border--width--strong) solid var(--pf-t--global--color--brand--default);
+  outline-offset: -2px;
+}
+
+.kd-code__pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+  white-space: pre;
+}
+
+/* Shiki writes both themes into the markup; the dark values switch on the theme rather
+   than on the media query alone, so the toggle wins in both directions. */
+.pf-v6-theme-dark .shiki,
+.pf-v6-theme-dark .shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+/* --------------------------------------------------------------------------------------
+ * On this page
+ * ----------------------------------------------------------------------------------- */
+
+.kd-toc {
+  position: sticky;
+  top: calc(var(--kd-masthead-height) + var(--pf-t--global--spacer--lg));
+  max-block-size: calc(100vh - var(--kd-masthead-height) - 4rem);
+  overflow-y: auto;
+  font-size: var(--pf-t--global--font--size--body--sm);
+}
+
+.kd-toc__summary {
+  cursor: pointer;
+  list-style: none;
+  padding-block: var(--pf-t--global--spacer--sm);
+}
+
+.kd-toc__summary::-webkit-details-marker {
+  display: none;
+}
+
+.kd-toc__title {
+  font-family: var(--pf-t--global--font--family--heading);
+  font-weight: var(--pf-t--global--font--weight--heading--bold);
+  font-size: var(--pf-t--global--font--size--body--sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+.kd-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-inline-start: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+}
+
+.kd-toc__link {
+  display: block;
+  padding-block: var(--pf-t--global--spacer--xs);
+  padding-inline-start: var(--pf-t--global--spacer--md);
+  margin-inline-start: -1px;
+  border-inline-start: var(--pf-t--global--border--width--strong) solid transparent;
+  color: var(--pf-t--global--text--color--subtle);
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.kd-toc__item--2 .kd-toc__link {
+  padding-inline-start: var(--pf-t--global--spacer--xl);
+  font-size: var(--pf-t--global--font--size--xs);
+}
+
+.kd-toc__link:hover {
+  color: var(--pf-t--global--text--color--regular);
+}
+
+.kd-toc__link--current {
+  color: var(--pf-t--global--text--color--link--default);
+  border-inline-start-color: var(--pf-t--global--color--brand--default);
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+}
+
+@media (max-width: 68rem) {
+  .kd-toc {
+    position: static;
+    max-block-size: none;
+    margin-block-end: var(--pf-t--global--spacer--xl);
+    border: var(--pf-t--global--border--width--regular) solid var(--pf-t--global--border--color--default);
+    border-radius: var(--pf-t--global--border--radius--medium);
+    padding-inline: var(--pf-t--global--spacer--md);
+    order: -1;
+  }
+  .kd-article-grid {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* --------------------------------------------------------------------------------------
+ * Pager, edit link, footer
+ * ----------------------------------------------------------------------------------- */
+
+.kd-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pf-t--global--spacer--md);
+  margin-block-start: var(--pf-t--global--spacer--3xl);
+  padding-block-start: var(--pf-t--global--spacer--lg);
+  border-block-start: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+}
+
+.kd-pager__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pf-t--global--spacer--xs);
+  padding: var(--pf-t--global--spacer--md);
+  border: var(--pf-t--global--border--width--regular) solid var(--pf-t--global--border--color--default);
+  border-radius: var(--pf-t--global--border--radius--medium);
+  text-decoration: none;
+  color: var(--pf-t--global--text--color--regular);
+}
+
+.kd-pager__link:hover {
+  border-color: var(--pf-t--global--border--color--hover);
+  background-color: var(--pf-t--global--background--color--secondary--default);
+}
+
+.kd-pager__link--next {
+  text-align: end;
+  align-items: flex-end;
+}
+
+.kd-pager__direction {
+  font-size: var(--pf-t--global--font--size--xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+.kd-pager__title {
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+  color: var(--pf-t--global--text--color--link--default);
+}
+
+@media (max-width: 40rem) {
+  .kd-pager {
+    grid-template-columns: 1fr;
+  }
+  .kd-pager__link--next {
+    text-align: start;
+    align-items: flex-start;
+  }
+}
+
+.kd-article__edit {
+  margin-block-start: var(--pf-t--global--spacer--lg);
+  font-size: var(--pf-t--global--font--size--body--sm);
+}
+
+.kd-footer {
+  border-block-start: var(--pf-t--global--border--width--divider--default) solid
+    var(--pf-t--global--border--color--default);
+  padding: var(--pf-t--global--spacer--lg) var(--kd-gutter);
+  color: var(--pf-t--global--text--color--subtle);
+  font-size: var(--pf-t--global--font--size--body--sm);
+}
+
+.kd-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pf-t--global--spacer--md);
+  align-items: baseline;
+  justify-content: space-between;
+  margin-inline: auto;
+}
+
+.kd-footer p {
+  margin: 0;
+}
+
+.kd-footer__product {
+  font-family: var(--pf-t--global--font--family--heading);
+  font-weight: var(--pf-t--global--font--weight--heading--bold);
+  color: var(--pf-t--global--text--color--regular);
+}
+
+/* --------------------------------------------------------------------------------------
+ * Landing
+ * ----------------------------------------------------------------------------------- */
+
+.kd-landing {
+  max-inline-size: 62rem;
+  margin-inline: auto;
+  padding-block-start: var(--pf-t--global--spacer--xl);
+}
+
+.kd-landing__title {
+  font-family: var(--pf-t--global--font--family--heading);
+  font-size: var(--pf-t--global--font--size--heading--h1);
+  font-weight: var(--pf-t--global--font--weight--heading--bold);
+  margin-block-end: var(--pf-t--global--spacer--sm);
+}
+
+.kd-landing__abstract {
+  font-size: var(--pf-t--global--font--size--body--lg);
+  color: var(--pf-t--global--text--color--subtle);
+  max-inline-size: var(--kd-measure);
+  margin-block-end: var(--pf-t--global--spacer--xl);
+}
+
+.kd-landing__intro {
+  max-inline-size: var(--kd-measure);
+  margin-block-end: var(--pf-t--global--spacer--2xl);
+}
+
+.kd-landing__sectionsTitle {
+  font-family: var(--pf-t--global--font--family--heading);
+  font-size: var(--pf-t--global--font--size--heading--h3);
+  font-weight: var(--pf-t--global--font--weight--heading--bold);
+  margin-block-end: var(--pf-t--global--spacer--md);
+}
+
+.kd-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: var(--pf-t--global--spacer--md);
+}
+
+.kd-card {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.kd-card__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pf-t--global--spacer--sm);
+  font-family: var(--pf-t--global--font--family--heading);
+}
+
+.kd-card__arrow {
+  color: var(--pf-t--global--text--color--link--default);
+  flex: none;
+}
+
+.kd-card__body {
+  color: var(--pf-t--global--text--color--subtle);
+  font-size: var(--pf-t--global--font--size--body--sm);
+  flex: 1;
+}
+
+.kd-card__footer {
+  font-size: var(--pf-t--global--font--size--xs);
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+/* --------------------------------------------------------------------------------------
+ * Search
+ * ----------------------------------------------------------------------------------- */
+
+.kd-search[hidden] {
+  display: none;
+}
+
+.kd-search {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  place-items: start center;
+  padding-block-start: 10vh;
+  padding-inline: var(--pf-t--global--spacer--md);
+}
+
+.kd-search__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--pf-t--global--background--color--backdrop--default, rgb(0 0 0 / 45%));
+}
+
+.kd-search__box {
+  position: relative;
+  inline-size: min(42rem, 100%);
+  max-block-size: 75vh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--pf-t--global--spacer--md);
+  gap: var(--pf-t--global--spacer--sm);
+}
+
+.kd-search__header {
+  display: flex;
+  align-items: center;
+  gap: var(--pf-t--global--spacer--sm);
+}
+
+.kd-search__input {
+  flex: 1;
+}
+
+.kd-search__hint,
+.kd-search__status {
+  margin: 0;
+  font-size: var(--pf-t--global--font--size--xs);
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+.kd-search__results {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pf-t--global--spacer--xs);
+}
+
+.kd-search__result {
+  display: block;
+  padding: var(--pf-t--global--spacer--sm) var(--pf-t--global--spacer--md);
+  border-radius: var(--pf-t--global--border--radius--small);
+  text-decoration: none;
+  color: var(--pf-t--global--text--color--regular);
+}
+
+.kd-search__result:hover,
+.kd-search__result:focus-visible {
+  background-color: var(--pf-t--global--background--color--secondary--default);
+}
+
+.kd-search__result-section {
+  display: block;
+  font-size: var(--pf-t--global--font--size--xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+.kd-search__result-title {
+  display: block;
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+  color: var(--pf-t--global--text--color--link--default);
+}
+
+.kd-search__result-excerpt {
+  display: block;
+  font-size: var(--pf-t--global--font--size--body--sm);
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+.kd-search-open {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------------------
+ * 404, skip link, noscript
+ * ----------------------------------------------------------------------------------- */
+
+.kd-notfound {
+  padding-block: var(--pf-t--global--spacer--3xl);
+}
+
+.kd-notfound__actions {
+  display: flex;
+  gap: var(--pf-t--global--spacer--md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.kd-skip:focus-within {
+  position: fixed;
+  inset-block-start: var(--pf-t--global--spacer--sm);
+  inset-inline-start: var(--pf-t--global--spacer--sm);
+  z-index: 600;
+}
+
+.kd-noscript {
+  padding: var(--pf-t--global--spacer--md);
+  text-align: center;
+  color: var(--pf-t--global--text--color--subtle);
+  font-size: var(--pf-t--global--font--size--body--sm);
+}
+
+/* --------------------------------------------------------------------------------------
+ * Print
+ * ----------------------------------------------------------------------------------- */
+
+@media print {
+  .kd-masthead,
+  .kd-sidebar,
+  .kd-toc,
+  .kd-pager,
+  .kd-search,
+  .kd-skip,
+  .kd-article__edit,
+  .kd-code__bar,
+  .kd-noscript,
+  .kd-version-notice {
+    display: none !important;
+  }
+
+  .kd-page {
+    display: block;
+  }
+
+  .kd-article,
+  .kd-article-grid,
+  .kd-landing {
+    max-inline-size: none;
+    display: block;
+  }
+
+  .kd-code,
+  .kd-scroll,
+  .kd-admonition {
+    break-inside: avoid;
+  }
+
+  .kd-heading,
+  .kd-article__title {
+    break-after: avoid;
+  }
+
+  .kd-prose a::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
+  }
+
+  .kd-prose a[href^='#']::after {
+    content: '';
+  }
+}
+
+/* Asciidoctor writes a table's title as a caption; it belongs above the table and reads
+   as a label rather than as a heading. */
+.kd-table > caption.title {
+  caption-side: top;
+  text-align: start;
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+  font-size: var(--pf-t--global--font--size--body--sm);
+  padding-block-end: var(--pf-t--global--spacer--sm);
+  color: var(--pf-t--global--text--color--regular);
+}
+
+/* A note appended to a generated table cell — a profile, or that a value is a secret. */
+.kd-note {
+  display: inline-block;
+  font-size: var(--pf-t--global--font--size--xs);
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+/* A generated reference table has a description column that carries most of the text, and
+   Asciidoctor writes the proportions into a <colgroup>. `table-layout: fixed` is what makes
+   the browser honour them; without it the description is squeezed into a ribbon and the
+   rows grow to the height of the page. `min-inline-size` then keeps the table readable on
+   a narrow screen by letting `.kd-scroll` scroll rather than by crushing the columns. */
+.kd-table {
+  table-layout: fixed;
+  min-inline-size: 44rem;
+}
+
+.kd-table td,
+.kd-table th {
+  overflow-wrap: anywhere;
+}
+
+/* A code span inside a table wraps rather than forcing the column wider. */
+.kd-table code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------------------
+ * Masthead on a narrow screen
+ *
+ * The masthead holds a brand, a search button and three menus, and at 375 px they do not
+ * fit. Left alone they overlap — the language menu ends up on top of the navigation
+ * toggle, which is the one control a phone cannot do without. So the row is allowed to
+ * shrink, and the controls give up their text before they give up their place.
+ * ----------------------------------------------------------------------------------- */
+
+.kd-masthead__main {
+  min-inline-size: 0;
+  flex-shrink: 1;
+  /* Explicit, because PatternFly's own narrow-screen rules put the brand ahead of the
+     toggle, and the toggle is the first thing a thumb reaches for. */
+  display: flex;
+  align-items: center;
+  gap: var(--pf-t--global--spacer--sm);
+}
+
+.kd-masthead .pf-v6-c-masthead__toggle {
+  order: -1;
+  flex: none;
+}
+
+.kd-masthead__content {
+  min-inline-size: 0;
+  flex: 1 1 auto;
+}
+
+@media (max-width: 48rem) {
+  /* PatternFly's masthead is a grid that stacks its brand above its content on a narrow
+     screen. That is right for an application whose masthead carries a lot; here it puts
+     the navigation toggle on the second row, under the wordmark, which is not where a
+     thumb goes looking for it. One row, and the controls shrink instead. */
+  .kd-masthead {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--pf-t--global--spacer--xs);
+    padding-inline: var(--pf-t--global--spacer--sm);
+  }
+
+  /* The wordmark carries the product name; the second word is a page heading's job. */
+  .kd-brand__docs {
+    display: none;
+  }
+
+  /* Each menu keeps its icon and its own current value, and loses nothing else. */
+  .kd-menu__toggle {
+    --pf-v6-c-menu-toggle--PaddingInlineStart: var(--pf-t--global--spacer--xs);
+    --pf-v6-c-menu-toggle--PaddingInlineEnd: var(--pf-t--global--spacer--xs);
+  }
+
+  /* "Appearance" is a label for a menu whose items say what they do, and the repository
+     link is in the footer of every page. Both stand down so the rest fits. */
+  .kd-masthead [data-kd-menu='kd-theme'],
+  .kd-masthead__toolbar .pf-v6-c-toolbar__item:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 30rem) {
+  /* The version is on the page and in the footer; at this width the language switch is
+     the control somebody actually reaches for. */
+  .kd-masthead [data-kd-menu='kd-version'] .pf-v6-c-menu-toggle__text {
+    display: none;
+  }
+}

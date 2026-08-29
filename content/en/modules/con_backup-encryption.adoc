@@ -1,0 +1,68 @@
+[id="backup-encryption_{context}"]
+= Encrypting a backup
+
+A backup is every key and every value. Without encryption it lands as a plain compressed
+file wherever it goes, and "the bucket is private" is a sentence about access control rather
+than about what is in the file.
+
+*How backups are sealed* offers three answers.
+
+Not encrypted:: The default. The interface says plainly what that means.
+
+With a passphrase:: AES-256-GCM in authenticated frames, with the key derived from the
+passphrase by Argon2id and a salt stored in the file's own header. The passphrase is stored
+the way every other secret is — encrypted, never returned.
++
+[WARNING]
+====
+Write the passphrase down somewhere else. Backups written with it cannot be read without
+it, by anyone, {product-name} included. That is what it is for, and it is also how a backup
+is lost.
+====
+
+To keys:: A list of recipient public keys. {product-name} holds only the halves that encrypt,
+so it can write a backup every night and cannot read one back — and neither can whoever takes
+the server, because the halves that decrypt were never there. Restoring asks for one of the
+private halves, uses it for that one restore, and keeps nothing.
++
+{product-name} can generate a pair. The private half is shown **once** and is written
+nowhere: not to the database, not to a log, not to the response of any other request.
+
+A destination carries a passphrase or a list of keys, never both: a place has one way in, and
+two would be a question about which one a given file used.
+
+== More than one person can open it
+
+A list rather than one key, because one recipient means the person holding that private half
+is the only person in the world who can read a year of backups. They leave, they lose the
+password manager, they are on a plane on the morning the cache is empty — and "encrypted at
+rest" becomes "gone", which is the failure the encryption exists to prevent, arrived at from
+the other side.
+
+Sharing the private half is worse than the problem: a secret two people hold is a secret with
+no owner, and it cannot be taken back from one of them.
+
+Each key on the list has a name — *Ada's key*, *the safe*, *offsite* — because removing one
+means knowing which one, and the rest is forty characters of base64.
+
+[IMPORTANT]
+====
+Adding a key does not make yesterday's backups readable by it. A file carries the keys it was
+written to, and nothing rewrites a file that has already been sent. A key added today opens
+the backups taken after today.
+
+Removing the last key is the same misunderstanding from the other side: it makes nothing
+unreadable, it stops the *next* backup being sealed at all.
+====
+
+== The format is written down
+
+An encrypted backup only {product-name} can read is not a backup, it is a hostage.
+`scripts/keydra-decrypt.py` ships in the repository, takes the file and the secret — a
+passphrase or a private key — and prints the keys, importing nothing from the application.
+
+Encryption is framed rather than one stream, deliberately. A single GCM stream cannot be
+both memory-bounded and safely readable: Java's `CipherInputStream` reports a failed tag as
+end-of-input, which is a truncated restore that looks like a complete one. Each frame
+authenticates its own contents and its position, and the file ends with a marker, so a
+truncated or rearranged backup is refused rather than half-restored.

@@ -1,0 +1,26 @@
+[id="nobody-can-sign-in_{context}"]
+= Kimse giriş yapamıyor
+
+.Prosedür
+
+Doğru olduğunu bildiğiniz parola reddediliyorsa::
+Mesajın *Kullanıcı adı veya parola yanlış.* mı yoksa *Çok fazla giriş denemesi yapıldı* mı
+olduğuna bakın. İkincisi sınırlamadır; birkaç dakika bekleyin. Bkz.
+xref:accounts.adoc#sign-in-protection_accounts[Giriş koruması].
+
+Sağlayıcı düğmesi sizi sağlayıcıya götürüyor ama sağlayıcı reddediyorsa::
+Sorun neredeyse her zaman yönlendirme adresidir. Adresi *Erişim* → *Giriş* bölümündeki sağlayıcı
+formundan, sağlayıcı anahtarı da dahil birebir kopyalayıp sağlayıcıya kaydedin.
+
+Sağlayıcı kabul ediyor ama {product-name} boş sayfa gösteriyorsa::
+Hesap oluşmuş ama hiçbir yetkisi yoktur. *Hesap, birinin giriş yapmasını ve hiçbir şey
+görmemesini sağlar.* Bir rol verin — bkz.
+xref:access-control.adoc#granting-access_access-control[Erişim verme].
+
+Yönlendirme yanlış adrese dönüyorsa::
+`KEYDRA_PUBLIC_URL` değerini ayarlayın. Önde bir ters vekil sunucu varsa `KEYDRA_BEHIND_PROXY`
+ve `KEYDRA_TRUSTED_PROXIES` değerlerini de girin.
+
+Bütün sayfalarda *Güvenlik kapalı* yazıyorsa::
+`KEYDRA_SECURITY_ENABLED` değeri `false` demektir. Kuruluma erişebilen herkes her şeyi yapabilir.
+Bkz. xref:installation.adoc#configuring-authentication-before-exposing-keydra_installation[Keydra'yı dışarı açmadan önce kimlik doğrulamayı yapılandırma].

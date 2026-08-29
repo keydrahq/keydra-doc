@@ -1,0 +1,42 @@
+[id="connection-profiles_{context}"]
+= What a connection profile is
+
+A connection profile is {product-name}'s description of one target: where it is, how to
+authenticate to it, and how to reach it. It is not a live connection — {product-name} opens
+one lazily, keeps it while it is useful, and closes it when the profile changes, because an
+edited profile may now point somewhere else.
+
+image::connections.jpg["The Connections page, with one card per target showing its status, flavour and endpoint"]
+
+A profile carries:
+
+Name:: What the target is called in {product-name}. It is unique, and it is what the audit
+log, the schedules and the alerts refer to.
+
+Host and Port:: Where the server answers.
+
+Type:: `Standalone`, `Cluster` or `Sentinel`. A Sentinel profile also carries the
+*Sentinel master name*, and {product-name} asks Sentinel where that master currently is
+rather than being told an address that changes on failover.
+
+Username and Password:: Optional. Stored encrypted and never returned by the API: an edit
+form arrives with the password field empty and the help text *A password is stored. Leave
+empty to keep it, or type a new one to replace it.*
+
+Use TLS:: Whether to speak TLS to the target. The client trusts the system store. Client
+certificates are not supported.
+
+Database index:: Which database a profile opens by default. The key browser can switch to
+another without editing the profile.
+
+Notes:: Free text, for whoever reads the list next.
+
+SSH tunnel:: Optional. Points at a tunnel described once under *Tunnels* — see
+xref:tunnels.adoc[Reaching targets through a jump host].
+
+== Status, and where it comes from
+
+{product-name} checks each profile it is watching and reports *Up*, *Down*, *Connecting* or
+*Unknown*, along with the server flavor and version it detected. The status is pushed over
+the notification hub rather than polled, so the page changes when the target does rather
+than on a timer.

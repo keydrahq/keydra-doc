@@ -1,0 +1,50 @@
+[id="rotating-the-instance-key_{context}"]
+= Rotating the instance key
+
+`KEYDRA_SECRET_KEY` encrypts every stored credential. A key that cannot be rotated is a key
+nobody rotates, which is the same as not having one after the first person leaves.
+
+An encrypted value names the key that wrote it, so more than one can be readable at once.
+That is what makes a rotation something other than an outage.
+
+.Prerequisites
+
+* You hold `crypto:rotate`. An administrator's alone: a rotation rewrites every credential
+  in the instance.
+
+.Procedure
+
+. Generate a new key:
++
+[source,bash]
+----
+openssl rand -base64 32
+----
+
+. Deploy with the new key writing and the old one still reading:
++
+[source,properties]
+----
+KEYDRA_SECRET_KEY=<the new key>
+KEYDRA_PREVIOUS_SECRET_KEYS=<the old key>
+----
++
+This deployment works before anything is re-encrypted. Existing values keep decrypting with
+the key that wrote them.
+
+. In the interface, run the re-encryption. It moves every encrypted column — target
+  passwords, tunnel credentials, provider client secrets, destination credentials — onto the
+  new key and reports how many it moved.
+
+. Remove `KEYDRA_PREVIOUS_SECRET_KEYS` and deploy again.
+
+.Verification
+
+The instance starts, every target still connects, and every tunnel still opens. That the
+next start needed no previous key is the proof the rotation finished.
+
+[IMPORTANT]
+====
+Do not remove the previous key before the re-encryption has reported that it moved
+everything. A half-finished rotation with the old key gone is a database nothing can read.
+====

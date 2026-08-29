@@ -1,0 +1,44 @@
+[id="identity-providers-concepts_{context}"]
+= Sağlayıcılar ortam değişkeni değil, kayıttır
+
+Kimlik sağlayıcı, {product-name} çalışırken *Erişim* sayfasından tanımlanır ve yeniden dağıtım
+gerektirmeden devreye girer.
+
+Tek bir yetkilendirme kodu akışı iki türü de karşılar:
+
+*OpenID Connect* — Keycloak, Entra, Google, Okta, Auth0. *Issuer* adresini girersiniz;
+{product-name} kaydederken keşif belgesini indirir ve uç noktaların yerlerini not eder.
+
+*OAuth 2* — GitHub, GitLab. Kimlik belirteci bulunmadığı için *Yetkilendirme uç noktası*,
+*Token uç noktası* ve *Kullanıcı uç noktası* elle girilir.
+
+İki tür arasındaki fark, bu adreslerin ne olduğu ve taleplerin nasıl adlandırıldığıdır; ikisi de
+yapılandırma meselesidir.
+
+Keşif, giriş sırasında değil sağlayıcı kaydedilirken yapılır. Böylece yanlış bir yayıncı adresi,
+başında bekleyen ve düzeltebilecek kişi oradayken bildirilir; her girişin sağlayıcının en yavaş
+anına bağlı kalması önlenir.
+
+Bütün akışlarda PKCE ve yalnızca {product-name}'nın okuyabildiği bir durum çerezi kullanılır.
+Geri çağrının, birini sahibi olmadığı bir hesaba sokmasını engelleyen iki önlem bunlardır.
+
+Sağlayıcıyla açılan oturum, parolayla açılan oturumla aynı çerezi kullanır. Sağlayıcı, farklı
+türde bir oturum değil, aynı oturuma ulaşmanın başka bir yoludur.
+
+== Talep eşlemesi
+
+*Hangi claim hangisi* bölümü, kullanıcıyı neyin tanımladığını belirtir. *Subject claim*,
+kullanıcıyı kalıcı olarak tanımlayan taleptir: OpenID Connect'te `sub`, GitHub'da `id`.
+Kullanıcı adı değildir; kullanıcı adları değişir.
+
+*Grup claim'i* isteğe bağlıdır. Tanımlandığında, eşlenmiş gruplardaki üyelik her girişte
+sağlayıcının bildirdiğiyle değiştirilir. Böylece birini dizin grubundan çıkarmak buradaki
+erişimini de kaldırır. Eşlenmemiş gruplara dokunulmaz.
+
+.LDAP desteklenmez
+[NOTE]
+====
+LDAP bu akışa uymayan tek sağlayıcıdır: tarayıcı yönlendirmesi ve yetkilendirme kodu yoktur;
+bir bind, bir arama ve {product-name}'nın kendisinin okuyacağı bir parola vardır. Buradaki
+tasarımın tamamı ise kendisine ait olmayan bir parolayı hiç görmemek üzerine kuruludur.
+====

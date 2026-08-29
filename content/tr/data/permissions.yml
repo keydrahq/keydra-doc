@@ -1,0 +1,62 @@
+connection:view: Hedefin varlığını ve durumunu görmek. Hedefte herhangi bir izin bulunması onu görünür
+  kılar; bu izin de en küçüğüdür.
+connection:edit: Profilin gösterdiği adresi ve kullandığı kimlik bilgilerini — hangi tünelden geçtiği
+  dahil — değiştirmek.
+connection:delete: Profili kaldırmak. Sunucunun kendisinde hiçbir şey değişmez.
+keys:read: Anahtar uzayına göz atmak; anahtar adlarını, türlerini ve son kullanma sürelerini okumak.
+keys:write: Anahtar oluşturmak, yeniden adlandırmak, çoğaltmak ve son kullanma sürelerini değiştirmek.
+keys:delete: Anahtarları tek tek ya da toplu silmek.
+values:read: Anahtarın içeriğini okumak.
+values:write: Anahtarın içeriğini değiştirmek.
+console:run: 'Konsoldan komut çalıştırmak. Operatör iznidir: operatör veriyi değiştirebilir ama sunucunun
+  kendisini değiştiremez. Ret listesinin CONFIG, MODULE ve EVAL komutlarını reddetmesinin nedeni budur.'
+pubsub:subscribe: Hedefteki kanallara ya da desenlere abonelik açmak.
+pubsub:publish: Kanala mesaj yayımlamak.
+commands:watch: 'Sunucunun çalıştırdığı bütün komutları izlemek. En çok bilgi açığa çıkaran izindir: tek
+  tek anahtar okuyabilen birinin, geçen bütün anahtarları okuması beklenmez.'
+monitoring:read: Panoyu, yavaş komut günlüğünü, istemcileri ve en büyük anahtarları görmek.
+monitoring:manage: Örneklemeyi başlatıp durdurmak, yavaş komut günlüğünü temizlemek ve bir istemcinin
+  bağlantısını kesmek.
+analysis:read: Anahtar uzayı analizini çalıştırmak ve okumak.
+server:read: Sunucunun kendi ayarlarını ve kalıcılık durumunu okumak.
+server:configure: Sunucunun ayarlarını değiştirmek, ondan anlık görüntü istemek ve günlüğünü yeniden yazdırmak.
+acl:read: Hedefin kendisinin tanıdığı kullanıcıları görmek.
+acl:manage: Hedefin kendi ACL kullanıcılarını oluşturmak, değiştirmek ve kaldırmak.
+migration:run: Bu hedefe ya da bu hedeften anahtar taşımak. Göç işinin iki ucunda da gerekir.
+schedule:manage: 'Bu hedefte iş zamanlamak. İşin kendisinin gerektirdiği iznin yanı sıra aranır: zamanlanmış
+  iş, bir işi sonraya bırakmanın yoludur; yetkiniz olmayan bir işi yapmanın yolu değil.'
+alert:manage: 'Bu hedef için kural yazmak ve değiştirmek. monitoring:manage izninin içinde değil yanındadır;
+  çünkü kural, onu yazan kişiden uzun yaşar: kimse bakmıyorken hedefi örneklenmiş tutar ve dışarıya mesaj
+  gönderir.'
+transfer:export: Anahtarları bir dosyaya aktarmak ve yedek almak.
+transfer:import: Bir dosyadan anahtar almak ve yedek geri yüklemek.
+connection:create: Bu örneğe hedef eklemek.
+groups:manage: Kullanıcı gruplarını ve sunucu gruplarını, üyelikleriyle birlikte oluşturmak ve değiştirmek.
+users:manage: Hesap oluşturmak, değiştirmek, devre dışı bırakmak, kaldırmak ve insanları davet etmek.
+grants:manage: Yetki yazmak ve kaldırmak — kim hangi kapsamda hangi rolü tutuyor.
+idp:manage: Kimlik sağlayıcılarını ve talep/grup eşlemelerini yapılandırmak.
+backup:manage: 'Yedeklerin nereye gideceğini belirlemek. Yönetici iznidir: yedek hedefi, Keydra dışındaki
+  bir servise ait kimlik bilgisi taşır ve bir sunucunun yedeğini alabilen kişi, yedeklerin nereye gideceğine
+  karar veren kişi değildir.'
+tunnel:manage: 'Atlama sunucularını tanımlamak. Yalnızca yöneticilerde bulunur: atlama sunucusunun kimlik
+  bilgisi bütün bir ağa erişim sağlar ve Keydra’nın arkasındaki hedefler için tuttuğu bütün bilgiler oradan
+  geçer.'
+alert-delivery:manage: 'Uyarıların nereye gönderileceğini belirlemek. Yedek hedefiyle aynı nedenle yönetici
+  iznidir: dışarıdaki bir servise ait kimlik bilgisi tutar ve bir sunucunun sorunlarının nerede duyurulacağını
+  seçmek, o sunucuyu izlemenin parçası değildir.'
+crypto:rotate: Saklanan bütün kimlik bilgilerini yeni bir anahtara taşımak. Bu uygulamadan istenebilecek
+  en kritik işlemdir ve sırların açtıklarına değil sırların kendisine dair tek izindir.
+audit:read: Denetim günlüğünü okumak.
+script:run: 'Keydra’nın içinde bir taşıma betiği çalıştırmak. Hedefte değil sunucu düzeyinde, ki bütün
+  mesele bu: bir betik Keydra’nın kendi süreci içinde çalışır — her hedefin kimlik bilgilerini tutan ve
+  Keydra’nın erişebildiği her ağa erişebilen süreç. Hedefteki migration:run yerine değil, ona ek olarak
+  gerekir.'
+instance:read: 'Keydra’nın kendi durumunu okumak: hangi sunucular çalışıyor, her biri neyi tutuyor ve
+  hepsi neyin üzerinde duruyor. Oturum açmış olmakla aynı şey değil — sunucu listesi makine adlarını,
+  bağımlılık listesi ise kurulumun haritasını verir.'
+instance:drain: 'Bir sunucuyu hizmet dışına almak ve geri döndürmek. instance:read’den ayrı, çünkü işin
+  nerede olduğunu okumakla nereye gideceğine karar vermek aynı edim değil: boşaltma, sunucunun yeni
+  tarayıcı almasını durdurur ve düzenli işlerini bir başkasına devreder.'
+policy:manage: 'Bu kurulumun oturum açan herkesten ne istediğine karar vermek — bugün için, ikinci
+  faktörün zorunlu olup olmadığı. Kendi izni olmasının sebebi, kaydolana kadar herkesi aynı anda
+  kısıtlaması: tek bir hesap açmaktan farklı bir etki alanı.'

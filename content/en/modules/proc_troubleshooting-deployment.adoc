@@ -1,0 +1,35 @@
+[id="deployment-problems_{context}"]
+= Deployment problems
+
+.Procedure
+
+The application will not start::
++
+--
+* Check `KEYDRA_DB_URL`, `KEYDRA_DB_USERNAME` and `KEYDRA_DB_PASSWORD`. There is no
+  in-memory fallback: {product-name} runs against PostgreSQL and nothing else.
+* Check `KEYDRA_SECRET_KEY` is set. Without it there is nothing to decrypt stored
+  credentials with.
+--
+
+Stored credentials stopped decrypting after a deployment::
+`KEYDRA_SECRET_KEY` changed and the old key is not in `KEYDRA_PREVIOUS_SECRET_KEYS`. Put it
+back, and follow
+xref:security.adoc#rotating-the-instance-key_security[Rotating the instance key] properly.
+
+The interface loads but every request is refused::
+Check whether you are signed in. Asking whether you are is open to anybody, so a `401` on
+that question means a cookie was presented and rejected — usually an ended session, revoked
+from another browser.
+
+Changes made on one instance do not reach a browser on another::
+`KEYDRA_STORE_URL` is not set, or the instances point at different stores. Without a shared
+store, the notification hub fans out to local sockets only.
+
+A backup destination test fails against MinIO or another S3-compatible store::
+Tick *Address the bucket by path*. Without it, a MinIO on an IP address is looked up as
+`bucket.10.0.0.4`, and the failure reads as a DNS problem.
+
+An outbound address is refused::
+Link-local addresses are refused and there is no setting to allow them. `169.254.169.254`
+answers with the machine's cloud credentials.

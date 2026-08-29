@@ -1,0 +1,9 @@
+WEBHOOK: HTTP uç noktası. Kuralı, hedefi ve okunan değeri içeren bir JSON gövdesi gönderilir; Slack, Teams,
+  Discord ve çoğu nöbet aracı mesajı bu yolla alır.
+EMAIL: Sizin belirlediğiniz bir sunucu üzerinden e-posta. Konu satırı hedefi ve olanı adlandırır; çünkü
+  insanın ilk gördüğü şey konu satırıdır.
+TELEGRAM: Telegram bot belirteci ve sohbet kimliği. Mesaj, ekibin zaten kullandığı gruba düşer.
+SLACK: 'Slack bot belirteci ve kanal adı. Webhook türünün yerine değil yanına eklenmiştir: kanalı adıyla
+  belirtmek, yeni bir adres üretmeden kanal değiştirebilmek demektir.'
+WHATSAPP: WhatsApp Cloud API. Gönderilecek numaranın yanı sıra *gönderen* numaralı bir kimlik de ister;
+  diğer sohbet türlerinde olmayan tek alan budur.

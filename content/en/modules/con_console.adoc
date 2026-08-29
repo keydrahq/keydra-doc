@@ -1,0 +1,72 @@
+[id="console-concepts_{context}"]
+= What the console is
+
+A command line against one target, over a WebSocket. You type a command, {product-name}
+parses it, runs it and streams the typed result back. History is kept per profile and
+survives the session.
+
+image::console.jpg["The console transcript, with two commands answered and a third refused with the reason"]
+
+The transcript shows how long each command took. `↑` walks back through history and
+kbd:[Tab] completes from a bundled command table.
+
+== Why some commands are refused
+
+Some commands are refused, and the interface says which one and why. The reasons fall into
+three groups, and none of them is "this command is dangerous" — a database administrator
+runs all of them.
+
+Commands that never return on a shared connection:: `SUBSCRIBE`, `MONITOR`, the blocking
+list and sorted-set pops, `WAIT`. {product-name} pools connections; a command that blocks
+forever takes one with it. Pub/Sub and command watching have pages of their own for exactly
+this reason.
+
+Commands that leave the pooled connection somewhere else:: `SELECT`, `HELLO`, `AUTH`. The
+connection is shared between everybody using that target, so one person's `AUTH` becomes
+everybody's identity.
+
+Commands that reach past what the role holds:: `CONFIG`, `SAVE`, `MODULE`, `EVAL`,
+`FUNCTION`, `RESTORE`, `MIGRATE`, `ACL`, `CLIENT`, `CLUSTER`, `SLOWLOG` and the replication
+internals. Running the console is `console:run`, which an operator holds — somebody trusted
+to change the data, deliberately not somebody trusted to change what the server *is*.
+`CONFIG SET dir` plus `CONFIG SET dbfilename` plus `SAVE` writes a file of the caller's
+choosing anywhere the server process can write; `MODULE LOAD` hands it a shared object to
+run. Either turns "may edit a value" into "may execute code on that machine".
+
+Also refused: `KEYS`, `FLUSHALL`, `FLUSHDB` and `SWAPDB`, which block the server for the
+length of the keyspace. Emptying a database is available as a scheduled job that names its
+target and asks for it by name — see xref:schedules.adoc[Scheduled work].
+
+== The two halves are not equally negotiable
+
+The refusals fall into two halves, and only one of them is a target's to reconsider.
+
+One half is about {product-name}: a command that never returns on a pooled connection, or
+leaves it pointing somewhere else. Those are the same wherever the server is, because what
+they break is this application rather than that server. Nothing anywhere can allow them.
+
+The other half is about the target — `CONFIG`, `MODULE`, `EVAL`, `MIGRATE` and their
+neighbours. Whether they matter depends entirely on which server it is, which is why a
+target may take names out of that half and only that half.
+
+== Allowing a command on one target
+
+*Console and care*, on the connection profile, lists the commands the console may run there,
+grouped by the reason each is refused. Ticking one allows it on that target and nowhere else.
+
+image::console-and-care.jpg["The Console and care step of the connection wizard, listing refused commands under the reason each is refused"]
+
+A scratch server where none of it matters, or an installation where the person at the console
+*is* the database administrator, says so on that profile — one command at a time, under the
+sentence that says what allowing it means.
+
+== Changing the floor
+
+`keydra.console.denied-commands` replaces the built-in list outright and
+`keydra.console.allowed-commands` takes names out of it. Both are optional and neither is set
+by default: an empty value is not the same as an absent one, and a written-out empty list
+would replace the deny-list with nothing.
+
+These are the floor rather than the whole answer. What they say applies to every target, which
+is what makes them the wrong place to say "`FLUSHDB` is fine on the scratch server" —
+configuration cannot name a target, and production is reached by the same instance.

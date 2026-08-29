@@ -1,0 +1,30 @@
+[id="switching-database_{context}"]
+= Veritabanı değiştirme
+
+Profil varsayılan bir veritabanı indeksi taşır. Anahtar tarayıcı, profili düzenlemeden
+diğer veritabanlarına da bakabilir.
+
+.Ön koşullar
+
+* Hedefte `keys:read` izniniz olmalı.
+* Hedef tekil ya da Sentinel bir sunucu olmalı. Kümelerde tek bir anahtar uzayı vardır.
+
+.Prosedür
+
+. Hedefin *Anahtarlar* sayfasını açın.
+. Araç çubuğundaki veritabanı seçicisini kullanın. Sunucunun bildirdiği veritabanlarını, her
+  birindeki anahtar sayısıyla birlikte listeler.
+. Bir veritabanı seçin.
+
+.Doğrulama
+
+Seçtiğiniz veritabanı sayfa adresine yazılır; böylece görünümü bağlantı olarak paylaşabilir ve
+sayfayı yenilediğinizde aynı yerde kalabilirsiniz. Anahtar listesi seçilen veritabanına göre
+yeniden yüklenir.
+
+[NOTE]
+====
+{product-name} bağlantı havuzunu profile *ve* veritabanına göre ayırır: iki veritabanı, `SELECT`
+çeken tek bir istemci değil, iki ayrı istemcidir. Havuzdaki bir bağlantıda `SELECT` çalıştırmak,
+o bağlantıyı sonra kullanan isteği de etkilerdi.
+====

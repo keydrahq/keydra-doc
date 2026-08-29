@@ -1,0 +1,61 @@
+[id="configuration-concepts_{context}"]
+= Keydra nasıl yapılandırılır
+
+Yapılandırma, Quarkus yapılandırmasıdır: özellikler ve bunları geçersiz kılan ortam
+değişkenleri. Bir kurulumun ayarladığı hemen her değerin `application.properties` içinde
+kendisi için tanımlanmış bir ortam değişkeni vardır; eşleme tahmine bırakılmaz, orada yazar.
+
+Üç profil bulunur:
+
+`%dev`:: `./mvnw quarkus:dev` ile çalışır. `deploy/keydra-dev.yaml` içindeki kapsayıcıları
+kullanır.
+
+`%test`:: Test paketi. PostgreSQL, {redis-name} ve {valkey-name} Testcontainers ile açılır.
+
+`%prod`:: Paketlenmiş çalışma zamanı; imajın kullandığı profil budur.
+
+== Bir kurulumun ayarlaması gerekenler
+
+Yalnızca iki konunun kullanılabilir bir varsayılanı yoktur:
+
+[source,properties]
+----
+KEYDRA_DB_URL=postgresql://db.internal:5432/keydra
+KEYDRA_DB_USERNAME=keydra
+KEYDRA_DB_PASSWORD=<parola>
+KEYDRA_SECRET_KEY=<32 rastgele bayt, base64>
+----
+
+Geri kalan ayarların varsayılanı ya doğrudur ya da açıkça bir geliştirme kolaylığıdır.
+
+== Dışarı açmadan önce ayarlanacaklar
+
+[source,properties]
+----
+# Tarayıcının gördüğü biçimiyle Keydra'nın adresi. Sağlayıcı yönlendirmesi buraya döner.
+KEYDRA_PUBLIC_URL=https://keydra.example.com
+
+# Ters vekil sunucu arkasında: iletilen başlıklara yalnızca bu vekillerden gelirse güven.
+KEYDRA_BEHIND_PROXY=true
+KEYDRA_TRUSTED_PROXIES=10.0.0.0/8
+----
+
+Ayarların tamamı için bkz. xref:configuration-reference.adoc[Yapılandırma referansı].
+
+== Keydra'nın kendi deposu
+
+Hiçbir ayar yapılmadığında {product-name} tek örnek olarak çalışır: tek bir belleği vardır ve
+kurulması gereken ek bir bileşen yoktur. Çoğu kurulum da böyledir.
+
+`KEYDRA_STORE_URL`, birkaç örneğin paylaştığı bir {redis-name} adresini gösterir. İki iş için
+kullanılır: bildirimleri yeniden yayımlayarak bir örnekteki değişikliğin diğerine bağlı
+tarayıcıya ulaşmasını sağlamak ve her isteğin yapacağı üç okumayı önbelleğe almak.
+
+[IMPORTANT]
+====
+Bu depo ayrı bir sunucu olmalıdır, hedeflerinizden biri değil. Birinin göz attığı bir sunucuda
+duran önbellek, birinin toplu silme yaparken boşalttığı önbellek olur.
+
+Depoya yazılan her anahtar ad alanına ayrılır ve bir TTL taşır. Süresi olmayan önbellek, düzenli
+görünen bir bellek sızıntısıdır.
+====

@@ -1,0 +1,16 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="home"]
+= Keydra documentation
+:description: Keydra is a web console for key-value servers: browse keys, run commands, watch a fleet, and let more than one person do it under permissions you decide.
+:context: home
+include::../attributes/attributes.adoc[]
+
+{product-name} is a multi-user, deployable web console for key-value servers — {redis-name},
+{valkey-name} and the compatible forks, Aerospike and TiKV. It runs on your own infrastructure,
+holds the credentials for your targets, and gives a team one place to browse a keyspace, run
+commands, watch what a server is doing, move keys between environments, take backups, and be
+told when something is wrong.
+
+Everything in this documentation is derived from the {product-name} source tree. Where a
+procedure names a button, that is the label the interface shows.

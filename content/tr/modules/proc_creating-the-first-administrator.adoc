@@ -1,0 +1,33 @@
+[id="creating-the-first-administrator_{context}"]
+= İlk yöneticiyi oluşturma
+
+Hiç hesabı olmayan bir kurulum sizden oturum açmanızı istemez; bunun yerine hesap oluşturmayı
+önerir. Bu işi yapan uç nokta, ilk hesap oluşturulur oluşturulmaz kapanır. Yani açık kalan bir
+kapı değil, tek seferlik bir fırsattır.
+
+.Ön koşullar
+
+* {product-name} çalışıyor ve erişilebilir olmalı.
+* Bu kurulumda henüz hiç hesap oluşturulmamış olmalı.
+
+.Prosedür
+
+. {product-name}'yı açın. Hesap bulunmadığı için sayfada *Keydra'ya giriş yapın* yerine
+  *Keydra'yı kurun* yazar.
+. *Kullanıcı adı* girin.
+. *Parola* girin ve aynısını *Parolayı tekrarlayın* alanına yazın. Form en az kaç karakter
+  gerektiğini belirtir. Karakter çeşidi zorunluluğu yoktur; bu tür kurallar parolaları
+  güçlendirmez, zayıflatır.
+. İsterseniz *Ad ve e-posta (isteğe bağlı)* bölümünü açın. Parola sıfırlama bağlantısı ileride
+  buradaki e-posta adresine gönderilir.
+. *Yöneticiyi oluştur* düğmesine tıklayın.
+
+.Doğrulama
+
+Oturumunuz açılır ve gezinmenin tamamı kullanıma hazır olur: ilk hesap, bütün izinleri taşıyan
+yerleşik `admin` rolüne sahiptir.
+
+.Sonraki adımlar
+
+* xref:connections.adoc#adding-a-connection_connections[Bir bağlantı ekleyin]
+* xref:access-control.adoc[Ekibe hesap açın ve yetkilerini belirleyin]

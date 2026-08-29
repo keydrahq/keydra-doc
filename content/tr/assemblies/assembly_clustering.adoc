@@ -1,0 +1,16 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="clustering"]
+= Birden fazla Keydra çalıştırma
+:description: Hangi işi tek bir örneğin üstlendiği, hangisinin her örnekte yapılabildiği, bir örnekteki değişikliğin diğerine bağlı tarayıcıya ulaşmasını sağlayan ortak depo ve her örneğin neyi tuttuğunu ve kurulumun nelere eriştiğini gösteren sayfa.
+:page-keywords: kümeleme, yüksek erişilebilirlik, kira, lider, örnekler, depo, boşaltma, erişilebilirlik, durum
+:context: clustering
+include::../attributes/attributes.adoc[]
+
+include::../modules/proc_running-several-instances.adoc[leveloffset=+1]
+
+include::../modules/con_multiple-instances.adoc[leveloffset=+1]
+
+include::../modules/proc_draining-an-instance.adoc[leveloffset=+1]
+
+include::../modules/proc_checking-what-keydra-reaches.adoc[leveloffset=+1]

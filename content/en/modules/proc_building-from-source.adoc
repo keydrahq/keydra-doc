@@ -1,0 +1,42 @@
+[id="building-the-image-from-source_{context}"]
+= Building the image from source
+
+Only if you are changing {product-name}. A deployment should use
+xref:installation.adoc#container-images_installation[the published images].
+
+.Prerequisites
+
+* A checkout of the {product-name} repository.
+* Podman.
+
+.Procedure
+
+[source,bash]
+----
+podman build -t localhost/keydra:dev -f Containerfile .
+----
+
+The `Containerfile` in the repository builds the standalone image in three stages: the
+frontend with Node, the backend with Maven — with the built frontend copied into
+`src/main/resources/META-INF/resources` — and a JRE image that carries neither toolchain.
+
+.Verification
+
+[source,bash]
+----
+podman run --rm -p 8181:8181 \
+  -e KEYDRA_DB_URL=postgresql://host.containers.internal:5442/keydra \
+  -e KEYDRA_DB_USERNAME=keydra \
+  -e KEYDRA_DB_PASSWORD=keydra \
+  -e KEYDRA_SECRET_KEY="$(openssl rand -base64 32)" \
+  localhost/keydra:dev
+----
+
+.The image runs as a non-root user
+[NOTE]
+====
+It declares `USER keydra` and reads the container's own memory limit rather than the host's,
+so a limited container does not size its heap for a machine it cannot use. Tests are not run
+during the image build — they need containers, which a build container does not have; CI runs
+them.
+====

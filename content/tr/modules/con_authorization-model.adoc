@@ -1,0 +1,75 @@
+[id="authorization-model_{context}"]
+= Keydra kimin neyi yapabileceğine nasıl karar verir
+
+Dört kavram ve bunları birleştiren tek bir cümle.
+
+image::erisim.jpg["Erişim haritası; bir kişiden başlayıp rolü taşıyan gruplardan geçerek yetkinin verildiği yere"]
+
+Özne:: Bir kullanıcı ya da bir grup. Gruplar hem kullanıcı hem başka grup içerebilir.
+
+Kapsam:: Yetkinin geçerli olduğu alan: kurulumun tamamı, bir sunucu grubu ya da tek bir
+bağlantı.
+
+Rol:: Adlandırılmış bir izin kümesi. Yerleşik roller değiştirilemez; kendi rollerinizi
+tanımlayabilirsiniz.
+
+İzin:: Kapalı bir listeden seçilen tek bir yetki.
+
+[quote]
+____
+Yetki şunu söyler: bu *özne*, bu *kapsamda* bu *rolü* taşır.
+____
+
+Geri kalan her şey bundan türetilir. Bir kullanıcının bir hedefte yapabilecekleri; kendisine ya
+da üyesi olduğu gruplara, o hedefte ya da onu kapsayan bir yerde verilmiş bütün rollerin
+izinlerinin birleşimidir.
+
+== Neden tablo değil de graf
+
+Gruplar grup, kapsamlar kapsam içerir. Bir soru sorulduğunda ikisi de baştan sona izlenir:
+
+[source,text]
+----
+özneler                      kapsamlar
+  ayşe ──▶ odeme-gelistirici   kurulum
+              │                   │
+              ▼                   ├──▶ odeme-sunuculari ──▶ odeme-onbellek
+            muhendisler           │                    └──▶ odeme-oturum
+                                  └──▶ analitik-sunuculari ──▶ analitik-kume
+----
+
+`muhendisler` grubuna `odeme-sunuculari` kapsamında `operator` rolü vermek, özne grafı
+üzerinden Ayşe'ye, kapsam grafı üzerinden de `odeme-onbellek` hedefine ulaşır. Hiçbir bağ iki
+kez yazılmaz: kendi yapısını bir izin tablosunda baştan anlatmak zorunda kalan kurum, o tabloyu
+er geç güncellemeyi bırakır.
+
+Her iki graf da döngüsüz tutulur. Kendini içeren bir grubun anlamlı bir karşılığı yoktur ve
+soruyu yanıtlanamaz hâle getirir.
+
+== Yalnızca yetki, hiçbir zaman ret
+
+Ret kuralı yoktur. Hem yetki hem ret içeren bir sistemde "Ayşe bunu neden göremiyor?" sorusunun
+yanıtı arama gerektirir; "burası kilitli mi?" sorusuna ise kimse net cevap veremez.
+
+Bir sunucuya erişmemesi gereken kişiye o sunucuda hiçbir yetki verilmez. Ret, yetkinin
+yokluğudur ve bu yokluk görünürdür: *Erişim* sayfası verilmiş yetkileri gösterir, verilmiş
+yetkiler de tamamıdır.
+
+== Görünürlük ayrı bir ayar değildir
+
+Bir hedef, kullanıcının üzerinde *herhangi* bir izni varsa görünür. Ayrıca takip edilmesi
+gereken bir "görebilir" bayrağı yoktur: hiçbir işlem yapamayacağı bir hedefi bilmesi için de
+neden yoktur. Tek bir bilgi olduğu için ikisi birbirinden ayrı düşemez.
+
+Süzme tek bir yerde yapılır. Bu yüzden katalog, filo genel görünümü, toplamlar ve göç işlerinin
+hedef listesi aynı soruya verilen tek yanıta göre süzülür.
+
+== Yetkinin geri alınması bir sonraki istekte geçerli olur
+
+Oturum yalnızca bir kullanıcı adı taşır. Her istek, o kullanıcının yapabileceklerini güncel
+yetkilerden yeniden hesaplar; yani erişimi geri almak için çıkış yapılmasını beklemek gerekmez.
+
+Paylaşılan bir depo tanımlıysa, çerezin arkasındaki kimlik ve taşıdığı izinler kısa süreli
+önbelleğe alınır. Hesabı, yetkiyi, grubu ya da profili değiştiren her işlem bir geçersizleştirme
+yayımlar ve bütün örnekler önbelleklerini boşaltır. Süre sınırı yalnızca yayının ulaşmadığı
+durumlar için bir güvencedir; geri almayı anında etkili kılan yayının kendisidir.

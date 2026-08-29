@@ -1,0 +1,17 @@
+[id="environment-variables_{context}"]
+= Environment variables
+
+Every environment variable {product-name}'s own configuration reads, with the property it
+sets.
+
+include::../snippets/generated/environment-table.adoc[]
+
+.Quarkus reads more than these
+[NOTE]
+====
+This table lists the variables {product-name}'s configuration names explicitly. Quarkus also
+maps any property to an environment variable by upper-casing it and replacing every
+non-alphanumeric character with an underscore, so a Quarkus setting not listed here can still
+be set that way. Confirm the mapping against your Quarkus version before relying on it for a
+property with unusual characters in its name.
+====

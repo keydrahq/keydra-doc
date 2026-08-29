@@ -1,0 +1,33 @@
+[id="migration-concepts_{context}"]
+= Anahtarlar iki hedef arasında nasıl taşınır
+
+{product-name} bir hedeften okur, diğerine yazar; bunu yığınlar hâlinde yapar. İki sunucunun
+birbirine erişebilmesi gerekmez — ikisine birden erişebilen genellikle yalnızca
+{product-name}'dır. Anahtar uzayı bellekte tutulmaz, `SCAN` ile gezilir; bu yüzden uzayın
+büyüklüğü bir engel değildir.
+
+image::goc-isleri.jpg["Henüz bir şey taşınmamışken Göç işleri sayfası"]
+
+Göç işi, onu başlatan iletişim kutusundan uzun yaşar. İlerleme bildirim hattı üzerinden
+gittiği için kutuyu kapatabilirsiniz, iş devam eder. *Göç işleri* sayfası bütün işleri
+listeler: hangi hedeften başlatıldığından ve kimin başlattığından bağımsız olarak.
+
+== Sayılar ne anlama gelir
+
+Taşındı:: Hedefe yazıldı.
+
+Zaten var:: Anahtar hedefte zaten vardı ve *Karşıda zaten varsa üzerine yaz* seçeneği
+kapalıydı; anahtar olduğu gibi bırakıldı.
+
+Reddedildi:: Hedef anahtarı kabul etmedi.
+
+Kaynaktan kaldırıldı:: Yalnızca *Karşı taraf aldıktan sonra bu sunucudan sil*
+seçeneği işaretliyse ve yalnızca hedefin kabul ettiği anahtarlar için geçerlidir. Kopyalamayı
+taşımaya çeviren, ama hiçbir anahtarın iki tarafta da kaybolmamasını sağlayan kural budur.
+
+== Yarım kalan göç işleri
+
+{product-name} bir göç işi sürerken kapanırsa, satır bir sonraki açılışta *yarıda kaldı* olarak
+işaretlenir ve şu not düşülür: *Bu çalışırken Keydra durdu. Yazılmış olan yazılmıştır.* Bu
+tarama lider örneğin işidir; böylece iki örnek birbirinin süren işlerini yanlışlıkla
+işaretlemez.

@@ -1,0 +1,26 @@
+[id="mapping-provider-groups_{context}"]
+= Mapping provider groups to Keydra groups
+
+.Prerequisites
+
+* The provider sends a groups claim, and *Groups claim* names it.
+
+.Procedure
+
+. Open the provider and find *Group mappings*.
+. Add a mapping: *What the provider calls it*, and the {product-name} group somebody in it
+  should join.
+
+.Verification
+
+Sign in through the provider. The account's memberships in mapped groups now match what the
+provider said.
+
+[IMPORTANT]
+====
+Membership of a *mapped* group is replaced at every sign-in. Adding somebody to a mapped
+group by hand in {product-name} will not survive their next sign-in — that is the point, and
+it is what makes removing them from the directory remove their access here.
+
+Groups nobody mapped are left alone.
+====

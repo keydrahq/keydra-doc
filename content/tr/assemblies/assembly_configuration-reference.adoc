@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="configuration-reference"]
+= Yapılandırma referansı
+:description: Arka ucun application.properties dosyasından okunan bütün Keydra yapılandırma özellikleri ve ortam değişkenleri.
+:page-keywords: yapılandırma, özellikler, ortam değişkenleri, referans, varsayılanlar
+:context: configuration-reference
+include::../attributes/attributes.adoc[]
+
+include::../modules/ref_configuration-properties.adoc[leveloffset=+1]
+
+include::../modules/ref_environment-variables.adoc[leveloffset=+1]

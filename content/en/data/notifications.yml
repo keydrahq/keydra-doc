@@ -1,0 +1,32 @@
+ConnectionCreated: A connection profile was added.
+ConnectionUpdated: A connection profile changed. Its pooled clients and its tunnel are closed, because
+  it may now point somewhere else.
+ConnectionDeleted: A connection profile was removed.
+ConnectionStatusChanged: A target went up, went down, or reported a different flavor or version.
+KeysChanged: Keys on a target were created, renamed, expired or deleted.
+ValueChanged: The contents of a key changed.
+ChannelMessage: A message arrived on a subscribed channel.
+SubscriptionChanged: A subscription opened, closed, or dropped because its connection did.
+MetricsSample: A fresh reading of a watched target.
+MonitoringChanged: Sampling started or stopped for a target.
+MigrationProgress: How far a migration between two targets has got. Broadcast rather than answered on
+  the request that started it, so a page reloaded halfway through does not lose sight of a job that is
+  still running.
+ScheduleFailed: A scheduled job did not do what it was arranged to do. Only the failures — a toast per
+  successful run every five minutes would bury the one that matters.
+ScheduleRan: A scheduled job finished, whatever it did. For a table drawing a "last run" column, which
+  has to change on a success as much as on a failure.
+AlertChanged: An alert rule moved between quiet, pending and firing. Only the transitions, so a rule firing
+  for six hours sends one message.
+SessionEnded: A session was ended, here or elsewhere. The browser holding it stops working on its next
+  request.
+SignInFlagged: A sign-in that succeeded looked unlike the ones before it.
+PurgeProgress: How far a purge has got. A glob delete walks the keyspace a batch at a time, so it reports
+  as it goes rather than answering once at the end — a page that showed nothing for four minutes would
+  be indistinguishable from one that had stopped.
+ApprovalRequested: 'Somebody asked for an operation on a target that waits for a second person. It carries
+  the request''s id and the target, and nothing else: the audience is everybody who can see that target,
+  which is wider than the set of people who could answer it.'
+ApprovalChanged: A request was approved, declined, withdrawn, expired, or finished running. Every ending,
+  including the ones nobody pressed, because the person waiting for an answer is the one who most needs
+  to see it arrive.

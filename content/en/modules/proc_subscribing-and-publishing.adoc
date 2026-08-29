@@ -1,0 +1,28 @@
+[id="subscribing-and-publishing_{context}"]
+= Subscribing to a channel and publishing to one
+
+.Prerequisites
+
+* `pubsub:subscribe` to listen, `pubsub:publish` to send.
+
+.Procedure
+
+To listen:
+
+. Open the target and go to *Pub/Sub*.
+. Enter one or more *Channels* — the placeholder shows the shape, `news, events` — or
+  *Patterns*, such as `news.*`.
+. Click *Subscribe*. If a subscription is already open, the button reads *Replace
+  subscription*.
+. *Stop listening* ends it, for everybody.
+
+To publish:
+
+. Complete *Channel* and *Message*.
+. Click *Publish*.
+
+.Verification
+
+Messages appear under *Messages* with the time they were *Received*. While a subscription
+is open and nothing has arrived, the panel says so rather than looking broken: *The
+subscription is open; anything published to it appears here.*

@@ -1,0 +1,47 @@
+{
+  "name": "keydra-usermanual",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Keydra documentation platform — AsciiDoc content, PatternFly 6 renderer, English and Turkish.",
+  "packageManager": "yarn@4.18.0",
+  "engines": {
+    "node": ">=24.19.0"
+  },
+  "scripts": {
+    "inventory": "tsx scripts/build-inventory.ts",
+    "build": "tsx scripts/build.ts",
+    "build:en": "tsx scripts/build.ts --language en",
+    "build:tr": "tsx scripts/build.ts --language tr",
+    "serve": "tsx scripts/serve.ts",
+    "pdf": "tsx scripts/build-pdf.ts",
+    "validate": "tsx scripts/validate.ts",
+    "lint": "tsx scripts/lint.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist .cache pdf/*.pdf .generated"
+  },
+  "dependencies": {
+    "@asciidoctor/core": "4.0.11",
+    "@patternfly/patternfly": "6.6.1",
+    "@patternfly/react-core": "6.6.1",
+    "@patternfly/react-icons": "6.6.1",
+    "js-yaml": "5.3.0",
+    "minisearch": "7.2.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "shiki": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "fast-glob": "3.3.3",
+    "node-html-parser": "9.0.1",
+    "playwright": "1.62.1",
+    "tsx": "4.23.12",
+    "typescript": "6.0.3",
+    "vite": "8.2.2",
+    "vitest": "4.1.11"
+  }
+}

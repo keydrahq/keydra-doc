@@ -1,0 +1,124 @@
+keydra.alerts.baseline-refresh: How often a rule that compares with a historical window recomputes what
+  that window read. A baseline is a fact about last week; asking the store for it on every reading would
+  be a query per rule per reading for a number that does not move.
+keydra.backup.local-root: The directory a local backup destination writes inside. A destination names
+  a directory relative to this, so no destination can be pointed at an arbitrary path on the machine.
+keydra.cluster.instance-id: What this instance calls itself, in the About page, in every log line and
+  on every metric it produces. Generated when it is not set.
+keydra.cluster.lease-seconds: How long the leader lease is held before it has to be renewed. An instance
+  that stops renewing loses it to whoever asks next, so this is also how long the work can be interrupted
+  by a crash.
+keydra.cluster.reconcile-seconds: How often an instance checks whether it should be doing the leader work
+  — claiming the lease if nobody holds it, and letting go of the schedules if it has lost it.
+keydra.connections.health-check-interval: How often a watched target is checked. A change in status is
+  pushed over the notification hub rather than polled by the interface.
+keydra.crypto.secret: 'The key that encrypts every stored credential. There is no default and no fallback:
+  without it there is nothing to decrypt target passwords, tunnel credentials, provider secrets or destination
+  credentials with.'
+keydra.crypto.previous-secrets: 'Keys that may still be read but are no longer written. This is what makes
+  a key rotation something other than an outage: the new key writes, the old ones keep decrypting what
+  they wrote, and the re-encryption moves everything across while the instance is up.'
+keydra.egress.allow-loopback: Whether an address somebody typed may point back at the machine Keydra runs
+  on. Off outside development.
+keydra.egress.allow-private: 'Whether an address somebody typed may be on a private network. Usually yes:
+  a webhook to an internal chat relay and an S3-compatible store on the same subnet are the ordinary cases.
+  Link-local is refused regardless and has no setting.'
+keydra.egress.allowed-hosts: Hosts that are allowed regardless of the rules above. An escape hatch for
+  the one internal address a deployment has to reach.
+keydra.http.content-security-policy: 'The content security policy the browser is told to enforce. A property
+  rather than a literal, so a deployment serving assets from elsewhere can widen the one directive it
+  needs instead of turning the header off. Widening one means restating them all, which is the point:
+  a policy is a whole or it is nothing.'
+keydra.invitations.valid-for: How long an invitation or password-reset link works. A link that works forever
+  is a password with extra steps.
+keydra.mail.host: The SMTP relay outgoing mail goes through — invitations, password resets, and email
+  alert deliveries.
+keydra.mail.port: The relay port.
+keydra.mail.tls: Whether to use TLS to the relay.
+keydra.mail.username: The account Keydra authenticates to the relay as.
+keydra.mail.password: The relay password or API key.
+keydra.mail.from: The address outgoing mail is sent from. Most relays refuse a message without one.
+keydra.mail.language: 'What language a letter is written in when the account it is for has never said.
+  An account that has used Keydra has a language preference and that answer wins; a brand-new one has
+  expressed nothing, and an address does not carry a language.'
+keydra.metrics.clickhouse.enabled: 'Whether readings are also written somewhere that survives a restart.
+  Off by default: another service in a deployment is a real cost, and an instance that does not want one
+  must not be told it needs one.'
+keydra.metrics.clickhouse.url: The ClickHouse HTTP interface. HTTP rather than the JDBC driver, which
+  is blocking — and this application is not.
+keydra.metrics.clickhouse.username: The ClickHouse user.
+keydra.metrics.clickhouse.password: The ClickHouse password.
+keydra.metrics.clickhouse.retention-days: How long readings are kept. Enforced by ClickHouse's own TTL
+  rather than by a policy Keydra invents.
+keydra.public-url: Where Keydra is, as a browser sees it. A provider's redirect and the links in outgoing
+  mail are built from this, so it has to be the address people actually use rather than the one the process
+  binds to.
+keydra.public-url-from-request: Whether the public address may be worked out from the request when none
+  is configured. Convenient in development and a header somebody else controls in production.
+keydra.security.enabled: Whether Keydra enforces who may do what. Turning it off admits everybody who
+  can reach the address, with every permission, and every page then says so — an open instance that looks
+  secured is how one ends up exposed.
+keydra.security.cookie-secure: 'Whether the session cookie is marked Secure. On in production: a session
+  cookie sent over plain HTTP is a session cookie on the wire.'
+keydra.security.geoip-database: A GeoIP database, if one is available. Used to say where a sign-in came
+  from when comparing it with the ones before it.
+keydra.security.dev-administrator.username: 'An administrator seeded at start, for development only. Never
+  set this in production: it is an account whose password is in the configuration.'
+keydra.security.dev-administrator.password: The password for that development administrator.
+keydra.security.sign-in.throttle-enabled: Whether repeated sign-in failures are counted and refused. The
+  limit is answered before the password hash, because Argon2id is slow on purpose and unlimited attempts
+  consume the server’s memory as well as guessing a password.
+keydra.security.sign-in.window: The rolling window failures are counted over.
+keydra.security.sign-in.max-failures-per-account: How many failures against one account the window allows.
+  A refusal never counts towards the limit that produced it — otherwise knocking repeatedly would hold
+  a named account shut.
+keydra.security.sign-in.max-failures-per-network: How many failures from one network the window allows.
+keydra.security.sign-in.suspicious-failures-before: How many failures immediately before a successful
+  sign-in make that success worth flagging. A stolen password is a correct password, so the successes
+  are what get compared.
+keydra.security.sign-in.suspicious-volume: How many sign-ins in the window count as a rate that suggests
+  something automated.
+keydra.security.sign-in.suspicious-accounts: How many distinct accounts one source may sign in to before
+  that itself is the anomaly.
+keydra.security.sign-in.dormant-after: How long an account has to be unused before a sign-in to it is
+  worth remarking on.
+keydra.security.sign-in.travel-allowance: How fast somebody would have had to travel between two sign-ins
+  for the pair to be impossible. Needs a GeoIP database to mean anything.
+keydra.security.sign-in.retention: How long the record of sign-in attempts is kept.
+keydra.security.socket-origin-check: Whether a WebSocket handshake must come from an origin Keydra recognizes.
+  A socket is not covered by the same-origin policy the way a fetch is, so this is the check that replaces
+  it.
+keydra.security.socket-origins: The origins a WebSocket may be opened from, beyond the public URL. For
+  a deployment where the interface is served from somewhere else.
+keydra.sessions.sweep-interval: How often expired session rows are deleted. A session table nobody prunes
+  is a table that grows for as long as the application runs.
+keydra.store.url: 'Keydra''s own Redis, for the shared cache and for re-broadcasting notifications between
+  instances. Never one of your targets: a cache living in a server somebody is browsing is a cache somebody
+  empties with a bulk delete. Leave it unset for a single instance.'
+keydra.store.authz-ttl: 'How long the identity behind a cookie and the permissions it carries are cached.
+  The safety net, not the mechanism: anything that changes who may do what publishes an invalidation,
+  and the TTL only covers the message nobody heard.'
+keydra.reachability.interval: 'How often the instance holding the chores asks the identity providers and
+  backup destinations whether they answer. Not on page load: ten people watching the status page would
+  be ten times the outbound traffic of one, aimed at somebody else''s service. Zero turns the asking off.'
+keydra.reachability.minimum-gap: 'How soon after an answer the page''s *Check now* button may ask
+  again. A button that can be held down is a way to make Keydra hammer somebody else''s service.'
+keydra.approvals.ttl: 'How long an operation waits for a second person before it stops being answerable.
+  A day: long enough that a colleague in another timezone gets to see it, short enough that nobody agrees
+  to a purge against a keyspace they last looked at three weeks ago. It expires rather than being deleted,
+  because the failure this prevents is somebody believing an operation is arranged when it never will be.'
+keydra.approvals.sweep-interval: How often the instance holding the lease looks for requests whose time
+  has run out. This is the resolution of "it expired", which is a granularity nobody waiting a day notices.
+keydra.keys.scripting.enabled: 'Whether a migration may carry a Lua script that decides what happens to
+  each key. Off by default, and that is the interesting part: everything else runs against somebody''s
+  server, and a script runs inside Keydra, in the process holding every target''s credentials. Turning
+  it off refuses the request outright, whoever is asking.'
+keydra.keyspace.lease: How long a lease on a keyspace watch is good for. A browser can vanish — a closed
+  laptop, a lost network — so a watch belongs to a lease that is renewed while somebody is looking rather
+  than to a page that may never say goodbye.
+keydra.keyspace.flush-interval: How often the keyspace changes that have piled up are sent out. One message
+  per mutation would be a broadcast per write on a server doing thousands a second, to every tab watching
+  it. Lower means a list that catches up sooner; higher means fewer messages for the same news.
+keydra.reachability.history-kept: 'How long the record of a reachability change is kept. Changes rather
+  than answers, so this is a handful of rows a year for something that works. Not forever: what happened
+  three years ago to a destination that has been replaced twice is not evidence of anything.'

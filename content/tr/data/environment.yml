@@ -1,0 +1,33 @@
+KEYDRA_DB_URL: Reaktif PostgreSQL adresi; `postgresql://sunucu:port/veritabani` biçiminde. JDBC öneki
+  yok — uygulama bloklamayan bir yapıdadır ve reaktif bir sürücü kullanır.
+KEYDRA_DB_USERNAME: Veritabanı kullanıcısı.
+KEYDRA_DB_PASSWORD: Veritabanı parolası.
+KEYDRA_SECRET_KEY: 'Saklanan her kimlik bilgisini şifreleyen anahtar — hedef parolaları, tünel anahtarları,
+  sağlayıcı sırları, hedef kimlik bilgileri. 32 rastgele bayt, base64. Varsayılanı yoktur: o olmadan saklanan
+  hiçbir şey okunamaz.'
+KEYDRA_BEHIND_PROXY: '`X-Forwarded-*` başlıklarına inanılıp inanılmayacağı. Yalnızca bir ters vekil sunucunun
+  arkasındayken açın: önünde hiçbir şey yokken onlara güvenen bir kurulum, çağıranın kendi adresini kendisinin
+  bildirdiği bir kurulumdur.'
+KEYDRA_TRUSTED_PROXIES: O başlıkları hangi vekillerin ayarlayabileceği; adres ya da CIDR aralığı olarak.
+  Bu olmadan onlara inanmak, herkese inanmak demektir.
+KEYDRA_MAX_BODY_SIZE: Kabul edilen en büyük istek gövdesi. Bir anahtar içe aktarımını ve bir yedek geri
+  yüklemesini sınırlayan budur.
+KEYDRA_ACCESS_LOG: Her isteğin günlüğe yazılıp yazılmayacağı. Bir istek satırı bir yol taşır ve buradaki
+  bir yol bir anahtarı adlandırabilir.
+KEYDRA_JSON_LOGS: İnsan okuyabilir biçim yerine konsolda JSON; böylece bir günlük toplayıcı, insan için
+  yazılmış bir düzeni ayrıştırmak zorunda kalmaz.
+KEYDRA_OTLP_ENDPOINT: OpenTelemetry izlerinin aktarılacağı yer. İzlemeyi açan şey bunun ayarlanmasıdır;
+  ikinci bir bayrak yoktur.
+KEYDRA_OIDC_URL: Açılışta yapılandırılan tek bir OIDC sağlayıcının yayıncısı. Desteklenen yol arayüzden
+  eklenen sağlayıcılardır ve bu dördüne ihtiyaç duymaz; bu, henüz giriş yapıp sağlayıcı ekleyecek kimse
+  yokken bir sağlayıcı tanımlayan kurulumlar içindir.
+KEYDRA_OIDC_CLIENT_ID: O sağlayıcıdaki istemci kimliği.
+KEYDRA_OIDC_SECRET: O sağlayıcıdaki istemci sırrı.
+KEYDRA_OIDC_ROLES_CLAIM: Rollerin belirteç içindeki yeri; bir yol olarak. `viewer`, `operator` ya da `admin`
+  talebi, o rolün örnek kapsamındaki bir yetkisine dönüşür.
+KEYDRA_MAIL_LANGUAGE: 'Muhatabı hangi dilde okuduğunu hiç söylememişse davetin hangi dilde yazılacağı.
+  `en` ya da `tr`.'
+KEYDRA_REACHABILITY_INTERVAL: 'Bir sunucunun kimlik sağlayıcılara ve yedek hedeflerine cevap verip
+  vermediklerini ne sıklıkla sorduğu. Sıfır, sormayı kapatır.'
+KEYDRA_REACHABILITY_MIN_GAP: 'Bir cevabın ardından durum sayfasındaki *Şimdi denetle* düğmesinin ne kadar
+  sonra yeniden sorabileceği.'

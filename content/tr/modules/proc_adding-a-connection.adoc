@@ -1,0 +1,71 @@
+[id="adding-a-connection_{context}"]
+= Bağlantı ekleme
+
+.Ön koşullar
+
+* `connection:create` izniniz olmalı. Yerleşik `admin` rolü bu izni taşır.
+* Hedefe {product-name}'nın çalıştığı yerden erişilebilmeli ya da hedefe giden bir tünel
+  tanımlı olmalı.
+
+.Prosedür
+
+. *Bağlantılar* sayfasına gidin.
+. *Bağlantı ekle* düğmesine tıklayın.
+. *Sunucu* sekmesinde şu alanları doldurun:
++
+--
+* *Ad* — zorunludur.
+* *Sunucu adresi* ve *Port*.
+* *Tür* — *Tekil*, *Küme* ya da *Sentinel*. Sentinel seçtiyseniz *Sentinel master adı* da
+  gerekir.
+* Hedef 0 dışındaki bir veritabanıyla açılacaksa *Veritabanı indeksi*.
+--
+. *Kimlik doğrulama* sekmesinde, hedef istiyorsa *Kullanıcı adı* ve *Parola* girin. Hedef TLS
+  konuşuyorsa *TLS kullan* seçeneğini işaretleyin. Hedef parola istemiyorsa alanı boş bırakın.
+. Gerekiyorsa *Bu hedefe SSH tüneliyle eriş* seçeneğini işaretleyip bir tünel seçin.
+. Formdaki bilgileri denemek için *Bağlantıyı test et* düğmesine tıklayın. Bu deneme hiçbir
+  şey kaydetmez.
+. *Kaydet* düğmesine tıklayın.
+
+image::baglanti-ekle.jpg["Bağlantı sihirbazının ilk adımı; ad, sunucu türü, adres ve port"]
+
+.Doğrulama
+
+Yeni satır tabloda görünür. *Durum* sütunu *Kontrol ediliyor…* durumundan *Çalışıyor* durumuna
+geçer; *Sunucu* sütununda yanıt veren sunucunun türevi ve sürümü yazar.
+
+Durum *Erişilemiyor* olarak kalıyorsa bkz.
+xref:troubleshooting.adoc#a-target-will-not-connect_troubleshooting[Bir hedefe bağlanılamıyor].
+
+.Sonraki adımlar
+
+* xref:key-browser.adoc#browsing-keys_key-browser[Anahtarlara göz atın]
+* xref:access-control.adoc#putting-targets-in-server-groups_access-control[Başkalarına yetki verebilmek için hedefi bir sunucu grubuna ekleyin]
+
+.Hedefin TLS'inin ihtiyaç duyduğu sertifikalar
+
+Bir TLS hedefinin ihtiyaç duyabileceği ve çalışma zamanının kendi güven deposunun sağlayamayacağı
+iki şey.
+
+*Sertifika otoritesi*. {product-name}, çalışma zamanının zaten güvendiği otoritelere güvenir; bu,
+yönetilen bir hedef için — Upstash, aktarımda ElastiCache, Azure Cache — doğrudur, şirket içindeki
+bir sunucu için ise nadiren doğrudur: onun sertifikası yalnızca orada var olan bir otorite
+tarafından imzalanmıştır. Bu otoriteyi profilde adlandırmak, ona *bu hedef için* güvenir; onun
+yerine çalışma zamanının kendi deposuna koymak, bu sürecin yaptığı diğer bütün bağlantıların neyi
+kabul edeceğini değiştirirdi ve tek bir hedef için geri de alınamazdı.
+
+*İstemci sertifikası ve anahtarı*. Hedefin, istemciden kim olduğunu kanıtlamasını istediği durum.
+Ya iki yarı birden ya da hiçbiri — bir çiftin yarısı yalnızca sonradan başarısız olabilir, bu
+yüzden burada reddedilir. Anahtar şifrelenmemiş PEM olmalıdır: parolayla korunan bir anahtar
+kullanılamaz ve bunu formda söylemek, hiçbir şeyi adlandırmayan bir el sıkışma hatasından iyidir.
+
+İkisi de profil kaydedilirken okunur. Ayrıştırılamayan bir sertifika, sabahın üçünde değil, form
+açıkken reddedilir.
+
+[NOTE]
+====
+{redis-name}, {valkey-name}, uyumlu hedefler ve Aerospike için sunulur. TiKV'nin istemcisi
+sertifikaları bellekteki veriden değil diskteki dosya yollarından okuduğu için {product-name},
+kullanmayacağı bir ayarı kabul etmek yerine bu alanları TiKV profillerinde reddeder — bunu aşmak
+için özel bir anahtarı geçici bir dosyaya yazmak, kapattığı boşluktan kötü olurdu.
+====

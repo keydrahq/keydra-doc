@@ -1,0 +1,24 @@
+[id="a-target-will-not-connect_{context}"]
+= A target will not connect
+
+The row stays *Down*, or *Test connection* fails.
+
+.Procedure
+
+. Check that {product-name} can reach the address at all. It is {product-name} that
+  connects, not your browser — an address that works from your laptop may not work from the
+  container.
+. If the target is on a private network, give the profile a tunnel — see
+  xref:tunnels.adoc[Reaching targets through a jump host].
+. Check the credentials. A target that requires a password and is given none refuses at
+  authentication rather than at connection, which looks the same from the outside.
+. If the target speaks TLS, tick *Use TLS*. If it presents a certificate signed by a private
+  authority, that authority has to be in the truststore of the machine {product-name} runs
+  on — {product-name} trusts the system store and has no setting of its own.
+. For a Sentinel profile, check the *Sentinel master name*. {product-name} asks Sentinel
+  where that master is; a name Sentinel does not know produces no address.
+
+.Verification
+
+*Test connection* reports success against what the form currently says, without saving
+anything.

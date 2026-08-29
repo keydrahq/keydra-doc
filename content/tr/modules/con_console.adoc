@@ -1,0 +1,74 @@
+[id="console-concepts_{context}"]
+= Konsol nedir
+
+Tek bir hedefe karşı, WebSocket üzerinden çalışan bir komut satırıdır. Komutu yazarsınız,
+{product-name} ayrıştırır, çalıştırır ve türüne uygun sonucu geri akıtır. Geçmiş, profil
+bazında tutulur ve oturum kapansa da korunur.
+
+image::konsol.jpg["Konsol dökümü; iki komut yanıtlanmış, üçüncüsü gerekçesiyle reddedilmiş"]
+
+Döküm, her komutun ne kadar sürdüğünü gösterir. `↑` tuşu geçmişte geriye gider, kbd:[Tab] ise
+gömülü komut tablosundan tamamlar.
+
+== Bazı komutlar neden reddedilir
+
+Bazı komutlar reddedilir; arayüz hangisinin hangi nedenle reddedildiğini söyler. Nedenler üç
+başlıkta toplanır ve hiçbiri "bu komut tehlikeli" değildir — bir veritabanı yöneticisi bunların
+hepsini çalıştırır.
+
+Paylaşılan bağlantıda geri dönmeyen komutlar:: `SUBSCRIBE`, `MONITOR`, bloklayan liste ve
+sıralı set çekme komutları, `WAIT`. {product-name} bağlantıları havuzda tutar; süresiz bloklayan
+bir komut, kullandığı bağlantıyı da beraberinde kilitler. Pub/Sub ve komut izlemenin ayrı
+sayfaları olmasının nedeni tam olarak budur.
+
+Havuzdaki bağlantının durumunu değiştiren komutlar:: `SELECT`, `HELLO`, `AUTH`. Bağlantı, o
+hedefi kullanan herkes arasında paylaşılır; birinin çalıştırdığı `AUTH`, herkesin kimliği hâline
+gelir.
+
+Rolün kapsamını aşan komutlar:: `CONFIG`, `SAVE`, `MODULE`, `EVAL`, `FUNCTION`, `RESTORE`,
+`MIGRATE`, `ACL`, `CLIENT`, `CLUSTER`, `SLOWLOG` ve çoğaltma iç komutları. Konsolu çalıştırmak
+`console:run` iznidir; bu izni operatör taşır. Operatör veriyi değiştirebilir ama sunucunun
+kendisini değiştiremez. `CONFIG SET dir` ile `CONFIG SET dbfilename` ve `SAVE` birlikte,
+sunucu sürecinin yazabildiği her yere istediğiniz dosyayı yazar; `MODULE LOAD` ise sunucuya
+çalıştıracağı bir paylaşımlı nesne verir. Her ikisi de "değer düzenleyebilir" yetkisini "o
+makinede kod çalıştırabilir" yetkisine dönüştürür.
+
+Ayrıca `KEYS`, `FLUSHALL`, `FLUSHDB` ve `SWAPDB` de reddedilir: bunlar sunucuyu anahtar uzayının
+tamamı boyunca bloklar. Veritabanı boşaltma, hedefini adıyla soran zamanlanmış bir iş olarak
+sunulur — bkz. xref:schedules.adoc[Zamanlanmış işler].
+
+== İki yarı eşit ölçüde tartışmaya açık değildir
+
+Ret gerekçeleri iki yarıya ayrılır ve bunlardan yalnızca biri bir hedefin yeniden
+değerlendirebileceği türdendir.
+
+Bir yarı {product-name} ile ilgilidir: havuzdaki bir bağlantıda hiç geri dönmeyen ya da o
+bağlantıyı başka bir yere bakar hâlde bırakan komutlar. Bunlar sunucu neresi olursa olsun
+aynıdır; çünkü bozdukları şey o sunucu değil, bu uygulamadır. Hiçbir yerde açılamazlar.
+
+Diğer yarı hedefle ilgilidir — `CONFIG`, `MODULE`, `EVAL`, `MIGRATE` ve komşuları. Bunların
+önemli olup olmadığı tamamen hangi sunucu olduğuna bağlıdır; bu yüzden bir hedef, yalnızca bu
+yarıdan isim çıkarabilir.
+
+== Bir komutu tek bir hedefte açma
+
+Bağlantı profilindeki *Konsol ve koruma* adımı, konsolun orada çalıştırabileceği komutları,
+her birinin hangi gerekçeyle reddedildiğine göre gruplanmış olarak listeler. Birini
+işaretlemek, o komutu yalnızca o hedefte açar.
+
+image::konsol-ve-koruma.jpg["Bağlantı sihirbazının Konsol ve koruma adımı; reddedilen komutlar, her birinin ret gerekçesi altında listeleniyor"]
+
+Hiçbirinin önemli olmadığı geçici bir sunucu ya da konsolu kullanan kişinin zaten veritabanı
+yöneticisi olduğu bir kurulum, bunu o profilde söyler — açmanın ne anlama geldiğini yazan
+cümlenin altında, tek tek her komut için.
+
+== Tabanı değiştirme
+
+`keydra.console.denied-commands` gömülü listeyi tümüyle değiştirir;
+`keydra.console.allowed-commands` ise listeden isim çıkarır. İkisi de isteğe bağlıdır ve
+öntanımlı olarak hiçbiri tanımlı değildir: boş bir değer ile hiç olmayan bir değer aynı şey
+değildir ve yazılmış boş bir liste, ret listesinin yerine hiçbir şey koymazdı.
+
+Bunlar bütün yanıt değil, tabandır. Söyledikleri her hedef için geçerlidir; "`FLUSHDB` geçici
+sunucuda sorun değil" demek için yanlış yer olmalarının nedeni de budur — yapılandırma bir
+hedefi adıyla söyleyemez ve üretim ortamına da aynı örnek üzerinden erişilir.

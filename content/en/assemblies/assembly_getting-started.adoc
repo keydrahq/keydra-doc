@@ -1,0 +1,14 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="getting-started"]
+= Getting started
+:description: Bring Keydra up against the local Redis and Valkey the repository ships, create the first administrator, and sign in.
+:page-keywords: getting started, first run, podman, sign in, setup
+:context: getting-started
+include::../attributes/attributes.adoc[]
+
+include::../modules/proc_running-keydra-for-the-first-time.adoc[leveloffset=+1]
+
+include::../modules/proc_creating-the-first-administrator.adoc[leveloffset=+1]
+
+include::../modules/proc_signing-in.adoc[leveloffset=+1]

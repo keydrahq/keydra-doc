@@ -1,0 +1,14 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="architecture"]
+= Mimari
+:description: İki program ve tek bir imaj: kimlik bilgilerinizi tutan, sunucularınızla RESP konuşan bir Quarkus arka ucu ve onun sunduğu bir PatternFly arayüzü.
+:page-keywords: mimari, quarkus, patternfly, postgresql, websocket, graphql
+:context: architecture
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_architecture.adoc[leveloffset=+1]
+
+include::../modules/con_what-keydra-stores.adoc[leveloffset=+1]
+
+include::../modules/con_multiple-instances.adoc[leveloffset=+1]

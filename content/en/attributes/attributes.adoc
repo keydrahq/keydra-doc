@@ -1,0 +1,23 @@
+// Attributes shared by every English page.
+//
+// Product facts live here so a version number appears in one file rather than in forty.
+// Anything that can be read from the Keydra source tree is *not* here: it is passed in by
+// the build from the inventory, so it cannot go stale. See scripts/build-inventory.ts.
+
+:product-name: Keydra
+:redis-name: Redis
+:valkey-name: Valkey
+
+// Names of the interface surfaces, so a rename is one edit.
+:console-name: the {product-name} console
+:api-base: /api/v1
+
+// Where things listen in a development setup, as configured in the repository.
+:dev-backend-url: http://localhost:8181
+:dev-frontend-url: http://localhost:9000
+
+// Documentation conventions.
+:experimental:
+:sectanchors:
+:idprefix:
+:idseparator: -

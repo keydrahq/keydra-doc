@@ -1,0 +1,17 @@
+Plain: The bytes as they are, decoded as UTF-8 text. What most values are, and the last thing tried.
+Json: Recognised as JSON and shown formatted. The commonest thing a string holds.
+Hex: Bytes as hexadecimal, for values that are not text at all.
+Base64: Base64-encoded content, decoded and then offered to the rest of the chain.
+Gzip: Gzip-compressed content. Announces itself with a magic number, so the guess is safe.
+Deflate: Raw deflate, without the gzip wrapper.
+Zstd: Zstandard-compressed content.
+Lz4: LZ4-compressed content.
+Brotli: Brotli-compressed content. Guessed last and under conditions, because Brotli carries no header
+  to recognize it by.
+MsgPack: MessagePack, decoded into a readable structure.
+Protobuf: Protocol Buffers, shown as the field numbers and wire types the bytes actually contain — no
+  schema is available, so the field names are not.
+PhpSerialized: PHP's `serialize()` output, unpacked into a readable structure.
+JavaSerialized: 'Java serialization. Described rather than deserialized: turning it back into an object
+  means running code the value chooses.'
+Pickle: Python pickle. Described rather than unpickled, for the same reason as Java serialization.

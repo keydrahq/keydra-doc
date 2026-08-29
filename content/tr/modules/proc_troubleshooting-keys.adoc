@@ -1,0 +1,25 @@
+[id="browsing-and-values_{context}"]
+= Anahtarlar ve değerler beklenmedik davranıyor
+
+.Prosedür
+
+Anahtar listesi sonuna gelmeden duruyor::
+Sayfa *Sınıra ulaşıldı* der; güvenle tutabileceği kadar anahtar tutar. Farklı anahtarları görmek
+için süzgeci daraltın. Bu, var olan anahtarların değil çizilen listenin sınırıdır.
+
+Değerin yalnızca başı görünüyor::
+Değer *Kısmen gösteriliyor* olarak işaretlenmiştir. Bütün hâlde döndürülemeyecek kadar büyüktür
+ve buradan düzenlemek ya da kopyalamak geri kalanının üzerine daha kısa bir metin yazardı.
+Değeri API üzerinden ya da dışa aktarma dosyasından okuyun.
+
+Değer anlamsız görünüyor::
+*Kodlama* seçimini *Otomatik* yerine değerin gerçek biçimine getirin. Otomatik tespit bir
+tahmindir; özellikle Brotli kendini tanıtan bir imza taşımaz.
+
+Listede görünen anahtar açılınca yok::
+Panel şunu yazar: *Bu anahtar artık yok — liste oluşturulduktan sonra süresi doldu ya da silindi.*
+`SCAN` canlı bir anahtar uzayında gezinir; anlık görüntü almaz.
+
+Konsolda komut reddediliyor::
+Bkz. xref:console.adoc#console-concepts_console[Bazı komutlar neden reddedilir]. Ret mesajı
+gerekçeyi belirtir ve liste yapılandırmayla değiştirilebilir.

@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="topology"]
+= Küme ve Sentinel topolojisi
+:description: Hedefin nasıl kurulduğu, hangi düğümün hangi slota hizmet verdiği ve karşınızdaki türevin gerçekte hangi yetenekleri desteklediği.
+:page-keywords: küme, sentinel, topoloji, slotlar, düğümler, yetenekler
+:context: topology
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_topology.adoc[leveloffset=+1]
+
+include::../modules/proc_reading-the-topology.adoc[leveloffset=+1]

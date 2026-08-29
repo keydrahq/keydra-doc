@@ -1,0 +1,18 @@
+[id="openapi_{context}"]
+= OpenAPI
+
+Çalışan bir {product-name} kendi OpenAPI belgesini yayımlar:
+
+[source,bash]
+----
+curl -s http://localhost:8181/api/openapi > keydra-openapi.yaml
+----
+
+Geliştirme profilinde `/q/swagger-ui` adresinden belgeye etkileşimli olarak göz atabilirsiniz.
+
+Bu belge yetkili şemadır: istek ve yanıt yapıları, durum kodları ve doğrulama kuralları onları
+sunan koddan üretilir. Aşağıdaki tablolar uç noktaları ve gerektirdikleri izinleri gösterir;
+alanların ayrıntısı belgede bulunur.
+
+GraphQL şeması geliştirmede `/graphql/schema.graphql` adresinde sunulur ve iç gözlem de orada
+açıktır. Üretimde ikisi de kapalıdır.

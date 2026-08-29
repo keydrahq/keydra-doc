@@ -1,0 +1,17 @@
+Plain: Baytların kendisi, UTF-8 metin olarak çözülür. Değerlerin çoğu budur ve zincirde en son denenir.
+Json: JSON olarak tanınır ve biçimlendirilmiş gösterilir. Bir string'in en sık tuttuğu şey.
+Hex: Baytlar onaltılık olarak; hiç metin olmayan değerler için.
+Base64: Base64 ile kodlanmış içerik; çözülür ve zincirin geri kalanına verilir.
+Gzip: Gzip ile sıkıştırılmış içerik. Kendini bir sihirli sayıyla tanıttığı için tahmin güvenlidir.
+Deflate: Gzip sarmalayıcısı olmadan ham deflate.
+Zstd: Zstandard ile sıkıştırılmış içerik.
+Lz4: LZ4 ile sıkıştırılmış içerik.
+Brotli: Brotli ile sıkıştırılmış içerik. Brotli'yi tanıtan bir başlık olmadığı için en son ve koşullu
+  olarak tahmin edilir.
+MsgPack: MessagePack; okunabilir bir yapıya çözülür.
+Protobuf: Protocol Buffers; baytların gerçekten içerdiği alan numaraları ve tel tipleri olarak gösterilir
+  — bir şema bulunmadığı için alan adları gösterilemez.
+PhpSerialized: PHP'nin `serialize()` çıktısı; okunabilir bir yapıya açılır.
+JavaSerialized: 'Java serileştirmesi. Nesneye dönüştürülmez, yalnızca tarif edilir: geri dönüştürmek,
+  değerin seçtiği kodu çalıştırmak demektir.'
+Pickle: Python pickle. Java serileştirmesiyle aynı nedenle açılmaz, yalnızca tarif edilir.

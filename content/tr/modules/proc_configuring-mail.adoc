@@ -1,0 +1,41 @@
+[id="configuring-mail_{context}"]
+= Giden postayı yapılandırma
+
+Tek bir aktarıcı bir kez tanımlanır; davetler, parola sıfırlamaları ve sonradan eklenen bütün
+işlevler bunu kullanır.
+
+.Prosedür
+
+Aktarıcının istediği ayarları girin:
+
+[source,properties]
+----
+KEYDRA_MAIL_HOST=smtp.example.com
+KEYDRA_MAIL_PORT=587
+KEYDRA_MAIL_TLS=true
+KEYDRA_MAIL_USERNAME=<kullanıcı adı>
+KEYDRA_MAIL_API_KEY=<parola ya da API anahtarı>
+KEYDRA_MAIL_FROM=keydra@example.com
+----
+
+.Doğrulama
+
+Bir hesabı davet edin ve bağlantının ulaştığını kontrol edin.
+
+[NOTE]
+====
+Hiçbir ayar yapılmadığında da davet oluşturulur; bağlantı, daveti gönderen yöneticiye gösterilir.
+Bu, postayla göndermekten kötüdür ama daveti tümden reddetmekten çok daha iyidir: aktarıcısı
+olmayan bir kurulumda kimseye hesap verilememesi kabul edilemez.
+====
+
+.İletinin görünümü
+
+Bir davet, birinin {product-name}'dan gördüğü ilk şeydir; bu yüzden yanında düz metin bir parçayla
+birlikte HTML olarak gider — düz parça önce, ki MIME'ın istediği sıra budur ve yalnızca anladığını
+okuyan bir istemcinin göstereceği parça odur.
+
+Hesap söylemişse, hesabın okuduğu dilde yazılır. {product-name}'yı kullanmış bir hesabın dil
+tercihi vardır ve o cevap kazanır; yeni açılmış bir hesap hiçbir şey belirtmemiştir ve bir e-posta
+adresi dil taşımaz — dolayısıyla geri dönüş `KEYDRA_MAIL_LANGUAGE`, yani kurulumun kendisinin
+çalıştırıldığı dildir. Bağlantı bu seçimi taşır, böylece açtığı sayfa da iletiyle aynı dili konuşur.

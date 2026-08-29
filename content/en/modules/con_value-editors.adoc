@@ -1,0 +1,33 @@
+[id="value-editors_{context}"]
+= Reading and changing values
+
+Each of the server's types has an editor of its own, and each loads in segments rather than
+all at once — `HSCAN`, `SSCAN` and `ZSCAN` for the scanning types, windows of `LRANGE` for
+lists, pages of `XRANGE` for streams. A large value is opened rather than downloaded.
+
+image::value-editor.jpg["A hash open beside the key list, with its fields and values editable in place"]
+
+String:: One editor, with an *Encoding* selector.
+
+Hash:: A *Field* and *Value* table with inline editing, *New field name* and *New field
+value* to add one, and a delete action per row.
+
+List:: An *Index* and *Value* table. New elements go to the *Head* or the *Tail*.
+
+Set:: A *Member* table, with *New member*.
+
+Sorted set:: *Member* and *Score*, both editable.
+
+Stream:: A viewer, paged.
+
+== A value that is too large to return
+
+Some values cannot be returned whole. {product-name} shows the beginning and marks the
+value *Shown in part*, with the explanation that it cannot be edited or copied from here
+without overwriting the rest. Copying is refused for the same reason: it would produce
+something shorter than what is stored.
+
+== Copying a value out
+
+The key's actions offer *Copy key name*, *Copy as JSON* and *Copy as redis-cli command*.
+The last is the one that makes a value portable into a terminal or a script.

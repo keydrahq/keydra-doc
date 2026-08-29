@@ -1,0 +1,34 @@
+[id="watching-live-commands_{context}"]
+= Canlı komutları izleme
+
+Hedeften istenen her komutu anında görürsünüz: sunucunun `MONITOR` çıktısı tarayıcınıza
+akıtılır.
+
+.Ön koşullar
+
+* Hedefte `commands:watch` izniniz olmalı. Bu izin bilinçli olarak dardır: tek tek anahtar
+  okuyabilen birinin, geçen bütün anahtarları okuması beklenmez.
+
+.Prosedür
+
+. Hedefi açıp *Canlı komutlar* sayfasına gidin.
+. *İzlemeye başla* düğmesine tıklayın. Bu adıma kadar sayfada *İzlenmiyor* yazar ve izlemenin
+  açıkken sunucuya ek yük getirdiği belirtilir.
+. Görüntüyü *Komuta, argümana veya istemciye göre süz* alanıyla daraltın.
+. İşiniz bitince *İzlemeyi durdur* düğmesine tıklayın.
+
+image::canli-komutlar.jpg["Başlatılmadan önce canlı komut izleme; sunucuya neye mal olduğunu açıklıyor"]
+
+.Doğrulama
+
+Satırlarda *Zaman*, *İstemci*, *Komut* ve *Argümanlar* sütunları görünür. Sunucunun kendi
+çalıştırdığı komutlar *sunucunun kendisi* olarak gösterilir.
+
+Komutlar okunabileceğinden hızlı geliyorsa sayfa kaçının gösterilemediğini bildirir; sessizce
+atmaz.
+
+[IMPORTANT]
+====
+Akış argümanları da taşır, argümanlar ise veriyi. Sırlar motordan çıkmadan önce maskelenir; ama
+anahtar adları ve değerler maskelenecek sır değil, hedefinizin içeriğidir.
+====

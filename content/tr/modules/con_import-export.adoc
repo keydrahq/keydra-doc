@@ -1,0 +1,13 @@
+[id="import-export-concepts_{context}"]
+= Anahtarları dosyaya aktarma ve dosyadan alma
+
+Dışa aktarma; anahtarları, değerlerini ve son kullanma sürelerini, içe aktarmanın okuduğu
+biçimde yazar. Sunucunun kendi `DUMP` ve `RESTORE` komutlarını kullanır; böylece değerler gidiş
+dönüşten hiç bozulmadan çıkar — {product-name}'nın düzenleyicisi bulunmayan türler dahil.
+
+Bu dosya bir RDB dosyası değildir. RDB, sunucunun kendi belleğini kendi kapsayıcısındaki diske
+yazmasıdır; {product-name}'nın orada bir dosya sistemi yoktur. {product-name} yalnızca
+okuyabildiğini aktarabilir.
+
+Yedek hedeflerine giden dosya da aynı biçimdedir: elle aktardığınız dosyayla gecelik bir işin
+yazdığı dosya birbirinin aynısıdır.

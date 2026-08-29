@@ -1,0 +1,20 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="access-control"]
+= Access control
+:description: A grant says a subject holds a role on a scope. Groups nest, server groups nest, there are no deny rules, and absence is the denial.
+:page-keywords: permissions, roles, grants, groups, server groups, matrix, audit, rbac
+:context: access-control
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_authorization-model.adoc[leveloffset=+1]
+
+include::../modules/ref_built-in-roles.adoc[leveloffset=+1]
+
+include::../modules/proc_creating-users-and-groups.adoc[leveloffset=+1]
+
+include::../modules/proc_server-groups.adoc[leveloffset=+1]
+
+include::../modules/proc_granting-access.adoc[leveloffset=+1]
+
+include::../modules/con_audit-log.adoc[leveloffset=+1]

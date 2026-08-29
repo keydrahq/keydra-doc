@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="topology"]
+= Cluster and Sentinel topology
+:description: How a target is arranged, which node serves which slot, and which capabilities the flavor in front of you actually has.
+:page-keywords: cluster, sentinel, topology, slots, nodes, capabilities
+:context: topology
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_topology.adoc[leveloffset=+1]
+
+include::../modules/proc_reading-the-topology.adoc[leveloffset=+1]

@@ -1,0 +1,35 @@
+[id="watching-live-commands_{context}"]
+= Watching live commands
+
+Every command the target is being asked to run, as it happens — the server's `MONITOR`,
+streamed to your browser.
+
+.Prerequisites
+
+* You hold `commands:watch` on the target. This is deliberately narrow: somebody who may
+  read one key at a time has no business reading all of them as they go past.
+
+.Procedure
+
+. Open the target and go to *Live commands*.
+. Click *Start watching*. Until you do, the page reads *Not watching* and explains that
+  watching costs the server work while it is on.
+. Narrow what is shown with *Filter by command, argument or client*.
+. Click *Stop watching* when you are finished.
+
+image::live-commands.jpg["The live command watch before it is started, explaining what it costs the server"]
+
+.Verification
+
+Rows appear with *Time*, *Client*, *Command* and *Arguments*. Commands the server issues
+itself are attributed to *the server*.
+
+If commands arrive faster than they can be read, the page says how many were not shown
+rather than quietly dropping them.
+
+[IMPORTANT]
+====
+The stream carries arguments, and arguments carry data. Secrets are redacted before they
+leave the engine, but a key name and a value are not secrets to redact — they are the
+contents of somebody's target.
+====

@@ -1,0 +1,84 @@
+# Dokümantasyon kabuğunun kendi arayüz metinleri.
+#
+# Kabuk, AsciiDoc ile yazılmayan kısımdır: üst çubuk, menüler, "bu sayfada" başlığı,
+# arama katmanı, 404. Hepsi burada durur; böylece yeni bir dil eklemek, kaynak kodda
+# metin aramak yerine bir dosya eklemek olur.
+
+site.title: Keydra dokümantasyonu
+site.short: Dokümantasyon
+site.skipToContent: İçeriğe geç
+
+nav.label: Dokümantasyon bölümleri
+nav.toggle: Dokümantasyon gezinmesini aç/kapat
+nav.breadcrumb: Sayfa yolu
+nav.home: Dokümantasyon
+
+toc.title: Bu sayfada
+toc.label: Bu sayfadaki bölümler
+
+pager.previous: Önceki
+pager.next: Sonraki
+
+page.editThis: Bu sayfayı düzenle
+
+language.change: Dili değiştir
+language.unavailable: Bu sayfa henüz çevrilmedi.
+
+version.change: Sürümü değiştir
+version.development: Geliştirme dokümantasyonu
+version.developmentBody: Bu belgeler Keydra'nın geliştirilmekte olan hâlini anlatır; yayımlanmış bir sürüm değildir. Anlatılanlar bir sürüm çıkana kadar değişebilir.
+version.unavailable: Bu sayfa o sürümde bulunmuyor.
+
+search.label: Ara
+search.placeholder: Dokümantasyonda ara
+search.open: Dokümantasyonda ara
+search.close: Aramayı kapat
+search.results: Sonuçlar
+search.noResults: Sonuç yok
+search.hint: 'Arama, {language} dokümantasyonunun {version} sürümünde yapılıyor.'
+search.resultCount_one: '{count} sonuç'
+search.resultCount_other: '{count} sonuç'
+search.unavailable: Arama JavaScript gerektirir; bu tarayıcıda kapalı. Gezinme ve bütün sayfalar yine de çalışır.
+
+code.copy: Kopyala
+code.copied: Kopyalandı
+
+table.label: Tablo
+image.open: Ekran görüntüsünü tam boyutta aç
+heading.anchor: 'Bu bölüme bağlantı: {title}'
+
+admonition.note: Not
+admonition.tip: İpucu
+admonition.important: Önemli
+admonition.warning: Uyarı
+admonition.caution: Dikkat
+
+notFound.title: Sayfa bulunamadı
+notFound.body: Bu adreste bir sayfa yok. Sayfa taşınmış ya da sizi buraya getiren bağlantı eskimiş olabilir.
+notFound.home: Dokümantasyon ana sayfasına git
+notFound.search: Dokümantasyonda ara
+
+footer.product: Keydra
+footer.docsVersion: 'Keydra {version} dokümantasyonu'
+footer.repository: Kaynak deposu
+
+theme.label: Görünüm
+theme.system: Sistem
+theme.light: Açık
+theme.dark: Koyu
+
+landing.browse: Bütün bölümler
+landing.sectionPages_one: '{count} sayfa'
+landing.sectionPages_other: '{count} sayfa'
+
+# Gezinme gruplarının adları. Yaprak girdiler etiketini sayfanın kendi başlığından alır;
+# bir gezinme etiketiyle sayfa başlığının birbirinden ayrılmasını engelleyen budur.
+nav.group.introduction: Giriş
+nav.group.install: Kurulum
+nav.group.targets: Hedefler
+nav.group.data: Anahtarlar ve veri
+nav.group.operate: İşletim
+nav.group.automate: Otomasyon
+nav.group.protect: Güvenlik
+nav.group.run: Keydra'yı çalıştırma
+nav.group.reference: Referans

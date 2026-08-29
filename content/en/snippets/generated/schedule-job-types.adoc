@@ -1,0 +1,18 @@
+////
+GENERATED FILE — do not edit.
+Written by scripts/build-generated-content.ts from the Keydra source tree.
+The descriptions come from the YAML files under content/en/data/; edit those.
+////
+[cols="2,4",options="header",role="kd-generated"]
+|===
+| Name | Description
+| `FLUSH_DATABASE`
+| Empties a database on the target. The job everybody has a shell script for, and the one everybody has run against the wrong server at least once — so it names its target and asks for it by name.
+
+| `COPY_KEYS`
+| Copies keys to another target, on a cadence. The same code a migration started by hand uses, so a nightly copy and a manual one behave identically.
+
+| `EXPORT_KEYS`
+| Writes keys, values and expiries to a file. With a backup destination configured, the file leaves the machine and old ones fall off the end.
+
+|===

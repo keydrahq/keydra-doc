@@ -1,0 +1,42 @@
+[id="container-images_{context}"]
+= The published images
+
+{product-name} is published at `{image-registry}` as three images. Which one you want depends
+on whether the interface is served by {product-name} or by something else.
+
+[cols="2,3",options="header"]
+|===
+| Image | What it is
+
+| `{image-standalone}`
+| The interface built into the API's own static resources, so one container serves both. This
+is the ordinary deployment and the one the manifests in the repository use.
+
+| `{image-backend}`
+| The API alone. For a deployment that serves the interface separately — from a CDN, from an
+existing web server, or as its own pod.
+
+| `{image-ui}`
+| The interface alone, as static files.
+|===
+
+.The interface and the API must share an origin
+[IMPORTANT]
+====
+The interface calls `{api-base}` and `/graphql` as relative paths. There is no setting that
+points it at an API somewhere else, deliberately: an absolute API address in a static bundle
+is a build-time decision about a run-time fact, and it is also a cross-origin cookie problem.
+
+So a split deployment needs a reverse proxy in front of both, serving the interface at `/` and
+routing `/api` and `/graphql` — and the WebSocket upgrades on them — to the backend. The
+session cookie is then a first-party cookie, which is what makes `SameSite=Lax` work.
+
+If you do not already need that proxy, use `{image-standalone}`.
+====
+
+.Tags
+[NOTE]
+====
+The examples here use `{image-tag}`. A deployment should pin a version instead, so a restart
+does not become an upgrade nobody scheduled.
+====

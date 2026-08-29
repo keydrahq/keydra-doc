@@ -1,0 +1,12 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="observability"]
+= Gözlemlenebilirlik
+:description: Sağlık yoklamaları, Prometheus ölçümleri, OpenTelemetry izleri ve JSON günlükleri; ayrıca ölçümlerin yeniden başlatmadan sonra da durması için gereken depo.
+:page-keywords: sağlık, ölçümler, prometheus, opentelemetry, izleme, günlükler, clickhouse
+:context: observability
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_observability.adoc[leveloffset=+1]
+
+include::../modules/proc_keeping-readings.adoc[leveloffset=+1]

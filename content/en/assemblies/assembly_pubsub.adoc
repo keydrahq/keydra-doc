@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="pubsub"]
+= Pub/Sub
+:description: Subscribe to channels and patterns and publish to them. The subscription belongs to the server, so every tab sees the same messages.
+:page-keywords: pubsub, publish, subscribe, channel, pattern
+:context: pubsub
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_pubsub.adoc[leveloffset=+1]
+
+include::../modules/proc_subscribing-and-publishing.adoc[leveloffset=+1]

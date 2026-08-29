@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="server-admin"]
+= A target's own settings
+:description: The Server tab reads a target's persistence and its several hundred settings, and writes changes back to it. What takes effect at once, and what survives a restart.
+:page-keywords: server settings, persistence, snapshot, rdb, aof, config, acl
+:context: server-admin
+include::../attributes/attributes.adoc[]
+
+include::../modules/proc_server-settings.adoc[leveloffset=+1]
+
+include::../modules/con_redis-acl.adoc[leveloffset=+1]

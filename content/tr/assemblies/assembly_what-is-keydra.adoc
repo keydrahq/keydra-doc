@@ -1,0 +1,12 @@
+// Assembly. Red Hat modular documentation: this file composes modules and
+// contributes no prose of its own beyond the abstract.
+[id="what-is-keydra"]
+= Keydra nedir?
+:description: Anahtar-değer sunucuları için ekipçe kullanılan bir web konsolu: kimlik bilgileri sunucuda durur, erişim kişi ve hedef bazında belirlenir.
+:page-keywords: genel bakış, giriş, redis, valkey, konsol
+:context: what-is-keydra
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_what-is-keydra.adoc[leveloffset=+1]
+
+include::../modules/con_supported-targets.adoc[leveloffset=+1]

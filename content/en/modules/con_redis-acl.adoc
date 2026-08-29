@@ -1,0 +1,33 @@
+[id="target-acl_{context}"]
+= Managing a target's own users
+
+A {redis-name} or {valkey-name} server has its own ACL: users, passwords and the command
+categories each may run. That is a different question from who may use {product-name}, and
+{product-name} does not conflate them.
+
+image::server-users.jpg["The target’s own users, with the key patterns and command categories each may use"]
+
+.Procedure
+
+. Open the target and go to the ACL page. You need `acl:read` to see it and `acl:manage` to
+  change it.
+. The page lists the users the target knows about and the permission categories it defines.
+
+.Verification
+
+Changes take effect on the server immediately, and are recorded in the audit log with the
+subject *ACL*.
+
+[NOTE]
+====
+`ACL` is on the console's deny-list. Creating an identity on the target from a console would
+create one {product-name} does not know about, and therefore cannot show, filter or revoke.
+This page is where it is done instead.
+====
+
+.Per-key rules
+[NOTE]
+====
+{product-name} does not have per-key permissions of its own. The server's ACLs already
+answer that question, and two answers to one question is worse than one.
+====

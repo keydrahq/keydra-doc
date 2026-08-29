@@ -1,0 +1,31 @@
+ConnectionCreated: Bağlantı profili eklendi.
+ConnectionUpdated: Bağlantı profili değişti. Havuzdaki istemcileri ve tüneli kapatılır; profil artık başka
+  bir sunucuyu gösteriyor olabilir.
+ConnectionDeleted: Bağlantı profili kaldırıldı.
+ConnectionStatusChanged: Hedef ayağa kalktı, düştü ya da farklı bir türev veya sürüm bildirdi.
+KeysChanged: Hedefteki anahtarlar oluşturuldu, yeniden adlandırıldı, süre aldı ya da silindi.
+ValueChanged: Anahtarın içeriği değişti.
+ChannelMessage: Abone olunan kanala mesaj geldi.
+SubscriptionChanged: Abonelik açıldı, kapandı ya da bağlantısı düştüğü için sona erdi.
+MetricsSample: İzlenen hedeften yeni bir ölçüm geldi.
+MonitoringChanged: Hedef için örnekleme başladı ya da durdu.
+MigrationProgress: İki hedef arasındaki göç işinin ilerlemesi. İşi başlatan isteğe yanıt olarak değil,
+  yayın olarak gönderilir; böylece yarısında yenilenen bir sayfa süren işi gözden kaybetmez.
+ScheduleFailed: 'Zamanlanmış iş, planlandığı işi yapamadı. Yalnızca başarısızlıklar bildirilir: beş dakikada
+  bir gelen başarı bildirimi, asıl önemli olanı gözden kaçırtırdı.'
+ScheduleRan: Zamanlanmış iş sonuçtan bağımsız olarak tamamlandı. "Son çalışma" sütunu çizen tablolar için
+  gerekir; o sütun başarıda da başarısızlıkta da değişmelidir.
+AlertChanged: Uyarı kuralı sessiz, beklemede ve tetikte durumları arasında geçiş yaptı. Yalnızca geçişler
+  bildirilir; altı saattir tetikte olan kural tek bir mesaj gönderir.
+SessionEnded: Oturum burada ya da başka bir örnekte sonlandırıldı. Onu taşıyan tarayıcı bir sonraki isteğinde
+  çalışmayı bırakır.
+SignInFlagged: Başarılı bir giriş, kendisinden öncekilere benzemiyordu.
+PurgeProgress: Toplu silmenin nereye geldiği. Glob ile silme, anahtar uzayını gruplar hâlinde yürür; bu
+  yüzden sonunda tek bir yanıt vermek yerine ilerledikçe bildirir — dört dakika boyunca hiçbir şey göstermeyen
+  bir sayfa, durmuş bir sayfadan ayırt edilemezdi.
+ApprovalRequested: 'Birisi, ikinci bir kişiyi bekleyen bir hedefte işlem istedi. İçinde yalnızca isteğin
+  kimliği ve hedef vardır, başka bir şey değil: yayının izleyicisi o hedefi görebilen herkestir ve bu küme,
+  isteği yanıtlayabilecek kişilerden geniştir.'
+ApprovalChanged: Bir istek onaylandı, reddedildi, geri çekildi, süresi doldu ya da çalışmasını bitirdi.
+  Kimsenin düğmeye basmadığı bitişler de dâhil her bitiş bildirilir; çünkü yanıtı bekleyen kişi, onun geldiğini
+  görmeye en çok ihtiyaç duyan kişidir.

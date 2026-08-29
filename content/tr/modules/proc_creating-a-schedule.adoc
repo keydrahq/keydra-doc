@@ -1,0 +1,33 @@
+[id="creating-a-schedule_{context}"]
+= Zamanlanmış iş oluşturma
+
+.Ön koşullar
+
+* Hedefte `schedule:manage` izni ve işin kendisinin gerektirdiği izin: boşaltma için
+  `keys:delete`, dışa aktarma için `transfer:export`, kopyalama için `migration:run`.
+
+.Prosedür
+
+. *Zamanlanmış işler* sayfasına gidin.
+. *Yeni zamanlama* düğmesine tıklayın.
+. İşe bir ad verin ve hedefi seçin.
+. İş türünü seçip ayarlarını doldurun.
+. Sıklığı cron ifadesi olarak girin.
+. İşi etkin olarak kaydedin.
+
+.Doğrulama
+
+Satır, sıklığı ve bir sonraki çalışma zamanıyla birlikte listelenir. Zamanı beklemeden
+denemek için *Şimdi çalıştır* düğmesine tıklayın; zamanlanmış iş yazan herkes zaten ilk olarak
+bunu yapar.
+
+[IMPORTANT]
+====
+*Bir veritabanını boşalt* işi, herkesin bir betiği olan ve herkesin en az bir kez yanlış
+sunucuda çalıştırdığı iştir. Bu yüzden kaydedilmeden önce hedefini adıyla yazmanızı ister.
+====
+
+.Sonraki adımlar
+
+* xref:schedules.adoc#watching-what-ran_schedules[Çalışmaları izleyin]
+* xref:backup-restore.adoc[Aktarımı bu makinenin dışına gönderin]

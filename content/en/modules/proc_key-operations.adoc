@@ -1,0 +1,37 @@
+[id="deleting-renaming-and-expiring-keys_{context}"]
+= Deleting, renaming and expiring keys
+
+.Prerequisites
+
+* `keys:delete` to delete, `keys:write` to rename, duplicate or change a TTL.
+
+.Procedure
+
+To delete:
+
+. Select one or more rows, or open a row's actions menu.
+. Click *Delete*, or *Delete {count}* for a selection.
+. The dialog names what will go and says it cannot be undone. Confirm.
+
+To rename:
+
+. Open the row's actions menu and choose *Rename*.
+. Give the *New name*. If a key of that name exists, the dialog refuses and offers
+  *Overwrite the destination if it already exists*.
+. Confirm.
+
+To duplicate:
+
+. Open the row's actions menu and choose *Duplicate*.
+. Give the *New name*, with the same overwrite option.
+
+To set or clear an expiry:
+
+. Open the row's actions menu and choose *Set TTL*.
+. Enter *Seconds until expiry*, or tick *Remove the expiry instead*.
+. Confirm.
+
+.Verification
+
+The list updates without a rescan: the change is broadcast over the notification hub, so
+every browser looking at that target sees it — including a colleague's.

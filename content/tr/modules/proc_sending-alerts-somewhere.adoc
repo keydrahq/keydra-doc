@@ -1,0 +1,70 @@
+[id="sending-alerts-somewhere_{context}"]
+= Uyarıları bir yere gönderme
+
+Gönderim ikinci bir kopyadır. Olay her hâlükârda geçmişte ve bildirim hattında bulunur;
+gönderim, kimsenin {product-name}'yı açık tutmadığı saatler içindir.
+
+.Ön koşullar
+
+* `alert-delivery:manage` izniniz olmalı. Bu bir yönetici iznidir: gönderim, dışarıdaki bir
+  servise ait kimlik bilgisi tutar ve bir sunucunun sorunlarının nerede duyurulacağına karar
+  vermek, o sunucuyu izlemenin parçası değildir.
+
+.Prosedür
+
+. *Uyarılar* sayfasına gidip *Gönderim yerleri* bölümünü açın.
+. *Gönderim yeri ekle* düğmesine tıklayın.
+. *Tür* seçin:
++
+include::../snippets/generated/alert-delivery-kinds.adoc[]
++
+. Türün istediği alanları doldurun. Zorunlu alanı eksik bir gönderim, formda reddedilir:
+  belirtecin hiç kaydedilmediğini öğrenmenin en kötü zamanı, gönderilemeyen mesajın asıl
+  önemli mesaj olduğu andır.
+. Kaydedin.
+
+.Doğrulama
+
+Gönderim listede görünür. Ona bağlı bir kural tetiklendiğinde önce *gönderiliyor*, sonra
+*gönderildi* yazar. Başarısız olursa *gönderilemedi* yazar ve nedeni olay kaydına işlenir.
+
+Gönderim hatası uyarıyı kaybettirmez: uyarı zaten geçmişte ve bildirim hattındadır.
+
+[NOTE]
+====
+Belirteçler birer kimlik bilgisidir ve öyle işlenir: şifreli saklanır, API tarafından
+döndürülmez ve düzenleme formunda alan boş geldiğinde silinmez, korunur. Alıcı bilgisi kimlik
+bilgisi değildir — kanal adı yalnızca bir addır — bu yüzden liste, hiçbir şeyi çözmeden
+uyarıların nereye gittiğini gösterebilir.
+====
+
+.Bir kural birden fazla hedef adlandırabilir
+
+Kuralın kendisini duyurması gereken bütün hedefleri seçin. Alternatif — kuralı her hedef için bir
+kez olmak üzere iki kere yazmak — yapıldığı gün çalışır, ertesi gün ayrışır: biri kopyalardan
+birinin eşiğini yükseltir ya da incelerken birini kapatır, ve aynı koşul artık iki kanalı farklı
+biçimde uyarır.
+
+Olay kaydına geçen şey, olanların *en kötüsüdür*. Üçten ikisinin ulaşması, birinin kanalının haber
+almadığı anlamına gelir; *gönderildi* diyen bir kayıt, tam da ulaşmadığını bilmesi gereken kişiyi
+rahatlatırdı. Ayrıntı satırı ise hangisinin başarısız olduğunu ve ne dediğini söyler.
+
+Başarısız olan bir hedef diğerlerini durdurmaz; birden fazlasını adlandırmanın bütün anlamı da
+budur.
+
+.Keydra'nın kendi sorunları
+
+Cevap vermeyi bırakan bir kimlik sağlayıcı ya da yedek hedefi, bu sayfanın altındaki
+*{product-name}'nın kendi sorunları* bölümünde seçilen hedeflere kendini duyurur.
+
+Bu bir kural değildir ve _ne zaman_ konusunda ayarlanacak bir şey yoktur: bir hedef ya erişilebilir
+ya değildir, dolayısıyla seçilecek bir eşik ya da ortalaması alınacak bir pencere yoktur. Değişen tek
+şey haberin nereye gideceğidir ve kuralların kullandığı hedeflere gider, böylece bir belirteç tek bir
+yerde yenilenir.
+
+Düşerken bir kez, dönerken bir kez. Salıdan beri erişilemeyen bir şey, bir hafta boyunca on dakikada
+bir değil, salı günü tek bir ileti demektir; *yeniden cevap veriyor* iletisi de kendinden öncekini
+kapatan iletidir.
+
+Hiçbir şey seçmemek gerçek bir cevaptır ve öntanımlıdır: örnekler sayfası neyin cevap verdiğini ve
+bunun ne kadar önce öğrenildiğini zaten söyler.

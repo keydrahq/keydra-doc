@@ -1,0 +1,32 @@
+[id="exporting-and-importing-keys_{context}"]
+= Anahtarları dışa ve içe aktarma
+
+.Ön koşullar
+
+* Dışa aktarmak için `transfer:export`, içe aktarmak için `transfer:import` izni.
+
+.Prosedür
+
+Dışa aktarmak için:
+
+. Hedefin *Anahtarlar* sayfasını açın.
+. İstediğiniz satırları seçip *{count} anahtarı dışa aktar* seçeneğini kullanın; ya da o anki
+  glob'un eşleştirdiği her şeyi aktarmak için *Eşleşen her şeyi dışa aktar* seçeneğini seçin.
+. Dosya indirilir.
+
+İçe aktarmak için:
+
+. *Anahtarlar* sayfasında *İçe ve dışa aktarma* menüsünü açıp içe aktarma işlemini seçin.
+. Dosyayı seçin.
+. Hedefte zaten bulunan anahtarlara ne olacağına karar verin: üzerine yazılsın ya da olduğu
+  gibi bırakılsın.
+. Onaylayın.
+
+.Doğrulama
+
+Anahtarlar geldikçe liste güncellenir; değişiklik bildirim hattı üzerinden iletildiği için
+sayaç yeniden tarama olmadan ilerler.
+
+.Sonraki adımlar
+
+* xref:backup-restore.adoc[Aynı aktarımı zamanlanmış olarak başka bir yere gönderin]

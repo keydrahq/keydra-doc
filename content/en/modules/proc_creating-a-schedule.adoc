@@ -1,0 +1,35 @@
+[id="creating-a-schedule_{context}"]
+= Creating a schedule
+
+.Prerequisites
+
+* `schedule:manage` on the target, plus the permission the work itself requires — for
+  example `keys:delete` for a flush, `transfer:export` for an export, `migration:run` for a
+  copy.
+
+.Procedure
+
+. Go to *Scheduled work*.
+. Click *New schedule*.
+. Give it a name and choose the target.
+. Choose the kind of work and complete its settings.
+. Give the cadence as a cron expression.
+. Save it, enabled.
+
+.Verification
+
+The row appears with its cadence and next run. Click *Run now* to prove it does what you
+meant before waiting for the clock — which is what everybody does the moment they have
+written one.
+
+[IMPORTANT]
+====
+*Flush a database* is the job everybody has a script for, and the one everybody has run
+against the wrong target at least once. It names its target and asks for it by name before
+it will save.
+====
+
+.Next steps
+
+* xref:schedules.adoc#watching-what-ran_schedules[Watch what ran]
+* xref:backup-restore.adoc[Send an export somewhere other than this machine]

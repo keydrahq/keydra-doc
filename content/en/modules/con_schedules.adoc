@@ -1,0 +1,28 @@
+[id="schedules-concepts_{context}"]
+= What a schedule is
+
+A schedule is a job, a target, a cadence and a switch. A run is one attempt, with what it
+did and whether it worked.
+
+image::scheduled-work.jpg["Scheduled work, with each schedule’s job, target, cadence and next run"]
+
+Everything else — which keys, which second target, how many at a time — belongs to the
+job's own settings, because the jobs have little in common beyond being worth repeating.
+
+The kinds of work available:
+
+include::../snippets/generated/schedule-job-types.adoc[]
+
+== Permissions
+
+A schedule requires the permission its job would need if somebody ran it by hand, *and*
+`schedule:manage` on the target. Both are checked when it is saved and again when it runs.
+A schedule is a way of doing something later, not a way of doing something you may not do.
+
+== Runs are recorded before they start
+
+A job that never finishes is visible as one that never finished, rather than as one that
+never ran.
+
+A failed run raises a notification. Successful ones do not — a toast every five minutes
+would bury the one that matters — but the page's "last run" column changes either way.

@@ -1,0 +1,34 @@
+[id="creating-users-and-groups_{context}"]
+= Creating users and groups
+
+.Prerequisites
+
+* You hold `users:manage` and `groups:manage`.
+
+.Procedure
+
+To add an account:
+
+. Go to *Access* and open the *Users* tab.
+. Click *Add user*.
+. Give a *Username*, and optionally a *Display name* and *Email*.
+. Either set a *Password*, or leave it empty and invite the person — see
+  xref:accounts.adoc#inviting-somebody_accounts[Inviting somebody].
+. Leave *Enabled* ticked. A disabled account cannot sign in and keeps its grants for when it
+  is enabled again.
+
+To add a group:
+
+. Open the *Groups* tab and click *Add group*.
+. Name it, and optionally place it *Inside* another group.
+. Open it and use *Add member* to put people — or other groups — in it.
+
+.Verification
+
+A new account can sign in and see nothing: *An account lets somebody sign in and see
+nothing. Access arrives as a grant.*
+
+.Next steps
+
+* xref:access-control.adoc#putting-targets-in-server-groups_access-control[Put targets in server groups]
+* xref:access-control.adoc#granting-access_access-control[Grant a role]

@@ -1,0 +1,72 @@
+[id="reading-and-changing-server-settings_{context}"]
+= Reading and changing a server's own settings
+
+// The sentences quoted below are the ones the interface shows — *The server is writing
+// right now.* among them — and a label is quoted as the interface writes it. File-wide for
+// the reason the preferences module gives: a comment inside a list never reaches Vale.
+// vale RedHat.TermsErrors = NO
+
+The *Server* tab is the target's own configuration and its own persistence, read from the
+server and written back to it. It is not {product-name}'s configuration, and nothing on this
+page is stored here.
+
+.Prerequisites
+
+* `server:read` to see the page, `server:configure` to change anything on it.
+* A target whose flavor answers questions about its settings. A store that will not be asked
+  has no tab here rather than an empty one.
+
+.Procedure
+
+To see how the data is being kept:
+
+. Open the target and go to *Server*.
+. Read *Keeping the data*: whether *Snapshots* and the *Append-only log* are on, when the
+  server *Last saved*, where its *Snapshot file* is, and how many *Writes since* then.
+
+To ask the server to save now:
+
+. Click *Snapshot now*. The page reports *The server accepted the request.*, or *The server
+  is writing right now.* if one is already under way.
+. *Rewrite the log* compacts the append-only file, where the server keeps one.
+
+To change a setting:
+
+. Type into *Filter settings* to find it among the several hundred the server reports.
+. Click the pencil on its row, give the new value, and confirm. The page says *<name>
+  changed.*, or *The server refused* with what it said.
+
+To make a change survive a restart:
+
+. Click *Write these to the server’s file*.
+
+image::server.jpg["The Server tab, showing how the data is kept on the left and the server's settings on the right"]
+
+.Verification
+
+The value in the *Value* column is what the server now reports, because the table is re-read
+rather than updated optimistically. A setting the server has no value for reads *(not set)*.
+
+[IMPORTANT]
+====
+A change takes effect at once and is forgotten on restart. Writing them to the server's own
+file is the separate button above the table — the interface says so on the page, because the
+gap between "I changed it" and "it is still changed tomorrow" is where a night of work goes.
+
+*Snapshot now* asks the server to write its own memory to its own disk, inside its own
+container if it runs in one. It is not a file {product-name} can hand you. For a copy you can
+take away, use xref:backup-restore.adoc[a backup] or
+xref:import-export.adoc[an export].
+====
+
+[NOTE]
+====
+If the last save failed, the page says so and says what it means: until one succeeds, a
+restart loses everything written since the last one that did. That is a sentence about the
+target, and it is the one thing on this page worth acting on immediately.
+====
+
+.Next steps
+
+* xref:backup-restore.adoc[Take a backup that leaves the machine]
+* xref:server-admin.adoc#target-acl_server-admin[Manage the target's own users]

@@ -1,0 +1,40 @@
+[id="backups-concepts_{context}"]
+= Neyin yedeği alınır, nereye gider
+
+== Neyin yedeği alınır
+
+image::yedekler.jpg["Henüz hedef eklenmemişken Yedekler sayfası"]
+
+RDB dosyasının değil. RDB, sunucunun kendi belleğini kendi kapsayıcısındaki diske yazmasıdır ve
+{product-name}'nın orada bir dosya sistemi yoktur. Sunucu ayarları sayfasındaki *Şimdi anlık
+görüntü al* düğmesi bunu sunucudan ister; dosya da sunucunun bıraktığı yerde kalır.
+
+{product-name} yalnızca okuyabildiğini yedekler: anahtarları, değerlerini ve son kullanma
+sürelerini. Bunları içe aktarmanın okuduğu biçimde yazar. Bu biçim {redis-name}, {valkey-name}
+ve aynı motoru kullanan diğer sunucular arasında taşınabilir ve geri yükleme zaten var olan bir
+yoldan yapılır.
+
+Dışa aktarma akıtılarak ve sıkıştırılarak yapılır. JSON hâline gelmiş bir anahtar uzayı büyüktür
+ve hedeflerin hepsi baytla ücretlendirilir ya da hız sınırına takılır.
+
+== Nereye gider
+
+Yedek hedefi bir metin değil, ayrı bir kayıttır: ad, tür, konum ve kimlik bilgilerinden oluşur.
+Bir kez tanımlanır ve istediğiniz kadar zamanlanmış iş ona işaret eder. Aksi hâlde her iş kendi
+kova adını ve gizli anahtarını taşır; anahtarı değiştirmek de bütün işleri düzenlemek olur.
+
+include::../snippets/generated/backup-destination-kinds.adoc[]
+
+*Başka bir yer* türü yalnızca yazma içindir ve bunu açıkça belirtir: formda, listede ve
+listeleme istendiğinde verdiği yanıtla. Hangi bileşenlerin okunabildiği her bileşenin kendi
+özelliğidir; serbest bir adres için, her göndericide bulunan tek işlemin ötesinde bir söz
+verilemez.
+
+Yedek hedefine SSH tüneliyle de erişilebilir; atlama sunucusunun arkasındaki bir dizin ya da
+depo için. Genel bulutlar bunun dışındadır: yönlendirilen port bir sunucu adresine ve porta
+ulaşır, AWS, Azure ve Google ise sertifika içindeki adla tanınır.
+
+== Saklama
+
+Dışa aktarma işlerinde *Son şu kadarını tut* sayısı bulunur: son _n_ dosya tutulur, sondan
+düşenler silinir. Hiç silmeyen bir yedekleme işi, faturayı fark edene kadar büyüyen bir kovadır.

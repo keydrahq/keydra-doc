@@ -1,0 +1,36 @@
+[id="scheduled-work-and-alerts_{context}"]
+= A schedule did not run, or an alert did not arrive
+
+.Procedure
+
+If a schedule did not run::
++
+--
+. Check *About* on each instance. Only the one holding the leader's work registers
+  schedules; if none holds it, none of them is registered.
+. Check the schedule is enabled, and look at its run history. A run is recorded *before* it
+  starts, so a job that never finished appears as one that never finished rather than as one
+  that never ran.
+. Check the permission. A schedule requires the permission its job would need by hand, and
+  that is checked again when it runs — a grant revoked since it was written turns it into a
+  refused run rather than a silent one.
+--
+
+If a rule never fires::
++
+--
+. Check it is enabled. Only an enabled rule keeps its target sampled.
+. Check *Has to hold for*. A condition that never holds that long never leaves *pending*.
+. If the rule compares with a historical window, check that the readings store is configured
+  and holds that far back. A rule whose baseline cannot be read is left exactly as it is —
+  not fired, not cleared.
+--
+
+If a rule fires and nothing arrives::
++
+--
+. Look at the event in *History*. Delivery is recorded on it, including a failure and its
+  reason.
+. Check the delivery's credential. It is never returned by the API, so a form saved with an
+  empty token kept the old one — or never had one.
+--

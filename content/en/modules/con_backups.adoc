@@ -1,0 +1,42 @@
+[id="backups-concepts_{context}"]
+= What is backed up, and where it goes
+
+== What is backed up
+
+image::backups.jpg["The Backups page with no destination added yet"]
+
+Not the RDB file. A snapshot is the server writing its own memory to its own disk, inside
+its own container, and {product-name} has no filesystem there — the *Snapshot now* button
+on the server settings page asks the server to do it, and the file stays where the server
+put it.
+
+What {product-name} can back up is what it can read: the keys, their values and their
+expiries, written in the same shape the import reads. That is portable across
+{redis-name}, {valkey-name} and anything else behind the same engine, and it restores
+through a path that already exists.
+
+The export is streamed and compressed. A keyspace as JSON is large, and every destination
+is billed or throttled by the byte.
+
+== Where it goes
+
+A destination is a thing, not a string: a name, a kind, a location and credentials,
+configured once and pointed at by any number of schedules. Otherwise every schedule carries
+its own copy of a bucket name and a secret key, and rotating the key means editing all of
+them.
+
+include::../snippets/generated/backup-destination-kinds.adoc[]
+
+*Somewhere else* is write-only, and says so — on the form, in the list, and in the refusal
+if something asks it to list. Which components can also be read from is a property of each
+one, and an address that is arbitrary cannot be promised more than the one operation every
+sender has.
+
+A destination can be reached through an SSH tunnel, for a drop or a store on the far side
+of a jump host. Not the public clouds: a forwarded port reaches a host and a port, and AWS,
+Azure and Google are named by an address inside a certificate.
+
+== Retention
+
+An export job carries a *Keep the last* count: keep the last _n_, delete what falls off the
+end. A backup job that never deletes is a bucket that grows until somebody notices the bill.

@@ -1,0 +1,14 @@
+// Derleme (assembly). Red Hat modüler dokümantasyonu: bu dosya modülleri bir araya getirir
+// ve özet dışında kendi metnini içermez.
+[id="key-browser"]
+= Anahtar tarayıcı
+:description: Anahtarlar sunucu taradıkça akar; ad alanı ağacında gruplanır, glob ve türe göre süzülür. KEYS hiç kullanılmaz, her zaman imleç tabanlı SCAN çalışır.
+:page-keywords: anahtarlar, scan, gezinme, ad alanı, glob, ttl, yeniden adlandırma, silme
+:context: key-browser
+include::../attributes/attributes.adoc[]
+
+include::../modules/con_key-browser.adoc[leveloffset=+1]
+
+include::../modules/proc_browsing-keys.adoc[leveloffset=+1]
+
+include::../modules/proc_key-operations.adoc[leveloffset=+1]

@@ -1,0 +1,47 @@
+[id="what-is-keydra_{context}"]
+= What Keydra is
+
+{product-name} is a web console for key-value servers. You give it the address
+and credentials of a server, and it gives you the operations a person needs against that
+server: browsing keys, reading and writing values, running commands, watching traffic,
+reading the server's own statistics, and moving data between two servers.
+
+image::overview.jpg["The Keydra overview, listing every target with its status, keys, memory and uptime"]
+
+It is not a database and it stores none of your data. What it keeps is a description of how
+to reach each server, a record of who did what, and the settings for the work it does on a
+schedule. Everything it shows you it read from the target when you asked.
+
+== What makes it different from a desktop tool
+
+A desktop client runs on one laptop, holds its connection list in that laptop's home
+directory, and can only reach what that laptop can reach. That works until a second person
+needs the same access.
+
+{product-name} is deployed once and used by everybody:
+
+Several people, one instance:: Each person signs in as themselves. What each of them may do
+is decided by grants an administrator writes, and the audit log records who did what.
+
+Credentials in one place:: A target's password is stored encrypted, on the server, and is
+never returned by the API — not to the interface, not to anybody. Adding a colleague does
+not mean sending them a password.
+
+Reachability:: {product-name} sits where it can reach the servers. A target on a private
+network behind a jump host is reachable through an SSH tunnel that is configured once and
+pointed at by every target behind it.
+
+Work that continues without you:: Schedules, alert rules and backups run whether or not a
+browser is open.
+
+== What it talks to
+
+{redis-name}, {valkey-name} and the forks that speak the same protocol — KeyDB, Dragonfly,
+Garnet — through one engine, which detects the flavour and version a target is running and
+reports it in the interface. Aerospike and TiKV through an engine each, because neither
+speaks that protocol and neither keeps the same shape of key.
+
+Every one of them sits behind the same interface inside {product-name}, so a page deals in
+keys and servers rather than in protocols — and a capability a store does not have is absent
+from the interface rather than an operation that fails when you use it. See
+xref:what-is-keydra.adoc#supported-targets_what-is-keydra[Supported targets].
