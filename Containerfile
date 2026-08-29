@@ -27,8 +27,8 @@ RUN corepack enable && yarn install --immutable
 # repository and a `keydra/` checkout beside it:
 #
 #   podman build -t keydra-docs -f docs/Containerfile .
-COPY keydra/backend/ /source/backend/
-COPY keydra/frontend/ /source/frontend/
+COPY keydra/keydra-backend/ /source/backend/
+COPY keydra/keydra-frontend/ /source/frontend/
 COPY keydra/logo/ /source/logo/
 COPY docs/ ./
 ENV KEYDRA_SOURCE=/source

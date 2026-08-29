@@ -3,7 +3,7 @@
 scripts/build-generated-content.ts tarafından Keydra kaynak ağacından üretilir.
 Açıklama metinleri content/tr/data/ altındaki YAML dosyalarından gelir; değişiklik oraya yazılır.
 ////
-:generated-keydra-version: 0.0.1-SNAPSHOT
+:generated-keydra-version: 0.0.1
 :generated-quarkus-version: 3.33.3.1
 :generated-java-version: 21
 :generated-node-version: 24.19.0

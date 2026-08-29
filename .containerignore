@@ -11,11 +11,11 @@ docs/.vale/styles/AsciiDoc
 docs/pdf/*.pdf
 
 # Keydra: only backend/src, frontend/locales, frontend/src and logo are read.
-keydra/backend/target
-keydra/backend/backups
-keydra/frontend/node_modules
-keydra/frontend/dist
-keydra/frontend/coverage
+keydra/keydra-backend/target
+keydra/keydra-backend/backups
+keydra/keydra-frontend/node_modules
+keydra/keydra-frontend/dist
+keydra/keydra-frontend/coverage
 keydra/docs
 keydra/deploy
 

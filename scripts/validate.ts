@@ -324,7 +324,7 @@ const checkNoLocalPaths = (): void => {
  * *near* miss: a string close enough to a real label that it was plainly meant to be one.
  */
 const checkInterfaceLabels = (): void => {
-  const frontendLocales = join(repoRoot, 'frontend', 'locales');
+  const frontendLocales = join(repoRoot, 'keydra-frontend', 'locales');
   if (!existsSync(frontendLocales)) return;
 
   // How similar two strings are, 0..1, by the longest common subsequence of their words.

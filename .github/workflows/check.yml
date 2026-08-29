@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: keydrahq/keydra-backend
-          path: keydra/backend
+          path: keydra/keydra-backend
           # Only the sources the inventory reads are needed, and none of the history.
           fetch-depth: 1
           # A private application repository needs a token with read access to it. Add
@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: keydrahq/keydra-frontend
-          path: keydra/frontend
+          path: keydra/keydra-frontend
           fetch-depth: 1
           token: ${{ secrets.KEYDRA_SOURCE_TOKEN || github.token }}
 
@@ -113,13 +113,13 @@ jobs:
       - uses: actions/checkout@v7
         with:
           repository: keydrahq/keydra-backend
-          path: keydra/backend
+          path: keydra/keydra-backend
           fetch-depth: 1
           token: ${{ secrets.KEYDRA_SOURCE_TOKEN || github.token }}
       - uses: actions/checkout@v7
         with:
           repository: keydrahq/keydra-frontend
-          path: keydra/frontend
+          path: keydra/keydra-frontend
           fetch-depth: 1
           token: ${{ secrets.KEYDRA_SOURCE_TOKEN || github.token }}
       - uses: actions/setup-node@v7
