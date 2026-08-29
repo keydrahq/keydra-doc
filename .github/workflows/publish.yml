@@ -41,13 +41,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the documentation
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: docs
           fetch-depth: 0
 
       - name: Check out Keydra
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: keydrahq/keydra-backend
           path: keydra/backend
@@ -55,7 +55,7 @@ jobs:
           token: ${{ secrets.KEYDRA_SOURCE_TOKEN || github.token }}
 
       - name: Check out the Keydra frontend
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: keydrahq/keydra-frontend
           path: keydra/frontend
@@ -63,7 +63,7 @@ jobs:
           token: ${{ secrets.KEYDRA_SOURCE_TOKEN || github.token }}
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: docs/.nvmrc
           cache: yarn
@@ -77,7 +77,7 @@ jobs:
 
       - name: Configure Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Build
         working-directory: docs
@@ -94,7 +94,7 @@ jobs:
         run: yarn validate
 
       - name: Upload
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: docs/dist
 
@@ -108,4 +108,4 @@ jobs:
     steps:
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
