@@ -10,4 +10,4 @@ AEROSPIKE: 'Kendi protokolünü konuşan ve anahtarı farklı biçimde tutan Aer
 TIKV: 'Düz bir bayt anahtar uzayı olan TiKV. Anahtarları Keydra''nınkine Aerospike''ınkinden daha iyi
   oturur — bayt dizileri oldukları için ad alanı ağacı ve önek globları çeviri gerektirmeden çalışır,
   bir globun düz öneki de TiKV''nin gerçekten sunduğu aralık taramasına dönüşür. Bunun üstündeki her
-  şeyden yoksundur: tür yok, sunucu istatistiği yok, komut dili yok, Pub/Sub yok.'
+  şeyden yoksundur: tür yok, sunucu istatistiği yok, komut dili yok, Pub/Sub yok. *Yayınlanan imaj bu motoru içermez.* `tikv` Maven profiliyle derlenir; çünkü istemcisi, hiçbir şeyin yükseltemeyeceği netty, jackson, guava ve protobuf kopyaları taşır ve TiKV yönetmeyen bir kurulum bunların tamamını boşuna taşıyordu. Bu motoru içermeyen bir derleme, TiKV hedefini siz formu doldururken reddeder.'
