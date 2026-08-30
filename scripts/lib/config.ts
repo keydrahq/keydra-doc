@@ -29,6 +29,11 @@ export interface SiteConfig {
       ui: string;
       tag: string;
     };
+    chart: {
+      name: string;
+      repository: string;
+      oci: string;
+    };
     license: string;
   };
   languages: { default: string; published: Language[] };

@@ -25,7 +25,7 @@ değil.
 
 . İmajı çekin:
 +
-[source,bash]
+[source,bash,subs="+attributes"]
 ----
 podman pull {image-standalone}:{image-tag}
 ----
@@ -40,7 +40,7 @@ podman play kube deploy/keydra-prod.yaml
 Manifest yerel olarak derlenmiş bir imajı gösterir. Yayımlanan imajı kullanmak için satırı
 değiştirin:
 +
-[source,yaml]
+[source,yaml,subs="+attributes"]
 ----
     - name: keydra
       image: {image-standalone}:{image-tag}

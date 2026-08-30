@@ -180,7 +180,31 @@ class PatternFlyConverter {
   private listing(node: any): string {
     const language = String(node.getAttribute('language') ?? '').toLowerCase() || 'text';
     const title = node.getTitle();
-    const source = node.getSourceLines().join('\n');
+    // The raw lines, and then only the substitutions the block asked for.
+    //
+    // A listing block substitutes nothing by default, which is right for code — but it also
+    // meant every `{image-standalone}` and `{chart-repository}` in a command reached the
+    // published page as those literal words, so the manual told readers to type an attribute
+    // name. Honouring the block's own `subs` fixes that where an author wrote
+    // `subs="+attributes"` and changes nothing anywhere else, which is what a block that
+    // shows braces on purpose needs.
+    const raw = node.getSourceLines().join('\n');
+    let subs: string[] = [];
+    try {
+      subs = (node.getSubstitutions?.() ?? []).map(String);
+    } catch {
+      subs = [];
+    }
+    // Done here rather than through Asciidoctor's own apply_subs, which this build does not
+    // expose on the node. One rule, and it leaves anything it does not recognise alone — so a
+    // shell brace expansion or a JSON object in a block that asked for attributes still reads
+    // as itself.
+    const attributes = node.getDocument().getAttributes();
+    const source = subs.includes('attributes')
+      ? raw.replace(/\{([a-zA-Z0-9_][a-zA-Z0-9_-]*)\}/g, (whole: string, name: string) =>
+          Object.hasOwn(attributes, name) ? String(attributes[name]) : whole,
+        )
+      : raw;
     const copyLabel = active.strings['code.copy'] ?? 'Copy';
     const copiedLabel = active.strings['code.copied'] ?? 'Copied';
     // The code is emitted escaped and marked; `highlight.ts` replaces the inner <code>

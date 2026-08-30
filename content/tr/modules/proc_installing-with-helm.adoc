@@ -1,0 +1,101 @@
+[id="installing-with-helm_{context}"]
+= Helm ile Kubernetes'e kurulum
+
+Chart iki biçimi de kurar: API ile onu çağıran arayüzü tek imajda sunan biçimi ya da ikisini
+ayrı çalıştıran biçimi. Başlatamayacağı bir kurulumu kurmaz; aşağıdaki adımlardan ikisi,
+yoksa `CrashLoopBackOff` olarak karşınıza çıkacak reddedişlerdir.
+
+.Ön koşullar
+
+* Bir Kubernetes kümesi ve Helm 3.
+* Kümenin erişebildiği bir PostgreSQL. Chart bunu kurmaz: orada her bağlantı profili, hesap,
+yetki ve denetim kaydı durur; bir uygulamanın chart'ına paketlenmiş veritabanı ise kimsenin
+yedeklemediği ve yükseltmenin yerine yenisini koyduğu bir pod'da çalışan veritabanıdır.
+
+.Yordam
+
+. Secret'ı oluşturun. Chart anahtarı üretmez ve bu bilinçlidir: üretilmiş bir anahtar bir
+sonraki yükseltmede yeniden üretilir, örnek de kayıtlı tek bir kimlik bilgisini okuyamadan
+açılır — üstelik bunu bir başlatma hatası olarak değil, hedef hedef bildirir.
++
+[source,bash]
+----
+kubectl create secret generic keydra \
+  --from-literal=secret-key="$(openssl rand -base64 32)" \
+  --from-literal=database-password='...'
+----
++
+[IMPORTANT]
+====
+O anahtarı kaybetmek, kayıtlı bütün kimlik bilgilerini kaybetmek demektir. Paylaşmak da
+onları paylaşmak demektir.
+====
+
+. Chart deposunu ekleyin:
++
+[source,bash,subs="+attributes"]
+----
+helm repo add {chart-name} {chart-repository}
+helm repo update
+----
++
+Aynı paket, her şeyi tek bir sicilden çeken kümeler için OCI artefaktı olarak da yayımlanır:
+`helm install keydra {chart-oci} --version <sürüm>`.
+
+. Kurun:
++
+[source,bash,subs="+attributes"]
+----
+helm install keydra {chart-name}/{chart-name} \
+  --set database.url=postgresql://postgres:5432/keydra \
+  --set existingSecret.name=keydra
+----
+
+. Bir vekil sunucunun arkasında olduğunu söyleyin; Ingress altında her zaman öyledir:
++
+[source,bash,subs="+attributes"]
+----
+helm upgrade keydra {chart-name}/{chart-name} --reuse-values \
+  --set proxy.enabled=true \
+  --set proxy.trusted=10.0.0.0/8 \
+  --set publicUrl=https://keydra.example.com \
+  --set ingress.enabled=true \
+  --set ingress.hosts[0].host=keydra.example.com
+----
++
+Söylenmezse {product-name} her oturum açmayı ingress denetleyicisinden geliyormuş gibi görür:
+bir oturum açmayı öncekilerle karşılaştıran denetimler herkesi herkesle karşılaştırmaya başlar
+ve deneme sınırı bütün kümeyi tek bir ağ sayar. Vekil sunucuları adlandırmak seçimlik
+değildir; anahtar açıkken kimse adlandırılmamışsa her istemci her adresi iddia edebilir ve
+chart kurulumu üretmeyi reddeder.
+
+.Doğrulama
+
+* `helm test keydra`, sürüme yalnızca çalışan bir kurulumun cevaplayabileceğini soran bir pod
+başlatır: hazır olduğunu, arayüzün sunulduğunu ve insanlara verilen adreste `/q/metrics`
+adresinin 404 döndüğünü.
+* Henüz hiç hesap yoktur. İlk yöneticiyi bir kez oluşturun; o uç, bir yönetici olduğu anda
+çalışmayı bırakır:
++
+[source,bash,subs="+attributes"]
+----
+curl -fsS -X POST https://keydra.example.com{api-base}/auth/setup \
+  -H 'Content-Type: application/json' \
+  -d '{"username":"siz","password":"..."}'
+----
+
+.İki biçim
+
+`mode: standalone` varsayılandır ve tek imajdır. `mode: split`, `{image-backend}` ile
+`{image-ui}` imajlarını iki Service arkasında iki Deployment olarak kurar. İkincisi, ikisi
+farklı ölçekleniyorsa — tek bir statik dosya kümesinin arkasında birden çok API kopyası —
+ya da arayüz API'nin bulunmadığı bir yere aitse anlamlıdır.
+
+[source,bash,subs="+attributes"]
+----
+helm install keydra {chart-name}/{chart-name} --set mode=split ...
+----
+
+İmajları siz adlandırmazsınız; chart'ı biçimden seçer. Çünkü bir biçim için doğru olan
+varsayılan diğeri için yanlıştır ve hepsi bir arada imajın sessizce ayrık bir kuruluma
+çekilmesi, çalışıyormuş gibi görünürdü.

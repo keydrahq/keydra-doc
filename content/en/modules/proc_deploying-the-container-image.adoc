@@ -24,7 +24,7 @@ them. Keep it wherever your other secrets live, not in the repository.
 
 . Pull the image:
 +
-[source,bash]
+[source,bash,subs="+attributes"]
 ----
 podman pull {image-standalone}:{image-tag}
 ----
@@ -38,7 +38,7 @@ podman play kube deploy/keydra-prod.yaml
 +
 The manifest names a locally built image. Point it at the published one:
 +
-[source,yaml]
+[source,yaml,subs="+attributes"]
 ----
     - name: keydra
       image: {image-standalone}:{image-tag}

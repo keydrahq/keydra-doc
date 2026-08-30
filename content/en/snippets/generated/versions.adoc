@@ -4,7 +4,7 @@ Written by scripts/build-generated-content.ts from the Keydra source tree.
 The descriptions come from the YAML files under content/en/data/; edit those.
 ////
 :generated-keydra-version: 0.0.1
-:generated-quarkus-version: 3.33.3.1
+:generated-quarkus-version: 3.33.3.redhat-00001
 :generated-java-version: 21
 :generated-node-version: 24.19.0
 :generated-patternfly-version: 6.6.1

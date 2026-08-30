@@ -124,6 +124,9 @@ for (const version of buildVersions) {
           'image-backend': `${site.product.images.registry}/${site.product.images.backend}`,
           'image-ui': `${site.product.images.registry}/${site.product.images.ui}`,
           'image-tag': site.product.images.tag,
+          'chart-name': site.product.chart.name,
+          'chart-repository': site.product.chart.repository,
+          'chart-oci': site.product.chart.oci,
           'backend-port': '8181',
           'frontend-port': '9000',
           // Screenshots resolve against the language's own image directory, which is

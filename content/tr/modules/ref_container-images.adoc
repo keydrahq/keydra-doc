@@ -17,7 +17,10 @@ Olağan kurulum budur ve depodaki manifestler de bu imajı kullanır.
 sunucusundan ya da kendi pod'undan.
 
 | `{image-ui}`
-| Yalnızca arayüz; statik dosyalar hâlinde.
+| Arayüz ve ihtiyaç duyduğu vekil sunucu. İmaj nginx taşır: statik dosyaları sunar,
+`{api-base}` ve `/graphql` isteklerini — üzerlerindeki WebSocket yükseltmeleriyle birlikte —
+`KEYDRA_BACKEND` neyi gösteriyorsa oraya iletir. Yani ayrık kurulumda ikisinin önüne ayrı bir
+ters vekil sunucu koymanız gerekmez; aradığınız vekil sunucu budur.
 |===
 
 .Arayüz ile API aynı kökende olmalıdır
@@ -28,12 +31,16 @@ yerdeki API'ye yönlendiren bir ayar bilinçli olarak yoktur: statik bir pakete 
 API adresi, çalışma zamanına ait bir bilgiyi derleme zamanında sabitlemek olur; üstelik
 çerezleri çapraz kökene taşır.
 
-Bu yüzden ayrık kurulumda ikisinin önünde bir ters vekil sunucu bulunmalıdır: arayüzü `/`
-altında sunmalı, `/api` ve `/graphql` isteklerini — üzerlerindeki WebSocket yükseltmeleriyle
-birlikte — arka uca iletmelidir. Oturum çerezi böylece birinci taraf çerezi olarak kalır ve
+Bu yüzden arayüz ile API'nin tek bir adres üzerinden cevap vermesi gerekir. `{image-ui}` tam
+olarak bu adres olmak için hazırlanmıştır: arayüzü `/` altında sunar, `{api-base}` ve
+`/graphql` isteklerini — üzerlerindeki WebSocket yükseltmeleriyle birlikte —
+`KEYDRA_BACKEND`'e iletir. Oturum çerezi böylece birinci taraf çerezi olarak kalır ve
 `SameSite=Lax` beklendiği gibi çalışır.
 
-Böyle bir vekil sunucuya zaten ihtiyacınız yoksa `{image-standalone}` imajını kullanın.
+Elinizde bir vekil sunucu varsa onu bu imajın önüne koyabilirsiniz; ama ikisinin *arasına*
+koymayın: yönlendirme zaten yapılmış durumdadır.
+
+İkisini ayrı çalıştırmak için bir nedeniniz yoksa `{image-standalone}` imajını kullanın.
 ====
 
 .Etiketler

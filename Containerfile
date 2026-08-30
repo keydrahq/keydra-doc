@@ -40,16 +40,31 @@ ARG BASE_URL=
 RUN yarn build --base-path "${BASE_PATH}" ${BASE_URL:+--base-url "${BASE_URL}"}
 
 # --- Stage 2: serve ------------------------------------------------------------
-# UBI's nginx image runs as an unprivileged user, listens above 1024, and keeps its
-# writable state in directories that are group-writable — which is what makes it start
-# under an arbitrary UID, the way OpenShift assigns one.
-FROM registry.access.redhat.com/ubi10/nginx-126:latest
+# nginx installed onto ubi-minimal rather than Red Hat's s2i nginx image.
+#
+# That image is built to compile an application inside the container, so it carries gdb, vim,
+# rsync, python3 and the whole Perl stack: 252 packages against this one's 136, for an image
+# whose entire job is to serve files that were built in the stage above. None of those five
+# is here.
+#
+# What it costs is deploy/nginx.conf, which is now the whole configuration rather than a
+# fragment dropped into somebody else's.
+FROM registry.access.redhat.com/ubi10/ubi-minimal:latest
 
-# The image's own user, rather than a UID this file invents.
+RUN microdnf -y install nginx \
+    && microdnf -y clean all \
+    && rm -rf /var/cache/yum
+
+# `install -d` rather than mkdir followed by chmod -R: under a rootless build the recursive
+# chmod applies to the parent and then fails on the directory it just created, with
+# "Operation not permitted" from root. Group 0 rather than a uid, because that is what lets a
+# platform assign an arbitrary one.
+RUN install -d -m 0775 -o 1001 -g 0 /opt/keydra /opt/keydra/html /opt/keydra/etc
+
+COPY --from=build --chown=1001:0 /build/dist/ /opt/keydra/html/
+COPY --chown=1001:0 docs/deploy/nginx.conf /opt/keydra/etc/nginx.conf
+
 USER 1001
-
-COPY --from=build /build/dist/ /opt/app-root/src/
-COPY docs/deploy/nginx.conf /opt/app-root/etc/nginx.default.d/keydra-docs.conf
 
 EXPOSE 8080
 
@@ -57,4 +72,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s \
     CMD ["sh", "-c", "curl -fsS http://localhost:8080/ >/dev/null || exit 1"]
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-c", "/opt/keydra/etc/nginx.conf", "-g", "daemon off;"]

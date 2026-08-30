@@ -1,0 +1,101 @@
+[id="installing-with-helm_{context}"]
+= Installing on Kubernetes with Helm
+
+The chart installs either shape: one image serving the API and the interface it calls, or the
+two apart. It will not install what it cannot start, so two of the steps below are refusals
+you would otherwise meet as a `CrashLoopBackOff`.
+
+.Prerequisites
+
+* A Kubernetes cluster and Helm 3.
+* A PostgreSQL the cluster can reach. The chart does not install one — what is kept there is
+every connection profile, account, grant and audit row, and a database packaged into an
+application's chart is a database nobody is backing up, running on a pod whose replacement is
+what an upgrade is.
+
+.Procedure
+
+. Make the Secret. The chart will not generate the key, and that is deliberate: a generated
+key is regenerated on the next upgrade, and the instance comes back unable to read a single
+stored credential — reported one target at a time rather than as a failure to start.
++
+[source,bash]
+----
+kubectl create secret generic keydra \
+  --from-literal=secret-key="$(openssl rand -base64 32)" \
+  --from-literal=database-password='...'
+----
++
+[IMPORTANT]
+====
+Losing that key means losing every stored credential. Sharing it means sharing them.
+====
+
+. Add the chart repository:
++
+[source,bash,subs="+attributes"]
+----
+helm repo add {chart-name} {chart-repository}
+helm repo update
+----
++
+The same package is also published as an OCI artifact, for a cluster that pulls everything
+from one registry: `helm install keydra {chart-oci} --version <version>`.
+
+. Install:
++
+[source,bash,subs="+attributes"]
+----
+helm install keydra {chart-name}/{chart-name} \
+  --set database.url=postgresql://postgres:5432/keydra \
+  --set existingSecret.name=keydra
+----
+
+. Tell it that it is behind a proxy, which under an Ingress it always is:
++
+[source,bash,subs="+attributes"]
+----
+helm upgrade keydra {chart-name}/{chart-name} --reuse-values \
+  --set proxy.enabled=true \
+  --set proxy.trusted=10.0.0.0/8 \
+  --set publicUrl=https://keydra.example.com \
+  --set ingress.enabled=true \
+  --set ingress.hosts[0].host=keydra.example.com
+----
++
+Told nothing, {product-name} sees every sign-in as coming from the ingress controller: the
+checks that compare a sign-in with the ones before it then compare everybody with everybody,
+and the limit on attempts counts the whole cluster as one network. Naming the proxies is not
+optional — with the switch on and nobody named, any client can claim any address, and the
+chart refuses to render.
+
+.Verification
+
+* `helm test keydra` starts a pod that asks the release what only a running installation can
+answer: that it is ready, that the interface is served, and that `/q/metrics` is 404 on the
+address people are given.
+* There are no accounts yet. Create the first administrator once, through an endpoint that
+stops working the moment there is one:
++
+[source,bash,subs="+attributes"]
+----
+curl -fsS -X POST https://keydra.example.com{api-base}/auth/setup \
+  -H 'Content-Type: application/json' \
+  -d '{"username":"you","password":"..."}'
+----
+
+.The two shapes
+
+`mode: standalone` is the default and is one image. `mode: split` deploys `{image-backend}`
+and `{image-ui}` as two Deployments behind two Services, which is worth the second one when
+the two scale differently — several API replicas behind one set of static files — or when the
+interface belongs somewhere the API does not.
+
+[source,bash,subs="+attributes"]
+----
+helm install keydra {chart-name}/{chart-name} --set mode=split ...
+----
+
+You do not name the images. The chart picks them from the mode, because a default that is
+right for one shape is wrong for the other and quietly pulling the all-in-one into a split
+deployment would look like it worked.

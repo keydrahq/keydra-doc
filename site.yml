@@ -39,16 +39,24 @@ product:
     standalone: keydra
     # The API alone, for a deployment that serves the interface separately.
     backend: keydra-backend
-    # The interface alone, served as static files behind a proxy that routes /api and
-    # /graphql to the backend.
+    # The interface alone — and the proxy it needs, which is the part that is easy to
+    # misread. The image carries nginx: it serves the static files and routes /api and
+    # /graphql, WebSocket upgrades included, to whatever KEYDRA_BACKEND names. So a split
+    # deployment does not need a reverse proxy in front of both; this is that proxy.
     ui: keydra-ui
     # What the pages show in a `podman pull`. A deployment pins a version.
     tag: latest
 
-  # No LICENSE file exists in the Keydra repository yet, so the footer says nothing
-  # about licensing rather than claiming a licence nobody chose. Fill this in when one
-  # is added and the footer picks it up.
-  license: ''
+  # The Helm chart, published as an ordinary chart repository and — the same package, from
+  # the same run — as an OCI artifact beside the images. Named here for the same reason the
+  # images are: a rename is one edit rather than forty.
+  chart:
+    name: keydra
+    repository: https://keydrahq.github.io/keydra-helm
+    oci: oci://quay.io/keydrahq/charts/keydra
+
+  # Every repository under the organisation carries the same one.
+  license: 'Apache-2.0'
 
 languages:
   default: en

@@ -13,6 +13,8 @@ include::../modules/ref_container-images.adoc[leveloffset=+1]
 
 include::../modules/proc_deploying-the-container-image.adoc[leveloffset=+1]
 
+include::../modules/proc_installing-with-helm.adoc[leveloffset=+1]
+
 include::../modules/proc_configuring-authentication-before-exposing.adoc[leveloffset=+1]
 
 include::../modules/ref_deployment-settings.adoc[leveloffset=+1]

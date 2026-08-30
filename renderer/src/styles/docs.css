@@ -190,6 +190,21 @@ html {
   padding-inline-start: var(--pf-t--global--spacer--xl);
 }
 
+/* The toggle belongs to the off-canvas sidebar, and the off-canvas sidebar exists only below
+   75rem — above it the sidebar is a column of the grid and is always there. The button had no
+   rule of its own, so it was drawn at every width and above the breakpoint it did nothing:
+   the click set `kd-sidebar-open` on the body and no rule outside the query below reacts to
+   it. A control that is drawn and does nothing is worse than one that is absent, because the
+   reader concludes the site is broken rather than that the button is not for them.
+
+   `not all and` rather than a min-width a pixel above: the two queries are then exactly
+   complementary by construction, and cannot drift apart when the breakpoint moves. */
+@media not all and (max-width: 75rem) {
+  [data-kd-sidebar-toggle] {
+    display: none;
+  }
+}
+
 @media (max-width: 75rem) {
   .kd-sidebar {
     position: fixed;

@@ -17,7 +17,10 @@ is the ordinary deployment and the one the manifests in the repository use.
 existing web server, or as its own pod.
 
 | `{image-ui}`
-| The interface alone, as static files.
+| The interface, and the proxy it needs. The image carries nginx: it serves the static files
+and routes `{api-base}` and `/graphql` to whatever `KEYDRA_BACKEND` names, WebSocket upgrades
+included. So a split deployment does not need a reverse proxy in front of both — this is that
+proxy.
 |===
 
 .The interface and the API must share an origin
@@ -27,11 +30,15 @@ The interface calls `{api-base}` and `/graphql` as relative paths. There is no s
 points it at an API somewhere else, deliberately: an absolute API address in a static bundle
 is a build-time decision about a run-time fact, and it is also a cross-origin cookie problem.
 
-So a split deployment needs a reverse proxy in front of both, serving the interface at `/` and
-routing `/api` and `/graphql` — and the WebSocket upgrades on them — to the backend. The
-session cookie is then a first-party cookie, which is what makes `SameSite=Lax` work.
+So the interface and the API have to answer on one address. `{image-ui}` is built to be that
+address: it serves the interface at `/` and forwards `{api-base}` and `/graphql` — and the
+WebSocket upgrades on them — to `KEYDRA_BACKEND`. The session cookie stays a first-party
+cookie, which is what makes `SameSite=Lax` work.
 
-If you do not already need that proxy, use `{image-standalone}`.
+Put your own proxy in front of it if you already have one, but do not put one *between* the
+two: the routing is already done.
+
+If you have no reason to run them apart, use `{image-standalone}`.
 ====
 
 .Tags
