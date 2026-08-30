@@ -43,7 +43,7 @@ RUN yarn build --base-path "${BASE_PATH}" ${BASE_URL:+--base-url "${BASE_URL}"}
 # UBI's nginx image runs as an unprivileged user, listens above 1024, and keeps its
 # writable state in directories that are group-writable — which is what makes it start
 # under an arbitrary UID, the way OpenShift assigns one.
-FROM registry.access.redhat.com/ubi9/nginx-124:latest
+FROM registry.access.redhat.com/ubi10/nginx-126:latest
 
 # The image's own user, rather than a UID this file invents.
 USER 1001
