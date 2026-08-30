@@ -51,7 +51,11 @@ RUN yarn build --base-path "${BASE_PATH}" ${BASE_URL:+--base-url "${BASE_URL}"}
 # fragment dropped into somebody else's.
 FROM registry.access.redhat.com/ubi10/ubi-minimal:latest
 
-RUN microdnf -y install nginx \
+# `update` ahead of `install`, in the one layer: `latest` is rebuilt on Red Hat's cadence
+# while UBI ships errata between those rebuilds, so the tag is where the packages start
+# rather than where they currently are.
+RUN microdnf -y update \
+    && microdnf -y install nginx \
     && microdnf -y clean all \
     && rm -rf /var/cache/yum
 
