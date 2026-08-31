@@ -1,0 +1,172 @@
+[id="installing-with-the-operator_{context}"]
+= Operator ile Kubernetes'e kurulum
+
+Operator, chart'ın oluşturduğu nesnelerin aynısını oluşturur; farkı, bunları Helm'in tuttuğu
+bir sürümden değil, kümenin sahip olduğu bir kaynaktan üretmesidir. {product-name} kurmak
+söz konusu olduğunda ikisi aynı işi yapar; operator'ü, kurulumun sonrasında da kümece öyle
+tutulmasını istediğinizde ya da bir hedefin forma yazılan bir şey değil bir kaynak olmasını
+istediğinizde seçersiniz.
+
+.Ön koşullar
+
+* Bir Kubernetes kümesi ya da bir OpenShift.
+* Kümenin erişebildiği bir PostgreSQL. Operator bunu kurmaz, chart'ın kurmadığı gerekçeyle:
+orada her bağlantı profili, hesap, yetki ve denetim kaydı durur; bir uygulamanın yanına
+kendi getirdiği veritabanı ise kimsenin yedeklemediği veritabanıdır.
+
+.Yordam
+
+. Operator'ü kurun. OpenShift'te OperatorHub içinde *{product-name}* girdisini bulup oradan
+kurun; bu adımın altındaki hiçbir şeye gerek kalmaz. Diğer kümelerde:
++
+[source,bash,subs="+attributes"]
+----
+kubectl create namespace keydra-operator
+kubectl apply -f {operator-repository}/releases/latest/download/crds.yaml
+kubectl apply -f {operator-repository}/releases/latest/download/operator.yaml
+----
++
+Tek dosya değil iki dosya, çünkü ikisini farklı zamanlarda farklı kişiler uygular: özel
+kaynak tanımları küme genelindedir ve bir kez girer, yönetici ise birinin yükselttiği bir
+Deployment'tır.
+
+. Kurulumun yaşayacağı ad alanında Secret'ı oluşturun. Operator bunu yazmaz ve chart'tan
+ayrıldığı bu nokta bilinçlidir: özel kaynağa konan bir anahtarı, o ad alanında `get keydra`
+diyebilen herkes okur — Secret okuyabilenlerden daha geniş ve en az düşünülmüş kitle.
++
+[source,bash]
+----
+kubectl create secret generic keydra \
+  --from-literal=secret-key="$(openssl rand -base64 32)" \
+  --from-literal=database-password='...'
+----
++
+[IMPORTANT]
+====
+O anahtarı kaybetmek, kayıtlı bütün kimlik bilgilerini kaybetmek demektir. Paylaşmak da
+onları paylaşmak demektir.
+====
+
+. Kurulumu tarif edip uygulayın:
++
+[source,yaml,subs="+attributes"]
+----
+apiVersion: {operator-api-group}/v1alpha1
+kind: Keydra
+metadata:
+  name: keydra
+spec:
+  database:
+    url: postgresql://keydra-db:5432/keydra
+  secret:
+    name: keydra
+  route:                      # <1>
+    enabled: true
+  proxy:                      # <2>
+    enabled: true
+    trusted: 10.0.0.0/8
+----
+<1> OpenShift'te. Diğer kümelerde `ingress.enabled` ile `ingress.hosts` kullanın ve
+`publicUrl` alanına tarayıcının ulaşacağı adresi yazın: yönlendirme adresi kimlik
+sağlayıcıyla önceden anlaşılır ve harfi harfine tutmak zorundadır.
+<2> Ingress ya da Route'un ardında her zaman önde bir şey vardır. Kendisine bir şey
+söylenmediğinde {product-name} her oturum açmayı ingress denetleyicisinden geliyormuş gibi
+görür: bir oturum açmayı öncekilerle karşılaştıran denetimler böylece herkesi herkesle
+karşılaştırır, deneme sınırı da bütün kümeyi tek ağ sayar. Vekilleri adlandırmak isteğe
+bağlı değildir — API sunucusu, anahtarı açıp kimseyi adlandırmayan bir kaynağı reddeder.
+
+.Doğrulama
+
+* Sonucu kaynağın kendisi söyler, öğrenmek için başka bir şey okumak gerekmez:
++
+[source,bash]
+----
+$ kubectl get keydra
+NAME     READY   REPLICAS   URL                                AGE
+keydra   True    1          https://keydra.apps.example.com    2m
+----
++
+Bir şey ters gittiği sürece `READY` değeri `False` olur ve gerekçesi
+`kubectl describe keydra keydra` çıktısında durur. İlk beklenmesi gereken, Secret'ta eksik
+olan anahtarı adlandıran bir `Degraded` koşuludur.
+
+* Henüz hiç hesap yoktur. İlk yöneticiyi, bir tane olduğu anda çalışmayı bırakan uç nokta
+üzerinden bir kez oluşturun:
++
+[source,bash,subs="+attributes"]
+----
+curl -fsS -X POST https://keydra.apps.example.com{api-base}/auth/setup \
+  -H 'Content-Type: application/json' \
+  -d '{"username":"you","password":"..."}'
+----
+
+.Hedefi kaynak olarak beyan etmek
+
+Chart'ın yapamadığı kısım budur. Kümede başka bir şeyin oluşturduğu bir sunucu,
+{product-name}'ya onu oluşturan manifest'in kendisiyle devredilir ve aynı silmeyle geri
+alınır: bir kaynak öyle diyor diye var olan profil, kaynak gittiğinde var olmayı da bırakır.
+
+Bunun için operator'ün oturum açacağı bir hesap gerekir, çünkü {product-name}'da makine
+çağıranı diye bir kavram yoktur: operator tarayıcının açtığı gibi oturum açar ve oturumu
+saklar. Ona bir kişinin hesabını değil kendi hesabını verin ki denetim kaydı hangi
+değişikliğin birinin yazması, hangisinin bir kaynağın uygulanması olduğunu söyleyebilsin.
+Bağlantı profili yazmak yöneticiye ait bir izin olduğundan, hesabın o rolü taşıması gerekir.
+
+[source,bash]
+----
+kubectl create secret generic keydra-api \
+  --from-literal=api-username=operator \
+  --from-literal=api-password='...'
+----
+
+Kurulumda adlandırın ve hedefleri beyan edin:
+
+[source,yaml,subs="+attributes"]
+----
+apiVersion: {operator-api-group}/v1alpha1
+kind: Keydra
+metadata:
+  name: keydra
+spec:
+  apiAccount:
+    secretName: keydra-api
+  # …
+---
+apiVersion: {operator-api-group}/v1alpha1
+kind: KeydraConnection
+metadata:
+  name: orders-cache
+spec:
+  keydraRef: keydra
+  host: orders-redis
+  port: 6379
+  guarded: true
+  passwordSecret:
+    name: orders-redis
+    key: password
+----
+
+`keydraRef` aynı ad alanındaki bir kurulumu adlandırır; ad alanları arası referans bilinçli
+olarak mümkün değildir, çünkü kendi ad alanında kaynak oluşturabilen herkesin başkasının
+konsoluna hedef eklemesi anlamına gelirdi.
+
+[NOTE]
+====
+Operator, kendi oluşturmadığı bir profili sahiplenmez. O adda bir hedef {product-name} içinde
+zaten varsa — biri arayüzden eklemişse — kaynak reddedilir; sahiplenip sonra kaynak
+gittiğinde silmek yerine.
+
+Mevcut bir profili kaynağa çevirmek bu yüzden düzenleme değil bilinçli bir karardır ve bir
+bedeli vardır: silip yeniden oluşturmak profilin kimliğini değiştirir, kapsamı o bağlantı
+olan yetkiler de sunucu grubu üyelikleri de o kimliğe bağlıdır. O hedefi görebilen kişiler
+görememeye başlar.
+====
+
+.Chart'tan operator'e geçmek
+
+İkisi aynı adlarla ve aynı etiketlerle aynı nesneleri üretir; geçişi silip yeniden kurmak
+değil sahiplenmek yapan da budur. Adımlar
+link:{operator-repository}/blob/main/docs/MIGRATING.md[operator'ün kendi belgelerinde],
+çünkü önemli olan kısımlar {product-name} ile değil Helm ile ilgilidir: sürüme nesnelerini
+geride bırakması söylenmeli ve chart'ın ürettiği Secret, operator'e gösterilebilecek bir
+Secret'a kopyalanmalıdır.

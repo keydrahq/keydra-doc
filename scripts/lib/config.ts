@@ -34,6 +34,12 @@ export interface SiteConfig {
       repository: string;
       oci: string;
     };
+    operator: {
+      repository: string;
+      image: string;
+      package: string;
+      apiGroup: string;
+    };
     license: string;
   };
   languages: { default: string; published: Language[] };

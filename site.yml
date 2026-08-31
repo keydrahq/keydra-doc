@@ -55,6 +55,19 @@ product:
     repository: https://keydrahq.github.io/keydra-helm
     oci: oci://quay.io/keydrahq/charts/keydra
 
+  # The Kubernetes operator, which installs the images above rather than being one of them.
+  # Named here for the reason the chart is: a rename is one edit instead of forty.
+  operator:
+    repository: https://github.com/keydrahq/keydra-operator
+    # The manager's own image. Nobody runs this by hand — OLM or a manifest starts it — so
+    # it is deliberately not in `images:` above, which is the list of things somebody pulls.
+    image: keydra-operator
+    # What the operator is called in a catalogue, and the API group its resources are in.
+    # Both are identities rather than names: changing either is a migration for everybody
+    # who installed it.
+    package: keydra-operator
+    apiGroup: keydra.io
+
   # Every repository under the organisation carries the same one.
   license: 'Apache-2.0'
 

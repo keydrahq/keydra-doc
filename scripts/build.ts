@@ -127,6 +127,10 @@ for (const version of buildVersions) {
           'chart-name': site.product.chart.name,
           'chart-repository': site.product.chart.repository,
           'chart-oci': site.product.chart.oci,
+          'operator-repository': site.product.operator.repository,
+          'operator-image': `${site.product.images.registry}/${site.product.operator.image}`,
+          'operator-package': site.product.operator.package,
+          'operator-api-group': site.product.operator.apiGroup,
           'backend-port': '8181',
           'frontend-port': '9000',
           // Screenshots resolve against the language's own image directory, which is

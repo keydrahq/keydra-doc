@@ -1,0 +1,172 @@
+[id="installing-with-the-operator_{context}"]
+= Installing on Kubernetes with the operator
+
+The operator installs the same objects the chart does, from a resource the cluster owns
+instead of from a release Helm keeps. For installing {product-name} the two do the same
+thing; the operator is the answer when you want the cluster to keep it that way afterwards,
+or when you want a target to be a resource rather than something typed into a form.
+
+.Prerequisites
+
+* A Kubernetes cluster, or an OpenShift.
+* A PostgreSQL the cluster can reach. The operator does not install one, for the reason the
+chart does not: what is kept there is every connection profile, account, grant and audit row,
+and a database an application brings up beside itself is a database nobody is backing up.
+
+.Procedure
+
+. Install the operator. On OpenShift, find *{product-name}* in OperatorHub and install it from
+there; nothing below this step is needed. Elsewhere:
++
+[source,bash,subs="+attributes"]
+----
+kubectl create namespace keydra-operator
+kubectl apply -f {operator-repository}/releases/latest/download/crds.yaml
+kubectl apply -f {operator-repository}/releases/latest/download/operator.yaml
+----
++
+Two files rather than one, because they are applied by different people at different times:
+the custom resource definitions are cluster-wide and go in once, and the manager is a
+Deployment somebody upgrades.
+
+. Make the Secret, in the namespace the installation will live in. The operator will not
+write it, and the difference from the chart is deliberate: a key put in a custom resource is
+readable by anybody who can `get keydra` in that namespace — a wider audience than anybody
+who can read Secrets, and the one least likely to have been thought about.
++
+[source,bash]
+----
+kubectl create secret generic keydra \
+  --from-literal=secret-key="$(openssl rand -base64 32)" \
+  --from-literal=database-password='...'
+----
++
+[IMPORTANT]
+====
+Losing that key means losing every stored credential. Sharing it means sharing them.
+====
+
+. Describe the installation and apply it:
++
+[source,yaml,subs="+attributes"]
+----
+apiVersion: {operator-api-group}/v1alpha1
+kind: Keydra
+metadata:
+  name: keydra
+spec:
+  database:
+    url: postgresql://keydra-db:5432/keydra
+  secret:
+    name: keydra
+  route:                      # <1>
+    enabled: true
+  proxy:                      # <2>
+    enabled: true
+    trusted: 10.0.0.0/8
+----
+<1> On OpenShift. Elsewhere use `ingress.enabled` with `ingress.hosts`, and set `publicUrl`
+to the address a browser will reach it at — a redirect URI is agreed with an identity
+provider in advance and has to match to the character.
+<2> Under an Ingress or a Route there is always something in front. Told nothing,
+{product-name} sees every sign-in as coming from the ingress controller: the checks that
+compare a sign-in with the ones before it then compare everybody with everybody, and the
+limit on attempts counts the whole cluster as one network. Naming the proxies is not
+optional — the API server refuses a resource that turns the switch on and names nobody.
+
+.Verification
+
+* The resource says whether it worked, so nothing else has to be read to find out:
++
+[source,bash]
+----
+$ kubectl get keydra
+NAME     READY   REPLICAS   URL                                AGE
+keydra   True    1          https://keydra.apps.example.com    2m
+----
++
+`READY` is `False` with a reason in `kubectl describe keydra keydra` while anything is wrong.
+The one to expect first is a `Degraded` condition naming a key missing from the Secret.
+
+* There are no accounts yet. Create the first administrator once, through an endpoint that
+stops working the moment there is one:
++
+[source,bash,subs="+attributes"]
+----
+curl -fsS -X POST https://keydra.apps.example.com{api-base}/auth/setup \
+  -H 'Content-Type: application/json' \
+  -d '{"username":"you","password":"..."}'
+----
+
+.Declaring a target as a resource
+
+This is the part a chart cannot do. A store that something else in the cluster created can be
+handed to {product-name} by the same manifest that created it, and taken away by the same
+deletion — a profile that exists because a resource says so also stops existing when the
+resource does.
+
+It needs an account for the operator to sign in as, because {product-name} has no credential
+for a machine — no token, no service account — so the operator signs in the way a browser
+does and keeps the session. Give it an account of its own rather than a person's, so the
+audit log says which changes were somebody typing and which were a resource being applied.
+Writing a connection profile is an administrator's permission, so the account has to hold
+that role.
+
+[source,bash]
+----
+kubectl create secret generic keydra-api \
+  --from-literal=api-username=operator \
+  --from-literal=api-password='...'
+----
+
+Name it on the installation, and then declare targets:
+
+[source,yaml,subs="+attributes"]
+----
+apiVersion: {operator-api-group}/v1alpha1
+kind: Keydra
+metadata:
+  name: keydra
+spec:
+  apiAccount:
+    secretName: keydra-api
+  # …
+---
+apiVersion: {operator-api-group}/v1alpha1
+kind: KeydraConnection
+metadata:
+  name: orders-cache
+spec:
+  keydraRef: keydra
+  host: orders-redis
+  port: 6379
+  guarded: true
+  passwordSecret:
+    name: orders-redis
+    key: password
+----
+
+`keydraRef` names an installation in the same namespace, and cross-namespace is deliberately
+not possible: it would let anybody who can create a resource in their own namespace add a
+target to somebody else's console.
+
+[NOTE]
+====
+The operator will not adopt a profile it did not create. If a target of that name already
+exists in {product-name} — because somebody added it through the interface — the resource is
+refused rather than taking ownership of it and then deleting it when the resource goes.
+
+Converting an existing profile is therefore deliberate rather than tidying, and it costs
+something: deleting and recreating it changes the profile's id, and both a grant whose scope
+is that connection and membership of a server group are held against that id. The people who
+could see that target will stop being able to.
+====
+
+.Leaving the chart for the operator
+
+The two produce the same objects with the same names and the same labels, which makes moving
+between them an adoption rather than a delete and a recreate. The steps are in
+link:{operator-repository}/blob/main/docs/MIGRATING.md[the operator's own documentation],
+because the parts that matter are about Helm rather than about {product-name}: the release
+has to be told to leave its objects behind, and a Secret the chart rendered has to be copied
+into one the operator can be pointed at.

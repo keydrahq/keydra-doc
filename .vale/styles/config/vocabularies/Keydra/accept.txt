@@ -105,3 +105,15 @@ reshard
 resharding
 Upstash
 unencrypted
+
+# nginx is what the interface image carries, and the word appears in prose rather than
+# only in a command. Not in Red Hat's dictionary, and lower-case on purpose: that is how
+# the project spells its own name.
+nginx
+
+# OperatorHub is the catalogue the operator is published in, and OLM is what installs from
+# it. Both are proper nouns of somebody else's product.
+OperatorHub
+OLM
+reconciler
+reconcilers

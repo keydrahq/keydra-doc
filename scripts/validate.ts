@@ -416,9 +416,18 @@ const checkTerminology = (): void => {
   };
   for (const file of fg.sync(`${contentRoot}/**/*.adoc`)) {
     const source = readFileSync(file, 'utf8');
+    // Code, attributes and comments are not prose. The delimiters were being skipped and
+    // the lines between them were not, which made a rule about how a sentence starts apply
+    // to terminal output — `keydra   True   1` in a `kubectl get` listing is a resource
+    // name in the first column, not a sentence.
+    let inListing = false;
     source.split('\n').forEach((line, index) => {
-      // Code, attributes and comments are not prose.
-      if (/^[:/]/.test(line.trim()) || line.trim().startsWith('----')) return;
+      if (line.trim().startsWith('----')) {
+        inListing = !inListing;
+        return;
+      }
+      if (inListing) return;
+      if (/^[:/]/.test(line.trim())) return;
       for (const [wrong, right] of Object.entries(banned)) {
         if (wrong === 'keydra') {
           if (/(^|\.\s+)keydra\b/.test(line)) {
