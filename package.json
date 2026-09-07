@@ -39,7 +39,7 @@
     "fast-glob": "3.3.3",
     "node-html-parser": "9.0.2",
     "playwright": "1.62.1",
-    "tsx": "4.23.12",
+    "tsx": "4.23.13",
     "typescript": "6.0.3",
     "vite": "8.2.2",
     "vitest": "4.1.11"
