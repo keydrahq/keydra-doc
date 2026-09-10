@@ -544,12 +544,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:19.2.5":
-  version: 19.2.5
-  resolution: "@types/react-dom@npm:19.2.5"
+"@types/react-dom@npm:19.2.7":
+  version: 19.2.7
+  resolution: "@types/react-dom@npm:19.2.7"
   peerDependencies:
     "@types/react": ^19.2.0
-  checksum: 10c0/7a59467b043debf392d109daa1ba672e791f20ce6f24ae81fb54715f890f8119d24967e61e3644b6307428603b695b7d59e69eaf531bd1963a74a6cb462f5f49
+  checksum: 10c0/226ab7e2b62114125e2276b3dcc3a25060177a673f8abadb7e31f395003de72ad68075c6edc5f51b02dd1e47443920ee030239c474c47fad075ded7410836909
   languageName: node
   linkType: hard
 
@@ -1040,31 +1040,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:2.3.2":
-  version: 2.3.2
-  resolution: "fsevents@npm:2.3.2"
-  dependencies:
-    node-gyp: "npm:latest"
-  checksum: 10c0/be78a3efa3e181cda3cf7a4637cb527bcebb0bd0ea0440105a3bb45b86f9245b307dc10a2507e8f4498a7d4ec349d1910f4d73e4d4495b16103106e07eee735b
-  conditions: os=darwin
-  languageName: node
-  linkType: hard
-
 "fsevents@npm:~2.3.3":
   version: 2.3.3
   resolution: "fsevents@npm:2.3.3"
   dependencies:
     node-gyp: "npm:latest"
   checksum: 10c0/a1f0c44595123ed717febbc478aa952e47adfc28e2092be66b8ab1635147254ca6cfe1df792a8997f22716d4cbafc73309899ff7bfac2ac3ad8cf2e4ecc3ec60
-  conditions: os=darwin
-  languageName: node
-  linkType: hard
-
-"fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>":
-  version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
-  dependencies:
-    node-gyp: "npm:latest"
   conditions: os=darwin
   languageName: node
   linkType: hard
@@ -1187,12 +1168,12 @@ __metadata:
     "@patternfly/react-icons": "npm:6.6.1"
     "@types/node": "npm:24.13.3"
     "@types/react": "npm:19.2.18"
-    "@types/react-dom": "npm:19.2.5"
+    "@types/react-dom": "npm:19.2.7"
     fast-glob: "npm:3.3.3"
     js-yaml: "npm:5.4.1"
     minisearch: "npm:7.2.0"
-    node-html-parser: "npm:9.0.2"
-    playwright: "npm:1.62.1"
+    node-html-parser: "npm:9.0.4"
+    playwright: "npm:1.63.0"
     react: "npm:19.2.8"
     react-dom: "npm:19.2.8"
     shiki: "npm:4.4.3"
@@ -1471,13 +1452,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-html-parser@npm:9.0.2":
-  version: 9.0.2
-  resolution: "node-html-parser@npm:9.0.2"
+"node-html-parser@npm:9.0.4":
+  version: 9.0.4
+  resolution: "node-html-parser@npm:9.0.4"
   dependencies:
     css-select: "npm:^5.1.0"
     entities: "npm:^8.0.0"
-  checksum: 10c0/b26c68b2e50d5d72fbc7f65ed00f36b53a79c4c3fae3b6d8d3db3f65c403b27427b29fdec744ff84939e949b12699fc7b65057517fe031f2c148e06c5d65b54a
+  checksum: 10c0/129752b901d30d16137729817a7042546e5f603b58ac57d6339b0cefad82630196e1a5f16fd374b22a83dc0d127b0bf743b05a1840d0d8beaa80f6dbcd17c487
   languageName: node
   linkType: hard
 
@@ -1561,27 +1542,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.62.1":
-  version: 1.62.1
-  resolution: "playwright-core@npm:1.62.1"
+"playwright-core@npm:1.63.0":
+  version: 1.63.0
+  resolution: "playwright-core@npm:1.63.0"
   bin:
     playwright-core: cli.js
-  checksum: 10c0/a37d0f03bb73364cfd0eba704c4b3359b609c4779ae2649a88d8e2b3a29c7357dfcc58bdcf0cb68ddffdef7687abf78902c8356e89f189682c7e19be38e108f0
+  checksum: 10c0/39c1ebae4029ca2e9371e00a5588d962038e24b6e0bdb7d0d27374dde04838f349b83ae0c8b3b648653d0935cba7fb9011f1201adaab9dd0db7801ad6c75e9aa
   languageName: node
   linkType: hard
 
-"playwright@npm:1.62.1":
-  version: 1.62.1
-  resolution: "playwright@npm:1.62.1"
+"playwright@npm:1.63.0":
+  version: 1.63.0
+  resolution: "playwright@npm:1.63.0"
   dependencies:
-    fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.62.1"
-  dependenciesMeta:
-    fsevents:
-      optional: true
+    playwright-core: "npm:1.63.0"
   bin:
     playwright: cli.js
-  checksum: 10c0/4d3522cd46325f50c46f8874d31f70d036f6983228a9f8b9d68fc249e4c17464edcd97cc4adfbb24e712d1829c1386d3bc24e17f58a1ced94e7c423300c21845
+  checksum: 10c0/d1fd048a89be27c9aba6757dc4f70eff4a5163b49f439ad691767be8b2a482327d0dd1928b4f73c8fe0d8b33aab2c9dc2670424ab60f112d9e98e91b94e3b090
   languageName: node
   linkType: hard
 
