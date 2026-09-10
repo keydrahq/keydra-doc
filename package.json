@@ -35,9 +35,9 @@
   "devDependencies": {
     "@types/node": "24.13.3",
     "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5",
+    "@types/react-dom": "19.2.7",
     "fast-glob": "3.3.3",
-    "node-html-parser": "9.0.2",
+    "node-html-parser": "9.0.3",
     "playwright": "1.62.1",
     "tsx": "4.23.13",
     "typescript": "6.0.3",

@@ -544,12 +544,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:19.2.5":
-  version: 19.2.5
-  resolution: "@types/react-dom@npm:19.2.5"
+"@types/react-dom@npm:19.2.7":
+  version: 19.2.7
+  resolution: "@types/react-dom@npm:19.2.7"
   peerDependencies:
     "@types/react": ^19.2.0
-  checksum: 10c0/7a59467b043debf392d109daa1ba672e791f20ce6f24ae81fb54715f890f8119d24967e61e3644b6307428603b695b7d59e69eaf531bd1963a74a6cb462f5f49
+  checksum: 10c0/226ab7e2b62114125e2276b3dcc3a25060177a673f8abadb7e31f395003de72ad68075c6edc5f51b02dd1e47443920ee030239c474c47fad075ded7410836909
   languageName: node
   linkType: hard
 
@@ -1187,11 +1187,11 @@ __metadata:
     "@patternfly/react-icons": "npm:6.6.1"
     "@types/node": "npm:24.13.3"
     "@types/react": "npm:19.2.18"
-    "@types/react-dom": "npm:19.2.5"
+    "@types/react-dom": "npm:19.2.7"
     fast-glob: "npm:3.3.3"
     js-yaml: "npm:5.4.1"
     minisearch: "npm:7.2.0"
-    node-html-parser: "npm:9.0.2"
+    node-html-parser: "npm:9.0.3"
     playwright: "npm:1.62.1"
     react: "npm:19.2.8"
     react-dom: "npm:19.2.8"
@@ -1471,13 +1471,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-html-parser@npm:9.0.2":
-  version: 9.0.2
-  resolution: "node-html-parser@npm:9.0.2"
+"node-html-parser@npm:9.0.3":
+  version: 9.0.3
+  resolution: "node-html-parser@npm:9.0.3"
   dependencies:
     css-select: "npm:^5.1.0"
     entities: "npm:^8.0.0"
-  checksum: 10c0/b26c68b2e50d5d72fbc7f65ed00f36b53a79c4c3fae3b6d8d3db3f65c403b27427b29fdec744ff84939e949b12699fc7b65057517fe031f2c148e06c5d65b54a
+  checksum: 10c0/e20edf9fe40b0772693b40647ecaf47556a8268f4780f20d7c25c1dc0952449a7b0d9d4d0b7c59b96e09c3779131d574bf793456f3a7649235ee66c2e1568da6
   languageName: node
   linkType: hard
 
