@@ -22,7 +22,7 @@
     "clean": "rm -rf dist .cache pdf/*.pdf .generated"
   },
   "dependencies": {
-    "@asciidoctor/core": "4.0.11",
+    "@asciidoctor/core": "4.1.0",
     "@patternfly/patternfly": "6.6.1",
     "@patternfly/react-core": "6.6.1",
     "@patternfly/react-icons": "6.6.1",
