@@ -5,10 +5,15 @@ __metadata:
   version: 10
   cacheKey: 10c0
 
-"@asciidoctor/core@npm:4.0.11":
-  version: 4.0.11
-  resolution: "@asciidoctor/core@npm:4.0.11"
-  checksum: 10c0/d2082da977c3bf84cde4824f7bda68ab12a80867479d4f5c0a99cfbfb2ab16f8f48527ba99e81426cbc1b784718d983a49b86f769bcb2261164574f569e0e5e5
+"@asciidoctor/core@npm:4.1.0":
+  version: 4.1.0
+  resolution: "@asciidoctor/core@npm:4.1.0"
+  peerDependencies:
+    highlight.js: ^11.0.0
+  peerDependenciesMeta:
+    highlight.js:
+      optional: true
+  checksum: 10c0/05e2f62f646e3484180f4148fc499a069f1826ad946013220dd8dfe6cce49c175fdd6c9a8e34c0ebdc7043539659b97a924f721107e7665abd7432bb7d50bd80
   languageName: node
   linkType: hard
 
@@ -1181,7 +1186,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "keydra-usermanual@workspace:."
   dependencies:
-    "@asciidoctor/core": "npm:4.0.11"
+    "@asciidoctor/core": "npm:4.1.0"
     "@patternfly/patternfly": "npm:6.6.1"
     "@patternfly/react-core": "npm:6.6.1"
     "@patternfly/react-icons": "npm:6.6.1"
