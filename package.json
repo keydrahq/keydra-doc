@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "@asciidoctor/core": "4.0.11",
-    "@patternfly/patternfly": "6.6.1",
-    "@patternfly/react-core": "6.6.1",
-    "@patternfly/react-icons": "6.6.1",
+    "@patternfly/patternfly": "6.7.0",
+    "@patternfly/react-core": "6.7.0",
+    "@patternfly/react-icons": "6.7.0",
     "js-yaml": "5.4.1",
     "minisearch": "7.2.0",
     "react": "19.2.8",
@@ -39,9 +39,9 @@
     "fast-glob": "3.3.3",
     "node-html-parser": "9.0.3",
     "playwright": "1.62.1",
-    "tsx": "4.23.13",
+    "tsx": "4.23.15",
     "typescript": "6.0.3",
-    "vite": "8.2.2",
+    "vite": "8.3.4",
     "vitest": "4.1.11"
   }
 }
